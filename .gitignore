@@ -1,0 +1,9 @@
+bin
+Nuget
+obj
+Properties
+/doxyfile
+*.sln
+*.user
+*.nuspec
+*.suo
