@@ -1,0 +1,66 @@
+Otter (Alpha Release) http://otter2d.com by Kyle Pulver
+========================
+
+Basic Otter Game Project Set Up (Visual Studio C# Express):
+
+1. New Console Application
+
+2. Add Project to Solution:
+	Otter.csproj
+
+3. Add References:
+	Project:
+	Otter
+
+4. Add lines to Program.cs:
+	Game game = new Game("Game", 1920, 1080); //creates a game with internal resolution 1920 x 1080
+    	game.SetWindow(1600, 900); //outputs the game to a window scaled down to 1600 x 900
+
+    	game.Start(); //starts the game loop
+
+5. Add "using Otter" at the top of Program.cs
+
+6. Push F5 and hopefully a window pops open.
+
+========================
+
+Basic Otter Game Project Set Up (MonoDevelop)
+
+1. Start a new solution for your game (Console Application)
+
+2. Right click on your solution -> Add -> Add Existing Project -> select the .csproj from Otter.
+
+3. You may have to set your project to use .net 4.0 by right-clicking -> Options -> General
+
+4. A dialog may pop up asking you to change the project file format. Select the 2010 version from Microsoft.
+
+5. Right-click on your project's References -> Edit References -> Projects and tick "Otter".
+
+(Thanks to Timo Paulssen for the MonoDevelop guide!)
+
+========================
+
+"It's not working"
+	- Make sure you added the project to visual studio with the method above!
+	- If you're getting a missing dll error, it's probably not copying the dll files to the bin folder.
+	- Mark all the dll files in Otter to "Copy if Newer" in Visual Studio
+
+========================
+
+Advanced Set Up:
+
+For direct access to SFML features, add references to the files inside Otter/Lib.	
+
+========================
+
+More Info:
+	- game.Start(); will begin the game loop, so no more code after this will be executed.
+	- Set game.FirstScene to your first scene before you use Start();
+	- You can also add an Action to game.OnInit to do things before the game starts running.
+	- Make sure the dll files in the otter root folder are set to "Copy if newer."
+
+========================
+
+Questions:
+	- Email any questions to hi@kpulv.com and I'll try to get back to you ASAP.
+	- I'll have forums set up at some point hopefully.

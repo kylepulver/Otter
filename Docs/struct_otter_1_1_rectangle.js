@@ -1,0 +1,27 @@
+var struct_otter_1_1_rectangle =
+[
+    [ "Rectangle", "struct_otter_1_1_rectangle.html#a6a47d1823dc0a7d32c48e538971069d3", null ],
+    [ "Contains", "struct_otter_1_1_rectangle.html#a16c474aeecdf3d58688985449614ea0a", null ],
+    [ "Contains", "struct_otter_1_1_rectangle.html#a889c1a81b8db6f4bfe88ba4aace1a4b7", null ],
+    [ "Contains", "struct_otter_1_1_rectangle.html#abbe5825e3ecfa3820121fd5ddd6ca63d", null ],
+    [ "Equals", "struct_otter_1_1_rectangle.html#a81baae39029a823beed819f329c585e9", null ],
+    [ "Equals", "struct_otter_1_1_rectangle.html#ae3ae491aa66f40ad7399c865777626d5", null ],
+    [ "GetHashCode", "struct_otter_1_1_rectangle.html#aa7d69c462d435189c42426629f4961f7", null ],
+    [ "Inflate", "struct_otter_1_1_rectangle.html#adf5688dba0b8c8abf7df0b3e58b7dfa4", null ],
+    [ "Intersects", "struct_otter_1_1_rectangle.html#ab35fa49522f21333cb64dd3e141d6808", null ],
+    [ "Intersects", "struct_otter_1_1_rectangle.html#a9325011ddedb969a7c111f17d45bb25b", null ],
+    [ "Offset", "struct_otter_1_1_rectangle.html#a8a9ce575802e5e5f491ce75ee9065654", null ],
+    [ "Offset", "struct_otter_1_1_rectangle.html#abb1a9069bc978bdcabbef0d2b5d13e44", null ],
+    [ "ToString", "struct_otter_1_1_rectangle.html#af9d3b1fd3c9a0a7f5d626f123c3db6a4", null ],
+    [ "Height", "struct_otter_1_1_rectangle.html#a61a086c4f0c3d33eb2175364c3f52887", null ],
+    [ "Width", "struct_otter_1_1_rectangle.html#a1a8700e3cf99e8d7b1e9fdcc5256c479", null ],
+    [ "X", "struct_otter_1_1_rectangle.html#aac2f8a8bc476ad3e81bb194c90f0aa6f", null ],
+    [ "Y", "struct_otter_1_1_rectangle.html#a7dc72a1ecfac874b4cda5b4f82b76ed4", null ],
+    [ "Bottom", "struct_otter_1_1_rectangle.html#a2c28c42e9a18d79206fe94b691b0406c", null ],
+    [ "Center", "struct_otter_1_1_rectangle.html#ab1b35d30bb165561be7b4c7cd77e1423", null ],
+    [ "IsEmpty", "struct_otter_1_1_rectangle.html#ad949a02164a4a7ab02b810282d9c7db6", null ],
+    [ "Left", "struct_otter_1_1_rectangle.html#a1e3d4cfc29b8c70880d048483a7767d1", null ],
+    [ "Location", "struct_otter_1_1_rectangle.html#a15e10b778a0fed6e2ada67eb0808efba", null ],
+    [ "Right", "struct_otter_1_1_rectangle.html#a81684b7e810001450772c14157f19c9e", null ],
+    [ "Top", "struct_otter_1_1_rectangle.html#a4cf182464bb727eb58104bac57b3e199", null ]
+];

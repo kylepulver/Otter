@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['fillcolor',['FillColor',['../class_otter_1_1_surface.html#ae03197ab03409475a0e3fd13966a90c5',1,'Otter::Surface']]],
+  ['finalalpha',['FinalAlpha',['../class_otter_1_1_flash.html#a860dbdcd396e63e4cf8e4148ce72bac8',1,'Otter::Flash']]],
+  ['firstscene',['FirstScene',['../class_otter_1_1_game.html#af69ac4b297ffa24e683123baed4f2d23',1,'Otter::Game']]],
+  ['fixedframerate',['FixedFramerate',['../class_otter_1_1_game.html#af58e5060ad11578306d676da30b2a76d',1,'Otter::Game']]],
+  ['flipd',['FlipD',['../class_otter_1_1_tile_info.html#a93f7473062bc188d36f6ea01ce5348ee',1,'Otter::TileInfo']]],
+  ['flipx',['FlipX',['../class_otter_1_1_tile_info.html#aa5db7dfe5c3570065b02f5b262c6f216',1,'Otter.TileInfo.FlipX()'],['../class_otter_1_1_particle.html#adf5f4953dca2b114b719af3dab040778',1,'Otter.Particle.FlipX()']]],
+  ['flipy',['FlipY',['../class_otter_1_1_particle.html#aeb63f27a32dac5d8c2ff14cd10b3d635',1,'Otter::Particle']]],
+  ['font',['Font',['../class_otter_1_1_rich_text_config.html#a66c24da2ed801842d115836b648abde9',1,'Otter::RichTextConfig']]],
+  ['fontsize',['FontSize',['../class_otter_1_1_rich_text_config.html#a04c210dcb2c66cbc031c1108fa372082',1,'Otter::RichTextConfig']]],
+  ['frameheight',['FrameHeight',['../class_otter_1_1_atlas_texture.html#a73b297ecbf434cc08f13e2cf99e4517c',1,'Otter::AtlasTexture']]],
+  ['frameoffset',['FrameOffset',['../class_otter_1_1_particle.html#ae49a9e55a1c8a0fa9a8a76ebd3333d62',1,'Otter::Particle']]],
+  ['frames',['Frames',['../class_otter_1_1_particle.html#aad858411ab59f2c6a050e6fa4a3f50ba',1,'Otter::Particle']]],
+  ['framewidth',['FrameWidth',['../class_otter_1_1_atlas_texture.html#a9f2b090dbef19df8cb183c8e65aab8d9',1,'Otter::AtlasTexture']]],
+  ['framex',['FrameX',['../class_otter_1_1_atlas_texture.html#a56fe66a7891caa14364307de732f798e',1,'Otter::AtlasTexture']]],
+  ['framey',['FrameY',['../class_otter_1_1_atlas_texture.html#a1307f869b9c9a314e114ee1992e1c7d8',1,'Otter::AtlasTexture']]],
+  ['freeze',['Freeze',['../class_otter_1_1_basic_movement.html#ade475fe5dc3f4d9d33cd06dff040d5d7',1,'Otter::BasicMovement']]],
+  ['function',['Function',['../class_otter_1_1_alarm.html#abb33ddac211d29b404f43a30e8ae15a3',1,'Otter::Alarm']]]
+];

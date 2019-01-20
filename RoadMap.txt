@@ -1,0 +1,22 @@
+Roadmap for beyond version 1.0:
+
+* Develop the UI stuff into something usable.
+
+Right now there's the beginnings of OtterUI, which is used for menu systems driven by controllers.  At some point I'll
+add support or mouse and keyboard type stuff as well.
+
+* Hide all of the dll files somehow.
+
+There are a lot of dll files in the root folder and this can look really messy.  I want to try to get all the dlls embedded somehow.
+
+* SpriteBatch
+
+There is some groundwork laid out now to use SpriteBatch, but there are a handful of bugs to squish before it's deemed totally useable.
+
+* Mac and Linix Support
+
+Better Mac and Linux support.  I know it's possible, but I am very inexperienced with Mac and Linux systems.
+
+* Auto Tiling
+
+I want to get some form of auto tiling in for those game jam scenarios.

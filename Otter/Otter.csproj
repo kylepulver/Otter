@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform>x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{236485C2-A7BA-4DCD-808A-B3A634764402}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Otter</RootNamespace>
+    <AssemblyName>Otter</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);$(OS)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NuGet|x86'">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Otter.XML</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sfmlnet-audio-2, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\sfmlnet-audio-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-graphics-2, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\sfmlnet-graphics-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-system-2, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\sfmlnet-system-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-window-2, Version=2.2.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\sfmlnet-window-2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Colliders\PolygonCollider.cs" />
+    <Compile Include="Components\Alarm.cs" />
+    <Compile Include="Components\AutoTimer.cs" />
+    <Compile Include="Components\Axis.cs" />
+    <Compile Include="Components\Bone.cs" />
+    <Compile Include="Components\Button.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Controllers\Controller.cs" />
+    <Compile Include="Components\Controllers\ControllerPS3.cs" />
+    <Compile Include="Components\Controllers\ControllerXbox360.cs" />
+    <Compile Include="Components\Countdown.cs" />
+    <Compile Include="Components\Events\EventProcessorEvent.cs" />
+    <Compile Include="Components\Events\EventQueue.cs" />
+    <Compile Include="Components\Events\EventStack.cs" />
+    <Compile Include="Components\Events\EventProcessor.cs" />
+    <Compile Include="Components\GridCounter.cs" />
+    <Compile Include="Components\IRC.cs" />
+    <Compile Include="Components\Lerper.cs" />
+    <Compile Include="Components\Movement\BasicMovement.cs" />
+    <Compile Include="Components\Movement\Movement.cs" />
+    <Compile Include="Components\Movement\PlatformingMovement.cs" />
+    <Compile Include="Components\SineWave.cs" />
+    <Compile Include="Components\Skeleton.cs" />
+    <Compile Include="Components\Snake.cs" />
+    <Compile Include="Components\StateMachine.cs" />
+    <Compile Include="Components\Vertebrae.cs" />
+    <Compile Include="Core\Entity.cs" />
+    <Compile Include="Core\Game.cs" />
+    <Compile Include="Graphics\Anim.cs" />
+    <Compile Include="Graphics\Atlas.cs" />
+    <Compile Include="Graphics\Drawables\GraphicList.cs" />
+    <Compile Include="Graphics\Text\BitmapFont.cs" />
+    <Compile Include="Graphics\Drawables\Decals.cs" />
+    <Compile Include="Graphics\Text\Font.cs" />
+    <Compile Include="Graphics\Drawables\Gradient.cs" />
+    <Compile Include="Graphics\Drawables\Graphic.cs" />
+    <Compile Include="Graphics\Drawables\Grid.cs" />
+    <Compile Include="Graphics\Drawables\Image.cs" />
+    <Compile Include="Graphics\Drawables\ImageSet.cs" />
+    <Compile Include="Graphics\Drawables\NineSlice.cs" />
+    <Compile Include="Graphics\Transformation.cs" />
+    <Compile Include="Utility\DataSaver.cs" />
+    <Compile Include="Utility\Glide\GlideLerper.cs" />
+    <Compile Include="Utility\Glide\Tween.cs" />
+    <Compile Include="Utility\Glide\Tweener.cs" />
+    <Compile Include="Utility\Polygon.cs" />
+    <Compile Include="Utility\SpriteBatch.cs" />
+    <Compile Include="Graphics\Drawables\SquareClock.cs" />
+    <Compile Include="Graphics\Text\RichText.cs" />
+    <Compile Include="Graphics\Shader.cs" />
+    <Compile Include="Graphics\Drawables\Spritemap.cs" />
+    <Compile Include="Graphics\Drawables\Surface.cs" />
+    <Compile Include="Graphics\Text\Text.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\Drawables\Tilemap.cs" />
+    <Compile Include="Graphics\Vert.cs" />
+    <Compile Include="Core\Input.cs" />
+    <Compile Include="Core\Music.cs" />
+    <Compile Include="Graphics\Drawables\Vertices.cs" />
+    <Compile Include="Colliders\BoxCollider.cs" />
+    <Compile Include="Colliders\CircleCollider.cs" />
+    <Compile Include="Colliders\Collider.cs" />
+    <Compile Include="Colliders\GridCollider.cs" />
+    <Compile Include="Colliders\LineCollider.cs" />
+    <Compile Include="Colliders\PixelCollider.cs" />
+    <Compile Include="Colliders\PointCollider.cs" />
+    <Compile Include="Utility\Speed.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\Scene.cs" />
+    <Compile Include="Core\Session.cs" />
+    <Compile Include="Core\Sound.cs" />
+    <Compile Include="Utility\Cache.cs" />
+    <Compile Include="Graphics\Color.cs" />
+    <Compile Include="Components\Counter.cs" />
+    <Compile Include="Utility\Coroutine.cs" />
+    <Compile Include="Utility\Debugger.cs" />
+    <Compile Include="Utility\DebugInput.cs" />
+    <Compile Include="Utility\Draw.cs" />
+    <Compile Include="Utility\Entities\Flash.cs" />
+    <Compile Include="Utility\Entities\Particle.cs" />
+    <Compile Include="Utility\EventRouter.cs" />
+    <Compile Include="Utility\Extensions.cs" />
+    <Compile Include="Utility\Glide\Ease.cs" />
+    <Compile Include="Utility\Glide\GlideInfo.cs" />
+    <Compile Include="Utility\GoodStuff\NaturalLanguage.cs" />
+    <Compile Include="Utility\Line2.cs" />
+    <Compile Include="Utility\MonoGame\MathHelper.cs" />
+    <Compile Include="Utility\MonoGame\Matrix.cs" />
+    <Compile Include="Utility\MonoGame\Quaternion.cs" />
+    <Compile Include="Utility\OgmoProject.cs" />
+    <Compile Include="Utility\MonoGame\Point.cs" />
+    <Compile Include="Utility\Rand.cs" />
+    <Compile Include="Utility\Range.cs" />
+    <Compile Include="Utility\MonoGame\Rectangle.cs" />
+    <Compile Include="Utility\Ref.cs" />
+    <Compile Include="Utility\Util.cs" />
+    <Compile Include="Utility\MonoGame\Vector2.cs" />
+    <Compile Include="Utility\MonoGame\Vector3.cs" />
+    <Compile Include="Utility\MonoGame\Vector4.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CONSOLA.TTF" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="otterlogo.png" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(OS)' == 'OSX' ">
+    <Libs Include="libosx/libcsfml-audio.2.0.dylib" />
+    <Libs Include="libosx/libcsfml-graphics.2.0.dylib" />
+    <Libs Include="libosx/libcsfml-window.2.0.dylib" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(OS)' != 'Windows_NT' ">
+    <Libs Include="sfmlnet-audio-2.dll.config" />
+    <Libs Include="sfmlnet-graphics-2.dll.config" />
+    <Libs Include="sfmlnet-window-2.dll.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="csfml-audio-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="csfml-graphics-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="csfml-system-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="csfml-window-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="openal32.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="csfml-network-2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="libsndfile-1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="AfterBuild" Condition=" '$(Configuration)' == 'NuGet'">
+    <Exec Command="NuGet\nuget.exe pack Otter.csproj -Prop Configuration=Release -OutputDirectory NuGet\Packages">
+    </Exec>
+  </Target>
+</Project>
