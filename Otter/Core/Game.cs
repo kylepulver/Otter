@@ -447,8 +447,7 @@ namespace Otter {
             }
             set {
                 gameFolder = value;
-
-                var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder;
+                var folder = Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder);
                 if (!Directory.Exists(folder)) {
                     Directory.CreateDirectory(folder);
                 }
@@ -462,7 +461,7 @@ namespace Otter {
         /// The main filepath for saving and loading files for the game.
         /// </summary>
         public string Filepath {
-            get { return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"; }
+            get { return Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"); }
         }
 
         /// <summary>

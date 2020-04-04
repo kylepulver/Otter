@@ -7,7 +7,7 @@ using System.Text;
 namespace Otter {
     /// <summary>
     /// Component representing a group of Button and Axis classes. The controller updates all buttons
-    /// and axes manually. This is used by the Session class to manage player input.
+    /// and axis manually. This is used by the Session class to manage player input.
     /// 
     /// Input recording should only be used in fixed framerate games!  If used with variable framerate
     /// the playback is not reliable.
@@ -30,19 +30,19 @@ namespace Otter {
         public List<int> JoystickIds = new List<int>();
 
         /// <summary>
-        /// Determines if the controller is enabled. If not, all buttons return false, and all axes return 0, 0.
+        /// Determines if the controller is enabled. If not, all buttons return false, and all axis return 0, 0.
         /// </summary>
         public bool Enabled = true;
 
         /// <summary>
-        /// If the controller should record axes data.
+        /// If the controller should record axis data.
         /// </summary>
         public bool RecordAxes = true;
 
         string recordedString = "";
 
         Dictionary<string, Button> buttons = new Dictionary<string,Button>();
-        Dictionary<string, Axis> axes = new Dictionary<string,Axis>();
+        Dictionary<string, Axis> axis = new Dictionary<string,Axis>();
 
         /// <summary>
         /// If the controller is currently recording input.
@@ -110,7 +110,7 @@ namespace Otter {
         }
 
         public Axis Axis(string name) {
-            return axes[name];
+            return axis[name];
         }
 
         public Controller AddButton(Enum name, Button b = null) {
@@ -143,7 +143,7 @@ namespace Otter {
         }
 
         public Controller AddAxis(string name, Axis a = null) {
-            axes.Add(name, a == null ? new Axis() : a);
+            axis.Add(name, a == null ? new Axis() : a);
             return this;
         }
 
@@ -163,7 +163,7 @@ namespace Otter {
 
         public void Clear() {
             buttons.Clear();
-            axes.Clear();
+            axis.Clear();
         }
 
         public override void UpdateFirst() {
@@ -174,7 +174,7 @@ namespace Otter {
                 b.Value.UpdateFirst();
             }
 
-            foreach (var a in axes) {
+            foreach (var a in axis) {
                 a.Value.Enabled = Enabled;
                 a.Value.UpdateFirst();
             }
@@ -197,7 +197,7 @@ namespace Otter {
 
                 if (RecordAxes) {
                     var id = 0;
-                    foreach (var a in axes) {
+                    foreach (var a in axis) {
                         var axis = a.Value;
                         if (axis.HasInput && (axis.X != axis.LastX || axis.Y != axis.LastY)) {
                             recordedAxisData[id].Add(recordingTimer, new Vector2(axis.X, axis.Y));
@@ -228,7 +228,7 @@ namespace Otter {
                 }
 
                 var i = 0;
-                foreach (var a in axes) {
+                foreach (var a in axis) {
                     if (playbackAxisData[i].ContainsKey(playingTimer)) {
                         a.Value.ForceState(playbackAxisData[i][playingTimer].X, playbackAxisData[i][playingTimer].Y);
                         //Util.Log("Time: " + playingTimer + " X: " + playbackAxisData[i][playingTimer].X + " Y: " + playbackAxisData[i][playingTimer].Y);
@@ -251,7 +251,7 @@ namespace Otter {
 
             recordedButtonData.Clear();
             recordedAxisData.Clear();
-            foreach (var a in axes) {
+            foreach (var a in axis) {
                 recordedAxisData.Add(new Dictionary<int, Vector2>());
             }
         }
@@ -269,7 +269,7 @@ namespace Otter {
         /// </summary>
         /// <param name="path">The path to the file relative to Game.Filepath.</param>
         public void PlaybackFile(string path) {
-            path = Game.Instance.Filepath + path;
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(Game.Instance.Filepath + path);
             byte[] b;
             using (FileStream f = new FileStream(path, FileMode.Open))
             using (GZipStream gz = new GZipStream(f, CompressionMode.Decompress)) {
@@ -298,7 +298,7 @@ namespace Otter {
         /// <param name="path">The path to save the data to.</param>
         public void SaveRecording(string path = "") {
             // I realize that I'm compressing this data twice but whatever ;D
-            path = Game.Instance.Filepath + path;
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(Game.Instance.Filepath + path);
             string temp = Path.GetTempFileName();
             File.WriteAllText(temp, LastRecordedString);
             File.WriteAllText(path, LastRecordedString);
@@ -323,7 +323,7 @@ namespace Otter {
                 foreach (var b in buttons) {
                     b.Value.ReleaseState();
                 }
-                foreach (var a in axes) {
+                foreach (var a in axis) {
                     a.Value.ReleaseState();
                 }
             }
@@ -348,7 +348,7 @@ namespace Otter {
 
             playbackButtonData.Clear();
             playbackAxisData.Clear();
-            foreach (var a in axes) {
+            foreach (var a in axis) {
                 playbackAxisData.Add(new Dictionary<int, Vector2>());
             }
 
@@ -389,7 +389,7 @@ namespace Otter {
             foreach (var b in buttons) {
                 b.Value.ForceState(false);
             }
-            foreach (var a in axes) {
+            foreach (var a in axis) {
                 a.Value.ForceState(0, 0);
             }
         }

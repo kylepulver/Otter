@@ -34,9 +34,9 @@ namespace FlippyFlop {
         public GameManager() : base() {
             Session = Game.Instance.Session(0);
             AddComponent(GameStateMachine);
-            Session.LoadData();
+            //Session.LoadData();                                         //todo:  w.sams - fix this...low priority
 
-            BestScore = float.Parse(Session.GetData("best", "0"));
+            //BestScore = float.Parse(Session.GetData("best", "0"));       //todo:  w.sams - fix this...low priority
 
             EventRouter.Subscribe(Events.FlippyFlipped, (EventRouter.Event e) => {
                 ScoreMultiplier += 1;
@@ -47,8 +47,8 @@ namespace FlippyFlop {
             });
 
             EventRouter.Subscribe(Events.UpdateBestScore, (EventRouter.Event e) => {
-                Session.Data["best"] = BestScore.ToString();
-                Session.SaveData();
+               //Session.Data["best"] = BestScore.ToString(); //todo:  w.sams - fix this...low priority
+                //Session.SaveData();                          //todo:  w.sams - fix this...low priority
             });
 
             R = Game.Instance.Color.R;
@@ -77,7 +77,7 @@ namespace FlippyFlop {
             Scene.Add(new HudHighScore());
         }
         void UpdateTitle() {
-            if (Session.Controller.A.Pressed) {
+            if (Session.Controller.Button(Key.Return).Pressed) {
                 GameStateMachine.ChangeState(GameState.Playing);
             }
 
@@ -130,7 +130,7 @@ namespace FlippyFlop {
 
         void UpdateEnd() {
             if (GameStateMachine.Timer > 60) {
-                if (Session.Controller.A.Pressed) {
+                if (Session.Controller.Button(Key.Return).Pressed) {   
                     GameStateMachine.ChangeState(GameState.Playing);
                 }
             }

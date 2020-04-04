@@ -252,7 +252,7 @@ namespace Otter {
         public void SaveToFile(string path) {
             CreateImage();
 
-            image.SaveToFile(path);
+            image.SaveToFile(Helpers.FileHelpers.GetAbsoluteFilePath(path));
         }
 
         /// <summary>

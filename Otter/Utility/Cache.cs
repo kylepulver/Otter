@@ -31,6 +31,7 @@ namespace Otter {
         /// </summary>
         /// <param name="path">The path to the packed data file.</param>
         public static void LoadPackedData(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             if (!File.Exists(path)) throw new FileNotFoundException("Cannot find packed data file " + path);
 
             Data.Clear();
@@ -55,6 +56,7 @@ namespace Otter {
         /// <param name="path">The path to check.</param>
         /// <returns>True if the file exists or if it has been loaded from the packed data.</returns>
         public static bool FileExists(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             if (File.Exists(path)) return true;
             if (File.Exists(AssetsFolderPrefix + path)) return true;
             if (Data.ContainsKey(path)) return true;
@@ -68,6 +70,7 @@ namespace Otter {
         /// <param name="path">The path to load from.</param>
         /// <returns>The stream.</returns>
         public static Stream LoadFileStream(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             if (FileExists(path)) {
                 return new MemoryStream(LoadFileBytes(path));
             }
@@ -80,6 +83,7 @@ namespace Otter {
         /// <param name="path">The path to load from.</param>
         /// <returns>The byte array of the data from the file.</returns>
         public static byte[] LoadFileBytes(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             if (File.Exists(path)) {
                 return File.ReadAllBytes(path);
             }
@@ -99,6 +103,7 @@ namespace Otter {
         /// <param name="path">The path to check.</param>
         /// <returns>True if the data is coming from the packed file.</returns>
         public static bool IsUsingDataPack(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             if (File.Exists(path)) return false;
             if (File.Exists(AssetsFolderPrefix + path)) return false;
             return Data.ContainsKey(path);
@@ -114,6 +119,7 @@ namespace Otter {
         static Dictionary<string, SoundBuffer> sounds = new Dictionary<string, SoundBuffer>();
 
         public static SoundBuffer Load(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             //if (!File.Exists(source)) throw new FileNotFoundException(source + " not found.");
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
             if (sounds.ContainsKey(path)) {
@@ -137,15 +143,15 @@ namespace Otter {
 
         public static SFML.Graphics.Font DefaultFont {
             get {
-                if (defaultFont == null) {
-                    defaultFont = Load(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Otter.CONSOLA.TTF"));
-                }
+                if (defaultFont == null)  defaultFont = Load("CONSOLA.TTF");
+
                 return defaultFont;
             }
         }
         static SFML.Graphics.Font defaultFont;
 
         internal static SFML.Graphics.Font Load(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             //if (!File.Exists(source)) throw new FileNotFoundException(source + " not found.");
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
             if (fonts.ContainsKey(path)) {
@@ -171,11 +177,14 @@ namespace Otter {
         }
 
         internal static SFML.Graphics.Font Load(Stream stream) {
-            if (fontsStreamed.ContainsKey(stream)) {
-                return fontsStreamed[stream];
+          if (stream != null) {
+            if (fontsStreamed.ContainsKey(stream)) return fontsStreamed[stream];
+            else {
+              fontsStreamed.Add(stream, new SFML.Graphics.Font(stream));
+              return Load(stream);
             }
-            fontsStreamed.Add(stream, new SFML.Graphics.Font(stream));
-            return Load(stream);
+          }
+          return null;
         }
     }
 
@@ -222,6 +231,7 @@ namespace Otter {
         #region Internal
 
         internal static SFML.Graphics.Texture Load(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             //if (!File.Exists(source)) throw new FileNotFoundException("Texture path " + source + " not found.");
             if (!Files.FileExists(path)) throw new FileNotFoundException("Texture path " + path + " not found.");
             if (textures.ContainsKey(path)) {
@@ -232,12 +242,13 @@ namespace Otter {
         }
 
         internal static SFML.Graphics.Texture Load(Stream stream) {
-            if (texturesStreamed.ContainsKey(stream)) {
-                return texturesStreamed[stream];
+          if (stream != null) {
+            if (texturesStreamed.ContainsKey(stream))  return texturesStreamed[stream];
+            else {
+              texturesStreamed.Add(stream, new SFML.Graphics.Texture(stream));
+              return texturesStreamed[stream];
             }
-            texturesStreamed.Add(stream, new SFML.Graphics.Texture(stream));
-
-            return texturesStreamed[stream];
+          } else return null;
         }
 
         #endregion

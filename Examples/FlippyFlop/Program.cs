@@ -1,9 +1,4 @@
 ﻿using Otter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FlippyFlop {
     class Program {
@@ -18,7 +13,7 @@ namespace FlippyFlop {
 
             game.GameFolder = "FlippyFlop";
 
-            c.A.AddKey(Key.Z, Key.C, Key.X, Key.Space);
+            c.AddButton(Key.Z, Key.C, Key.X, Key.Space);
 
             game.FirstScene = new GameScene();
 

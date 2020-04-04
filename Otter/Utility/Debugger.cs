@@ -1043,7 +1043,7 @@ namespace Otter {
             Instance = this;
             this.game = game;
 
-            imgOtter = new Image(new Texture(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Otter.otterlogo.png")));
+            imgOtter = new Image(new Texture("otterlogo.png"));
 
             imgOtter.Batchable = false;
 

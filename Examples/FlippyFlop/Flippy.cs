@@ -53,7 +53,7 @@ namespace FlippyFlop {
             base.Update();
 
             if (!Dead) {
-                if (Session.Controller.A.Pressed) {
+                if (Session.Controller.Button(Key.Up).Pressed) {  
                     EventRouter.Publish(Events.FlippyFlipped);
                     Tween(Image, new { ScaleX = 1, ScaleY = 1 }, 45).From(new { ScaleX = 2f, ScaleY = 0.5f }).Ease(Ease.ElasticOut);
                     Tween(Image, new { Angle = 0 }, 30).From(new { Angle = Rand.Float(-10, 10) });

@@ -4,6 +4,10 @@
     <ProjectReference Include="..\..\Otter\Otter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="tiles.png" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>

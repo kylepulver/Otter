@@ -1444,6 +1444,7 @@ namespace Otter {
         /// <param name="obj">The object to serialize.</param>
         /// <param name="path">The file to write to.</param>
         public static void SerializeToFile<T>(T obj, string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Create);
             BinaryFormatter bformatter = new BinaryFormatter();
 
@@ -1458,6 +1459,7 @@ namespace Otter {
         /// <param name="path">The file to read from.</param>
         /// <returns>The deserialized object.</returns>
         public static T DeserializeFromFile<T>(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
 

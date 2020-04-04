@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <None Update="CONSOLA.TTF" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="otterlogo.png" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
