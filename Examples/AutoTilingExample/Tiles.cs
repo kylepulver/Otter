@@ -1,5 +1,4 @@
 ﻿using Otter;
-using Otter.Helpers;
 
 namespace AutoTilingExample {
     class Tiles : Entity {

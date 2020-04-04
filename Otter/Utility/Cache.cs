@@ -144,7 +144,6 @@ namespace Otter {
         public static SFML.Graphics.Font DefaultFont {
             get {
                 if (defaultFont == null)  defaultFont = Load("CONSOLA.TTF");
-
                 return defaultFont;
             }
         }
@@ -152,12 +151,8 @@ namespace Otter {
 
         internal static SFML.Graphics.Font Load(string path) {
             path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
-            //if (!File.Exists(source)) throw new FileNotFoundException(source + " not found.");
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
-            if (fonts.ContainsKey(path)) {
-                //return new SFML.Graphics.Font(Files.LoadFileBytes(path)); 
-                return fonts[path];
-            }
+            if (fonts.ContainsKey(path)) return fonts[path];
 
             if (Files.IsUsingDataPack(path)) {
                 var stream = new MemoryStream(Files.LoadFileBytes(path));
@@ -166,25 +161,22 @@ namespace Otter {
                 //fonts.Add(path, new SFML.Graphics.Font(Files.LoadFileBytes(path))); // SFML fix?
             }
             else {
-                if (File.Exists(path)) {
-                    fonts.Add(path, new SFML.Graphics.Font(path)); // Cant load font with bytes from path?
-                }
-                else { // This should work because we already checked FileExists above
-                    fonts.Add(path, new SFML.Graphics.Font(Files.AssetsFolderPrefix + path)); // Cant load font with bytes from path?
-                }
+              if (File.Exists(path)) fonts.Add(path, new SFML.Graphics.Font(path)); // Cant load font with bytes from path?
+              else { // This should work because we already checked FileExists above
+                fonts.Add(path, new SFML.Graphics.Font(Files.AssetsFolderPrefix + path)); // Cant load font with bytes from path?
+              }
             }
             return fonts[path];
         }
 
         internal static SFML.Graphics.Font Load(Stream stream) {
           if (stream != null) {
-            if (fontsStreamed.ContainsKey(stream)) return fontsStreamed[stream];
+            if (fontsStreamed.ContainsKey(stream))  return fontsStreamed[stream];
             else {
               fontsStreamed.Add(stream, new SFML.Graphics.Font(stream));
-              return Load(stream);
+              return fontsStreamed[stream];
             }
-          }
-          return null;
+          } else return null;
         }
     }
 

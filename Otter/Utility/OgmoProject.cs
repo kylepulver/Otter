@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Xml;
+using System.Text;
 
 namespace Otter {
     /// <summary>
@@ -103,6 +104,7 @@ namespace Otter {
         /// <param name="source">The path to the .oep file.</param>
         /// <param name="imagePath">The default image path to use for loading tilemaps.</param>
         public OgmoProject(string source, string imagePath = "") {
+            source = Helpers.FileHelpers.GetAbsoluteFilePath(source);
             if (!File.Exists(source)) throw new ArgumentException("Ogmo project file could not be found.");
 
             if (imagePath == "") {
@@ -268,12 +270,13 @@ namespace Otter {
         /// <param name="data">The level data to load.</param>
         /// <param name="scene">The Scene to load into.</param>
         public void LoadLevel(string data, Scene scene) {
+            data = Helpers.FileHelpers.GetAbsoluteFilePath(data);
             Entities.Clear();
 
             CurrentLevel = data;
 
             var xmlDoc = new XmlDocument();
-            xmlDoc.LoadXml(data);
+            xmlDoc.Load(data);
 
             var xmlLevel = xmlDoc["level"];
 

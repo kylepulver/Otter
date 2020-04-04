@@ -51,9 +51,11 @@ namespace FlippyFlop {
 
         public override void Update() {
             base.Update();
-
+            // Create controls to use for platforming movement.
             if (!Dead) {
-                if (Session.Controller.Button(Key.Up).Pressed) {  
+                if (Session.Controller.Button(Key.Z).Pressed || 
+                  Session.Controller.Button(Key.X).Pressed ||
+                  Session.Controller.Button(Key.C).Pressed) {  
                     EventRouter.Publish(Events.FlippyFlipped);
                     Tween(Image, new { ScaleX = 1, ScaleY = 1 }, 45).From(new { ScaleX = 2f, ScaleY = 0.5f }).Ease(Ease.ElasticOut);
                     Tween(Image, new { Angle = 0 }, 30).From(new { Angle = Rand.Float(-10, 10) });

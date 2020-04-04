@@ -77,7 +77,7 @@ namespace FlippyFlop {
             Scene.Add(new HudHighScore());
         }
         void UpdateTitle() {
-            if (Session.Controller.Button(Key.Return).Pressed) {
+            if (Session.Controller.Button(Key.Space).Pressed) {
                 GameStateMachine.ChangeState(GameState.Playing);
             }
 
@@ -130,7 +130,7 @@ namespace FlippyFlop {
 
         void UpdateEnd() {
             if (GameStateMachine.Timer > 60) {
-                if (Session.Controller.Button(Key.Return).Pressed) {   
+                if (Session.Controller.Button(Key.Space).Pressed) {   
                     GameStateMachine.ChangeState(GameState.Playing);
                 }
             }
