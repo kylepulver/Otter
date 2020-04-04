@@ -28,7 +28,7 @@ namespace Otter {
         /// <returns>New shader instance</returns>
         public static SFML.Graphics.Shader FromString(string vertexShader, string fragmentShader)
         {
-            SFML.Graphics.Shader shader = SFML.Graphics.Shader.FromString(vertexShader, fragmentShader);
+            SFML.Graphics.Shader shader = SFML.Graphics.Shader.FromString(vertexShader, null, fragmentShader);
 
             return shader;
         }
@@ -87,7 +87,7 @@ namespace Otter {
         /// <param name="vertexFile">The file path to the vertex shader.</param>
         /// <param name="fragmentFile">The file path to the fragment shader.</param>
         public Shader(string vertexFile, string fragmentFile) {
-            SFMLShader = new SFML.Graphics.Shader(Files.LoadFileStream(vertexFile), Files.LoadFileStream(fragmentFile));
+            SFMLShader = new SFML.Graphics.Shader(Files.LoadFileStream(vertexFile), null, Files.LoadFileStream(fragmentFile));
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Otter {
         /// <param name="vertexStream">The stream for the vertex shader.</param>
         /// <param name="fragmentStream">The stream for the fragment shader.</param>
         public Shader(Stream vertexStream, Stream fragmentStream) {
-            SFMLShader = new SFML.Graphics.Shader(vertexStream, fragmentStream);
+            SFMLShader = new SFML.Graphics.Shader(vertexStream, null, fragmentStream);
         }
 
         /// <summary>
@@ -106,10 +106,10 @@ namespace Otter {
         /// <param name="source">The stream for the shader.</param>
         public Shader(ShaderType shaderType, Stream source) {
             if (shaderType == ShaderType.Vertex) {
-                SFMLShader = new SFML.Graphics.Shader(source, null);
+                SFMLShader = new SFML.Graphics.Shader(source, null, null);
             }
             else {
-                SFMLShader = new SFML.Graphics.Shader(null, source);
+                SFMLShader = new SFML.Graphics.Shader(null, null, source);
             }
         }
 
@@ -121,10 +121,10 @@ namespace Otter {
         public Shader(string source) {
             var str = System.Text.Encoding.Default.GetString(Files.LoadFileBytes(source));
             if (source.Contains(".frag") || source.Contains(".fs")) {
-                SFMLShader = SFML.Graphics.Shader.FromString(null, str);
+                SFMLShader = SFML.Graphics.Shader.FromString(null, null, str);
             }
             else {
-                SFMLShader = new SFML.Graphics.Shader(str, null);
+                SFMLShader = new SFML.Graphics.Shader(str, null, null);
             }
         }
 
@@ -141,10 +141,10 @@ namespace Otter {
         /// <param name="source">The file path.</param>
         public Shader(ShaderType shaderType, string source) {
             if (shaderType == ShaderType.Vertex) {
-                SFMLShader = new SFML.Graphics.Shader(source, null);
+                SFMLShader = new SFML.Graphics.Shader(source, null, null);
             }
             else {
-                SFMLShader = new SFML.Graphics.Shader(null, source);
+                SFMLShader = new SFML.Graphics.Shader(null, null, source);
             }
         }
 
