@@ -18,7 +18,7 @@ namespace Specs
         }
 
         [TestMethod]
-        public void Then_1_Pluse_1_Should_Equal_Two()
+        public void Then_1_Plus_1_Should_Equal_Two()
         {
             secondValue.Should().Be(2);
             youDidIt.Should().BeTrue();
