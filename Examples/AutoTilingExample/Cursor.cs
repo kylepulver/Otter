@@ -1,12 +1,9 @@
-﻿using Otter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Otter;
 
-namespace AutoTilingExample {
-    class Cursor : Entity {
+namespace AutoTilingExample
+{
+    class Cursor : Entity
+    {
 
         /// <summary>
         /// The image that will show the exact mouse position.
@@ -18,7 +15,8 @@ namespace AutoTilingExample {
         /// </summary>
         Image imageTile = Image.CreateRectangle(Tiles.GridSize, Color.None);
 
-        public Cursor() : base() {
+        public Cursor() : base()
+        {
             // Center the imageCenter graphic and give it an outline.
             imageCenter.CenterOrigin();
             imageCenter.OutlineColor = Color.Black;
@@ -39,7 +37,8 @@ namespace AutoTilingExample {
             Layer = -100;
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
             // Set the default visibility states for the images.
@@ -47,7 +46,8 @@ namespace AutoTilingExample {
             imageTile.Visible = false;
 
             // If either mouse button is down hide the circle image, and show the tile image.
-            if (Input.MouseButtonDown(MouseButton.Left) || Input.MouseButtonDown(MouseButton.Right)) {
+            if (Input.MouseButtonDown(MouseButton.Left) || Input.MouseButtonDown(MouseButton.Right))
+            {
                 imageCenter.Visible = false;
                 imageTile.Visible = true;
             }

@@ -1,14 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class that is used for storing strings, ints, floats, or bools with keys of enum or string.  The
     /// saver can output data in an semi-encrypted format, and also an editable config file format.
     /// </summary>
-    public class DataSaver {
+    public class DataSaver
+    {
 
         /// <summary>
         /// The string to use when delimiting key data in data exports.
@@ -52,7 +54,8 @@ namespace Otter {
         /// <summary>
         /// The export modes for the data.
         /// </summary>
-        public enum DataExportMode {
+        public enum DataExportMode
+        {
             Data,
             Config
         }
@@ -63,7 +66,8 @@ namespace Otter {
         /// Initializes a new instance of the DataSaver class.
         /// </summary>
         /// <param name="defaultPath">The default path.</param>
-        public DataSaver(string defaultPath = "") {
+        public DataSaver(string defaultPath = "")
+        {
             DefaultPath = defaultPath;
         }
 
@@ -72,7 +76,8 @@ namespace Otter {
         /// </summary>
         /// <param name="stringData">The string data.</param>
         /// <returns>True if the data is successfully verified.</returns>
-        public bool Verify(string stringData) {
+        public bool Verify(string stringData)
+        {
             string[] split = Regex.Split(stringData, ":");
 
             if (split.Length != 2) return false;
@@ -92,7 +97,8 @@ namespace Otter {
         /// Deletes the exported file for this save data.
         /// </summary>
         /// <param name="filename">The filename to delete (usually you don't have to set this.)</param>
-        public void ClearFile(string filename = "") {
+        public void ClearFile(string filename = "")
+        {
             if (filename == "") filename = DefaultFilename;
 
             filename = DefaultPath + filename;
@@ -104,7 +110,8 @@ namespace Otter {
         /// <summary>
         /// Clears the data.
         /// </summary>
-        public void Clear() {
+        public void Clear()
+        {
             data = new Dictionary<string, string>();
         }
 
@@ -113,17 +120,21 @@ namespace Otter {
         /// </summary>
         /// <param name="filename">The filename to check.</param>
         /// <returns>True if the exported file exists, and is verified for encrypted files.</returns>
-        public bool FileExists(string filename = "") {
+        public bool FileExists(string filename = "")
+        {
             if (filename == "") filename = DefaultFilename;
 
             filename = DefaultPath + filename;
-            if (File.Exists(filename)) {
+            if (File.Exists(filename))
+            {
                 string loaded = File.ReadAllText(filename);
 
-                if (ExportMode == DataExportMode.Data) {
+                if (ExportMode == DataExportMode.Data)
+                {
                     return Verify(loaded);
                 }
-                else {
+                else
+                {
                     return true;
                 }
             }
@@ -136,7 +147,8 @@ namespace Otter {
         /// </summary>
         /// <param name="filename">The filename.</param>
         /// <param name="verify">if set to true verify the data before importing.</param>
-        public void Import(string filename = "", bool verify = true) {
+        public void Import(string filename = "", bool verify = true)
+        {
             if (filename == "") filename = DefaultFilename;
 
             filename = DefaultPath + filename;
@@ -144,14 +156,17 @@ namespace Otter {
 
             string loaded = File.ReadAllText(filename);
 
-            if (ExportMode == DataExportMode.Data) {
-                if (Verify(loaded) || !verify) {
+            if (ExportMode == DataExportMode.Data)
+            {
+                if (Verify(loaded) || !verify)
+                {
                     string[] split = Regex.Split(loaded, ":");
                     loaded = Util.DecompressString(split[1]);
 
                     var splitData = Regex.Split(loaded, ValueDelim);
 
-                    foreach (var s in splitData) {
+                    foreach (var s in splitData)
+                    {
                         var entry = Regex.Split(s, KeyDelim);
                         var key = entry[0];
                         var value = entry[1];
@@ -161,15 +176,19 @@ namespace Otter {
                             data.Add(key, value);
                     }
                 }
-                else {
+                else
+                {
                     Util.Log("Data load failed: corrupt or modified data.");
                 }
             }
-            else {
+            else
+            {
                 var split = loaded.Split('\n');
-                foreach (var s in split) {
+                foreach (var s in split)
+                {
                     string[] entry = s.Split('=');
-                    if (entry.Length == 2) {
+                    if (entry.Length == 2)
+                    {
                         SetData(entry[0].Replace((char)16, '='), entry[1].Replace((char)16, '='));
                     }
                 }
@@ -180,12 +199,14 @@ namespace Otter {
         /// Exports the data to the specified file.
         /// </summary>
         /// <param name="filename">The filename.</param>
-        public void Export(string filename = "") {
+        public void Export(string filename = "")
+        {
             if (filename == "") filename = DefaultFilename;
 
             filename = DefaultPath + filename;
 
-            if (ExportMode == DataExportMode.Data) {
+            if (ExportMode == DataExportMode.Data)
+            {
                 string str = Util.CompressString(Util.DictionaryToString(data, KeyDelim, ValueDelim));
 
                 string dataToHash = SaltGuide;
@@ -196,9 +217,11 @@ namespace Otter {
 
                 File.WriteAllText(filename, str);
             }
-            else {
+            else
+            {
                 string str = "";
-                foreach (var e in data) {
+                foreach (var e in data)
+                {
                     str += "" + e.Key.Replace('=', (char)16) + "=" + e.Value.Replace('=', (char)16) + "\n";
                 }
 
@@ -213,9 +236,12 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>The string data or null.</returns>
-        public string this[string key] {
-            get {
-                if (data.ContainsKey(key)) {
+        public string this[string key]
+        {
+            get
+            {
+                if (data.ContainsKey(key))
+                {
                     return data[key];
                 }
                 return null;
@@ -227,8 +253,10 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>The string data or null.</returns>
-        public string this[Enum key] {
-            get {
+        public string this[Enum key]
+        {
+            get
+            {
                 return this[Util.EnumValueToString(key)];
             }
         }
@@ -238,7 +266,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>A float from the specified key.</returns>
-        public float GetFloat(string key) {
+        public float GetFloat(string key)
+        {
             return float.Parse(data[key]);
         }
 
@@ -247,7 +276,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>A float from the specified key.</returns>
-        public float GetFloat(Enum key) {
+        public float GetFloat(Enum key)
+        {
             return GetFloat(Util.EnumValueToString(key));
         }
 
@@ -257,14 +287,18 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if a value is not found.</returns>
-        public float GetFloatOrDefault(string key, float defaultIfNotFound = default(float)) {
-            if (data.ContainsKey(key)) {
-                if (string.IsNullOrEmpty(data[key])) {
+        public float GetFloatOrDefault(string key, float defaultIfNotFound = default(float))
+        {
+            if (data.ContainsKey(key))
+            {
+                if (string.IsNullOrEmpty(data[key]))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
                 float test = 0;
-                if (!float.TryParse(data[key], out test)) {
+                if (!float.TryParse(data[key], out test))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
@@ -280,7 +314,8 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public float GetFloatOrDefault(Enum key, float defaultIfNotFound = default(float)) {
+        public float GetFloatOrDefault(Enum key, float defaultIfNotFound = default(float))
+        {
             return GetFloatOrDefault(Util.EnumValueToString(key), defaultIfNotFound);
         }
 
@@ -289,7 +324,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An int from the specified key.</returns>
-        public int GetInt(string key) {
+        public int GetInt(string key)
+        {
             return int.Parse(data[key]);
         }
 
@@ -298,7 +334,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An int from the specified key.</returns>
-        public int GetInt(Enum key) {
+        public int GetInt(Enum key)
+        {
             return GetInt(Util.EnumValueToString(key));
         }
 
@@ -308,14 +345,18 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public int GetIntOrDefault(string key, int defaultIfNotFound = default(int)) {
-            if (data.ContainsKey(key)) {
-                if (string.IsNullOrEmpty(data[key])) {
+        public int GetIntOrDefault(string key, int defaultIfNotFound = default(int))
+        {
+            if (data.ContainsKey(key))
+            {
+                if (string.IsNullOrEmpty(data[key]))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
                 int test = 0;
-                if (!int.TryParse(data[key], out test)) {
+                if (!int.TryParse(data[key], out test))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
@@ -331,7 +372,8 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public int GetIntOrDefault(Enum key, int defaultIfNotFound = default(int)) {
+        public int GetIntOrDefault(Enum key, int defaultIfNotFound = default(int))
+        {
             return GetIntOrDefault(Util.EnumValueToString(key), defaultIfNotFound);
         }
 
@@ -340,7 +382,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An ulong from the specified key.</returns>
-        public ulong GetUlong(string key) {
+        public ulong GetUlong(string key)
+        {
             return ulong.Parse(data[key]);
         }
 
@@ -349,7 +392,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An ulong from the specified key.</returns>
-        public ulong GetUlong(Enum key) {
+        public ulong GetUlong(Enum key)
+        {
             return GetUlong(Util.EnumValueToString(key));
         }
 
@@ -359,14 +403,18 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public ulong GetUlongOrDefault(string key, ulong defaultIfNotFound = default(ulong)) {
-            if (data.ContainsKey(key)) {
-                if (string.IsNullOrEmpty(data[key])) {
+        public ulong GetUlongOrDefault(string key, ulong defaultIfNotFound = default(ulong))
+        {
+            if (data.ContainsKey(key))
+            {
+                if (string.IsNullOrEmpty(data[key]))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
                 ulong test = 0;
-                if (!ulong.TryParse(data[key], out test)) {
+                if (!ulong.TryParse(data[key], out test))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
@@ -382,7 +430,8 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public ulong GetUlongOrDefault(Enum key, ulong defaultIfNotFound = default(ulong)) {
+        public ulong GetUlongOrDefault(Enum key, ulong defaultIfNotFound = default(ulong))
+        {
             return GetUlongOrDefault(Util.EnumValueToString(key), defaultIfNotFound);
         }
 
@@ -391,7 +440,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An int from the specified key.</returns>
-        public string GetString(string key) {
+        public string GetString(string key)
+        {
             return this[key];
         }
 
@@ -400,7 +450,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An int from the specified key.</returns>
-        public string GetString(Enum key) {
+        public string GetString(Enum key)
+        {
             return this[key];
         }
 
@@ -410,9 +461,12 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public string GetStringOrDefault(string key, string defaultIfNotFound = default(string)) {
-            if (data.ContainsKey(key)) {
-                if (string.IsNullOrEmpty(data[key])) {
+        public string GetStringOrDefault(string key, string defaultIfNotFound = default(string))
+        {
+            if (data.ContainsKey(key))
+            {
+                if (string.IsNullOrEmpty(data[key]))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
@@ -428,7 +482,8 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public string GetStringOrDefault(Enum key, string defaultIfNotFound = default(string)) {
+        public string GetStringOrDefault(Enum key, string defaultIfNotFound = default(string))
+        {
             return GetStringOrDefault(Util.EnumValueToString(key), defaultIfNotFound);
         }
 
@@ -437,7 +492,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An int from the specified key.</returns>
-        public bool GetBool(string key) {
+        public bool GetBool(string key)
+        {
             return bool.Parse(data[key]);
         }
 
@@ -446,7 +502,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>An int from the specified key.</returns>
-        public bool GetBool(Enum key) {
+        public bool GetBool(Enum key)
+        {
             return GetBool(Util.EnumValueToString(key));
         }
 
@@ -456,14 +513,18 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public bool GetBoolOrDefault(string key, bool defaultIfNotFound = default(bool)) {
-            if (data.ContainsKey(key)) {
-                if (string.IsNullOrEmpty(data[key])) {
+        public bool GetBoolOrDefault(string key, bool defaultIfNotFound = default(bool))
+        {
+            if (data.ContainsKey(key))
+            {
+                if (string.IsNullOrEmpty(data[key]))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
                 bool test = false;
-                if (!bool.TryParse(data[key], out test)) {
+                if (!bool.TryParse(data[key], out test))
+                {
                     SetData(key, defaultIfNotFound);
                     return defaultIfNotFound;
                 }
@@ -479,7 +540,8 @@ namespace Otter {
         /// <param name="key">The key.</param>
         /// <param name="defaultIfNotFound">The default if not found.</param>
         /// <returns>The value or the default if the key is not found.</returns>
-        public bool GetBoolOrDefault(Enum key, bool defaultIfNotFound = default(bool)) {
+        public bool GetBoolOrDefault(Enum key, bool defaultIfNotFound = default(bool))
+        {
             return GetBoolOrDefault(Util.EnumValueToString(key), defaultIfNotFound);
         }
 
@@ -488,11 +550,14 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="obj">The object.</param>
-        public void SetData(string key, object obj) {
-            if (data.ContainsKey(key)) {
+        public void SetData(string key, object obj)
+        {
+            if (data.ContainsKey(key))
+            {
                 data[key] = obj.ToString();
             }
-            else {
+            else
+            {
                 data.Add(key, obj.ToString());
             }
         }
@@ -502,7 +567,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="obj">The object.</param>
-        public void SetData(Enum key, object obj) {
+        public void SetData(Enum key, object obj)
+        {
             SetData(Util.EnumValueToString(key), obj);
         }
     }

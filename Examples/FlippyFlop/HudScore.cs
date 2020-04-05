@@ -1,16 +1,19 @@
-﻿using Otter;
+using Otter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FlippyFlop {
-    class HudScore : Entity {
+namespace FlippyFlop
+{
+    class HudScore : Entity
+    {
 
         public RichText TextScore = new RichText(20);
 
-        public HudScore() {
+        public HudScore()
+        {
             Graphic = TextScore;
 
             X = Game.Instance.Width - 100;
@@ -22,7 +25,8 @@ namespace FlippyFlop {
 
             TextScore.TextWidth = 200;
 
-            EventRouter.Subscribe(Events.ScoreUpdated, (EventRouter.Event e) => {
+            EventRouter.Subscribe(Events.ScoreUpdated, (EventRouter.Event e) =>
+            {
                 var score = e.GetData<float>(0);
                 var scoreMultiplier = e.GetData<float>(1);
 
@@ -31,13 +35,15 @@ namespace FlippyFlop {
                 TextScore.X = -120;
             });
 
-            EventRouter.Subscribe(Events.ShowFinalScore, (EventRouter.Event e) => {
+            EventRouter.Subscribe(Events.ShowFinalScore, (EventRouter.Event e) =>
+            {
                 var score = e.GetData<float>(0);
                 TextScore.DefaultCharColor = Color.Gold;
                 TextScore.String = string.Format("{0:0,0}", score);
             });
 
-            EventRouter.Subscribe(Events.GameStarted, (EventRouter.Event e) => {
+            EventRouter.Subscribe(Events.GameStarted, (EventRouter.Event e) =>
+            {
                 TextScore.DefaultCharColor = Color.White;
             });
 

@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Component representing a group of Button and Axis classes. The controller updates all buttons
     /// and axis manually. This is used by the Session class to manage player input.
@@ -12,7 +13,8 @@ namespace Otter {
     /// Input recording should only be used in fixed framerate games!  If used with variable framerate
     /// the playback is not reliable.
     /// </summary>
-    public class Controller : Component {
+    public class Controller : Component
+    {
 
         int recordingTimer = 0;
         int playingTimer = 0;
@@ -41,8 +43,8 @@ namespace Otter {
 
         string recordedString = "";
 
-        Dictionary<string, Button> buttons = new Dictionary<string,Button>();
-        Dictionary<string, Axis> axis = new Dictionary<string,Axis>();
+        Dictionary<string, Button> buttons = new Dictionary<string, Button>();
+        Dictionary<string, Axis> axis = new Dictionary<string, Axis>();
 
         /// <summary>
         /// If the controller is currently recording input.
@@ -57,15 +59,19 @@ namespace Otter {
         /// <summary>
         /// The last recorded data as a compressed string.
         /// </summary>
-        public string LastRecordedString {
-            get {
+        public string LastRecordedString
+        {
+            get
+            {
                 if (recordedString != "") return recordedString;
 
                 string s = "";
                 //save button data
-                foreach (var rec in recordedButtonData) {
+                foreach (var rec in recordedButtonData)
+                {
                     s += rec.Key.ToString() + ":";
-                    foreach (var e in rec.Value) {
+                    foreach (var e in rec.Value)
+                    {
                         s += e.Key + ">" + e.Value + "|";
                     }
                     s = s.TrimEnd('|');
@@ -76,8 +82,10 @@ namespace Otter {
 
                 //save axis data
                 s += "%";
-                foreach (var axisdata in recordedAxisData) {
-                    foreach (var axis in axisdata) {
+                foreach (var axisdata in recordedAxisData)
+                {
+                    foreach (var axis in axisdata)
+                    {
                         s += axis.Key + ">";
                         s += axis.Value.X.ToString() + "," + axis.Value.Y.ToString() + ";";
                     }
@@ -91,115 +99,146 @@ namespace Otter {
             }
         }
 
-        public Controller(params int[] joystickId) {
-            foreach (var i in joystickId) {
+        public Controller(params int[] joystickId)
+        {
+            foreach (var i in joystickId)
+            {
                 JoystickIds.Add(i);
             }
         }
 
-        public Button Button(Enum name) {
+        public Button Button(Enum name)
+        {
             return Button(Util.EnumValueToString(name));
         }
 
-        public Button Button(string name) {
+        public Button Button(string name)
+        {
             return buttons[name];
         }
 
-        public Axis Axis(Enum name) {
+        public Axis Axis(Enum name)
+        {
             return Axis(Util.EnumValueToString(name));
         }
 
-        public Axis Axis(string name) {
+        public Axis Axis(string name)
+        {
             return axis[name];
         }
 
-        public Controller AddButton(Enum name, Button b = null) {
+        public Controller AddButton(Enum name, Button b = null)
+        {
             AddButton(Util.EnumValueToString(name), b);
             return this;
         }
 
-        public Controller AddButton(params Enum[] names) {
-            foreach (var n in names) {
+        public Controller AddButton(params Enum[] names)
+        {
+            foreach (var n in names)
+            {
                 AddButton(n);
             }
             return this;
         }
 
-        public Controller AddButton(params string[] names) {
-            foreach (var n in names) {
+        public Controller AddButton(params string[] names)
+        {
+            foreach (var n in names)
+            {
                 AddButton(n);
             }
             return this;
         }
 
-        public Controller AddButton(string name, Button b = null) {
+        public Controller AddButton(string name, Button b = null)
+        {
             buttons.Add(name, b == null ? new Button() : b);
             return this;
         }
 
-        public Controller AddAxis(Enum name, Axis a = null) {
+        public Controller AddAxis(Enum name, Axis a = null)
+        {
             AddAxis(Util.EnumValueToString(name), a);
             return this;
         }
 
-        public Controller AddAxis(string name, Axis a = null) {
+        public Controller AddAxis(string name, Axis a = null)
+        {
             axis.Add(name, a == null ? new Axis() : a);
             return this;
         }
 
-        public Controller AddAxis(params Enum[] names) {
-            foreach (var n in names) {
+        public Controller AddAxis(params Enum[] names)
+        {
+            foreach (var n in names)
+            {
                 AddAxis(n);
             }
             return this;
         }
 
-        public Controller AddAxis(params string[] names) {
-            foreach (var n in names) {
+        public Controller AddAxis(params string[] names)
+        {
+            foreach (var n in names)
+            {
                 AddAxis(n);
             }
             return this;
         }
 
-        public void Clear() {
+        public void Clear()
+        {
             buttons.Clear();
             axis.Clear();
         }
 
-        public override void UpdateFirst() {
+        public override void UpdateFirst()
+        {
             base.UpdateFirst();
 
-            foreach (var b in buttons) {
+            foreach (var b in buttons)
+            {
                 b.Value.Enabled = Enabled;
                 b.Value.UpdateFirst();
             }
 
-            foreach (var a in axis) {
+            foreach (var a in axis)
+            {
                 a.Value.Enabled = Enabled;
                 a.Value.UpdateFirst();
             }
 
             // The recording and playback code is pretty ugly, sorry :I
-            if (Recording) {
-                foreach (var b in buttons) {
-                    if (b.Value.Pressed || b.Value.Released) {
-                        if (!recordedButtonData.ContainsKey(recordingTimer)) {
+            if (Recording)
+            {
+                foreach (var b in buttons)
+                {
+                    if (b.Value.Pressed || b.Value.Released)
+                    {
+                        if (!recordedButtonData.ContainsKey(recordingTimer))
+                        {
                             recordedButtonData.Add(recordingTimer, new Dictionary<string, int>());
                         }
                     }
-                    if (b.Value.Pressed) {
+                    if (b.Value.Pressed)
+                    {
                         recordedButtonData[recordingTimer].Add(b.Key, 1);
                     }
-                    if (b.Value.Released) {
+                    if (b.Value.Released)
+                    {
                         recordedButtonData[recordingTimer].Add(b.Key, 0);
                     }
                 }
 
-                if (RecordAxes) {
+                if (RecordAxes)
+                {
                     var id = 0;
-                    foreach (var a in axis) {
+                    foreach (var a in axis)
+                    {
                         var axis = a.Value;
-                        if (axis.HasInput && (axis.X != axis.LastX || axis.Y != axis.LastY)) {
+                        if (axis.HasInput && (axis.X != axis.LastX || axis.Y != axis.LastY))
+                        {
                             recordedAxisData[id].Add(recordingTimer, new Vector2(axis.X, axis.Y));
                         }
                         id++;
@@ -208,19 +247,25 @@ namespace Otter {
 
                 recordingTimer++;
             }
-            if (Playing) {
+            if (Playing)
+            {
 
-                if (playingTimer > playbackMax) {
+                if (playingTimer > playbackMax)
+                {
                     Stop();
                 }
 
-                if (playbackButtonData.ContainsKey(playingTimer)) {
-                    foreach (var act in playbackButtonData[playingTimer]) {
-                        if (act.Value == 0) {
+                if (playbackButtonData.ContainsKey(playingTimer))
+                {
+                    foreach (var act in playbackButtonData[playingTimer])
+                    {
+                        if (act.Value == 0)
+                        {
                             buttons[act.Key].ForceState(false);
                             //Util.Log("Time: " + playingTimer + " " + act.Key + " Released");
                         }
-                        else {
+                        else
+                        {
                             buttons[act.Key].ForceState(true);
                             //Util.Log("Time: " + playingTimer + " " + act.Key + " Pressed");
                         }
@@ -228,8 +273,10 @@ namespace Otter {
                 }
 
                 var i = 0;
-                foreach (var a in axis) {
-                    if (playbackAxisData[i].ContainsKey(playingTimer)) {
+                foreach (var a in axis)
+                {
+                    if (playbackAxisData[i].ContainsKey(playingTimer))
+                    {
                         a.Value.ForceState(playbackAxisData[i][playingTimer].X, playbackAxisData[i][playingTimer].Y);
                         //Util.Log("Time: " + playingTimer + " X: " + playbackAxisData[i][playingTimer].X + " Y: " + playbackAxisData[i][playingTimer].Y);
                     }
@@ -243,7 +290,8 @@ namespace Otter {
         /// <summary>
         /// Record the input to a string.  Optionally save it out to a file when finished.
         /// </summary>
-        public void Record() {
+        public void Record()
+        {
             Playing = false;
             Recording = true;
             recordingTimer = 0;
@@ -251,7 +299,8 @@ namespace Otter {
 
             recordedButtonData.Clear();
             recordedAxisData.Clear();
-            foreach (var a in axis) {
+            foreach (var a in axis)
+            {
                 recordedAxisData.Add(new Dictionary<int, Vector2>());
             }
         }
@@ -260,7 +309,8 @@ namespace Otter {
         /// Play back recorded input data.
         /// </summary>
         /// <param name="source">The recorded data.</param>
-        public void Playback(string source) {
+        public void Playback(string source)
+        {
             PlaybackInternal(source);
         }
 
@@ -268,18 +318,23 @@ namespace Otter {
         /// Playbacks the recorded input data loaded from a file path.
         /// </summary>
         /// <param name="path">The path to the file relative to Game.Filepath.</param>
-        public void PlaybackFile(string path) {
+        public void PlaybackFile(string path)
+        {
             path = Helpers.FileHelpers.GetAbsoluteFilePath(Game.Instance.Filepath + path);
             byte[] b;
             using (FileStream f = new FileStream(path, FileMode.Open))
-            using (GZipStream gz = new GZipStream(f, CompressionMode.Decompress)) {
+            using (GZipStream gz = new GZipStream(f, CompressionMode.Decompress))
+            {
                 int size = 4096;
                 byte[] buffer = new byte[size];
-                using (MemoryStream memory = new MemoryStream()) {
+                using (MemoryStream memory = new MemoryStream())
+                {
                     int count = 0;
-                    do {
+                    do
+                    {
                         count = gz.Read(buffer, 0, size);
-                        if (count > 0) {
+                        if (count > 0)
+                        {
                             memory.Write(buffer, 0, count);
                         }
                     }
@@ -296,7 +351,8 @@ namespace Otter {
         /// Save the last recorded input data to a file.
         /// </summary>
         /// <param name="path">The path to save the data to.</param>
-        public void SaveRecording(string path = "") {
+        public void SaveRecording(string path = "")
+        {
             // I realize that I'm compressing this data twice but whatever ;D
             path = Helpers.FileHelpers.GetAbsoluteFilePath(Game.Instance.Filepath + path);
             string temp = Path.GetTempFileName();
@@ -304,13 +360,15 @@ namespace Otter {
             File.WriteAllText(path, LastRecordedString);
 
             byte[] b;
-            using (FileStream f = new FileStream(temp, FileMode.Open)) {
+            using (FileStream f = new FileStream(temp, FileMode.Open))
+            {
                 b = new byte[f.Length];
                 f.Read(b, 0, (int)f.Length);
             }
 
             using (FileStream f2 = new FileStream(path, FileMode.Create))
-            using (GZipStream gz = new GZipStream(f2, CompressionMode.Compress, false)) {
+            using (GZipStream gz = new GZipStream(f2, CompressionMode.Compress, false))
+            {
                 gz.Write(b, 0, b.Length);
             }
         }
@@ -318,12 +376,16 @@ namespace Otter {
         /// <summary>
         /// Stop the recording or playback of the controller.  This will also release input states.
         /// </summary>
-        public void Stop() {
-            if (Recording || Playing) {
-                foreach (var b in buttons) {
+        public void Stop()
+        {
+            if (Recording || Playing)
+            {
+                foreach (var b in buttons)
+                {
                     b.Value.ReleaseState();
                 }
-                foreach (var a in axis) {
+                foreach (var a in axis)
+                {
                     a.Value.ReleaseState();
                 }
             }
@@ -332,15 +394,18 @@ namespace Otter {
             Playing = false;
         }
 
-        public void Disable() {
+        public void Disable()
+        {
             Enabled = false;
         }
 
-        public void Enable() {
+        public void Enable()
+        {
             Enabled = true;
         }
 
-        void PlaybackInternal(string source) {
+        void PlaybackInternal(string source)
+        {
             Recording = false;
             Playing = true;
             playingTimer = 0;
@@ -348,7 +413,8 @@ namespace Otter {
 
             playbackButtonData.Clear();
             playbackAxisData.Clear();
-            foreach (var a in axis) {
+            foreach (var a in axis)
+            {
                 playbackAxisData.Add(new Dictionary<int, Vector2>());
             }
 
@@ -356,15 +422,18 @@ namespace Otter {
 
             var sb = s.Split('%');
 
-            if (sb[0] != "") {
+            if (sb[0] != "")
+            {
                 var split = sb[0].Split((char)16);
-                foreach (var rec in split) {
+                foreach (var rec in split)
+                {
                     var timedata = rec.Split(':');
                     var time = int.Parse(timedata[0]);
                     playbackMax = (int)Util.Max(time, playbackMax);
                     playbackButtonData.Add(time, new Dictionary<string, int>());
                     var entries = timedata[1].Split('|');
-                    foreach (var e in entries) {
+                    foreach (var e in entries)
+                    {
                         var data = e.Split('>');
                         playbackButtonData[time].Add(data[0], int.Parse(data[1]));
                     }
@@ -372,8 +441,10 @@ namespace Otter {
             }
 
             var i = 0;
-            foreach (var axesdata in sb[1].Split('^')) {
-                foreach (var axis in axesdata.Split(';')) {
+            foreach (var axesdata in sb[1].Split('^'))
+            {
+                foreach (var axis in axesdata.Split(';'))
+                {
                     if (axis == "") continue;
                     var axisdata = axis.Split('>');
                     var time = int.Parse(axisdata[0]);
@@ -386,10 +457,12 @@ namespace Otter {
                 i++;
             }
 
-            foreach (var b in buttons) {
+            foreach (var b in buttons)
+            {
                 b.Value.ForceState(false);
             }
-            foreach (var a in axis) {
+            foreach (var a in axis)
+            {
                 a.Value.ForceState(0, 0);
             }
         }

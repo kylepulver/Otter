@@ -1,13 +1,15 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 using System;
 
-namespace Otter {
+using SFML.Graphics;
+using SFML.System;
+
+namespace Otter
+{
     /// <summary>
     /// Class that represents a Vertex.  Just a wrapper for an SFML Vertex.
     /// </summary>
-    public class Vert {
+    public class Vert
+    {
 
         #region Private Fields
 
@@ -20,7 +22,8 @@ namespace Otter {
         /// <summary>
         /// The Color of the Vert.
         /// </summary>
-        public Color Color {
+        public Color Color
+        {
             get { return new Color(vertex.Color); }
             set { vertex.Color = value.SFMLColor; }
         }
@@ -28,7 +31,8 @@ namespace Otter {
         /// <summary>
         /// The X position.
         /// </summary>
-        public float X {
+        public float X
+        {
             get { return vertex.Position.X; }
             set { vertex.Position = new Vector2f(value, vertex.Position.Y); }
         }
@@ -36,7 +40,8 @@ namespace Otter {
         /// <summary>
         /// The Y position.
         /// </summary>
-        public float Y {
+        public float Y
+        {
             get { return vertex.Position.Y; }
             set { vertex.Position = new Vector2f(vertex.Position.X, value); }
         }
@@ -44,7 +49,8 @@ namespace Otter {
         /// <summary>
         /// The X, Y position as a Vector2.
         /// </summary>
-        public Vector2 Position {
+        public Vector2 Position
+        {
             get { return new Vector2(vertex.Position.X, vertex.Position.Y); }
             set { vertex.Position = new Vector2f((float)value.X, (float)value.Y); }
         }
@@ -52,7 +58,8 @@ namespace Otter {
         /// <summary>
         /// The X, Y position of the Texture as a Vector2.
         /// </summary>
-        public Vector2 TexCoords {
+        public Vector2 TexCoords
+        {
             get { return new Vector2(vertex.TexCoords.X, vertex.TexCoords.Y); }
             set { vertex.TexCoords = new Vector2f((float)value.X, (float)value.Y); }
         }
@@ -60,7 +67,8 @@ namespace Otter {
         /// <summary>
         /// The X position of the Texture.
         /// </summary>
-        public float U {
+        public float U
+        {
             get { return vertex.TexCoords.X; }
             set { vertex.TexCoords = new Vector2f(value, vertex.TexCoords.Y); }
         }
@@ -68,7 +76,8 @@ namespace Otter {
         /// <summary>
         /// The Y position of the Texture.
         /// </summary>
-        public float V {
+        public float V
+        {
             get { return vertex.TexCoords.Y; }
             set { vertex.TexCoords = new Vector2f(vertex.TexCoords.X, value); }
         }
@@ -77,7 +86,8 @@ namespace Otter {
 
         #region Public Methods
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return String.Format("X: {0} Y: {1} Color: {2} U: {3} V: {4}", X, Y, Color, U, V);
         }
 
@@ -93,7 +103,8 @@ namespace Otter {
         /// <param name="color">The Color.</param>
         /// <param name="u">The X position on the Texture.</param>
         /// <param name="v">The Y position on the Texture.</param>
-        public Vert(float x, float y, Color color, float u, float v) {
+        public Vert(float x, float y, Color color, float u, float v)
+        {
             vertex = new SFML.Graphics.Vertex(new Vector2f(x, y), color.SFMLColor, new Vector2f(u, v));
         }
 
@@ -136,11 +147,12 @@ namespace Otter {
 
         #region Internal
 
-        internal Vertex SFMLVertex {
+        internal Vertex SFMLVertex
+        {
             get { return vertex; }
         }
 
         #endregion
-        
+
     }
 }

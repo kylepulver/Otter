@@ -1,23 +1,19 @@
-﻿using Otter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// A Component to manage and process queue of events.
     /// </summary>
-    public class EventQueue : EventProcessor {
-        
+    public class EventQueue : EventProcessor
+    {
+
         #region Public Methods
 
         /// <summary>
         /// Add events to the queue.
         /// </summary>
         /// <param name="evt">The events to add.</param>
-        public void Add(params EventProcessorEvent[] evt) {
+        public void Add(params EventProcessorEvent[] evt)
+        {
             Events.AddRange(evt);
         }
 
@@ -25,20 +21,26 @@ namespace Otter {
         /// Push events into the front of the queue.
         /// </summary>
         /// <param name="evt">The events to push.</param>
-        public void Push(params EventProcessorEvent[] evt) {
+        public void Push(params EventProcessorEvent[] evt)
+        {
             Events.InsertRange(0, evt);
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
-            if (RunEvents) {
-                if (CurrentEvent == null) {
+            if (RunEvents)
+            {
+                if (CurrentEvent == null)
+                {
                     NextEvent();
                 }
 
-                while (CurrentEvent != null) {
-                    if (isFreshEvent) {
+                while (CurrentEvent != null)
+                {
+                    if (isFreshEvent)
+                    {
                         isFreshEvent = false;
                         CurrentEvent.EventProcessor = this;
                         CurrentEvent.Start();
@@ -48,14 +50,16 @@ namespace Otter {
                     CurrentEvent.Update();
                     CurrentEvent.Timer += Entity.Game.DeltaTime;
 
-                    if (CurrentEvent.IsFinished) {
+                    if (CurrentEvent.IsFinished)
+                    {
                         isFreshEvent = true;
                         CurrentEvent.End();
                         CurrentEvent.EventProcessor = null;
                         Events.Remove(CurrentEvent);
                         NextEvent();
                     }
-                    else {
+                    else
+                    {
                         break;
                     }
                 }
@@ -66,11 +70,14 @@ namespace Otter {
 
         #region Private Methods
 
-        void NextEvent() {
-            if (HasEvents) {
+        void NextEvent()
+        {
+            if (HasEvents)
+            {
                 CurrentEvent = Events[0];
             }
-            else {
+            else
+            {
                 CurrentEvent = null;
             }
         }

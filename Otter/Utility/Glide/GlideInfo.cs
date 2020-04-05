@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Otter {
-    internal class GlideInfo {
+namespace Otter
+{
+    internal class GlideInfo
+    {
         private static BindingFlags flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
 
         public string PropertyName { get; private set; }
@@ -13,46 +15,55 @@ namespace Otter {
         private PropertyInfo prop;
         private object Target;
 
-        public object Value {
-            get {
+        public object Value
+        {
+            get
+            {
                 return field != null ?
                     field.GetValue(Target) :
                     prop.GetValue(Target, null);
             }
 
-            set {
+            set
+            {
                 if (field != null) field.SetValue(Target, value);
                 else prop.SetValue(Target, value, null);
             }
         }
 
-        public GlideInfo(object target, PropertyInfo info) {
+        public GlideInfo(object target, PropertyInfo info)
+        {
             Target = target;
             prop = info;
             PropertyName = info.Name;
             PropertyType = prop.PropertyType;
         }
 
-        public GlideInfo(object target, FieldInfo info) {
+        public GlideInfo(object target, FieldInfo info)
+        {
             Target = target;
             field = info;
             PropertyName = info.Name;
             PropertyType = info.FieldType;
         }
 
-        public GlideInfo(object target, string property, bool writeRequired = true) {
+        public GlideInfo(object target, string property, bool writeRequired = true)
+        {
             Target = target;
             PropertyName = property;
 
             var targetType = target as Type ?? target.GetType();
 
-            if ((field = targetType.GetField(property, flags)) != null) {
+            if ((field = targetType.GetField(property, flags)) != null)
+            {
                 PropertyType = field.FieldType;
             }
-            else if ((prop = targetType.GetProperty(property, flags)) != null) {
+            else if ((prop = targetType.GetProperty(property, flags)) != null)
+            {
                 PropertyType = prop.PropertyType;
             }
-            else {
+            else
+            {
                 //	Couldn't find either
                 throw new Exception(string.Format("Field or {0} property '{1}' not found on object of type {2}.",
                     writeRequired ? "read/write" : "readable",

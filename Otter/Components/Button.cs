@@ -1,13 +1,16 @@
-﻿using SFML.Window;
 using System.Collections.Generic;
 
-namespace Otter {
+using SFML.Window;
+
+namespace Otter
+{
     /// <summary>
     /// Component used for interpreting input as a button. It can recieve input from multiple sources
     /// including keyboard, mouse buttons, or joystick buttons and axes. The button input can also be
     /// controlled in code.
     /// </summary>
-    public class Button : Component {
+    public class Button : Component
+    {
 
         #region Private Fields
 
@@ -66,8 +69,10 @@ namespace Otter {
         /// <summary>
         /// Check if the button has been pressed.
         /// </summary>
-        public bool Pressed {
-            get {
+        public bool Pressed
+        {
+            get
+            {
                 if (!Enabled) return false;
 
                 return currentButtonsDown && !prevButtonsDown;
@@ -77,8 +82,10 @@ namespace Otter {
         /// <summary>
         /// Check if the button has been released.
         /// </summary>
-        public bool Released {
-            get {
+        public bool Released
+        {
+            get
+            {
                 if (!Enabled) return false;
 
                 return !currentButtonsDown && prevButtonsDown;
@@ -88,8 +95,10 @@ namespace Otter {
         /// <summary>
         /// Check if the button is down.
         /// </summary>
-        public bool Down {
-            get {
+        public bool Down
+        {
+            get
+            {
                 if (!Enabled) return false;
 
                 return currentButtonsDown;
@@ -99,8 +108,10 @@ namespace Otter {
         /// <summary>
         /// Check if the button is up.
         /// </summary>
-        public bool Up {
-            get {
+        public bool Up
+        {
+            get
+            {
                 if (!Enabled) return false;
 
                 return !currentButtonsDown;
@@ -110,9 +121,12 @@ namespace Otter {
         /// <summary>
         /// Returns true if this button is using any JoyButtons from a Joystick.
         /// </summary>
-        public bool IsUsingJoyButtons {
-            get {
-                foreach (var joyId in JoyButtons) {
+        public bool IsUsingJoyButtons
+        {
+            get
+            {
+                foreach (var joyId in JoyButtons)
+                {
                     if (joyId.Count > 0) return true;
                 }
                 return false;
@@ -127,8 +141,10 @@ namespace Otter {
         /// Create a Button.
         /// </summary>
         /// <param name="name">Optional string name of the button.</param>
-        public Button() {
-            for (var i = 0; i < Joystick.Count; i++) {
+        public Button()
+        {
+            for (var i = 0; i < Joystick.Count; i++)
+            {
                 JoyButtons.Add(new List<int>());
             }
         }
@@ -137,7 +153,8 @@ namespace Otter {
         /// Create a Button by copying another existing Button.
         /// </summary>
         /// <param name="source">The Button to copy.</param>
-        public Button(Button source) : this() {
+        public Button(Button source) : this()
+        {
             AddButton(source);
         }
 
@@ -148,7 +165,8 @@ namespace Otter {
         /// <summary>
         /// Reset the Button to report no input.
         /// </summary>
-        public void Reset() {
+        public void Reset()
+        {
             buttonsDown = false;
             prevButtonsDown = false;
             currentButtonsDown = false;
@@ -157,7 +175,8 @@ namespace Otter {
         /// <summary>
         /// Clear all registered inputs for the Button.
         /// </summary>
-        public void Clear() {
+        public void Clear()
+        {
             Keys.Clear();
             JoyButtons.Clear();
             MouseButtons.Clear();
@@ -169,8 +188,10 @@ namespace Otter {
         /// </summary>
         /// <param name="keys">The key to add.</param>
         /// <returns>The Button.</returns>
-        public Button AddKey(params Key[] keys) {
-            foreach (var k in keys) {
+        public Button AddKey(params Key[] keys)
+        {
+            foreach (var k in keys)
+            {
                 Keys.Add(k);
             }
             return this;
@@ -181,8 +202,10 @@ namespace Otter {
         /// </summary>
         /// <param name="mouseButtons">The mouse button to add.</param>
         /// <returns>The Button.</returns>
-        public Button AddMouseButton(params MouseButton[] mouseButtons) {
-            foreach (var mb in mouseButtons) {
+        public Button AddMouseButton(params MouseButton[] mouseButtons)
+        {
+            foreach (var mb in mouseButtons)
+            {
                 MouseButtons.Add(mb);
             }
             return this;
@@ -193,7 +216,8 @@ namespace Otter {
         /// </summary>
         /// <param name="direction">The mouse wheel direction to add.</param>
         /// <returns>The Button.</returns>
-        public Button AddMouseWheel(MouseWheelDirection direction) {
+        public Button AddMouseWheel(MouseWheelDirection direction)
+        {
             MouseWheel.Add(direction);
             return this;
         }
@@ -204,7 +228,8 @@ namespace Otter {
         /// <param name="button">The joystick button to add.</param>
         /// <param name="joystick">The joystick id of the button to add.</param>
         /// <returns>The Button.</returns>
-        public Button AddJoyButton(int button, int joystick = 0) {
+        public Button AddJoyButton(int button, int joystick = 0)
+        {
             JoyButtons[joystick].Add(button);
             return this;
         }
@@ -214,9 +239,11 @@ namespace Otter {
         /// </summary>
         /// <param name="source">The Button to add into this Button.</param>
         /// <returns>The Button.</returns>
-        public Button AddButton(Button source) {
+        public Button AddButton(Button source)
+        {
             Keys.AddRange(source.Keys);
-            JoyButtons.EachWithIndex((b, i) => {
+            JoyButtons.EachWithIndex((b, i) =>
+            {
                 JoyButtons[i].AddRange(source.JoyButtons[i]);
             });
             MouseButtons.AddRange(source.MouseButtons);
@@ -231,7 +258,8 @@ namespace Otter {
         /// <param name="button">The AxisButton to add.</param>
         /// <param name="joystick">The joystick id of the button to add.</param>
         /// <returns>The Button.</returns>
-        public Button AddAxisButton(AxisButton button, int joystick = 0) {
+        public Button AddAxisButton(AxisButton button, int joystick = 0)
+        {
             AddJoyButton((int)button, joystick);
             return this;
         }
@@ -240,7 +268,8 @@ namespace Otter {
         /// Force the state of the button.  This will override player input.
         /// </summary>
         /// <param name="state">The state of the button, true for down, false for up.</param>
-        public void ForceState(bool state) {
+        public void ForceState(bool state)
+        {
             forceDown = state;
             ForcedInput = true;
         }
@@ -248,14 +277,16 @@ namespace Otter {
         /// <summary>
         /// Release the button's state from forced control.  Restores player input.
         /// </summary>
-        public void ReleaseState() {
+        public void ReleaseState()
+        {
             ForcedInput = false;
         }
 
         /// <summary>
         /// Update the button status.
         /// </summary>
-        public override void UpdateFirst() {
+        public override void UpdateFirst()
+        {
             base.UpdateFirst();
 
             buttonsDown = false;
@@ -264,40 +295,53 @@ namespace Otter {
             if (LastPressed == float.MaxValue) LastPressed = 0;
             if (LastReleased == float.MaxValue) LastReleased = 0;
 
-            foreach (var k in Keys) {
-                if (Input.Instance.KeyDown(k)) {
+            foreach (var k in Keys)
+            {
+                if (Input.Instance.KeyDown(k))
+                {
                     buttonsDown = true;
                 }
             }
 
-            for (int i = 0; i < JoyButtons.Count; i++) {
-                foreach (var button in JoyButtons[i]) {
-                    if (Input.Instance.ButtonDown(button, i)) {
+            for (int i = 0; i < JoyButtons.Count; i++)
+            {
+                foreach (var button in JoyButtons[i])
+                {
+                    if (Input.Instance.ButtonDown(button, i))
+                    {
                         buttonsDown = true;
                     }
                 }
             }
 
-            foreach (var mb in MouseButtons) {
-                if (Input.Instance.MouseButtonDown(mb)) {
+            foreach (var mb in MouseButtons)
+            {
+                if (Input.Instance.MouseButtonDown(mb))
+                {
                     buttonsDown = true;
                 }
             }
 
-            foreach (var w in MouseWheel) {
-                if (w == MouseWheelDirection.Down) {
-                    if (Input.Instance.MouseWheelDelta > 0) {
+            foreach (var w in MouseWheel)
+            {
+                if (w == MouseWheelDirection.Down)
+                {
+                    if (Input.Instance.MouseWheelDelta > 0)
+                    {
                         buttonsDown = true;
                     }
                 }
-                if (w == MouseWheelDirection.Up) {
-                    if (Input.Instance.MouseWheelDelta < 0) {
+                if (w == MouseWheelDirection.Up)
+                {
+                    if (Input.Instance.MouseWheelDelta < 0)
+                    {
                         buttonsDown = true;
                     }
                 }
             }
 
-            if (ForcedInput) {
+            if (ForcedInput)
+            {
                 buttonsDown = false;
                 if (forceDown) buttonsDown = true;
             }
@@ -306,12 +350,14 @@ namespace Otter {
             currentButtonsDown = buttonsDown;
 
             LastPressed += Game.Instance.DeltaTime;
-            if (Pressed) {
+            if (Pressed)
+            {
                 LastPressed = 0;
             }
 
             LastReleased += Game.Instance.DeltaTime;
-            if (Released) {
+            if (Released)
+            {
                 LastReleased = 0;
             }
         }

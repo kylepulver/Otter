@@ -1,22 +1,26 @@
-﻿using System;
-namespace Otter {
+using System;
+namespace Otter
+{
     /// <summary>
     /// Point Collider.
     /// </summary>
-    public class PointCollider : Collider {
+    public class PointCollider : Collider
+    {
 
         #region Constructors
 
-        public PointCollider(int x, int y, params int[] tags) {
+        public PointCollider(int x, int y, params int[] tags)
+        {
             Width = 1;
             Height = 1;
             X = x;
             Y = y;
             AddTag(tags);
-            
+
         }
 
-        public PointCollider(int x, int y, Enum tag, params Enum[] tags) : this(x, y) {
+        public PointCollider(int x, int y, Enum tag, params Enum[] tags) : this(x, y)
+        {
             AddTag(tag);
             AddTag(tags);
         }
@@ -28,7 +32,8 @@ namespace Otter {
         /// <summary>
         /// Draw the collider for debug purposes.
         /// </summary>
-        public override void Render(Color color = null) {
+        public override void Render(Color color = null)
+        {
             base.Render(color);
             if (color == null) color = Color.Red;
 

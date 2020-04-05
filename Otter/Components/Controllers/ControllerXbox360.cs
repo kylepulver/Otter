@@ -1,5 +1,7 @@
-﻿namespace Otter {
-    public class ControllerXbox360 : Controller {
+namespace Otter
+{
+    public class ControllerXbox360 : Controller
+    {
 
         public static int JoyButtonA = 0;
         public static int JoyButtonB = 1;
@@ -12,8 +14,10 @@
         public static int JoyButtonLeftStick = 8;
         public static int JoyButtonRightStick = 9;
 
-        public static string ButtonIdToName(int id) {
-            switch (id) {
+        public static string ButtonIdToName(int id)
+        {
+            switch (id)
+            {
                 case 0: return "A";
                 case 1: return "B";
                 case 2: return "X";
@@ -52,7 +56,8 @@
         public Axis DPad { get { return Axis(Controls.DPad); } }
         public Axis Triggers { get { return Axis(Controls.Triggers); } }
 
-        public ControllerXbox360(params int[] joystickId) {
+        public ControllerXbox360(params int[] joystickId)
+        {
             AddButton(Controls.A);
             AddButton(Controls.B);
             AddButton(Controls.X);
@@ -75,7 +80,8 @@
             AddAxis(Controls.DPad);
             AddAxis(Controls.Triggers);
 
-            foreach (var joy in joystickId) {
+            foreach (var joy in joystickId)
+            {
                 A.AddJoyButton(0, joy);
                 B.AddJoyButton(1, joy);
                 X.AddJoyButton(2, joy);
@@ -110,7 +116,8 @@
             }
         }
 
-        enum Controls {
+        enum Controls
+        {
             A,
             B,
             X,
@@ -135,5 +142,5 @@
 
     }
 
-    
+
 }

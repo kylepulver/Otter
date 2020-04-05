@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Otter;
+﻿using Otter;
 
-namespace OtterPongGame {
-    class Ball : Entity {
+namespace OtterPongGame
+{
+    class Ball : Entity
+    {
 
         Image imgBall = Image.CreateCircle(7);
 
@@ -14,7 +12,8 @@ namespace OtterPongGame {
         int startCountdown = 0;
         int startTime = 60;
 
-        public Ball() : base() {
+        public Ball() : base()
+        {
             SetHitbox(7, 7, (int)Tags.Ball);
             Collider.CenterOrigin();
 
@@ -27,12 +26,15 @@ namespace OtterPongGame {
             startCountdown = startTime;
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
-            if (startCountdown > 0) {
+            if (startCountdown > 0)
+            {
                 startCountdown--;
-                if (startCountdown == 0) {
+                if (startCountdown == 0)
+                {
                     Start();
                 }
             }
@@ -41,7 +43,8 @@ namespace OtterPongGame {
             Y += speed.Y;
 
             var c = Collider.Collide(X, Y, (int)Tags.Paddle);
-            if (c != null) {
+            if (c != null)
+            {
                 var paddle = c.Entity;
                 speed.X *= -1;
                 speed.Y = (Y - paddle.Y) * 0.5f;
@@ -50,19 +53,23 @@ namespace OtterPongGame {
                 Tween(imgBall, new { ScaleX = 1, ScaleY = 1 }, 60).Ease(Ease.ElasticOut);
             }
 
-            if (Y < 0) {
+            if (Y < 0)
+            {
                 speed.Y *= -1;
             }
-            if (Y > Game.Instance.Height) {
+            if (Y > Game.Instance.Height)
+            {
                 speed.Y *= -1;
             }
 
-            if (X > Game.Instance.Width) {
+            if (X > Game.Instance.Width)
+            {
                 // player 1 scores
                 Global.PlayerOneScore++;
                 Score();
             }
-            if (X < 0) {
+            if (X < 0)
+            {
                 // player 2 scores
                 Global.PlayerTwoScore++;
                 Score();
@@ -71,7 +78,8 @@ namespace OtterPongGame {
             Scene.Add(new BallTrail(X, Y));
         }
 
-        public void Score() {
+        public void Score()
+        {
             startCountdown = startTime;
             speed.X = 0;
             speed.Y = 0;
@@ -79,7 +87,8 @@ namespace OtterPongGame {
             Y = Game.Instance.HalfHeight;
         }
 
-        public void Start() {
+        public void Start()
+        {
             speed.X = Rand.Choose(-5, 5);
         }
 

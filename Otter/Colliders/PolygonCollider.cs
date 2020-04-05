@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Polygon Collider.  Only works with convex polygons!
     /// </summary>
-    public class PolygonCollider : Collider {
+    public class PolygonCollider : Collider
+    {
 
         internal Polygon polygon;
         Vertices graphicVertices;
@@ -21,88 +23,113 @@ namespace Otter {
         /// </summary>
         public bool AutoTransform = true;
 
-        public PolygonCollider(Polygon polygon, params int[] tags) {
+        public PolygonCollider(Polygon polygon, params int[] tags)
+        {
             this.polygon = polygon;
             AddTag(tags);
         }
 
-        public PolygonCollider(Polygon polygon, Enum tag, params Enum[] tags) : this(polygon) {
+        public PolygonCollider(Polygon polygon, Enum tag, params Enum[] tags) : this(polygon)
+        {
             AddTag(tag);
             AddTag(tags);
         }
 
-        public PolygonCollider(params float[] points) {
+        public PolygonCollider(params float[] points)
+        {
             var i = 0;
             float x = 0;
             List<Vector2> vectorPoints = new List<Vector2>();
-            foreach (var p in points) {
-                if (i == 0) {
+            foreach (var p in points)
+            {
+                if (i == 0)
+                {
                     x = p;
                     i = 1;
                 }
-                else {
+                else
+                {
                     vectorPoints.Add(new Vector2(x, p));
                     i = 0;
                 }
             }
-            if (i == 1) {
+            if (i == 1)
+            {
                 vectorPoints.Add(new Vector2(x, 0));
             }
 
             this.polygon = new Polygon(points);
         }
 
-        public List<Vector2> Points {
-            get {
+        public List<Vector2> Points
+        {
+            get
+            {
                 return polygon.Points;
             }
         }
 
-        public Vector2 this[int index] {
-            get {
+        public Vector2 this[int index]
+        {
+            get
+            {
                 return polygon[index];
             }
-            set {
+            set
+            {
                 polygon[index] = value;
             }
         }
 
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 return polygon.Count;
             }
         }
 
-        public PolygonCollider(Vector2 firstPoint, params Vector2[] points) {
+        public PolygonCollider(Vector2 firstPoint, params Vector2[] points)
+        {
             polygon = new Polygon(firstPoint, points);
         }
 
-        public override float Width {
-            get {
+        public override float Width
+        {
+            get
+            {
                 return polygon.Width;
             }
         }
 
-        public override float Height {
-            get {
+        public override float Height
+        {
+            get
+            {
                 return polygon.Height;
             }
         }
 
-        public Polygon Polygon {
-            set {
+        public Polygon Polygon
+        {
+            set
+            {
                 polygon = value;
             }
-            get {
+            get
+            {
                 if (!AutoTransform) return polygon;
                 var transformed = new Polygon(polygon);
                 transformed.Scale(ScaleX, ScaleY, OriginX, OriginY);
                 transformed.Rotate(Rotation, OriginX, OriginY);
-                transformed.Points.ForEach(v => {
-                    if (FlippedY) {
+                transformed.Points.ForEach(v =>
+                {
+                    if (FlippedY)
+                    {
                         v.Y -= OriginY;
                     }
-                    if (FlippedX) {
+                    if (FlippedX)
+                    {
                         v.X -= OriginX;
                     }
                 });
@@ -110,7 +137,8 @@ namespace Otter {
             }
         }
 
-        public override void Render(Color color = null) {
+        public override void Render(Color color = null)
+        {
             base.Render(color);
             if (color == null) color = Color.Red;
 
@@ -118,7 +146,8 @@ namespace Otter {
 
             graphicVertices = new Vertices();
             graphicVertices.PrimitiveType = VertexPrimitiveType.LinesStrip;
-            foreach (var v in Polygon.Points) {
+            foreach (var v in Polygon.Points)
+            {
                 graphicVertices.Add(new Vert(v.X, v.Y, color));
             }
             graphicVertices.Add(new Vert(Polygon.Points[0].X, Polygon.Points[0].Y, color));

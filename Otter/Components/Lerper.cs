@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Component that will slowly interpolate a value toward a target using a speed and acceleration.
     /// This component can move the value and does not know about time at all.
     /// </summary>
-    public class Lerper : Component {
+    public class Lerper : Component
+    {
 
         #region Private Fields
 
@@ -56,7 +58,8 @@ namespace Otter {
         /// <param name="value">The initial value.</param>
         /// <param name="accel">The acceleration for moving toward the target.</param>
         /// <param name="maxSpeed">The max speed for moving toward the target.</param>
-        public Lerper(float value, float accel, float maxSpeed) {
+        public Lerper(float value, float accel, float maxSpeed)
+        {
             initValue = value;
             Value = value;
             Acceleration = accel;
@@ -72,7 +75,8 @@ namespace Otter {
         /// Set the target.
         /// </summary>
         /// <param name="value"></param>
-        public void SetTarget(float value) {
+        public void SetTarget(float value)
+        {
             if (Target == value) return;
 
             Target = value;
@@ -87,17 +91,20 @@ namespace Otter {
         /// Force the current value.
         /// </summary>
         /// <param name="value"></param>
-        public void SetValue(float value) {
+        public void SetValue(float value)
+        {
             Value = value;
         }
 
         /// <summary>
         /// Update the Lerper.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
-            if (Completed) {
+            if (Completed)
+            {
                 Value = Target;
                 return;
             }
@@ -106,16 +113,21 @@ namespace Otter {
             var stoppingDistance = (MaxSpeed * MaxSpeed) / (2 * Acceleration);
             var earlyStopDistance = (speed * speed) / (2 * Acceleration);
 
-            if (!endPhase) {
+            if (!endPhase)
+            {
                 targetSpeed = MaxSpeed * Math.Sign(Target - Value);
 
-                if (currentDistance <= stoppingDistance) {
-                    if (speed == MaxSpeed) {
+                if (currentDistance <= stoppingDistance)
+                {
+                    if (speed == MaxSpeed)
+                    {
                         targetSpeed = 0;
                         endPhase = true;
                     }
-                    if (speed < MaxSpeed) {
-                        if (currentDistance <= earlyStopDistance) {
+                    if (speed < MaxSpeed)
+                    {
+                        if (currentDistance <= earlyStopDistance)
+                        {
                             targetSpeed = 0;
                             endPhase = true;
                         }
@@ -125,21 +137,26 @@ namespace Otter {
 
             speed = Util.Approach(speed, targetSpeed, Acceleration);
 
-            if (endPhase) {
-                if (Target > Value) {
+            if (endPhase)
+            {
+                if (Target > Value)
+                {
                     if (speed < Acceleration) speed = Acceleration;
                     Value = Util.Approach(Value, Target, speed);
                 }
-                if (Target < Value) {
+                if (Target < Value)
+                {
                     if (speed > -Acceleration) speed = -Acceleration;
                     Value = Util.Approach(Value, Target, -speed);
                 }
             }
-            else {
+            else
+            {
                 Value += speed;
             }
 
-            if (currentDistance <= Acceleration * 5) {
+            if (currentDistance <= Acceleration * 5)
+            {
                 speed = 0;
                 Completed = true;
             }
@@ -149,14 +166,16 @@ namespace Otter {
 
         #region Operators
 
-        public static implicit operator float(Lerper lerper) {
+        public static implicit operator float(Lerper lerper)
+        {
             return lerper.Value;
         }
-        public static implicit operator int(Lerper lerper) {
+        public static implicit operator int(Lerper lerper)
+        {
             return (int)lerper.Value;
         }
 
         #endregion
-        
+
     }
 }

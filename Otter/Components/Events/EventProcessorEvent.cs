@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Otter {
-    public class EventProcessorEvent {
+namespace Otter
+{
+    public class EventProcessorEvent
+    {
 
         #region Public Fields
 
@@ -25,14 +22,16 @@ namespace Otter {
         /// <summary>
         /// The Entity that has the EventProcessor that this event belongs to.
         /// </summary>
-        public Entity Entity {
+        public Entity Entity
+        {
             get { return EventProcessor.Entity; }
         }
 
         /// <summary>
         /// The Scene that has the Entity that has the EventProcessor that this event belongs to.
         /// </summary>
-        public Scene Scene {
+        public Scene Scene
+        {
             get { return Entity.Scene; }
         }
 
@@ -50,35 +49,40 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The Type the Scene should be cast to.</typeparam>
         /// <returns>The Scene that has the Entity that has the EventProcessor that this event belongs to.</returns>
-        public T GetScene<T>() where T : Scene {
+        public T GetScene<T>() where T : Scene
+        {
             return (T)Scene;
         }
 
         /// <summary>
         /// Called when the Event first starts.
         /// </summary>
-        public virtual void Begin() {
+        public virtual void Begin()
+        {
 
         }
 
         /// <summary>
         /// Called when the Event finishes and is cleared from the queue.
         /// </summary>
-        public virtual void End() {
+        public virtual void End()
+        {
 
         }
 
         /// <summary>
         /// Finishes the event.
         /// </summary>
-        public void Finish() {
+        public void Finish()
+        {
             IsFinished = true;
         }
 
         /// <summary>
         /// Starts the event.
         /// </summary>
-        public void Start() {
+        public void Start()
+        {
             IsFinished = false;
             Timer = 0;
         }
@@ -86,7 +90,8 @@ namespace Otter {
         /// <summary>
         /// Called every update from the EventProcessor.
         /// </summary>
-        public virtual void Update() {
+        public virtual void Update()
+        {
 
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,12 +8,14 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     ///  ᶜ(ᵔᴥᵔ)ᵓ
     ///  Core class Otter. Create a Game, and then use Game.Start(); to run it.
     /// </summary>
-    public class Game {
+    public class Game
+    {
 
         #region Static Fields
 
@@ -282,9 +284,11 @@ namespace Otter {
         /// <summary>
         /// The title of the game displayed in the window.
         /// </summary>
-        public string Title {
+        public string Title
+        {
             get { return title; }
-            set {
+            set
+            {
                 title = value;
                 Window.SetTitle(title);
             }
@@ -293,7 +297,8 @@ namespace Otter {
         /// <summary>
         /// Set the X position of the Window.
         /// </summary>
-        public int WindowX {
+        public int WindowX
+        {
             get { return Window.Position.X; }
             set { Window.Position = new Vector2i(value, Window.Position.Y); }
         }
@@ -301,7 +306,8 @@ namespace Otter {
         /// <summary>
         /// Set the Y position of the Window.
         /// </summary>
-        public int WindowY {
+        public int WindowY
+        {
             get { return Window.Position.Y; }
             set { Window.Position = new Vector2i(Window.Position.X, value); }
         }
@@ -309,7 +315,8 @@ namespace Otter {
         /// <summary>
         /// The center of the Game's Surface. (HalfWidth and HalfHeight)
         /// </summary>
-        public Vector2 Center {
+        public Vector2 Center
+        {
             get { return new Vector2(HalfWidth, HalfHeight); }
         }
 
@@ -441,14 +448,18 @@ namespace Otter {
         /// created in the current user's My Documents folder.  The default is 'ottergame' so it
         /// will create a folder 'ottergame' in My Documents.
         /// </summary>
-        public string GameFolder {
-            get {
+        public string GameFolder
+        {
+            get
+            {
                 return gameFolder;
             }
-            set {
+            set
+            {
                 gameFolder = value;
                 var folder = Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder);
-                if (!Directory.Exists(folder)) {
+                if (!Directory.Exists(folder))
+                {
                     Directory.CreateDirectory(folder);
                 }
                 SaveData.DefaultPath = Filepath;
@@ -460,7 +471,8 @@ namespace Otter {
         /// <summary>
         /// The main filepath for saving and loading files for the game.
         /// </summary>
-        public string Filepath {
+        public string Filepath
+        {
             get { return Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"); }
         }
 
@@ -472,7 +484,8 @@ namespace Otter {
         /// <summary>
         /// A second in terms of frames for fixed frame rate games.
         /// </summary>
-        public int Second {
+        public int Second
+        {
             get { return (int)TargetFramerate; }
         }
 
@@ -484,9 +497,11 @@ namespace Otter {
         /// <summary>
         /// The camera angle for the game's main view.
         /// </summary>
-        public float CameraAngle {
+        public float CameraAngle
+        {
             get { return cameraAngle; }
-            set {
+            set
+            {
                 cameraAngle = value;
                 UpdateView();
             }
@@ -495,9 +510,11 @@ namespace Otter {
         /// <summary>
         /// The camera zoom for the game's main view.
         /// </summary>
-        public float CameraZoom {
+        public float CameraZoom
+        {
             get { return cameraZoom; }
-            set {
+            set
+            {
                 cameraZoom = value;
                 if (cameraZoom <= 0) cameraZoom = 0.0001f; //no divide by 0 please
                 UpdateView();
@@ -512,11 +529,14 @@ namespace Otter {
         /// <summary>
         /// Set the visibilty of the mouse.
         /// </summary>
-        public bool MouseVisible {
-            set {
+        public bool MouseVisible
+        {
+            set
+            {
                 mouseVisible = value;
             }
-            get {
+            get
+            {
                 return mouseVisible;
             }
         }
@@ -524,14 +544,16 @@ namespace Otter {
         /// <summary>
         /// The amount of time in milliseconds for the render pass to complete.
         /// </summary>
-        public int RenderTime {
+        public int RenderTime
+        {
             get { return (int)renderTime.ElapsedMilliseconds; }
         }
 
         /// <summary>
         /// The amount of time in milliseconds for the update time to complete.
         /// </summary>
-        public int UpdateTime {
+        public int UpdateTime
+        {
             get { return (int)updateTime.ElapsedMilliseconds; }
         }
 
@@ -557,7 +579,8 @@ namespace Otter {
         /// <param name="height">The height of the internal game resolution.</param>
         /// <param name="targetFramerate">The target framerate (for fixed framerate.)</param>
         /// <param name="fullscreen">Run the game in fullscreen.</param>
-        public Game(string title = "Game", int width = 640, int height = 480, int targetFramerate = 60, bool fullscreen = false) {
+        public Game(string title = "Game", int width = 640, int height = 480, int targetFramerate = 60, bool fullscreen = false)
+        {
 #if Unix
             XInitThreads();
 #endif
@@ -601,7 +624,8 @@ namespace Otter {
             Coroutine = new Coroutine(this);
             Tweener = new Tweener();
 
-            for (int i = 0; i < fpsLogSize; i++) {
+            for (int i = 0; i < fpsLogSize; i++)
+            {
                 fpsTimes.Add(targetFramerate);
             }
 
@@ -609,14 +633,16 @@ namespace Otter {
             skipTime = frameTime * 2;
 
 #if DEBUG
-            try {
+            try
+            {
                 Console.Title = string.Format("{0} Debug Console ᶜ(ᵔᴥᵔ)ᵓ", title);
             }
-            catch {
+            catch
+            {
                 // No console
             }
             Console.WriteLine("[ Otter is running in debug mode! ]");
-            Debugger = new Debugger(this);     
+            Debugger = new Debugger(this);
 #endif
 
             HasFocus = true;
@@ -628,17 +654,20 @@ namespace Otter {
 
         #region Private Methods
 
-        void GlobalUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e) {
+        void GlobalUnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
+        {
             var ex = (Exception)e.ExceptionObject;
             var path = string.Format("crash_{0}.txt", DateTime.Now.ToFileTime());
             File.WriteAllText(path, ex.Message + "\r\n\r\n" + ex.StackTrace + "\r\n\r\nOtter crash log generated at " + DateTime.Now.ToString());
         }
 
-        void UpdateSurfaceSize() {
+        void UpdateSurfaceSize()
+        {
             float width = WindowWidth;
             float height = WindowHeight;
 
-            if (ResizeToWindow) {
+            if (ResizeToWindow)
+            {
                 Width = (int)width;
                 Height = (int)height;
 
@@ -648,49 +677,60 @@ namespace Otter {
                 Surface.X = HalfWidth;
                 Surface.Y = HalfHeight;
             }
-            else {
+            else
+            {
                 float newAspectRatio = width / height;
 
-                if (LockAspectRatio) {
-                    if (AspectRatio < newAspectRatio) {
+                if (LockAspectRatio)
+                {
+                    if (AspectRatio < newAspectRatio)
+                    {
                         Surface.ScaleY = height / Surface.Height;
                         Surface.ScaleX = Surface.ScaleY;
                         Surface.X = (width - Surface.ScaledWidth) * 0.5f + Surface.OriginX * Surface.ScaleX;
                         Surface.Y = Surface.OriginY * Surface.ScaleY;
                     }
-                    else {
+                    else
+                    {
                         Surface.ScaleX = width / Surface.Width;
                         Surface.ScaleY = Surface.ScaleX;
                         Surface.Y = (height - Surface.ScaledHeight) * 0.5f + Surface.OriginY * Surface.ScaleY;
                         Surface.X = Surface.OriginX * Surface.ScaleX;
                     }
                 }
-                else {
+                else
+                {
                     Surface.ScaleX = width / Surface.Width;
                     Surface.ScaleY = height / Surface.Height;
                 }
             }
         }
 
-        void ResetWindow(string title, int width, int height, bool fullscreen, bool vsync) {
+        void ResetWindow(string title, int width, int height, bool fullscreen, bool vsync)
+        {
             if (width < 0) throw new ArgumentException("Width must be greater than 0.");
             if (height < 0) throw new ArgumentException("Height must be greater than 0.");
 
-            if (Window != null) {
+            if (Window != null)
+            {
                 if (Window.IsOpen) Window.Close();
             }
 
             var windowStyle = Styles.Default;
-            if (!WindowResize && WindowClose) {
+            if (!WindowResize && WindowClose)
+            {
                 windowStyle = Styles.Close;
             }
-            if (WindowResize && !WindowClose) {
+            if (WindowResize && !WindowClose)
+            {
                 windowStyle = Styles.Resize;
             }
-            if (!WindowResize && !WindowClose) {
+            if (!WindowResize && !WindowClose)
+            {
                 windowStyle = Styles.Titlebar;
             }
-            if (!WindowBorder) {
+            if (!WindowBorder)
+            {
                 windowStyle = Styles.None;
             }
 
@@ -700,63 +740,76 @@ namespace Otter {
             Window.LostFocus += new EventHandler(Unfocused);
             Window.Resized += new EventHandler<SizeEventArgs>(OnResize);
 
-            if (iconImage != null) {
+            if (iconImage != null)
+            {
                 Window.SetIcon(iconWidth, iconHeight, iconImage.Pixels);
             }
 
             Window.SetVerticalSyncEnabled(vsync);
 
             UpdateView();
-            if (Input != null) {
+            if (Input != null)
+            {
                 Input.WindowInit();
             }
-            if (Debugger != null) {
+            if (Debugger != null)
+            {
                 Debugger.WindowInit();
             }
 
             CenterWindow();
         }
 
-        void UpdateView() {
+        void UpdateView()
+        {
             View = new View(new FloatRect(0, 0, WindowWidth, WindowHeight));
             View.Zoom(1f / cameraZoom);
             View.Rotation = cameraAngle;
             Window.SetView(View);
         }
 
-        void Focused(object sender, EventArgs e) {
+        void Focused(object sender, EventArgs e)
+        {
             HasFocus = true;
 
             if (OnFocusGained != null) OnFocusGained();
         }
 
-        void Unfocused(object sender, EventArgs e) {
+        void Unfocused(object sender, EventArgs e)
+        {
             HasFocus = false;
 
             if (OnFocusLost != null) OnFocusLost();
         }
 
-        void UpdateDebugger() {
-            if (Debugger != null) {
+        void UpdateDebugger()
+        {
+            if (Debugger != null)
+            {
                 Debugger.Update();
             }
         }
 
-        void UpdateAverageFramerate() {
-            if (fpsTime >= 1000) {
+        void UpdateAverageFramerate()
+        {
+            if (fpsTime >= 1000)
+            {
                 Framerate = 1000f / deltaTime;
-                if (FixedFramerate) {
+                if (FixedFramerate)
+                {
                     if (Framerate > TargetFramerate) Framerate = TargetFramerate;
                 }
                 fpsTime = 0;
                 fpsTimes[nextFpsIndex] = Framerate;
                 nextFpsIndex++;
-                if (nextFpsIndex == fpsLogSize) {
+                if (nextFpsIndex == fpsLogSize)
+                {
                     nextFpsIndex = 0;
                 }
 
                 float totalfps = 0;
-                foreach (float f in fpsTimes) {
+                foreach (float f in fpsTimes)
+                {
                     totalfps += f;
                 }
 
@@ -764,35 +817,46 @@ namespace Otter {
             }
         }
 
-        void UpdateScenes() {
-            if (goToScene == null) {
-                if (removeSceneCount > 0) {
-                    for (int i = 0; i < removeSceneCount; i++) {
+        void UpdateScenes()
+        {
+            if (goToScene == null)
+            {
+                if (removeSceneCount > 0)
+                {
+                    for (int i = 0; i < removeSceneCount; i++)
+                    {
                         Scenes.Pop().EndInternal();
-                        if (Scene != null) {
+                        if (Scene != null)
+                        {
                             Scene.ResumeInternal();
                         }
                     }
                     removeSceneCount = 0;
                 }
-                if (goToScenes.Count > 0) {
-                    for (int i = 0; i < goToScenes.Count; i++) {
-                        if (Scene != null) {
+                if (goToScenes.Count > 0)
+                {
+                    for (int i = 0; i < goToScenes.Count; i++)
+                    {
+                        if (Scene != null)
+                        {
                             Scene.PauseInternal();
                         }
                         Scenes.Push(goToScenes[i]);
                         goToScenes[i].Game = this;
                         goToScenes[i].BeginInternal();
                         goToScenes[i].UpdateLists();
-                        if (i < goToScenes.Count - 1) {
+                        if (i < goToScenes.Count - 1)
+                        {
                             goToScenes[i].Update();
                         }
                     }
                     goToScenes.Clear();
                 }
             }
-            else {
-                if (Scene != null) {
+            else
+            {
+                if (Scene != null)
+                {
                     Scene.EndInternal();
                 }
                 Scenes.Clear();
@@ -805,30 +869,37 @@ namespace Otter {
             }
         }
 
-        void Init() {
-            if (ReleaseModeDebugger) {
-                if (Debugger == null) {
+        void Init()
+        {
+            if (ReleaseModeDebugger)
+            {
+                if (Debugger == null)
+                {
                     Debugger = new Debugger(this);
                     Debugger.WindowInit();
                 }
             }
-            if (FirstScene != null) {
+            if (FirstScene != null)
+            {
                 SwitchScene(FirstScene);
             }
             OnInit();
         }
 
-        void Update() {
+        void Update()
+        {
             Instance = this;
 
             Tweener.Update(deltaTime);
             if (Coroutine.Running) Coroutine.Update();
             Coroutine.Instance = Coroutine;
             UpdateScenes();
-            foreach (var session in Sessions) {
+            foreach (var session in Sessions)
+            {
                 session.Update();
             }
-            if (Scene != null) {
+            if (Scene != null)
+            {
                 Scene.UpdateLists();
 
                 OnStartOfNextUpdate();
@@ -849,7 +920,8 @@ namespace Otter {
             Timer += DeltaTime;
         }
 
-        void Render() {
+        void Render()
+        {
             Window.Clear(LetterBoxColor.SFMLColor);
             Surface.FillColor = Color;
             Surface.Fill(Color);
@@ -858,54 +930,66 @@ namespace Otter {
 
             Draw.SpriteBatch.Begin(); // Spritebatch test?
 
-            if (DrawInactiveScenes) {
-                foreach (Scene scene in Scenes.Reverse()) {
-                    if (Scene != scene) {
+            if (DrawInactiveScenes)
+            {
+                foreach (Scene scene in Scenes.Reverse())
+                {
+                    if (Scene != scene)
+                    {
                         scenesToRender.Add(scene);
                     }
-                    if (!scene.DrawScenesBelow) {
+                    if (!scene.DrawScenesBelow)
+                    {
                         scenesToRender = new List<Scene>();
-                        if (Scene != scene) {
+                        if (Scene != scene)
+                        {
                             scenesToRender.Add(scene);
                         }
                     }
                 }
-                for (int i = 0; i < scenesToRender.Count; i++) {
+                for (int i = 0; i < scenesToRender.Count; i++)
+                {
                     scenesToRender[i].RenderInternal();
                 }
                 scenesToRender = new List<Scene>();
             }
 
-            if (Scene != null) {
+            if (Scene != null)
+            {
                 Scene.RenderInternal();
             }
 
             Draw.SpriteBatch.End(); // Spritebatch test?
 
             Draw.ResetTarget();
-            foreach (var surface in Surfaces) {
+            foreach (var surface in Surfaces)
+            {
                 Draw.Graphic(surface);
             }
 
             Surface.DrawToWindow(this);
 
-            if (Debugger != null) {
+            if (Debugger != null)
+            {
                 Debugger.Render();
             }
 
             Window.Display();
         }
 
-        void OnWindowClose(object sender, EventArgs e) {
+        void OnWindowClose(object sender, EventArgs e)
+        {
             Window.Close();
         }
 
-        void OnResize(object send, SizeEventArgs e) {
+        void OnResize(object send, SizeEventArgs e)
+        {
             WindowWidth = (int)e.Width;
             WindowHeight = (int)e.Height;
             UpdateView();
             UpdateSurfaceSize();
-            if (Debugger != null) {
+            if (Debugger != null)
+            {
                 Debugger.UpdateSurface();
             }
         }
@@ -921,8 +1005,10 @@ namespace Otter {
         /// <param name="height">The height of the window.</param>
         /// <param name="fullscreen">Run the window in fullscreen mode.</param>
         /// <param name="vsync">Enable vertical sync.</param>
-        public void SetWindow(int width, int height = 0, bool fullscreen = false, bool vsync = false) {
-            if (height == 0) {
+        public void SetWindow(int width, int height = 0, bool fullscreen = false, bool vsync = false)
+        {
+            if (height == 0)
+            {
                 height = (int)Util.Ceil(width / AspectRatio);
             }
 
@@ -934,7 +1020,8 @@ namespace Otter {
 
             UpdateSurfaceSize();
 
-            if (Debugger != null) {
+            if (Debugger != null)
+            {
                 Debugger.UpdateSurface();
             }
 
@@ -945,7 +1032,8 @@ namespace Otter {
         /// Creates a new window that is the resolution of the screen and in fullscreen mode.
         /// </summary>
         /// <param name="vsync">Enable vertical sync.</param>
-        public void SetWindowAutoFullscreen(bool vsync = false) {
+        public void SetWindowAutoFullscreen(bool vsync = false)
+        {
             var width = (int)VideoMode.DesktopMode.Width;
             var height = (int)VideoMode.DesktopMode.Height;
 
@@ -956,7 +1044,8 @@ namespace Otter {
         /// <summary>
         /// Force the creation of a Debugger object (even in Release mode!)
         /// </summary>
-        public void ForceDebugger() {
+        public void ForceDebugger()
+        {
             if (Debugger != null) return;
             ReleaseModeDebugger = true;
             Debugger = new Debugger(this);
@@ -966,7 +1055,8 @@ namespace Otter {
         /// <summary>
         /// Center the window on the monitor that the window was initialized on.
         /// </summary>
-        public void CenterWindow() {
+        public void CenterWindow()
+        {
             WindowX = (Util.DesktopWidth - WindowWidth) / 2;
             WindowY = (Util.DesktopHeight - WindowHeight) / 2;
         }
@@ -975,7 +1065,8 @@ namespace Otter {
         /// Add a surface to the list of surfaces to be rendered to the window.
         /// </summary>
         /// <param name="surface">The surface to add.</param>
-        public void AddSurface(Surface surface) {
+        public void AddSurface(Surface surface)
+        {
             surface.Scroll = 0;
             Surfaces.Add(surface);
         }
@@ -984,7 +1075,8 @@ namespace Otter {
         /// Remove a surface from the list of surfaces to be rendered to the window.
         /// </summary>
         /// <param name="surface">The surface to remove.</param>
-        public void RemoveSurface(Surface surface) {
+        public void RemoveSurface(Surface surface)
+        {
             Surfaces.Remove(surface);
         }
 
@@ -992,7 +1084,8 @@ namespace Otter {
         /// Create a new window using a scale value instead of pixels.
         /// </summary>
         /// <param name="scale">The scale compared to the game's internal resolution.</param>
-        public void SetWindowScale(float scale = 1) {
+        public void SetWindowScale(float scale = 1)
+        {
             SetWindow((int)Util.Ceil(Width * scale));
         }
 
@@ -1002,7 +1095,8 @@ namespace Otter {
         /// <param name="width">The width of the icon.</param>
         /// <param name="height">The height of the icon.</param>
         /// <param name="source">The source path to the icon image.</param>
-        public void SetIcon(string source) {
+        public void SetIcon(string source)
+        {
             SFML.Graphics.Image img;
 
             img = new SFML.Graphics.Image(source);
@@ -1011,7 +1105,8 @@ namespace Otter {
             iconHeight = img.Size.Y;
             iconPath = source;
             iconImage = img;
-            if (Window != null) {
+            if (Window != null)
+            {
                 Window.SetIcon(iconWidth, iconHeight, iconImage.Pixels);
             }
         }
@@ -1019,28 +1114,32 @@ namespace Otter {
         /// <summary>
         /// Stop the game from running completely.
         /// </summary>
-        public void Stop() {
+        public void Stop()
+        {
             Active = false;
         }
 
         /// <summary>
         /// Pause the game.
         /// </summary>
-        public void Pause() {
+        public void Pause()
+        {
             Paused = true;
         }
 
         /// <summary>
         /// Resume the game after pausing.
         /// </summary>
-        public void Resume() {
+        public void Resume()
+        {
             Paused = false;
         }
 
         /// <summary>
         /// Toggle the pause state on and off.
         /// </summary>
-        public void PauseToggle() {
+        public void PauseToggle()
+        {
             Paused = !Paused;
         }
 
@@ -1048,7 +1147,8 @@ namespace Otter {
         /// Pauses the game for a certain time.  Only works with fixed framerate currently.
         /// </summary>
         /// <param name="milliseconds">The time to freeze for in milliseconds.</param>
-        public void Sleep(int milliseconds) {
+        public void Sleep(int milliseconds)
+        {
             sleepTime = milliseconds;
         }
 
@@ -1056,7 +1156,8 @@ namespace Otter {
         /// Start the game using a specific Scene.  Shortcut for setting the FirstScene then using Start.
         /// </summary>
         /// <param name="firstScene">The Scene to begin the game with.</param>
-        public void Start(Scene firstScene) {
+        public void Start(Scene firstScene)
+        {
             FirstScene = firstScene;
             Start();
         }
@@ -1064,73 +1165,92 @@ namespace Otter {
         /// <summary>
         /// Start the game. This will begin the game loop and no other code past Start() in your entry point will run.  Make sure to set the first scene before executing this.
         /// </summary>
-        public void Start() {
-            if (!windowSet) {
+        public void Start()
+        {
+            if (!windowSet)
+            {
                 SetWindow(Width, Height, WindowFullscreen);
             }
 
-            if (LogExceptionsToFile) { // Dump crashes to a file
+            if (LogExceptionsToFile)
+            { // Dump crashes to a file
                 AppDomain.CurrentDomain.UnhandledException += GlobalUnhandledExceptionHandler;
             }
 
-            if (!Active) {
+            if (!Active)
+            {
                 Active = true;
                 Init();
                 UpdateScenes();
                 gameTime.Start();
-                while (Window.IsOpen) {
-                    if (Active) {
+                while (Window.IsOpen)
+                {
+                    if (Active)
+                    {
                         Window.DispatchEvents();
 
                         frameTime = 1000f / TargetFramerate;
                         skipTime = frameTime * 2;
 
-                        if (ShowDebugger) {
+                        if (ShowDebugger)
+                        {
                             Window.SetMouseCursorVisible(true);
                         }
-                        else {
+                        else
+                        {
                             Window.SetMouseCursorVisible(mouseVisible);
                         }
 
-                        if (HasFocus) {
+                        if (HasFocus)
+                        {
                             ScreenshotButton.UpdateFirst();
-                            if (ScreenshotButton.Pressed) {
+                            if (ScreenshotButton.Pressed)
+                            {
                                 Surface.SaveToFile();
                             }
                         }
 
-                        if (HasFocus && EnableQuitButton) {
+                        if (HasFocus && EnableQuitButton)
+                        {
                             QuitButton.UpdateFirst();
 
-                            if (QuitButton.Pressed) {
+                            if (QuitButton.Pressed)
+                            {
                                 Close();
                             }
                         }
 
-                        if (HasFocus && EnableAltF4) {
-                            if (Keyboard.IsKeyPressed((Keyboard.Key)Key.LAlt) || Keyboard.IsKeyPressed((Keyboard.Key)Key.RAlt)) {
-                                if (Keyboard.IsKeyPressed((Keyboard.Key)Key.F4)) {
+                        if (HasFocus && EnableAltF4)
+                        {
+                            if (Keyboard.IsKeyPressed((Keyboard.Key)Key.LAlt) || Keyboard.IsKeyPressed((Keyboard.Key)Key.RAlt))
+                            {
+                                if (Keyboard.IsKeyPressed((Keyboard.Key)Key.F4))
+                                {
                                     Close();
                                 }
                             }
                         }
 
-                        if (!AlwaysUpdate && !HasFocus) {
+                        if (!AlwaysUpdate && !HasFocus)
+                        {
                             deltaTime = 0;
                             continue;
                         }
 
                         Instance = this;
 
-                        if (!ShowDebugger) {
-                            if (LockMouse && HasFocus) {
+                        if (!ShowDebugger)
+                        {
+                            if (LockMouse && HasFocus)
+                            {
                                 Vector2i m = SFML.Window.Mouse.GetPosition(Window);
                                 int mx, my;
                                 mx = (int)Util.Clamp(m.X, LockMousePadding, WindowWidth - LockMousePadding);
                                 my = (int)Util.Clamp(m.Y, LockMousePadding, WindowHeight - LockMousePadding);
                                 SFML.Window.Mouse.SetPosition(new Vector2i(mx, my), Window);
                             }
-                            else if (LockMouseCenter && HasFocus) {
+                            else if (LockMouseCenter && HasFocus)
+                            {
                                 Vector2i m = SFML.Window.Mouse.GetPosition(Window);
                                 int mx, my;
                                 mx = WindowWidth / 2;
@@ -1150,25 +1270,31 @@ namespace Otter {
 
                         RealDeltaTime = deltaTime;
 
-                        if (deltaTime >= skipTime) {
+                        if (deltaTime >= skipTime)
+                        {
                             deltaTime = skipTime;
                         }
 
-                        if (FixedFramerate) {
+                        if (FixedFramerate)
+                        {
                             DeltaTime = MeasureTimeInFrames ? 1 : 1f / TargetFramerate;
-                            while (deltaTime >= frameTime + sleepTime) {
+                            while (deltaTime >= frameTime + sleepTime)
+                            {
                                 UpdateDebugger();
 
-                                if (!ShowDebugger) {
+                                if (!ShowDebugger)
+                                {
 
                                     UpdateCount = 0;
 
                                     Input.Update();
 
-                                    if (!Paused) {
+                                    if (!Paused)
+                                    {
                                         updateTime.Restart();
                                         Update();
-                                        if (OnUpdate != null) {
+                                        if (OnUpdate != null)
+                                        {
                                             OnUpdate();
                                         }
                                         updateTime.Stop();
@@ -1179,20 +1305,24 @@ namespace Otter {
                                 sleepTime = 0;
                             }
                         }
-                        else {
+                        else
+                        {
                             DeltaTime = deltaTime * 0.001f;
 
                             UpdateDebugger();
 
-                            if (!ShowDebugger) {
+                            if (!ShowDebugger)
+                            {
                                 UpdateCount = 0;
 
                                 Input.Update();
 
-                                if (!Paused) {
+                                if (!Paused)
+                                {
                                     updateTime.Restart();
                                     Update();
-                                    if (OnUpdate != null) {
+                                    if (OnUpdate != null)
+                                    {
                                         OnUpdate();
                                     }
                                     updateTime.Stop();
@@ -1204,12 +1334,14 @@ namespace Otter {
 
                         RenderCount = 0;
 
-                        if (updatedOnce) {
+                        if (updatedOnce)
+                        {
                             renderTime.Restart();
                             Render();
                             renderTime.Stop();
                         }
-                        else {
+                        else
+                        {
                             Window.Clear(Color.Black.SFMLColor);
                             Window.Display();
                         }
@@ -1223,7 +1355,8 @@ namespace Otter {
         /// <summary>
         /// Close the current game window.
         /// </summary>
-        public void Close() {
+        public void Close()
+        {
             Window.Close();
             Active = false;
         }
@@ -1232,7 +1365,8 @@ namespace Otter {
         /// Switch to a new scene.  This removes the scene stack!
         /// </summary>
         /// <param name="scene">The scene to switch to.</param>
-        public void SwitchScene(Scene scene) {
+        public void SwitchScene(Scene scene)
+        {
             goToScene = scene;
         }
 
@@ -1241,7 +1375,8 @@ namespace Otter {
         /// this before Game.Start().
         /// </summary>
         /// <param name="scene">The scene to add.</param>
-        public void AddScene(Scene scene) {
+        public void AddScene(Scene scene)
+        {
             goToScenes.Add(scene);
         }
 
@@ -1250,8 +1385,10 @@ namespace Otter {
         /// The last scene added will be on top.
         /// </summary>
         /// <param name="scenes">The scenes to add.</param>
-        public void AddScene(params Scene[] scenes) {
-            foreach (Scene s in scenes) {
+        public void AddScene(params Scene[] scenes)
+        {
+            foreach (Scene s in scenes)
+            {
                 AddScene(s);
             }
         }
@@ -1259,11 +1396,14 @@ namespace Otter {
         /// <summary>
         /// Remove the scene from the top of the scene stack.
         /// </summary>
-        public void RemoveScene() {
-            if (goToScenes.Count == 0) {
+        public void RemoveScene()
+        {
+            if (goToScenes.Count == 0)
+            {
                 removeSceneCount++;
             }
-            else {
+            else
+            {
                 goToScenes.RemoveAt(goToScenes.Count - 1);
             }
         }
@@ -1271,7 +1411,8 @@ namespace Otter {
         /// <summary>
         /// Half of the game's internal width.
         /// </summary>
-        public int HalfWidth {
+        public int HalfWidth
+        {
             get { return Surface.Width / 2; }
             private set { }
         }
@@ -1279,7 +1420,8 @@ namespace Otter {
         /// <summary>
         /// Half of the game's internal height.
         /// </summary>
-        public int HalfHeight {
+        public int HalfHeight
+        {
             get { return Surface.Height / 2; }
             private set { }
         }
@@ -1287,8 +1429,10 @@ namespace Otter {
         /// <summary>
         /// A reference to the current scene being updated by the game.
         /// </summary>
-        public Scene Scene {
-            get {
+        public Scene Scene
+        {
+            get
+            {
                 if (Scenes.Count == 0) return null;
                 return Scenes.Peek();
             }
@@ -1300,7 +1444,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The class to return the scene as.</typeparam>
         /// <returns>The scene as T.</returns>
-        public T GetScene<T>() where T : Scene {
+        public T GetScene<T>() where T : Scene
+        {
             return Scene as T;
         }
 
@@ -1309,7 +1454,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the Session.</param>
         /// <returns>The Session.</returns>
-        public Session AddSession(string name) {
+        public Session AddSession(string name)
+        {
             Session s = new Session(this, name);
             Sessions.Add(s);
             return s;
@@ -1320,7 +1466,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the Session.</param>
         /// <returns>The Session.</returns>
-        public Session AddSession(Enum name) {
+        public Session AddSession(Enum name)
+        {
             return AddSession(Util.EnumValueToString(name));
         }
 
@@ -1329,8 +1476,10 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the session.</param>
         /// <returns>A session if one is found, or null.</returns>
-        public Session Session(string name) {
-            foreach (var s in Sessions) {
+        public Session Session(string name)
+        {
+            foreach (var s in Sessions)
+            {
                 if (s.Name == name) return s;
             }
             return null;
@@ -1341,7 +1490,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the Session.</param>
         /// <returns>A Session if one is found, or null.</returns>
-        public Session Session(Enum name) {
+        public Session Session(Enum name)
+        {
             return Session(Util.EnumValueToString(name));
         }
 
@@ -1350,7 +1500,8 @@ namespace Otter {
         /// </summary>
         /// <param name="id">The id of the session.</param>
         /// <returns>The Session with that id.</returns>
-        public Session Session(int id) {
+        public Session Session(int id)
+        {
             return Sessions[id];
         }
 

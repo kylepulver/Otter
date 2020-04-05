@@ -1,4 +1,4 @@
-﻿using SFML.Graphics;
+using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using System;
@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Various extensions for classes are in here.
     /// </summary>
-    public static class Extensions {
+    public static class Extensions
+    {
 
         #region XML
 
@@ -20,7 +22,8 @@ namespace Otter {
         /// <param name="xml">The XmlElement to parse.</param>
         /// <param name="name">The name of the attribute.</param>
         /// <returns>An value as an int.</returns>
-        public static int AttributeInt(this XmlNode xml, string name) {
+        public static int AttributeInt(this XmlNode xml, string name)
+        {
             return int.Parse(xml.Attributes[name].Value);
         }
 
@@ -31,7 +34,8 @@ namespace Otter {
         /// <param name="name">The name of the attribute.</param>
         /// <param name="returnOnNull">The default value to return if that attribute doesn't exist.</param>
         /// <returns>The value as an int.</returns>
-        public static int AttributeInt(this XmlNode xml, string name, int returnOnNull) {
+        public static int AttributeInt(this XmlNode xml, string name, int returnOnNull)
+        {
             if (xml == null) return returnOnNull;
             if (xml.Attributes[name] == null) return returnOnNull;
             return int.Parse(xml.Attributes[name].Value);
@@ -43,7 +47,8 @@ namespace Otter {
         /// <param name="xml">The XmlElement to parse.</param>
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value as a string.</returns>
-        public static string AttributeString(this XmlNode xml, string name) {
+        public static string AttributeString(this XmlNode xml, string name)
+        {
             return xml.Attributes[name].Value;
         }
 
@@ -54,7 +59,8 @@ namespace Otter {
         /// <param name="name">The name of the attribute.</param>
         /// <param name="returnOnNull">The default value to return if that attribute doesn't exist.</param>
         /// <returns>The value as a string.</returns>
-        public static string AttributeString(this XmlNode xml, string name, string returnOnNull) {
+        public static string AttributeString(this XmlNode xml, string name, string returnOnNull)
+        {
             if (xml == null) return returnOnNull;
             if (xml.Attributes[name] == null) return returnOnNull;
             return xml.Attributes[name].Value;
@@ -66,7 +72,8 @@ namespace Otter {
         /// <param name="xml">The XmlElement to parse.</param>
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value as a float.</returns>
-        public static float AttributeFloat(this XmlNode xml, string name) {
+        public static float AttributeFloat(this XmlNode xml, string name)
+        {
             return float.Parse(xml.Attributes[name].Value);
         }
 
@@ -77,7 +84,8 @@ namespace Otter {
         /// <param name="name">The name of the attribute.</param>
         /// <param name="returnOnNull">The default value to return if that attribute doesn't exist.</param>
         /// <returns>The value as a float.</returns>
-        public static float AttributeFloat(this XmlNode xml, string name, float returnOnNull) {
+        public static float AttributeFloat(this XmlNode xml, string name, float returnOnNull)
+        {
             if (xml == null) return returnOnNull;
             if (xml.Attributes[name] == null) return returnOnNull;
             return float.Parse(xml.Attributes[name].Value);
@@ -89,7 +97,8 @@ namespace Otter {
         /// <param name="xml">The XmlElement to parse.</param>
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value as a bool.</returns>
-        public static bool AttributeBool(this XmlNode xml, string name) {
+        public static bool AttributeBool(this XmlNode xml, string name)
+        {
             return bool.Parse(xml.Attributes[name].Value);
         }
 
@@ -100,7 +109,8 @@ namespace Otter {
         /// <param name="name">The name of the attribute.</param>
         /// <param name="returnOnNull">The default value to return if that attribute doesn't exist.</param>
         /// <returns>The value as a bool.</returns>
-        public static bool AttributeBool(this XmlNode xml, string name, bool returnOnNull) {
+        public static bool AttributeBool(this XmlNode xml, string name, bool returnOnNull)
+        {
             if (xml == null) return returnOnNull;
             if (xml.Attributes[name] == null) return returnOnNull;
             return bool.Parse(xml.Attributes[name].Value);
@@ -112,7 +122,8 @@ namespace Otter {
         /// <param name="xml">The XmlElement to parse.</param>
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value as a Color.</returns>
-        public static Color AttributeColor(this XmlNode xml, string name) {
+        public static Color AttributeColor(this XmlNode xml, string name)
+        {
             return new Color(xml.Attributes[name].Value);
         }
 
@@ -123,7 +134,8 @@ namespace Otter {
         /// <param name="name">The name of the attribute.</param>
         /// <param name="returnOnNull">The default value to return if that attribute doesn't exist.</param>
         /// <returns>The value as a Color.</returns>
-        public static Color AttributeColor(this XmlNode xml, string name, Color returnOnNull) {
+        public static Color AttributeColor(this XmlNode xml, string name, Color returnOnNull)
+        {
             if (xml == null) return returnOnNull;
             if (xml.Attributes[name] == null) return returnOnNull;
             return new Color(xml.Attributes[name].Value);
@@ -134,11 +146,13 @@ namespace Otter {
         /// </summary>
         /// <param name="xml">The XmlElement to parse.</param>
         /// <returns>The value as an int.</returns>
-        public static int InnerInt(this XmlNode xml) {
+        public static int InnerInt(this XmlNode xml)
+        {
             return int.Parse(xml.InnerText);
         }
 
-        public static int InnerInt(this XmlNode xml, int returnOnNull) {
+        public static int InnerInt(this XmlNode xml, int returnOnNull)
+        {
             if (xml != null) return xml.InnerInt();
             return returnOnNull;
         }
@@ -148,16 +162,19 @@ namespace Otter {
         /// </summary>
         /// <param name="xml"></param>
         /// <returns>The value as a float.</returns>
-        public static float InnerFloat(this XmlNode xml) {
+        public static float InnerFloat(this XmlNode xml)
+        {
             return float.Parse(xml.InnerText);
         }
 
-        public static float InnerFloat(this XmlNode xml, float returnOnNull) {
+        public static float InnerFloat(this XmlNode xml, float returnOnNull)
+        {
             if (xml != null) return xml.InnerFloat();
             return returnOnNull;
         }
 
-        public static string InnerText(this XmlNode xml, string returnOnNull) {
+        public static string InnerText(this XmlNode xml, string returnOnNull)
+        {
             if (xml != null) return xml.InnerText;
             return returnOnNull;
         }
@@ -167,7 +184,8 @@ namespace Otter {
         /// </summary>
         /// <param name="xml"></param>
         /// <returns>The value as a bool.</returns>
-        public static bool InnerBool(this XmlNode xml) {
+        public static bool InnerBool(this XmlNode xml)
+        {
             return bool.Parse(xml.InnerText);
         }
 
@@ -176,7 +194,8 @@ namespace Otter {
         /// </summary>
         /// <param name="xml"></param>
         /// <returns>The value as a Color.</returns>
-        public static Color InnerColor(this XmlNode xml) {
+        public static Color InnerColor(this XmlNode xml)
+        {
             return new Color(xml.InnerText);
         }
 
@@ -187,7 +206,8 @@ namespace Otter {
         /// <param name="name">The attribute to parse.</param>
         /// <param name="returnOnNull">The value to return if null.</param>
         /// <returns>The attribute as an int.</returns>
-        public static int Int(this XmlAttributeCollection a, string name, int returnOnNull) {
+        public static int Int(this XmlAttributeCollection a, string name, int returnOnNull)
+        {
             if (a[name] == null) return returnOnNull;
             return int.Parse(a[name].Value);
         }
@@ -197,7 +217,8 @@ namespace Otter {
         #region String
         // String Extensions
 
-        static public string ClearWhitespace(this string str) {
+        static public string ClearWhitespace(this string str)
+        {
             return Regex.Replace(str, @"\s+", "");
         }
 
@@ -212,8 +233,10 @@ namespace Otter {
         /// <param name="key">The key to search for.</param>
         /// <param name="onNull">The value to return if that key is not found.</param>
         /// <returns>The value from the Dictionary as an int.</returns>
-        static public int ValueAsInt(this Dictionary<string, string> d, string key, int onNull = 0) {
-            if (d.ContainsKey(key)) {
+        static public int ValueAsInt(this Dictionary<string, string> d, string key, int onNull = 0)
+        {
+            if (d.ContainsKey(key))
+            {
                 return int.Parse(d[key]);
             }
             return onNull;
@@ -227,8 +250,10 @@ namespace Otter {
         /// <param name="key">The key to search for.</param>
         /// <param name="onNull">The value to return if that key is not found.</param>
         /// <returns>The value from the Dictionary as an float.</returns>
-        static public float ValueAsFloat(this Dictionary<string, string> d, string key, float onNull = 0) {
-            if (d.ContainsKey(key)) {
+        static public float ValueAsFloat(this Dictionary<string, string> d, string key, float onNull = 0)
+        {
+            if (d.ContainsKey(key))
+            {
                 return float.Parse(d[key]);
             }
             return onNull;
@@ -242,8 +267,10 @@ namespace Otter {
         /// <param name="key">The key to search for.</param>
         /// <param name="onNull">The value to return if that key is not found.</param>
         /// <returns>The value from the Dictionary as a bool.</returns>
-        static public bool ValueAsBool(this Dictionary<string, string> d, string key, bool onNull = false) {
-            if (d.ContainsKey(key)) {
+        static public bool ValueAsBool(this Dictionary<string, string> d, string key, bool onNull = false)
+        {
+            if (d.ContainsKey(key))
+            {
                 return bool.Parse(d[key]);
             }
             return onNull;
@@ -257,19 +284,23 @@ namespace Otter {
         /// <param name="key">The key to search for.</param>
         /// <param name="onNull">The value to return if that key is not found.</param>
         /// <returns>The value fro the Dictionary as a Color.</returns>
-        static public Color ValueAsColor(this Dictionary<string, string> d, string key, Color onNull = null) {
-            if (d.ContainsKey(key)) {
+        static public Color ValueAsColor(this Dictionary<string, string> d, string key, Color onNull = null)
+        {
+            if (d.ContainsKey(key))
+            {
                 return new Color(d[key]);
             }
             return onNull;
         }
 
-        static public void AddOrUpdate<TKey, TValue>(this Dictionary<TKey, TValue> d, TKey key, TValue value) {
+        static public void AddOrUpdate<TKey, TValue>(this Dictionary<TKey, TValue> d, TKey key, TValue value)
+        {
             if (d.ContainsKey(key)) d[key] = value;
             else d.Add(key, value);
         }
 
-        static public TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> d, TKey key, TValue value = default(TValue)) {
+        static public TValue GetOrAdd<TKey, TValue>(this Dictionary<TKey, TValue> d, TKey key, TValue value = default(TValue))
+        {
             if (d.ContainsKey(key)) return d[key];
             d.Add(key, value);
             return value;
@@ -286,8 +317,10 @@ namespace Otter {
         /// <param name="l"></param>
         /// <param name="element">The element to remove.</param>
         /// <returns>True if the element was removed successfully.</returns>
-        static public bool RemoveIfContains<T>(this List<T> l, T element) {
-            if (l.Contains(element)) {
+        static public bool RemoveIfContains<T>(this List<T> l, T element)
+        {
+            if (l.Contains(element))
+            {
                 l.Remove(element);
                 return true;
             }
@@ -300,30 +333,36 @@ namespace Otter {
         /// <typeparam name="T">The type of items.</typeparam>
         /// <param name="l">The list.</param>
         /// <param name="elements">The elements to add.</param>
-        static public void Add<T>(this List<T> l, params T[] elements) {
-            foreach (var i in elements) {
+        static public void Add<T>(this List<T> l, params T[] elements)
+        {
+            foreach (var i in elements)
+            {
                 l.Add(i);
             }
         }
 
-        static public void MoveForward<T>(this List<T> list, T item) {
+        static public void MoveForward<T>(this List<T> list, T item)
+        {
             var oldIndex = list.IndexOf(item);
             list.Remove(item);
             list.InsertOrAdd(oldIndex - 1, item);
         }
 
-        public static void MoveBackward<T>(this List<T> list, T item) {
+        public static void MoveBackward<T>(this List<T> list, T item)
+        {
             var oldIndex = list.IndexOf(item);
             list.Remove(item);
             list.InsertOrAdd(oldIndex + 1, item);
         }
 
-        public static void MoveToFront<T>(this List<T> list, T item) {
+        public static void MoveToFront<T>(this List<T> list, T item)
+        {
             list.Remove(item);
             list.InsertOrAdd(0, item);
         }
 
-        public static void MoveToBack<T>(this List<T> list, T item) {
+        public static void MoveToBack<T>(this List<T> list, T item)
+        {
             list.Remove(item);
             list.Add(item);
         }
@@ -332,20 +371,24 @@ namespace Otter {
 
         #region SFML
 
-        public static void Append(this VertexArray vertices, float x, float y, Color color, float tx, float ty) {
+        public static void Append(this VertexArray vertices, float x, float y, Color color, float tx, float ty)
+        {
             vertices.Append(new Vertex(new Vector2f(x, y), color.SFMLColor, new Vector2f(tx, ty)));
         }
 
-        public static void Append(this VertexArray vertices, float x, float y, Color color = null) {
+        public static void Append(this VertexArray vertices, float x, float y, Color color = null)
+        {
             if (color == null) color = Color.White;
             vertices.Append(new Vertex(new Vector2f(x, y), color.SFMLColor));
         }
 
-        public static void Append(this VertexArray vertices, double x, double y, Color color) {
+        public static void Append(this VertexArray vertices, double x, double y, Color color)
+        {
             vertices.Append(new Vertex(new Vector2f((float)x, (float)y), color.SFMLColor));
         }
 
-        public static void Append(this VertexArray vertices, Vert vert) {
+        public static void Append(this VertexArray vertices, Vert vert)
+        {
             vertices.Append(vert.X, vert.Y, vert.Color, vert.U, vert.V);
         }
 
@@ -358,7 +401,8 @@ namespace Otter {
         /// </summary>
         /// <param name="i">The uint.</param>
         /// <returns>A new Color from the uint.</returns>
-        public static Color ToColor(this uint i) {
+        public static Color ToColor(this uint i)
+        {
             return new Color(i);
         }
 
@@ -367,7 +411,8 @@ namespace Otter {
         /// </summary>
         /// <param name="i">The int.</param>
         /// <returns>A new Color from the int.</returns>
-        public static Color ToColor(this int i) {
+        public static Color ToColor(this int i)
+        {
             return new Color((uint)i);
         }
 
@@ -377,7 +422,8 @@ namespace Otter {
         /// <param name="variable">Flags enumeration to check</param>
         /// <param name="value">Flag to check for</param>
         /// <returns>True if the Enum contains the flag.</returns>
-        public static bool HasFlag(this Enum variable, Enum value) {
+        public static bool HasFlag(this Enum variable, Enum value)
+        {
             // http://stackoverflow.com/questions/4108828/generic-extension-method-to-see-if-an-enum-contains-a-flag
             if (variable == null)
                 return false;
@@ -386,7 +432,8 @@ namespace Otter {
                 throw new ArgumentNullException("value");
 
             // Not as good as the .NET 4 version of this function, but should be good enough
-            if (!Enum.IsDefined(variable.GetType(), value)) {
+            if (!Enum.IsDefined(variable.GetType(), value))
+            {
                 throw new ArgumentException(string.Format(
                     "Enumeration type mismatch.  The flag is of type '{0}', was expecting '{1}'.",
                     value.GetType(), variable.GetType()));

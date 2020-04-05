@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Otter {
-    public partial class Tween {
+namespace Otter
+{
+    public partial class Tween
+    {
         [Flags]
-        public enum RotationUnit {
+        public enum RotationUnit
+        {
             Degrees,
             Radians
         }
@@ -54,7 +57,8 @@ namespace Otter {
         /// </summary>
         public object Target { get; private set; }
 
-        private Tween(object target, float duration, float delay, Tween.TweenerImpl parent) {
+        private Tween(object target, float duration, float delay, Tween.TweenerImpl parent)
+        {
             Target = target;
             Duration = duration;
             Delay = delay;
@@ -71,7 +75,8 @@ namespace Otter {
             behavior = GlideLerper.Behavior.None;
         }
 
-        private void AddLerp(GlideLerper lerper, GlideInfo info, object from, object to) {
+        private void AddLerp(GlideLerper lerper, GlideInfo info, object from, object to)
+        {
             varHash.Add(info.PropertyName, vars.Count);
             vars.Add(info);
 
@@ -81,21 +86,26 @@ namespace Otter {
             lerpers.Add(lerper);
         }
 
-        private void Update(float elapsed) {
-            if (firstUpdate) {
+        private void Update(float elapsed)
+        {
+            if (firstUpdate)
+            {
                 firstUpdate = false;
 
                 var i = vars.Count;
-                while (i-- > 0) {
+                while (i-- > 0)
+                {
                     if (lerpers[i] != null)
                         lerpers[i].Initialize(start[i], end[i], behavior);
                 }
             }
-            else {
+            else
+            {
                 if (Paused)
                     return;
 
-                if (Delay > 0) {
+                if (Delay > 0)
+                {
                     Delay -= elapsed;
                     if (Delay > 0)
                         return;
@@ -109,8 +119,10 @@ namespace Otter {
                 float t = time / Duration;
                 bool doComplete = false;
 
-                if (time >= Duration) {
-                    if (repeatCount != 0) {
+                if (time >= Duration)
+                {
+                    if (repeatCount != 0)
+                    {
                         setTimeTo = 0;
                         Delay = repeatDelay;
                         timesRepeated++;
@@ -121,7 +133,8 @@ namespace Otter {
                         if (repeatCount < 0)
                             doComplete = true;
                     }
-                    else {
+                    else
+                    {
                         time = Duration;
                         t = 1;
                         Remover.Remove(this);
@@ -133,7 +146,8 @@ namespace Otter {
                     t = ease(t);
 
                 int i = vars.Count;
-                while (i-- > 0) {
+                while (i-- > 0)
+                {
                     if (vars[i] != null)
                         vars[i].Value = lerpers[i].Interpolate(t, vars[i].Value, behavior);
                 }
@@ -159,14 +173,17 @@ namespace Otter {
         /// </summary>
         /// <param name="values">The values to apply, in an anonymous type ( new { prop1 = 100, prop2 = 0} ).</param>
         /// <returns>A reference to this.</returns>
-        public Tween From(object values) {
+        public Tween From(object values)
+        {
             var props = values.GetType().GetProperties();
-            for (int i = 0; i < props.Length; ++i) {
+            for (int i = 0; i < props.Length; ++i)
+            {
                 var property = props[i];
                 var propValue = property.GetValue(values, null);
 
                 int index = -1;
-                if (varHash.TryGetValue(property.Name, out index)) {
+                if (varHash.TryGetValue(property.Name, out index))
+                {
                     //	if we're already tweening this value, adjust the range
                     start[index] = propValue;
                 }
@@ -184,7 +201,8 @@ namespace Otter {
         /// </summary>
         /// <param name="ease">The Easer to use.</param>
         /// <returns>A reference to this.</returns>
-        public Tween Ease(Func<float, float> ease) {
+        public Tween Ease(Func<float, float> ease)
+        {
             this.ease = ease;
             return this;
         }
@@ -194,7 +212,8 @@ namespace Otter {
         /// </summary>
         /// <param name="callback">The function that will be called when the tween starts, after the delay.</param>
         /// <returns>A reference to this.</returns>
-        public Tween OnBegin(Action callback) {
+        public Tween OnBegin(Action callback)
+        {
             if (begin == null) begin = callback;
             else begin += callback;
             return this;
@@ -206,7 +225,8 @@ namespace Otter {
         /// </summary>
         /// <param name="callback">The function that will be called on tween completion.</param>
         /// <returns>A reference to this.</returns>
-        public Tween OnComplete(Action callback) {
+        public Tween OnComplete(Action callback)
+        {
             if (complete == null) complete = callback;
             else complete += callback;
             return this;
@@ -217,7 +237,8 @@ namespace Otter {
         /// </summary>
         /// <param name="callback">The function to use.</param>
         /// <returns>A reference to this.</returns>
-        public Tween OnUpdate(Action callback) {
+        public Tween OnUpdate(Action callback)
+        {
             if (update == null) update = callback;
             else update += callback;
             return this;
@@ -228,7 +249,8 @@ namespace Otter {
         /// </summary>
         /// <param name="times">Number of times to repeat. Leave blank or pass a negative number to repeat infinitely.</param>
         /// <returns>A reference to this.</returns>
-        public Tween Repeat(int times = -1) {
+        public Tween Repeat(int times = -1)
+        {
             repeatCount = times;
             return this;
         }
@@ -238,7 +260,8 @@ namespace Otter {
         /// </summary>
         /// <param name="delay">How long to wait before repeating.</param>
         /// <returns>A reference to this.</returns>
-        public Tween RepeatDelay(float delay) {
+        public Tween RepeatDelay(float delay)
+        {
             repeatDelay = delay;
             return this;
         }
@@ -247,7 +270,8 @@ namespace Otter {
         /// Sets the tween to reverse every other time it repeats. Repeating must be enabled for this to have any effect.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Reflect() {
+        public Tween Reflect()
+        {
             behavior |= GlideLerper.Behavior.Reflect;
             return this;
         }
@@ -256,9 +280,11 @@ namespace Otter {
         /// Swaps the start and end values of the tween.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Reverse() {
+        public Tween Reverse()
+        {
             int i = vars.Count;
-            while (i-- > 0) {
+            while (i-- > 0)
+            {
                 var s = start[i];
                 var e = end[i];
 
@@ -276,7 +302,8 @@ namespace Otter {
         /// Whether this tween handles rotation.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Rotation(RotationUnit unit = RotationUnit.Degrees) {
+        public Tween Rotation(RotationUnit unit = RotationUnit.Degrees)
+        {
             behavior |= GlideLerper.Behavior.Rotation;
             behavior |= (unit == RotationUnit.Degrees) ? GlideLerper.Behavior.RotationDegrees : GlideLerper.Behavior.RotationRadians;
 
@@ -287,7 +314,8 @@ namespace Otter {
         /// Whether tweened values should be rounded to integer values.
         /// </summary>
         /// <returns>A reference to this.</returns>
-        public Tween Round() {
+        public Tween Round()
+        {
             behavior |= GlideLerper.Behavior.Round;
             return this;
         }
@@ -298,9 +326,11 @@ namespace Otter {
         /// Cancel tweening given properties.
         /// </summary>
         /// <param name="properties"></param>
-        public void Cancel(params string[] properties) {
+        public void Cancel(params string[] properties)
+        {
             var canceled = 0;
-            for (int i = 0; i < properties.Length; ++i) {
+            for (int i = 0; i < properties.Length; ++i)
+            {
                 var index = 0;
                 if (!varHash.TryGetValue(properties[i], out index))
                     continue;
@@ -321,14 +351,16 @@ namespace Otter {
         /// <summary>
         /// Remove tweens from the tweener without calling their complete functions.
         /// </summary>
-        public void Cancel() {
+        public void Cancel()
+        {
             Remover.Remove(this);
         }
 
         /// <summary>
         /// Assign tweens their final value and remove them from the tweener.
         /// </summary>
-        public void CancelAndComplete() {
+        public void CancelAndComplete()
+        {
             time = Duration;
             update = null;
             Remover.Remove(this);
@@ -337,21 +369,24 @@ namespace Otter {
         /// <summary>
         /// Set tweens to pause. They won't update and their delays won't tick down.
         /// </summary>
-        public void Pause() {
+        public void Pause()
+        {
             Paused = true;
         }
 
         /// <summary>
         /// Toggle tweens' paused value.
         /// </summary>
-        public void PauseToggle() {
+        public void PauseToggle()
+        {
             Paused = !Paused;
         }
 
         /// <summary>
         /// Resumes tweens from a paused state.
         /// </summary>
-        public void Resume() {
+        public void Resume()
+        {
             Paused = false;
         }
         #endregion

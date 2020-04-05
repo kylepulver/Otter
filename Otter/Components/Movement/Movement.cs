@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// A base class for Movement Components to extend.
     /// </summary>
-    public class Movement : Component {  //todo: w.sams - this was abstract....need to put this all under test and refactor
+    public class Movement : Component
+    {  //todo: w.sams - this was abstract....need to put this all under test and refactor
 
         #region Private Fields
 
@@ -58,7 +60,8 @@ namespace Otter {
 
         #region Constructors
 
-        public Movement() {
+        public Movement()
+        {
             CollisionsSolid = new List<int>();
         }
 
@@ -70,8 +73,10 @@ namespace Otter {
         /// Register a tag that the Collider should check for collisions with.
         /// </summary>
         /// <param name="tags">The tags to collide with.</param>
-        public void AddCollision(params int[] tags) {
-            foreach (var t in tags) {
+        public void AddCollision(params int[] tags)
+        {
+            foreach (var t in tags)
+            {
                 CollisionsSolid.Add(t);
             }
         }
@@ -80,7 +85,8 @@ namespace Otter {
         /// Register a tag that the Collider should check for collisions with.
         /// </summary>
         /// <param name="tags">The tags to collide with.</param>
-        public void AddCollision(params Enum[] tags) {
+        public void AddCollision(params Enum[] tags)
+        {
             AddCollision(Util.EnumToIntArray(tags));
         }
 
@@ -88,9 +94,12 @@ namespace Otter {
         /// Remove a tag from the collision checking.
         /// </summary>
         /// <param name="tags"></param>
-        public void RemoveCollision(params int[] tags) {
-            foreach (int t in tags) {
-                if (CollisionsSolid.Contains(t)) {
+        public void RemoveCollision(params int[] tags)
+        {
+            foreach (int t in tags)
+            {
+                if (CollisionsSolid.Contains(t))
+                {
                     CollisionsSolid.Remove(t);
                 }
             }
@@ -101,23 +110,29 @@ namespace Otter {
         /// </summary>
         /// <param name="speed">The speed to move by (remember SpeedScale is applied.)</param>
         /// <param name="collider">The Collider to use when moving.</param>
-        public virtual void MoveX(int speed, Collider collider = null) {
+        public virtual void MoveX(int speed, Collider collider = null)
+        {
             MoveBufferX += speed;
 
-            while (Math.Abs(MoveBufferX) >= SpeedScale) {
+            while (Math.Abs(MoveBufferX) >= SpeedScale)
+            {
                 int move = Math.Sign(MoveBufferX);
-                if (collider != null) {
+                if (collider != null)
+                {
                     Collider c = collider.Collide(Entity.X + move, Entity.Y, CollisionsSolid);
-                    if (c == null) {
+                    if (c == null)
+                    {
                         Entity.X += move;
                         MoveBufferX = (int)Util.Approach(MoveBufferX, 0, SpeedScale);
                     }
-                    else {
+                    else
+                    {
                         MoveBufferX = 0;
                         MoveCollideX(c);
                     }
                 }
-                if (collider == null || CollisionsSolid.Count == 0) {
+                if (collider == null || CollisionsSolid.Count == 0)
+                {
                     Entity.X += move;
                     MoveBufferX = (int)Util.Approach(MoveBufferX, 0, SpeedScale);
                 }
@@ -130,23 +145,29 @@ namespace Otter {
         /// </summary>
         /// <param name="speed">The speed to move by (remember SpeedScale is applied.)</param>
         /// <param name="collider">The Collider to use when moving.</param>
-        public virtual void MoveY(int speed, Collider collider = null) {
+        public virtual void MoveY(int speed, Collider collider = null)
+        {
             MoveBufferY += speed;
 
-            while (Math.Abs(MoveBufferY) >= SpeedScale) {
+            while (Math.Abs(MoveBufferY) >= SpeedScale)
+            {
                 int move = Math.Sign(MoveBufferY);
-                if (collider != null) {
+                if (collider != null)
+                {
                     Collider c = collider.Collide(Entity.X, Entity.Y + move, CollisionsSolid);
-                    if (c == null) {
+                    if (c == null)
+                    {
                         Entity.Y += move;
                         MoveBufferY = (int)Util.Approach(MoveBufferY, 0, SpeedScale);
                     }
-                    else {
+                    else
+                    {
                         MoveBufferY = 0;
                         MoveCollideY(c);
                     }
                 }
-                if (collider == null || CollisionsSolid.Count == 0) {
+                if (collider == null || CollisionsSolid.Count == 0)
+                {
                     Entity.Y += move;
                     MoveBufferY = (int)Util.Approach(MoveBufferY, 0, SpeedScale);
                 }
@@ -157,8 +178,10 @@ namespace Otter {
         /// Called when MoveX collides with a collider.
         /// </summary>
         /// <param name="collider">The collider that was hit.</param>
-        public virtual void MoveCollideX(Collider collider) {
-            if (OnCollideX != null) {
+        public virtual void MoveCollideX(Collider collider)
+        {
+            if (OnCollideX != null)
+            {
                 OnCollideX();
             }
         }
@@ -167,8 +190,10 @@ namespace Otter {
         /// Called when MoveY collides with a collider.
         /// </summary>
         /// <param name="collider">The collider that was hit.</param>
-        public virtual void MoveCollideY(Collider collider) {
-            if (OnCollideY != null) {
+        public virtual void MoveCollideY(Collider collider)
+        {
+            if (OnCollideY != null)
+            {
                 OnCollideY();
             }
         }
@@ -179,7 +204,8 @@ namespace Otter {
         /// <param name="speedX"></param>
         /// <param name="speedY"></param>
         /// <param name="collider"></param>
-        public void MoveXY(int speedX, int speedY, Collider collider = null) {
+        public void MoveXY(int speedX, int speedY, Collider collider = null)
+        {
             MoveX(speedX, collider);
             MoveY(speedY, collider);
         }

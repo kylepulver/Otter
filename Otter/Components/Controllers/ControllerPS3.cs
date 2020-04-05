@@ -1,6 +1,7 @@
-﻿namespace Otter {
-    public class ControllerPS3 : Controller {
-
+namespace Otter
+{
+    public class ControllerPS3 : Controller
+    {
         public Button Triangle { get { return Button(Controls.Triangle); } }
         public Button Circle { get { return Button(Controls.Circle); } }
         public Button Cross { get { return Button(Controls.Cross); } }
@@ -18,7 +19,8 @@
         public Axis RightStick { get { return Axis(Controls.RStick); } }
         public Axis DPad { get { return Axis(Controls.DPad); } }
 
-        public ControllerPS3(params int[] joystickId) {
+        public ControllerPS3(params int[] joystickId)
+        {
             AddButton(Controls.Triangle);
             AddButton(Controls.Circle);
             AddButton(Controls.Cross);
@@ -36,7 +38,8 @@
             AddAxis(Controls.RStick);
             AddAxis(Controls.DPad);
 
-            foreach (var joy in joystickId) {
+            foreach (var joy in joystickId)
+            {
                 Triangle.AddJoyButton(0, joy);
                 Circle.AddJoyButton(1, joy);
                 Cross.AddJoyButton(2, joy);
@@ -59,7 +62,8 @@
             }
         }
 
-        enum Controls {
+        enum Controls
+        {
             Triangle,
             Circle,
             Cross,

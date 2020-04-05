@@ -1,8 +1,10 @@
-﻿namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class used to represent a range using a min and max.
     /// </summary>
-    public class Range {
+    public class Range
+    {
 
         #region Public Fields
 
@@ -24,8 +26,10 @@
         /// Get a random int from the range.  Floors the Min and Ceils the Max.
         /// </summary>
         /// <returns>A random int.</returns>
-        public int RandInt {
-            get {
+        public int RandInt
+        {
+            get
+            {
                 return Rand.Int((int)Min, (int)Util.Ceil(Max));
             }
         }
@@ -34,8 +38,10 @@
         /// Get a random float from the range.
         /// </summary>
         /// <returns>A random float.</returns>
-        public float RandFloat {
-            get {
+        public float RandFloat
+        {
+            get
+            {
                 return Rand.Float(Min, Max);
             }
         }
@@ -49,7 +55,8 @@
         /// </summary>
         /// <param name="min">Minimum value.</param>
         /// <param name="max">Maximum value.</param>
-        public Range(float min, float max) {
+        public Range(float min, float max)
+        {
             Min = min;
             Max = max;
         }
@@ -69,13 +76,15 @@
         /// </summary>
         /// <param name="r">The Range to test against.</param>
         /// <returns>True if the ranges overlap.</returns>
-        public bool Overlap(Range r) {
+        public bool Overlap(Range r)
+        {
             if (r.Max < Min) return false;
             if (r.Min > Max) return false;
             return true;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return string.Format("{0}, {1}", Min, Max);
         }
 

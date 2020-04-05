@@ -1,10 +1,12 @@
-﻿using System;
-namespace Otter {
+using System;
+namespace Otter
+{
     /// <summary>
     /// Collider that can use an image as a mask.  This is not recommended to use for most cases as it can
     /// be pretty expensive to process.
     /// </summary>
-    public class PixelCollider : Collider {
+    public class PixelCollider : Collider
+    {
 
         #region Public Fields
 
@@ -21,7 +23,8 @@ namespace Otter {
         /// <summary>
         /// The byte array of pixels.
         /// </summary>
-        public byte[] Pixels {
+        public byte[] Pixels
+        {
             get { return collideImage.Pixels; }
         }
 
@@ -45,17 +48,19 @@ namespace Otter {
         /// </summary>
         /// <param name="source">The source image to create the collider from.</param>
         /// <param name="tags">The tags to register the collider with.</param>
-        public PixelCollider(string source, params int[] tags) {
+        public PixelCollider(string source, params int[] tags)
+        {
             texture = Textures.Load(source);
             collideImage = texture.CopyToImage();
-            
+
             Width = texture.Size.X;
             Height = texture.Size.Y;
 
             AddTag(tags);
         }
 
-        public PixelCollider(Texture texture, params int[] tags) {
+        public PixelCollider(Texture texture, params int[] tags)
+        {
             this.texture = texture.SFMLTexture;
             collideImage = this.texture.CopyToImage();
 
@@ -65,12 +70,14 @@ namespace Otter {
             AddTag(tags);
         }
 
-        public PixelCollider(string source, Enum tag, params Enum[] tags) : this(source) {
+        public PixelCollider(string source, Enum tag, params Enum[] tags) : this(source)
+        {
             AddTag(tag);
             AddTag(tags);
         }
 
-        public PixelCollider(Texture texture, Enum tag, params Enum[] tags) : this(texture) {
+        public PixelCollider(Texture texture, Enum tag, params Enum[] tags) : this(texture)
+        {
             AddTag(tag);
             AddTag(tags);
         }
@@ -79,15 +86,20 @@ namespace Otter {
 
         #region Private Methods
 
-        void InitializeTexture() {
+        void InitializeTexture()
+        {
             visibleTexture = new Texture((int)Width, (int)Height);
 
-            for (var x = 0; x < Width; x++) {
-                for (var y = 0; y < Height; y++) {
-                    if (PixelAt(x, y)) {
+            for (var x = 0; x < Width; x++)
+            {
+                for (var y = 0; y < Height; y++)
+                {
+                    if (PixelAt(x, y))
+                    {
                         visibleTexture.SetPixel(x, y, Color.Red);
                     }
-                    else {
+                    else
+                    {
                         visibleTexture.SetPixel(x, y, Color.None);
                     }
                 }
@@ -106,7 +118,8 @@ namespace Otter {
         /// <param name="x">The X position of the pixel to check.</param>
         /// <param name="y">The Y position of the pixel to check.</param>
         /// <returns>True if the pixel collides.</returns>
-        public bool PixelAt(int x, int y) {
+        public bool PixelAt(int x, int y)
+        {
             if (x < 0 || y < 0 || x > Width || y > Height) return false;
 
             if (collideImage.GetPixel((uint)x, (uint)y).A > Threshold) return true;
@@ -120,7 +133,8 @@ namespace Otter {
         /// <param name="y">The Y position of the pixel to check.</param>
         /// <param name="threshold">The alpha threshold that should register a collision.</param>
         /// <returns>True if the pixel collides.</returns>
-        public bool PixelAt(int x, int y, float threshold) {
+        public bool PixelAt(int x, int y, float threshold)
+        {
             if (x < 0 || y < 0 || x > Width || y > Height) return false;
 
             if (collideImage.GetPixel((uint)x, (uint)y).A > threshold) return true;
@@ -133,7 +147,8 @@ namespace Otter {
         /// <param name="x">The X position of the pixel to check.</param>
         /// <param name="y">The Y position of the pixel to check.</param>
         /// <returns>True if the pixel collides.</returns>
-        public bool PixelAtRelative(int x, int y) {
+        public bool PixelAtRelative(int x, int y)
+        {
             x -= (int)Left;
             y -= (int)Top;
 
@@ -147,7 +162,8 @@ namespace Otter {
         /// <param name="y">The Y position of the pixel to check.</param>
         /// <param name="threshold">The alpha threshold that should register a collision.</param>
         /// <returns>True if the pixel collides.</returns>
-        public bool PixelAtRelative(int x, int y, float threshold) {
+        public bool PixelAtRelative(int x, int y, float threshold)
+        {
             x -= (int)Left;
             y -= (int)Top;
 
@@ -162,9 +178,12 @@ namespace Otter {
         /// <param name="x2">The right of the area to check.</param>
         /// <param name="y2">The bottom of the area to check.</param>
         /// <returns>True if the pixel collides.</returns>
-        public bool PixelArea(int x, int y, int x2, int y2) {
-            for (var i = x; i < x2; i++) {
-                for (var j = y; j < y2; j++) {
+        public bool PixelArea(int x, int y, int x2, int y2)
+        {
+            for (var i = x; i < x2; i++)
+            {
+                for (var j = y; j < y2; j++)
+                {
                     if (PixelAt(i, j)) return true;
                 }
             }
@@ -180,9 +199,12 @@ namespace Otter {
         /// <param name="y2">The bottom of the area to check.</param>
         /// <param name="threshold">The alpha threshold that should register a collision.</param>
         /// <returns>True if the pixel collides.</returns>
-        public bool PixelArea(int x, int y, int x2, int y2, float threshold) {
-            for (var i = x; i < x2; i++) {
-                for (var j = y; j < y2; j++) {
+        public bool PixelArea(int x, int y, int x2, int y2, float threshold)
+        {
+            for (var i = x; i < x2; i++)
+            {
+                for (var j = y; j < y2; j++)
+                {
                     if (PixelAt(i, j, threshold)) return true;
                 }
             }
@@ -192,13 +214,15 @@ namespace Otter {
         /// <summary>
         /// Draw the collider for debug purposes.
         /// </summary>
-        public override void Render(Color color = null) {
+        public override void Render(Color color = null)
+        {
             base.Render(color);
             if (color == null) color = Color.Red;
 
             if (Entity == null) return;
 
-            if (!rendered) {
+            if (!rendered)
+            {
                 rendered = true;
                 InitializeTexture();
             }

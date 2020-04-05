@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2009-2012 David Koontz, Dan Peschman, and Logan Barnett
+// Copyright (c) 2009-2012 David Koontz, Dan Peschman, and Logan Barnett
 // Please direct any bugs/comments/suggestions to david@koontzfamily.org
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -110,20 +110,24 @@ using System.Collections.Generic;
 ///		}
 /// 	</code>
 /// </example>
-public class EventRouter {
+public class EventRouter
+{
     /// <summary>
     /// 	Event data class, passed in to the subscriber whenever an event occours.
     /// </summary>
-    public class Event {
+    public class Event
+    {
         public string Type;
         public string Id;
         public object[] Data;
 
-        public bool HasData {
+        public bool HasData
+        {
             get { return Data != null && Data.Length > 0; }
         }
 
-        public T GetData<T>(int index) {
+        public T GetData<T>(int index)
+        {
             return (T)Data[index];
         }
     }
@@ -145,7 +149,8 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be called when the even occurs.
     /// </param>
-    public static void Subscribe(Enum evt, Handler h, object owner = null) {
+    public static void Subscribe(Enum evt, Handler h, object owner = null)
+    {
         Subscribe("", EnumValueToString(evt), h, owner);
     }
 
@@ -161,7 +166,8 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be called when the even occurs.
     /// </param>
-    public static void Subscribe(string id, Enum evt, Handler h, object owner = null) {
+    public static void Subscribe(string id, Enum evt, Handler h, object owner = null)
+    {
         Subscribe(id, EnumValueToString(evt), h, owner);
     }
 
@@ -177,17 +183,22 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be called when the even occurs.
     /// </param>
-    public static void Subscribe(string id, string evt, Handler h, object owner = null) {
-        if (!handlers.ContainsKey(evt)) {
+    public static void Subscribe(string id, string evt, Handler h, object owner = null)
+    {
+        if (!handlers.ContainsKey(evt))
+        {
             handlers.Add(evt, new Dictionary<string, Handler>());
         }
 
-        if (!handlers[evt].ContainsKey(id)) {
+        if (!handlers[evt].ContainsKey(id))
+        {
             handlers[evt].Add(id, null);
         }
 
-        if (owner != null) {
-            if (!owners.ContainsKey(owner)) {
+        if (owner != null)
+        {
+            if (!owners.ContainsKey(owner))
+            {
                 owners.Add(owner, new Dictionary<string, Handler>());
             }
 
@@ -206,7 +217,8 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be called when the even occurs.
     /// </param>
-    public static void Subscribe(string evt, Handler h, object owner = null) {
+    public static void Subscribe(string evt, Handler h, object owner = null)
+    {
         Subscribe("", evt, h, owner);
     }
 
@@ -222,7 +234,8 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be removed from the event handlers.
     /// </param>
-    public static void Unsubscribe(string id, Enum evt, Handler h) {
+    public static void Unsubscribe(string id, Enum evt, Handler h)
+    {
         Unsubscribe(id, EnumValueToString(evt), h);
     }
 
@@ -235,7 +248,8 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be removed from the event handlers.
     /// </param>
-    public static void Unsubscribe(Enum evt, Handler h) {
+    public static void Unsubscribe(Enum evt, Handler h)
+    {
         Unsubscribe(EnumValueToString(evt), h);
     }
 
@@ -248,7 +262,8 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be removed from the event handlers.
     /// </param>
-    public static void Unsubscribe(string evt, Handler h) {
+    public static void Unsubscribe(string evt, Handler h)
+    {
         Unsubscribe("", evt, h);
     }
 
@@ -264,8 +279,10 @@ public class EventRouter {
     /// <param name='h'>
     /// The delegate to be removed from the event handlers.
     /// </param>
-    public static void Unsubscribe(string id, string evt, Handler h) {
-        if (handlers.ContainsKey(evt) && handlers[evt].ContainsKey(id)) {
+    public static void Unsubscribe(string id, string evt, Handler h)
+    {
+        if (handlers.ContainsKey(evt) && handlers[evt].ContainsKey(id))
+        {
             handlers[evt][id] -= h;
             if (handlers[evt][id] == null) handlers.Remove(evt);
         }
@@ -275,9 +292,12 @@ public class EventRouter {
     /// Unsubscribe to all events that were subscribed to by a specific owner object.
     /// </summary>
     /// <param name="owner">The object that subscribed to the object.</param>
-    public static void Unsubscribe(object owner) {
-        if (owners.ContainsKey(owner)) {
-            foreach (var kv in owners[owner]) {
+    public static void Unsubscribe(object owner)
+    {
+        if (owners.ContainsKey(owner))
+        {
+            foreach (var kv in owners[owner])
+            {
                 Unsubscribe(kv.Key, kv.Value);
             }
             owners.Remove(owner);
@@ -296,12 +316,14 @@ public class EventRouter {
     /// <param name='data'>
     /// An arbitrary params array of objects to be interpreted by the receiver of the event.
     /// </param>
-    public static void Publish(string id, string evt, params object[] data) {
+    public static void Publish(string id, string evt, params object[] data)
+    {
         //if (LogEvents) Debug.Log(string.Format("Event Published: '{0}' with id: '{1}' and {2} parameters", evt, id, data.Length));
 
         ProcessEvent(id, evt, data);
 
-        while (queuedEvents.Count > 0) {
+        while (queuedEvents.Count > 0)
+        {
             var queuedEvent = queuedEvents.Dequeue();
             ProcessEvent(queuedEvent.Id, queuedEvent.Type, queuedEvent.Data);
         }
@@ -316,7 +338,8 @@ public class EventRouter {
     /// <param name='data'>
     /// An arbitrary params array of objects to be interpreted by the receiver of the event.
     /// </param>
-    public static void Publish(string evt, params object[] data) {
+    public static void Publish(string evt, params object[] data)
+    {
         Publish("", evt, data);
     }
 
@@ -332,7 +355,8 @@ public class EventRouter {
     /// <param name='data'>
     /// An arbitrary params array of objects to be interpreted by the receiver of the event.
     /// </param>
-    public static void Publish(string id, Enum evt, params object[] data) {
+    public static void Publish(string id, Enum evt, params object[] data)
+    {
         Publish(id, EnumValueToString(evt), data);
     }
 
@@ -345,47 +369,57 @@ public class EventRouter {
     /// <param name='data'>
     /// An arbitrary params array of objects to be interpreted by the receiver of the event.
     /// </param>
-    public static void Publish(Enum evt, params object[] data) {
+    public static void Publish(Enum evt, params object[] data)
+    {
         Publish(EnumValueToString(evt), data);
     }
 
-    public static void Queue(string id, string evt, params object[] data) {
+    public static void Queue(string id, string evt, params object[] data)
+    {
         var e = new Event { Type = evt, Id = id };
         if (data != null && data.Length > 0) e.Data = data;
         queuedEvents.Enqueue(e);
     }
 
-    public static void Queue(string evt, params object[] data) {
+    public static void Queue(string evt, params object[] data)
+    {
         Queue(string.Empty, evt, data);
     }
 
-    public static void Queue(string id, Enum evt, params object[] data) {
+    public static void Queue(string id, Enum evt, params object[] data)
+    {
         Queue(id, EnumValueToString(evt), data);
     }
 
-    public static void Queue(Enum evt, params object[] data) {
+    public static void Queue(Enum evt, params object[] data)
+    {
         Queue(string.Empty, EnumValueToString(evt), data);
     }
 
     /// <summary>
     /// Clear all event subscribers, used primarily when switching or resetting a level.
     /// </summary>
-    public static void Clear() {
+    public static void Clear()
+    {
         handlers.Clear();
     }
 
-    static void ProcessEvent(string id, string evt, params object[] data) {
+    static void ProcessEvent(string id, string evt, params object[] data)
+    {
         Dictionary<string, Handler> handlersForType;
-        if (handlers.TryGetValue(evt, out handlersForType)) {
+        if (handlers.TryGetValue(evt, out handlersForType))
+        {
             Handler handler;
-            if (handlersForType.TryGetValue(id, out handler)) {
+            if (handlersForType.TryGetValue(id, out handler))
+            {
                 var e = new Event { Type = evt, Id = id };
                 if (data != null && data.Length > 0) e.Data = data;
                 handler(e);
             }
 
             // invoke handlers that don't care about a particular id
-            if (id != string.Empty && handlersForType.TryGetValue(string.Empty, out handler)) {
+            if (id != string.Empty && handlersForType.TryGetValue(string.Empty, out handler))
+            {
                 var e = new Event { Type = evt, Id = id };
                 if (data != null && data.Length > 0) e.Data = data;
                 handler(e);
@@ -393,7 +427,8 @@ public class EventRouter {
         }
     }
 
-    static string EnumValueToString(Enum value) {
+    static string EnumValueToString(Enum value)
+    {
         return string.Format("{0}.{1}", value.GetType(), value);
     }
 }

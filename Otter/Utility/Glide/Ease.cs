@@ -1,10 +1,12 @@
 using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Static class with useful easer functions that can be used by Tweens.
     /// </summary>
-    public static class Ease {
+    public static class Ease
+    {
         const float PI = 3.14159f;
         const float PI2 = PI / 2;
         const float B1 = 1 / 2.75f;
@@ -17,14 +19,16 @@ namespace Otter {
         /// <summary>
         /// Ease a value to its target and then back. Use this to wrap another easing function.
         /// </summary>
-        public static Func<float, float> ToAndFro(Func<float, float> easer) {
+        public static Func<float, float> ToAndFro(Func<float, float> easer)
+        {
             return t => ToAndFro(easer(t));
         }
 
         /// <summary>
         /// Ease a value to its target and then back.
         /// </summary>
-        public static float ToAndFro(float t) {
+        public static float ToAndFro(float t)
+        {
             return t < 0.5f ? t * 2 : 1 + ((t - 0.5f) / 0.5f) * -1;
         }
 
@@ -33,7 +37,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time.</param>
         /// <returns>Eased timescale.</returns>
-        public static float Linear(float t) {
+        public static float Linear(float t)
+        {
             return t;
         }
 
@@ -42,7 +47,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float ElasticIn(float t) {
+        public static float ElasticIn(float t)
+        {
             return (float)(Math.Sin(13 * PI2 * t) * Math.Pow(2, 10 * (t - 1)));
         }
 
@@ -51,7 +57,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float ElasticOut(float t) {
+        public static float ElasticOut(float t)
+        {
             if (t == 1) return 1;
             return (float)(Math.Sin(-13 * PI2 * (t + 1)) * Math.Pow(2, -10 * t) + 1);
         }
@@ -61,8 +68,10 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float ElasticInOut(float t) {
-            if (t < 0.5) {
+        public static float ElasticInOut(float t)
+        {
+            if (t < 0.5)
+            {
                 return (float)(0.5 * Math.Sin(13 * PI2 * (2 * t)) * Math.Pow(2, 10 * ((2 * t) - 1)));
             }
 
@@ -74,7 +83,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuadIn(float t) {
+        public static float QuadIn(float t)
+        {
             return (float)(t * t);
         }
 
@@ -83,7 +93,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuadOut(float t) {
+        public static float QuadOut(float t)
+        {
             return (float)(-t * (t - 2));
         }
 
@@ -92,7 +103,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuadInOut(float t) {
+        public static float QuadInOut(float t)
+        {
             return (float)(t <= .5 ? t * t * 2 : 1 - (--t) * t * 2);
         }
 
@@ -101,7 +113,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float CubeIn(float t) {
+        public static float CubeIn(float t)
+        {
             return (float)(t * t * t);
         }
 
@@ -110,7 +123,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float CubeOut(float t) {
+        public static float CubeOut(float t)
+        {
             return (float)(1 + (--t) * t * t);
         }
 
@@ -119,7 +133,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float CubeInOut(float t) {
+        public static float CubeInOut(float t)
+        {
             return (float)(t <= .5 ? t * t * t * 4 : 1 + (--t) * t * t * 4);
         }
 
@@ -128,7 +143,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuartIn(float t) {
+        public static float QuartIn(float t)
+        {
             return (float)(t * t * t * t);
         }
 
@@ -137,7 +153,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuartOut(float t) {
+        public static float QuartOut(float t)
+        {
             return (float)(1 - (t -= 1) * t * t * t);
         }
 
@@ -146,7 +163,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuartInOut(float t) {
+        public static float QuartInOut(float t)
+        {
             return (float)(t <= .5 ? t * t * t * t * 8 : (1 - (t = t * 2 - 2) * t * t * t) / 2 + .5);
         }
 
@@ -155,7 +173,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuintIn(float t) {
+        public static float QuintIn(float t)
+        {
             return (float)(t * t * t * t * t);
         }
 
@@ -164,7 +183,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuintOut(float t) {
+        public static float QuintOut(float t)
+        {
             return (float)((t = t - 1) * t * t * t * t + 1);
         }
 
@@ -173,7 +193,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float QuintInOut(float t) {
+        public static float QuintInOut(float t)
+        {
             return (float)(((t *= 2) < 1) ? (t * t * t * t * t) / 2 : ((t -= 2) * t * t * t * t + 2) / 2);
         }
 
@@ -182,7 +203,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float SineIn(float t) {
+        public static float SineIn(float t)
+        {
             if (t == 1) return 1;
             return (float)(-Math.Cos(PI2 * t) + 1);
         }
@@ -192,7 +214,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float SineOut(float t) {
+        public static float SineOut(float t)
+        {
             return (float)(Math.Sin(PI2 * t));
         }
 
@@ -201,7 +224,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float SineInOut(float t) {
+        public static float SineInOut(float t)
+        {
             return (float)(-Math.Cos(PI * t) / 2 + .5);
         }
 
@@ -210,7 +234,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float BounceIn(float t) {
+        public static float BounceIn(float t)
+        {
             t = 1 - t;
             if (t < B1) return (float)(1 - 7.5625 * t * t);
             if (t < B2) return (float)(1 - (7.5625 * (t - B3) * (t - B3) + .75));
@@ -223,7 +248,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float BounceOut(float t) {
+        public static float BounceOut(float t)
+        {
             if (t < B1) return (float)(7.5625 * t * t);
             if (t < B2) return (float)(7.5625 * (t - B3) * (t - B3) + .75);
             if (t < B4) return (float)(7.5625 * (t - B5) * (t - B5) + .9375);
@@ -235,8 +261,10 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float BounceInOut(float t) {
-            if (t < .5) {
+        public static float BounceInOut(float t)
+        {
+            if (t < .5)
+            {
                 t = 1 - t * 2;
                 if (t < B1) return (float)((1 - 7.5625 * t * t) / 2);
                 if (t < B2) return (float)((1 - (7.5625 * (t - B3) * (t - B3) + .75)) / 2);
@@ -255,7 +283,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float CircIn(float t) {
+        public static float CircIn(float t)
+        {
             return (float)(-(Math.Sqrt(1 - t * t) - 1));
         }
 
@@ -264,7 +293,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float CircOut(float t) {
+        public static float CircOut(float t)
+        {
             return (float)(Math.Sqrt(1 - (t - 1) * (t - 1)));
         }
 
@@ -273,7 +303,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float CircInOut(float t) {
+        public static float CircInOut(float t)
+        {
             return (float)(t <= .5 ? (Math.Sqrt(1 - t * t * 4) - 1) / -2 : (Math.Sqrt(1 - (t * 2 - 2) * (t * 2 - 2)) + 1) / 2);
         }
 
@@ -282,7 +313,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float ExpoIn(float t) {
+        public static float ExpoIn(float t)
+        {
             return (float)(Math.Pow(2, 10 * (t - 1)));
         }
 
@@ -291,7 +323,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float ExpoOut(float t) {
+        public static float ExpoOut(float t)
+        {
             if (t == 1) return 1;
             return (float)(-Math.Pow(2, -10 * t) + 1);
         }
@@ -301,7 +334,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float ExpoInOut(float t) {
+        public static float ExpoInOut(float t)
+        {
             if (t == 1) return 1;
             return (float)(t < .5 ? Math.Pow(2, 10 * (t * 2 - 1)) / 2 : (-Math.Pow(2, -10 * (t * 2 - 1)) + 2) / 2);
         }
@@ -311,7 +345,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float BackIn(float t) {
+        public static float BackIn(float t)
+        {
             return (float)(t * t * (2.70158 * t - 1.70158));
         }
 
@@ -320,7 +355,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float BackOut(float t) {
+        public static float BackOut(float t)
+        {
             return (float)(1 - (--t) * (t) * (-2.70158 * t - 1.70158));
         }
 
@@ -329,7 +365,8 @@ namespace Otter {
         /// </summary>
         /// <param name="t">Time elapsed.</param>
         /// <returns>Eased timescale.</returns>
-        public static float BackInOut(float t) {
+        public static float BackInOut(float t)
+        {
             t *= 2;
             if (t < 1) return (float)(t * t * (2.70158 * t - 1.70158) / 2);
             t--;

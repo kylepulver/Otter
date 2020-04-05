@@ -27,15 +27,18 @@ SOFTWARE.
 
 using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Struct for representing a Matrix.
     /// </summary>
-    public struct Matrix : IEquatable<Matrix> {
+    public struct Matrix : IEquatable<Matrix>
+    {
         #region Public Constructors
 
         public Matrix(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31,
-                      float m32, float m33, float m34, float m41, float m42, float m43, float m44) {
+                      float m32, float m33, float m34, float m41, float m42, float m43, float m44)
+        {
             this.M11 = m11;
             this.M12 = m12;
             this.M13 = m13;
@@ -94,9 +97,12 @@ namespace Otter {
 
         #region Indexers
 
-        public float this[int index] {
-            get {
-                switch (index) {
+        public float this[int index]
+        {
+            get
+            {
+                switch (index)
+                {
                     case 0: return M11;
                     case 1: return M12;
                     case 2: return M13;
@@ -117,8 +123,10 @@ namespace Otter {
                 throw new ArgumentOutOfRangeException();
             }
 
-            set {
-                switch (index) {
+            set
+            {
+                switch (index)
+                {
                     case 0: M11 = value; break;
                     case 1: M12 = value; break;
                     case 2: M13 = value; break;
@@ -140,12 +148,15 @@ namespace Otter {
             }
         }
 
-        public float this[int row, int column] {
-            get {
+        public float this[int row, int column]
+        {
+            get
+            {
                 return this[(row * 4) + column];
             }
 
-            set {
+            set
+            {
                 this[(row * 4) + column] = value;
             }
         }
@@ -161,11 +172,14 @@ namespace Otter {
 
         #region Public Properties
 
-        public Vector3 Backward {
-            get {
+        public Vector3 Backward
+        {
+            get
+            {
                 return new Vector3(this.M31, this.M32, this.M33);
             }
-            set {
+            set
+            {
                 this.M31 = value.X;
                 this.M32 = value.Y;
                 this.M33 = value.Z;
@@ -173,11 +187,14 @@ namespace Otter {
         }
 
 
-        public Vector3 Down {
-            get {
+        public Vector3 Down
+        {
+            get
+            {
                 return new Vector3(-this.M21, -this.M22, -this.M23);
             }
-            set {
+            set
+            {
                 this.M21 = -value.X;
                 this.M22 = -value.Y;
                 this.M23 = -value.Z;
@@ -185,11 +202,14 @@ namespace Otter {
         }
 
 
-        public Vector3 Forward {
-            get {
+        public Vector3 Forward
+        {
+            get
+            {
                 return new Vector3(-this.M31, -this.M32, -this.M33);
             }
-            set {
+            set
+            {
                 this.M31 = -value.X;
                 this.M32 = -value.Y;
                 this.M33 = -value.Z;
@@ -197,7 +217,8 @@ namespace Otter {
         }
 
 
-        public static Matrix Identity {
+        public static Matrix Identity
+        {
             get { return identity; }
         }
 
@@ -205,7 +226,8 @@ namespace Otter {
         // required for OpenGL 2.0 projection matrix stuff
         // TODO: have this work correctly for 3x3 Matrices. Needs to return
         // a float[9] for a 3x3, and a float[16] for a 4x4
-        public static float[] ToFloatArray(Matrix mat) {
+        public static float[] ToFloatArray(Matrix mat)
+        {
             float[] matarray = {
                                     mat.M11, mat.M12, mat.M13, mat.M14,
                                     mat.M21, mat.M22, mat.M23, mat.M24,
@@ -215,11 +237,14 @@ namespace Otter {
             return matarray;
         }
 
-        public Vector3 Left {
-            get {
+        public Vector3 Left
+        {
+            get
+            {
                 return new Vector3(-this.M11, -this.M12, -this.M13);
             }
-            set {
+            set
+            {
                 this.M11 = -value.X;
                 this.M12 = -value.Y;
                 this.M13 = -value.Z;
@@ -227,11 +252,14 @@ namespace Otter {
         }
 
 
-        public Vector3 Right {
-            get {
+        public Vector3 Right
+        {
+            get
+            {
                 return new Vector3(this.M11, this.M12, this.M13);
             }
-            set {
+            set
+            {
                 this.M11 = value.X;
                 this.M12 = value.Y;
                 this.M13 = value.Z;
@@ -239,11 +267,14 @@ namespace Otter {
         }
 
 
-        public Vector3 Translation {
-            get {
+        public Vector3 Translation
+        {
+            get
+            {
                 return new Vector3(this.M41, this.M42, this.M43);
             }
-            set {
+            set
+            {
                 this.M41 = value.X;
                 this.M42 = value.Y;
                 this.M43 = value.Z;
@@ -251,11 +282,14 @@ namespace Otter {
         }
 
 
-        public Vector3 Up {
-            get {
+        public Vector3 Up
+        {
+            get
+            {
                 return new Vector3(this.M21, this.M22, this.M23);
             }
-            set {
+            set
+            {
                 this.M21 = value.X;
                 this.M22 = value.Y;
                 this.M23 = value.Z;
@@ -265,7 +299,8 @@ namespace Otter {
 
         #region Public Methods
 
-        public static Matrix Add(Matrix matrix1, Matrix matrix2) {
+        public static Matrix Add(Matrix matrix1, Matrix matrix2)
+        {
             matrix1.M11 += matrix2.M11;
             matrix1.M12 += matrix2.M12;
             matrix1.M13 += matrix2.M13;
@@ -286,7 +321,8 @@ namespace Otter {
         }
 
 
-        public static void Add(ref Matrix matrix1, ref Matrix matrix2, out Matrix result) {
+        public static void Add(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        {
             result.M11 = matrix1.M11 + matrix2.M11;
             result.M12 = matrix1.M12 + matrix2.M12;
             result.M13 = matrix1.M13 + matrix2.M13;
@@ -308,7 +344,8 @@ namespace Otter {
 
 
         public static Matrix CreateBillboard(Vector3 objectPosition, Vector3 cameraPosition,
-            Vector3 cameraUpVector, Nullable<Vector3> cameraForwardVector) {
+            Vector3 cameraUpVector, Nullable<Vector3> cameraForwardVector)
+        {
             Matrix result;
 
             // Delegate to the other overload of the function to do the work
@@ -319,7 +356,8 @@ namespace Otter {
 
 
         public static void CreateBillboard(ref Vector3 objectPosition, ref Vector3 cameraPosition,
-            ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix result) {
+            ref Vector3 cameraUpVector, Vector3? cameraForwardVector, out Matrix result)
+        {
             Vector3 vector;
             Vector3 vector2;
             Vector3 vector3;
@@ -327,10 +365,12 @@ namespace Otter {
             vector.Y = objectPosition.Y - cameraPosition.Y;
             vector.Z = objectPosition.Z - cameraPosition.Z;
             float num = vector.LengthSquared();
-            if (num < 0.0001f) {
+            if (num < 0.0001f)
+            {
                 vector = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             }
-            else {
+            else
+            {
                 Vector3.Multiply(ref vector, (float)(1f / ((float)Math.Sqrt((double)num))), out vector);
             }
             Vector3.Cross(ref cameraUpVector, ref vector, out vector3);
@@ -356,7 +396,8 @@ namespace Otter {
 
 
         public static Matrix CreateConstrainedBillboard(Vector3 objectPosition, Vector3 cameraPosition,
-            Vector3 rotateAxis, Nullable<Vector3> cameraForwardVector, Nullable<Vector3> objectForwardVector) {
+            Vector3 rotateAxis, Nullable<Vector3> cameraForwardVector, Nullable<Vector3> objectForwardVector)
+        {
             Matrix result;
             CreateConstrainedBillboard(ref objectPosition, ref cameraPosition, ref rotateAxis,
                 cameraForwardVector, objectForwardVector, out result);
@@ -365,7 +406,8 @@ namespace Otter {
 
 
         public static void CreateConstrainedBillboard(ref Vector3 objectPosition, ref Vector3 cameraPosition,
-            ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix result) {
+            ref Vector3 rotateAxis, Vector3? cameraForwardVector, Vector3? objectForwardVector, out Matrix result)
+        {
             float num;
             Vector3 vector;
             Vector3 vector2;
@@ -374,24 +416,30 @@ namespace Otter {
             vector2.Y = objectPosition.Y - cameraPosition.Y;
             vector2.Z = objectPosition.Z - cameraPosition.Z;
             float num2 = vector2.LengthSquared();
-            if (num2 < 0.0001f) {
+            if (num2 < 0.0001f)
+            {
                 vector2 = cameraForwardVector.HasValue ? -cameraForwardVector.Value : Vector3.Forward;
             }
-            else {
+            else
+            {
                 Vector3.Multiply(ref vector2, (float)(1f / ((float)Math.Sqrt((double)num2))), out vector2);
             }
             Vector3 vector4 = rotateAxis;
             Vector3.Dot(ref rotateAxis, ref vector2, out num);
-            if (Math.Abs(num) > 0.9982547f) {
-                if (objectForwardVector.HasValue) {
+            if (Math.Abs(num) > 0.9982547f)
+            {
+                if (objectForwardVector.HasValue)
+                {
                     vector = objectForwardVector.Value;
                     Vector3.Dot(ref rotateAxis, ref vector, out num);
-                    if (Math.Abs(num) > 0.9982547f) {
+                    if (Math.Abs(num) > 0.9982547f)
+                    {
                         num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
                         vector = (Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
                     }
                 }
-                else {
+                else
+                {
                     num = ((rotateAxis.X * Vector3.Forward.X) + (rotateAxis.Y * Vector3.Forward.Y)) + (rotateAxis.Z * Vector3.Forward.Z);
                     vector = (Math.Abs(num) > 0.9982547f) ? Vector3.Right : Vector3.Forward;
                 }
@@ -400,7 +448,8 @@ namespace Otter {
                 Vector3.Cross(ref vector3, ref rotateAxis, out vector);
                 vector.Normalize();
             }
-            else {
+            else
+            {
                 Vector3.Cross(ref rotateAxis, ref vector2, out vector3);
                 vector3.Normalize();
                 Vector3.Cross(ref vector3, ref vector4, out vector);
@@ -426,14 +475,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateFromAxisAngle(Vector3 axis, float angle) {
+        public static Matrix CreateFromAxisAngle(Vector3 axis, float angle)
+        {
             Matrix result;
             CreateFromAxisAngle(ref axis, angle, out result);
             return result;
         }
 
 
-        public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Matrix result) {
+        public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Matrix result)
+        {
             float x = axis.X;
             float y = axis.Y;
             float z = axis.Z;
@@ -464,14 +515,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateFromQuaternion(Quaternion quaternion) {
+        public static Matrix CreateFromQuaternion(Quaternion quaternion)
+        {
             Matrix result;
             CreateFromQuaternion(ref quaternion, out result);
             return result;
         }
 
 
-        public static void CreateFromQuaternion(ref Quaternion quaternion, out Matrix result) {
+        public static void CreateFromQuaternion(ref Quaternion quaternion, out Matrix result)
+        {
             float num9 = quaternion.X * quaternion.X;
             float num8 = quaternion.Y * quaternion.Y;
             float num7 = quaternion.Z * quaternion.Z;
@@ -499,25 +552,29 @@ namespace Otter {
             result.M44 = 1f;
         }
 
-        public static Matrix CreateFromYawPitchRoll(float yaw, float pitch, float roll) {
+        public static Matrix CreateFromYawPitchRoll(float yaw, float pitch, float roll)
+        {
             Matrix matrix;
             CreateFromYawPitchRoll(yaw, pitch, roll, out matrix);
             return matrix;
         }
 
-        public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix result) {
+        public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Matrix result)
+        {
             Quaternion quaternion;
             Quaternion.CreateFromYawPitchRoll(yaw, pitch, roll, out quaternion);
             CreateFromQuaternion(ref quaternion, out result);
         }
 
-        public static Matrix CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector) {
+        public static Matrix CreateLookAt(Vector3 cameraPosition, Vector3 cameraTarget, Vector3 cameraUpVector)
+        {
             Matrix matrix;
             CreateLookAt(ref cameraPosition, ref cameraTarget, ref cameraUpVector, out matrix);
             return matrix;
         }
 
-        public static void CreateLookAt(ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix result) {
+        public static void CreateLookAt(ref Vector3 cameraPosition, ref Vector3 cameraTarget, ref Vector3 cameraUpVector, out Matrix result)
+        {
             var vector = Vector3.Normalize(cameraPosition - cameraTarget);
             var vector2 = Vector3.Normalize(Vector3.Cross(cameraUpVector, vector));
             var vector3 = Vector3.Cross(vector, vector2);
@@ -540,14 +597,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane) {
+        public static Matrix CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane)
+        {
             Matrix matrix;
             CreateOrthographic(width, height, zNearPlane, zFarPlane, out matrix);
             return matrix;
         }
 
 
-        public static void CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane, out Matrix result) {
+        public static void CreateOrthographic(float width, float height, float zNearPlane, float zFarPlane, out Matrix result)
+        {
             result.M11 = 2f / width;
             result.M12 = result.M13 = result.M14 = 0f;
             result.M22 = 2f / height;
@@ -560,14 +619,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane) {
+        public static Matrix CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane)
+        {
             Matrix matrix;
             CreateOrthographicOffCenter(left, right, bottom, top, zNearPlane, zFarPlane, out matrix);
             return matrix;
         }
 
 
-        public static void CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, out Matrix result) {
+        public static void CreateOrthographicOffCenter(float left, float right, float bottom, float top, float zNearPlane, float zFarPlane, out Matrix result)
+        {
             result.M11 = (float)(2.0 / ((double)right - (double)left));
             result.M12 = 0.0f;
             result.M13 = 0.0f;
@@ -587,21 +648,26 @@ namespace Otter {
         }
 
 
-        public static Matrix CreatePerspective(float width, float height, float nearPlaneDistance, float farPlaneDistance) {
+        public static Matrix CreatePerspective(float width, float height, float nearPlaneDistance, float farPlaneDistance)
+        {
             Matrix matrix;
             CreatePerspective(width, height, nearPlaneDistance, farPlaneDistance, out matrix);
             return matrix;
         }
 
 
-        public static void CreatePerspective(float width, float height, float nearPlaneDistance, float farPlaneDistance, out Matrix result) {
-            if (nearPlaneDistance <= 0f) {
+        public static void CreatePerspective(float width, float height, float nearPlaneDistance, float farPlaneDistance, out Matrix result)
+        {
+            if (nearPlaneDistance <= 0f)
+            {
                 throw new ArgumentException("nearPlaneDistance <= 0");
             }
-            if (farPlaneDistance <= 0f) {
+            if (farPlaneDistance <= 0f)
+            {
                 throw new ArgumentException("farPlaneDistance <= 0");
             }
-            if (nearPlaneDistance >= farPlaneDistance) {
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
                 throw new ArgumentException("nearPlaneDistance >= farPlaneDistance");
             }
             result.M11 = (2f * nearPlaneDistance) / width;
@@ -616,24 +682,30 @@ namespace Otter {
         }
 
 
-        public static Matrix CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance) {
+        public static Matrix CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance)
+        {
             Matrix result;
             CreatePerspectiveFieldOfView(fieldOfView, aspectRatio, nearPlaneDistance, farPlaneDistance, out result);
             return result;
         }
 
 
-        public static void CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance, out Matrix result) {
-            if ((fieldOfView <= 0f) || (fieldOfView >= 3.141593f)) {
+        public static void CreatePerspectiveFieldOfView(float fieldOfView, float aspectRatio, float nearPlaneDistance, float farPlaneDistance, out Matrix result)
+        {
+            if ((fieldOfView <= 0f) || (fieldOfView >= 3.141593f))
+            {
                 throw new ArgumentException("fieldOfView <= 0 or >= PI");
             }
-            if (nearPlaneDistance <= 0f) {
+            if (nearPlaneDistance <= 0f)
+            {
                 throw new ArgumentException("nearPlaneDistance <= 0");
             }
-            if (farPlaneDistance <= 0f) {
+            if (farPlaneDistance <= 0f)
+            {
                 throw new ArgumentException("farPlaneDistance <= 0");
             }
-            if (nearPlaneDistance >= farPlaneDistance) {
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
                 throw new ArgumentException("nearPlaneDistance >= farPlaneDistance");
             }
             float num = 1f / ((float)Math.Tan((double)(fieldOfView * 0.5f)));
@@ -650,21 +722,26 @@ namespace Otter {
         }
 
 
-        public static Matrix CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance) {
+        public static Matrix CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance)
+        {
             Matrix result;
             CreatePerspectiveOffCenter(left, right, bottom, top, nearPlaneDistance, farPlaneDistance, out result);
             return result;
         }
 
 
-        public static void CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance, out Matrix result) {
-            if (nearPlaneDistance <= 0f) {
+        public static void CreatePerspectiveOffCenter(float left, float right, float bottom, float top, float nearPlaneDistance, float farPlaneDistance, out Matrix result)
+        {
+            if (nearPlaneDistance <= 0f)
+            {
                 throw new ArgumentException("nearPlaneDistance <= 0");
             }
-            if (farPlaneDistance <= 0f) {
+            if (farPlaneDistance <= 0f)
+            {
                 throw new ArgumentException("farPlaneDistance <= 0");
             }
-            if (nearPlaneDistance >= farPlaneDistance) {
+            if (nearPlaneDistance >= farPlaneDistance)
+            {
                 throw new ArgumentException("nearPlaneDistance >= farPlaneDistance");
             }
             result.M11 = (2f * nearPlaneDistance) / (right - left);
@@ -680,14 +757,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateRotationX(float radians) {
+        public static Matrix CreateRotationX(float radians)
+        {
             Matrix result;
             CreateRotationX(radians, out result);
             return result;
         }
 
 
-        public static void CreateRotationX(float radians, out Matrix result) {
+        public static void CreateRotationX(float radians, out Matrix result)
+        {
             result = Matrix.Identity;
 
             var val1 = (float)Math.Cos(radians);
@@ -699,14 +778,16 @@ namespace Otter {
             result.M33 = val1;
         }
 
-        public static Matrix CreateRotationY(float radians) {
+        public static Matrix CreateRotationY(float radians)
+        {
             Matrix result;
             CreateRotationY(radians, out result);
             return result;
         }
 
 
-        public static void CreateRotationY(float radians, out Matrix result) {
+        public static void CreateRotationY(float radians, out Matrix result)
+        {
             result = Matrix.Identity;
 
             var val1 = (float)Math.Cos(radians);
@@ -719,14 +800,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateRotationZ(float radians) {
+        public static Matrix CreateRotationZ(float radians)
+        {
             Matrix result;
             CreateRotationZ(radians, out result);
             return result;
         }
 
 
-        public static void CreateRotationZ(float radians, out Matrix result) {
+        public static void CreateRotationZ(float radians, out Matrix result)
+        {
             result = Matrix.Identity;
 
             var val1 = (float)Math.Cos(radians);
@@ -739,26 +822,30 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateScale(float scale) {
+        public static Matrix CreateScale(float scale)
+        {
             Matrix result;
             CreateScale(scale, scale, scale, out result);
             return result;
         }
 
 
-        public static void CreateScale(float scale, out Matrix result) {
+        public static void CreateScale(float scale, out Matrix result)
+        {
             CreateScale(scale, scale, scale, out result);
         }
 
 
-        public static Matrix CreateScale(float xScale, float yScale, float zScale) {
+        public static Matrix CreateScale(float xScale, float yScale, float zScale)
+        {
             Matrix result;
             CreateScale(xScale, yScale, zScale, out result);
             return result;
         }
 
 
-        public static void CreateScale(float xScale, float yScale, float zScale, out Matrix result) {
+        public static void CreateScale(float xScale, float yScale, float zScale, out Matrix result)
+        {
             result.M11 = xScale;
             result.M12 = 0;
             result.M13 = 0;
@@ -778,14 +865,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateScale(Vector3 scales) {
+        public static Matrix CreateScale(Vector3 scales)
+        {
             Matrix result;
             CreateScale(ref scales, out result);
             return result;
         }
 
 
-        public static void CreateScale(ref Vector3 scales, out Matrix result) {
+        public static void CreateScale(ref Vector3 scales, out Matrix result)
+        {
             result.M11 = scales.X;
             result.M12 = 0;
             result.M13 = 0;
@@ -851,14 +940,16 @@ namespace Otter {
         }
         */
 
-        public static Matrix CreateTranslation(float xPosition, float yPosition, float zPosition) {
+        public static Matrix CreateTranslation(float xPosition, float yPosition, float zPosition)
+        {
             Matrix result;
             CreateTranslation(xPosition, yPosition, zPosition, out result);
             return result;
         }
 
 
-        public static void CreateTranslation(ref Vector3 position, out Matrix result) {
+        public static void CreateTranslation(ref Vector3 position, out Matrix result)
+        {
             result.M11 = 1;
             result.M12 = 0;
             result.M13 = 0;
@@ -878,14 +969,16 @@ namespace Otter {
         }
 
 
-        public static Matrix CreateTranslation(Vector3 position) {
+        public static Matrix CreateTranslation(Vector3 position)
+        {
             Matrix result;
             CreateTranslation(ref position, out result);
             return result;
         }
 
 
-        public static void CreateTranslation(float xPosition, float yPosition, float zPosition, out Matrix result) {
+        public static void CreateTranslation(float xPosition, float yPosition, float zPosition, out Matrix result)
+        {
             result.M11 = 1;
             result.M12 = 0;
             result.M13 = 0;
@@ -941,14 +1034,16 @@ namespace Otter {
             result.M44 = 1;
         }
         */
-         
-        public static Matrix CreateWorld(Vector3 position, Vector3 forward, Vector3 up) {
+
+        public static Matrix CreateWorld(Vector3 position, Vector3 forward, Vector3 up)
+        {
             Matrix ret;
             CreateWorld(ref position, ref forward, ref up, out ret);
             return ret;
         }
 
-        public static void CreateWorld(ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix result) {
+        public static void CreateWorld(ref Vector3 position, ref Vector3 forward, ref Vector3 up, out Matrix result)
+        {
             Vector3 x, y, z;
             Vector3.Normalize(ref forward, out z);
             Vector3.Cross(ref forward, ref up, out x);
@@ -964,7 +1059,8 @@ namespace Otter {
             result.M44 = 1f;
         }
 
-        public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation) {
+        public bool Decompose(out Vector3 scale, out Quaternion rotation, out Vector3 translation)
+        {
             translation.X = this.M41;
             translation.Y = this.M42;
             translation.Z = this.M43;
@@ -977,7 +1073,8 @@ namespace Otter {
             scale.Y = ys * (float)Math.Sqrt(this.M21 * this.M21 + this.M22 * this.M22 + this.M23 * this.M23);
             scale.Z = zs * (float)Math.Sqrt(this.M31 * this.M31 + this.M32 * this.M32 + this.M33 * this.M33);
 
-            if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0) {
+            if (scale.X == 0.0 || scale.Y == 0.0 || scale.Z == 0.0)
+            {
                 rotation = Quaternion.Identity;
                 return false;
             }
@@ -991,7 +1088,8 @@ namespace Otter {
             return true;
         }
 
-        public float Determinant() {
+        public float Determinant()
+        {
             float num22 = this.M11;
             float num21 = this.M12;
             float num20 = this.M13;
@@ -1018,7 +1116,8 @@ namespace Otter {
         }
 
 
-        public static Matrix Divide(Matrix matrix1, Matrix matrix2) {
+        public static Matrix Divide(Matrix matrix1, Matrix matrix2)
+        {
             matrix1.M11 = matrix1.M11 / matrix2.M11;
             matrix1.M12 = matrix1.M12 / matrix2.M12;
             matrix1.M13 = matrix1.M13 / matrix2.M13;
@@ -1039,7 +1138,8 @@ namespace Otter {
         }
 
 
-        public static void Divide(ref Matrix matrix1, ref Matrix matrix2, out Matrix result) {
+        public static void Divide(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        {
             result.M11 = matrix1.M11 / matrix2.M11;
             result.M12 = matrix1.M12 / matrix2.M12;
             result.M13 = matrix1.M13 / matrix2.M13;
@@ -1059,7 +1159,8 @@ namespace Otter {
         }
 
 
-        public static Matrix Divide(Matrix matrix1, float divider) {
+        public static Matrix Divide(Matrix matrix1, float divider)
+        {
             float num = 1f / divider;
             matrix1.M11 = matrix1.M11 * num;
             matrix1.M12 = matrix1.M12 * num;
@@ -1081,7 +1182,8 @@ namespace Otter {
         }
 
 
-        public static void Divide(ref Matrix matrix1, float divider, out Matrix result) {
+        public static void Divide(ref Matrix matrix1, float divider, out Matrix result)
+        {
             float num = 1f / divider;
             result.M11 = matrix1.M11 * num;
             result.M12 = matrix1.M12 * num;
@@ -1102,32 +1204,38 @@ namespace Otter {
         }
 
 
-        public bool Equals(Matrix other) {
+        public bool Equals(Matrix other)
+        {
             return ((((((this.M11 == other.M11) && (this.M22 == other.M22)) && ((this.M33 == other.M33) && (this.M44 == other.M44))) && (((this.M12 == other.M12) && (this.M13 == other.M13)) && ((this.M14 == other.M14) && (this.M21 == other.M21)))) && ((((this.M23 == other.M23) && (this.M24 == other.M24)) && ((this.M31 == other.M31) && (this.M32 == other.M32))) && (((this.M34 == other.M34) && (this.M41 == other.M41)) && (this.M42 == other.M42)))) && (this.M43 == other.M43));
         }
 
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             bool flag = false;
-            if (obj is Matrix) {
+            if (obj is Matrix)
+            {
                 flag = this.Equals((Matrix)obj);
             }
             return flag;
         }
 
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return (((((((((((((((this.M11.GetHashCode() + this.M12.GetHashCode()) + this.M13.GetHashCode()) + this.M14.GetHashCode()) + this.M21.GetHashCode()) + this.M22.GetHashCode()) + this.M23.GetHashCode()) + this.M24.GetHashCode()) + this.M31.GetHashCode()) + this.M32.GetHashCode()) + this.M33.GetHashCode()) + this.M34.GetHashCode()) + this.M41.GetHashCode()) + this.M42.GetHashCode()) + this.M43.GetHashCode()) + this.M44.GetHashCode());
         }
 
 
-        public static Matrix Invert(Matrix matrix) {
+        public static Matrix Invert(Matrix matrix)
+        {
             Invert(ref matrix, out matrix);
             return matrix;
         }
 
 
-        public static void Invert(ref Matrix matrix, out Matrix result) {
+        public static void Invert(ref Matrix matrix, out Matrix result)
+        {
             float num1 = matrix.M11;
             float num2 = matrix.M12;
             float num3 = matrix.M13;
@@ -1227,7 +1335,8 @@ namespace Otter {
         }
 
 
-        public static Matrix Lerp(Matrix matrix1, Matrix matrix2, float amount) {
+        public static Matrix Lerp(Matrix matrix1, Matrix matrix2, float amount)
+        {
             matrix1.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
             matrix1.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
             matrix1.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
@@ -1248,7 +1357,8 @@ namespace Otter {
         }
 
 
-        public static void Lerp(ref Matrix matrix1, ref Matrix matrix2, float amount, out Matrix result) {
+        public static void Lerp(ref Matrix matrix1, ref Matrix matrix2, float amount, out Matrix result)
+        {
             result.M11 = matrix1.M11 + ((matrix2.M11 - matrix1.M11) * amount);
             result.M12 = matrix1.M12 + ((matrix2.M12 - matrix1.M12) * amount);
             result.M13 = matrix1.M13 + ((matrix2.M13 - matrix1.M13) * amount);
@@ -1267,7 +1377,8 @@ namespace Otter {
             result.M44 = matrix1.M44 + ((matrix2.M44 - matrix1.M44) * amount);
         }
 
-        public static Matrix Multiply(Matrix matrix1, Matrix matrix2) {
+        public static Matrix Multiply(Matrix matrix1, Matrix matrix2)
+        {
             var m11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
             var m12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
             var m13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
@@ -1304,7 +1415,8 @@ namespace Otter {
         }
 
 
-        public static void Multiply(ref Matrix matrix1, ref Matrix matrix2, out Matrix result) {
+        public static void Multiply(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        {
             var m11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
             var m12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
             var m13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
@@ -1339,7 +1451,8 @@ namespace Otter {
             result.M44 = m44;
         }
 
-        public static Matrix Multiply(Matrix matrix1, float factor) {
+        public static Matrix Multiply(Matrix matrix1, float factor)
+        {
             matrix1.M11 *= factor;
             matrix1.M12 *= factor;
             matrix1.M13 *= factor;
@@ -1360,7 +1473,8 @@ namespace Otter {
         }
 
 
-        public static void Multiply(ref Matrix matrix1, float factor, out Matrix result) {
+        public static void Multiply(ref Matrix matrix1, float factor, out Matrix result)
+        {
             result.M11 = matrix1.M11 * factor;
             result.M12 = matrix1.M12 * factor;
             result.M13 = matrix1.M13 * factor;
@@ -1381,7 +1495,8 @@ namespace Otter {
         }
 
 
-        public static Matrix Negate(Matrix matrix) {
+        public static Matrix Negate(Matrix matrix)
+        {
             matrix.M11 = -matrix.M11;
             matrix.M12 = -matrix.M12;
             matrix.M13 = -matrix.M13;
@@ -1402,7 +1517,8 @@ namespace Otter {
         }
 
 
-        public static void Negate(ref Matrix matrix, out Matrix result) {
+        public static void Negate(ref Matrix matrix, out Matrix result)
+        {
             result.M11 = -matrix.M11;
             result.M12 = -matrix.M12;
             result.M13 = -matrix.M13;
@@ -1422,13 +1538,15 @@ namespace Otter {
         }
 
 
-        public static Matrix operator +(Matrix matrix1, Matrix matrix2) {
+        public static Matrix operator +(Matrix matrix1, Matrix matrix2)
+        {
             Matrix.Add(ref matrix1, ref matrix2, out matrix1);
             return matrix1;
         }
 
 
-        public static Matrix operator /(Matrix matrix1, Matrix matrix2) {
+        public static Matrix operator /(Matrix matrix1, Matrix matrix2)
+        {
             matrix1.M11 = matrix1.M11 / matrix2.M11;
             matrix1.M12 = matrix1.M12 / matrix2.M12;
             matrix1.M13 = matrix1.M13 / matrix2.M13;
@@ -1449,7 +1567,8 @@ namespace Otter {
         }
 
 
-        public static Matrix operator /(Matrix matrix, float divider) {
+        public static Matrix operator /(Matrix matrix, float divider)
+        {
             float num = 1f / divider;
             matrix.M11 = matrix.M11 * num;
             matrix.M12 = matrix.M12 * num;
@@ -1471,7 +1590,8 @@ namespace Otter {
         }
 
 
-        public static bool operator ==(Matrix matrix1, Matrix matrix2) {
+        public static bool operator ==(Matrix matrix1, Matrix matrix2)
+        {
             return (
                 matrix1.M11 == matrix2.M11 &&
                 matrix1.M12 == matrix2.M12 &&
@@ -1493,7 +1613,8 @@ namespace Otter {
         }
 
 
-        public static bool operator !=(Matrix matrix1, Matrix matrix2) {
+        public static bool operator !=(Matrix matrix1, Matrix matrix2)
+        {
             return (
                 matrix1.M11 != matrix2.M11 ||
                 matrix1.M12 != matrix2.M12 ||
@@ -1515,7 +1636,8 @@ namespace Otter {
         }
 
 
-        public static Matrix operator *(Matrix matrix1, Matrix matrix2) {
+        public static Matrix operator *(Matrix matrix1, Matrix matrix2)
+        {
             var m11 = (((matrix1.M11 * matrix2.M11) + (matrix1.M12 * matrix2.M21)) + (matrix1.M13 * matrix2.M31)) + (matrix1.M14 * matrix2.M41);
             var m12 = (((matrix1.M11 * matrix2.M12) + (matrix1.M12 * matrix2.M22)) + (matrix1.M13 * matrix2.M32)) + (matrix1.M14 * matrix2.M42);
             var m13 = (((matrix1.M11 * matrix2.M13) + (matrix1.M12 * matrix2.M23)) + (matrix1.M13 * matrix2.M33)) + (matrix1.M14 * matrix2.M43);
@@ -1552,7 +1674,8 @@ namespace Otter {
         }
 
 
-        public static Matrix operator *(Matrix matrix, float scaleFactor) {
+        public static Matrix operator *(Matrix matrix, float scaleFactor)
+        {
             matrix.M11 = matrix.M11 * scaleFactor;
             matrix.M12 = matrix.M12 * scaleFactor;
             matrix.M13 = matrix.M13 * scaleFactor;
@@ -1573,7 +1696,8 @@ namespace Otter {
         }
 
 
-        public static Matrix operator -(Matrix matrix1, Matrix matrix2) {
+        public static Matrix operator -(Matrix matrix1, Matrix matrix2)
+        {
             matrix1.M11 = matrix1.M11 - matrix2.M11;
             matrix1.M12 = matrix1.M12 - matrix2.M12;
             matrix1.M13 = matrix1.M13 - matrix2.M13;
@@ -1594,7 +1718,8 @@ namespace Otter {
         }
 
 
-        public static Matrix operator -(Matrix matrix) {
+        public static Matrix operator -(Matrix matrix)
+        {
             matrix.M11 = -matrix.M11;
             matrix.M12 = -matrix.M12;
             matrix.M13 = -matrix.M13;
@@ -1615,7 +1740,8 @@ namespace Otter {
         }
 
 
-        public static Matrix Subtract(Matrix matrix1, Matrix matrix2) {
+        public static Matrix Subtract(Matrix matrix1, Matrix matrix2)
+        {
             matrix1.M11 = matrix1.M11 - matrix2.M11;
             matrix1.M12 = matrix1.M12 - matrix2.M12;
             matrix1.M13 = matrix1.M13 - matrix2.M13;
@@ -1636,7 +1762,8 @@ namespace Otter {
         }
 
 
-        public static void Subtract(ref Matrix matrix1, ref Matrix matrix2, out Matrix result) {
+        public static void Subtract(ref Matrix matrix1, ref Matrix matrix2, out Matrix result)
+        {
             result.M11 = matrix1.M11 - matrix2.M11;
             result.M12 = matrix1.M12 - matrix2.M12;
             result.M13 = matrix1.M13 - matrix2.M13;
@@ -1656,7 +1783,8 @@ namespace Otter {
         }
 
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "{" + String.Format("M11:{0} M12:{1} M13:{2} M14:{3}", M11, M12, M13, M14) + "}"
                 + " {" + String.Format("M21:{0} M22:{1} M23:{2} M24:{3}", M21, M22, M23, M24) + "}"
                 + " {" + String.Format("M31:{0} M32:{1} M33:{2} M34:{3}", M31, M32, M33, M34) + "}"
@@ -1664,14 +1792,16 @@ namespace Otter {
         }
 
 
-        public static Matrix Transpose(Matrix matrix) {
+        public static Matrix Transpose(Matrix matrix)
+        {
             Matrix ret;
             Transpose(ref matrix, out ret);
             return ret;
         }
 
 
-        public static void Transpose(ref Matrix matrix, out Matrix result) {
+        public static void Transpose(ref Matrix matrix, out Matrix result)
+        {
             Matrix ret;
 
             ret.M11 = matrix.M11;
@@ -1706,7 +1836,8 @@ namespace Otter {
         /// </summary>
         private static void FindDeterminants(ref Matrix matrix, out float major,
                                              out float minor1, out float minor2, out float minor3, out float minor4, out float minor5, out float minor6,
-                                             out float minor7, out float minor8, out float minor9, out float minor10, out float minor11, out float minor12) {
+                                             out float minor7, out float minor8, out float minor9, out float minor10, out float minor11, out float minor12)
+        {
             double det1 = (double)matrix.M11 * (double)matrix.M22 - (double)matrix.M12 * (double)matrix.M21;
             double det2 = (double)matrix.M11 * (double)matrix.M23 - (double)matrix.M13 * (double)matrix.M21;
             double det3 = (double)matrix.M11 * (double)matrix.M24 - (double)matrix.M14 * (double)matrix.M21;

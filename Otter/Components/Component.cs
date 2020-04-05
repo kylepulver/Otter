@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
-namespace Otter {
+using System.Collections.Generic;
+namespace Otter
+{
     /// <summary>
     /// Base Component class.  Components can be added to Entities.
     /// </summary>
-    public abstract class Component {
+    public abstract class Component
+    {
 
         #region Public Fields
 
@@ -39,8 +41,10 @@ namespace Otter {
         /// <summary>
         /// The Scene that the parent Entity is in.
         /// </summary>
-        public Scene Scene {
-            get {
+        public Scene Scene
+        {
+            get
+            {
                 return Entity.Scene;
             }
         }
@@ -48,8 +52,10 @@ namespace Otter {
         /// <summary>
         /// The first Collider of the parent Entity.
         /// </summary>
-        public Collider Collider {
-            get {
+        public Collider Collider
+        {
+            get
+            {
                 return Entity.Collider;
             }
         }
@@ -57,8 +63,10 @@ namespace Otter {
         /// <summary>
         /// The first Graphic of the parent Entity.
         /// </summary>
-        public Graphic Graphic {
-            get {
+        public Graphic Graphic
+        {
+            get
+            {
                 return Entity.Graphic;
             }
         }
@@ -66,8 +74,10 @@ namespace Otter {
         /// <summary>
         /// The list of Graphics from the parent Entity.
         /// </summary>
-        public List<Graphic> Graphics {
-            get {
+        public List<Graphic> Graphics
+        {
+            get
+            {
                 return Entity.Graphics;
             }
         }
@@ -75,8 +85,10 @@ namespace Otter {
         /// <summary>
         /// The list of Colliders from the parent Entity.
         /// </summary>
-        public List<Collider> Colliders {
-            get {
+        public List<Collider> Colliders
+        {
+            get
+            {
                 return Entity.Colliders;
             }
         }
@@ -85,7 +97,8 @@ namespace Otter {
 
         #region Constructors
 
-        public Component() {
+        public Component()
+        {
             InstanceId = -1;
         }
 
@@ -98,29 +111,34 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The Type to get.</typeparam>
         /// <returns>The Entity as Type T</returns>
-        public T GetEntity<T>() where T : Entity {
+        public T GetEntity<T>() where T : Entity
+        {
             return (T)Entity;
         }
 
         /// <summary>
         /// Called when the Component is added to the Entity.
         /// </summary>
-        public virtual void Added() {
+        public virtual void Added()
+        {
 
         }
 
         /// <summary>
         /// Called when the Component is removed from the Entity.
         /// </summary>
-        public virtual void Removed() {
+        public virtual void Removed()
+        {
 
         }
 
         /// <summary>
         /// Removes the Component from its parent Entity.
         /// </summary>
-        public void RemoveSelf() {
-            if (Entity != null) {
+        public void RemoveSelf()
+        {
+            if (Entity != null)
+            {
                 Entity.RemoveComponent(this);
             }
         }
@@ -128,28 +146,32 @@ namespace Otter {
         /// <summary>
         /// Called during the UpdateFirst on the parent Entity.
         /// </summary>
-        public virtual void UpdateFirst() {
+        public virtual void UpdateFirst()
+        {
 
         }
 
         /// <summary>
         /// Called during the Update on the parent Entity.
         /// </summary>
-        public virtual void Update() {
+        public virtual void Update()
+        {
 
         }
 
         /// <summary>
         /// Called during the Render on the parent Entity.
         /// </summary>
-        public virtual void Render() {
+        public virtual void Render()
+        {
 
         }
 
         /// <summary>
         /// Called during the UpdateLast on the parent Entity.
         /// </summary>
-        public virtual void UpdateLast() {
+        public virtual void UpdateLast()
+        {
 
         }
 
@@ -158,7 +180,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of the Component.</typeparam>
         /// <returns>The first Component of type T from the Entity's Components.</returns>
-        public T GetComponent<T>() where T : Component {
+        public T GetComponent<T>() where T : Component
+        {
             return Entity.GetComponent<T>();
         }
 
@@ -167,7 +190,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of the Components.</typeparam>
         /// <returns>A list of Components of type T from the Entity's Components.</returns>
-        public List<T> GetComponents<T>() where T : Component {
+        public List<T> GetComponents<T>() where T : Component
+        {
             return Entity.GetComponents<T>();
         }
         #endregion

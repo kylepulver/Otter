@@ -1,10 +1,12 @@
-﻿//special thanks to chevy ray for this class <3
+//special thanks to chevy ray for this class <3
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class of utility functions for ref related things.
     /// </summary>
-    public static class Ref {
+    public static class Ref
+    {
 
         #region Static Methods
 
@@ -14,7 +16,8 @@ namespace Otter {
         /// <typeparam name="T">The type of the values.</typeparam>
         /// <param name="a">First value.</param>
         /// <param name="b">Second value.</param>
-        public static void Swap<T>(ref T a, ref T b) {
+        public static void Swap<T>(ref T a, ref T b)
+        {
             var temp = a;
             a = b;
             b = temp;
@@ -27,7 +30,8 @@ namespace Otter {
         /// <param name="a">First value.</param>
         /// <param name="b">Second value.</param>
         /// <param name="c">Third value.</param>
-        public static void Shift<T>(ref T a, ref T b, ref T c) {
+        public static void Shift<T>(ref T a, ref T b, ref T c)
+        {
             var temp = a;
             a = b;
             b = c;
@@ -42,7 +46,8 @@ namespace Otter {
         /// <param name="b">Second value.</param>
         /// <param name="c">Third value.</param>
         /// <param name="d">Fourth value.</param>
-        public static void Shift<T>(ref T a, ref T b, ref T c, ref T d) {
+        public static void Shift<T>(ref T a, ref T b, ref T c, ref T d)
+        {
             var temp = a;
             a = b;
             b = c;
@@ -59,7 +64,8 @@ namespace Otter {
         /// <param name="c">Third value.</param>
         /// <param name="d">Fourth value.</param>
         /// <param name="e">Fifth value.</param>
-        public static void Shift<T>(ref T a, ref T b, ref T c, ref T d, ref T e) {
+        public static void Shift<T>(ref T a, ref T b, ref T c, ref T d, ref T e)
+        {
             var temp = a;
             a = b;
             b = c;
@@ -78,7 +84,8 @@ namespace Otter {
         /// <param name="d">Fourth value.</param>
         /// <param name="e">Fifth value.</param>
         /// <param name="f">Sixth value.</param>
-        public static void Shift<T>(ref T a, ref T b, ref T c, ref T d, ref T e, ref T f) {
+        public static void Shift<T>(ref T a, ref T b, ref T c, ref T d, ref T e, ref T f)
+        {
             var temp = a;
             a = b;
             b = c;
@@ -95,7 +102,8 @@ namespace Otter {
         /// <param name="p">The value to check for.</param>
         /// <param name="values">The values to check.</param>
         /// <returns>True if any of the values equal the value to check for.</returns>
-        public static bool EqualsAny<T>(ref T p, params T[] values) {
+        public static bool EqualsAny<T>(ref T p, params T[] values)
+        {
             foreach (var val in values)
                 if (val.Equals(p))
                     return true;
@@ -109,7 +117,8 @@ namespace Otter {
         /// <param name="p">The value to check for.</param>
         /// <param name="values">The values to check.</param>
         /// <returns>True if any of the values equal the value to check for.</returns>
-        public static bool EqualsAll<T>(ref T p, params T[] values) {
+        public static bool EqualsAll<T>(ref T p, params T[] values)
+        {
             foreach (var val in values)
                 if (!val.Equals(p))
                     return false;

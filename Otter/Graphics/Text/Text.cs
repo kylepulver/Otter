@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.IO;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Graphic used to display simple text.  Much faster than RichText, but more limited options.
     /// </summary>
-    public class Text : Graphic {
+    public class Text : Graphic
+    {
 
         #region Private Fields
 
@@ -15,14 +17,18 @@ namespace Otter {
 
         #region Private Properties
 
-        bool isUsingShadow {
-            get {
+        bool isUsingShadow
+        {
+            get
+            {
                 return ShadowX != 0 || ShadowY != 0;
             }
         }
 
-        bool isUsingOutline {
-            get {
+        bool isUsingOutline
+        {
+            get
+            {
                 return OutlineThickness > 0;
             }
         }
@@ -68,11 +74,14 @@ namespace Otter {
         /// <summary>
         /// The displayed string.
         /// </summary>
-        public string String {
-            get {
+        public string String
+        {
+            get
+            {
                 return text.DisplayedString;
             }
-            set {
+            set
+            {
                 text.DisplayedString = value;
                 NeedsUpdate = true;
                 Lines = text.DisplayedString.Split('\n').Length;
@@ -88,16 +97,19 @@ namespace Otter {
         /// <summary>
         /// The amount of space between each line of text.
         /// </summary>
-        public float LineSpacing {
+        public float LineSpacing
+        {
             get { return text.Font.GetLineSpacing(text.CharacterSize); }
         }
 
         /// <summary>
         /// The font size.
         /// </summary>
-        public int FontSize {
+        public int FontSize
+        {
             get { return (int)text.CharacterSize; }
-            set {
+            set
+            {
                 text.CharacterSize = (uint)value;
                 UpdateDrawable();
             }
@@ -106,9 +118,11 @@ namespace Otter {
         /// <summary>
         /// Set the TextStyle (bold, italic, underline.)
         /// </summary>
-        public TextStyle TextStyle {
+        public TextStyle TextStyle
+        {
             get { return textStyle; }
-            set {
+            set
+            {
                 textStyle = value;
                 text.Style = (SFML.Graphics.Text.Styles)TextStyle;
                 NeedsUpdate = true;
@@ -119,8 +133,10 @@ namespace Otter {
         /// <summary>
         /// Set both ShadowX and ShadowY.
         /// </summary>
-        public int Shadow {
-            set {
+        public int Shadow
+        {
+            set
+            {
                 ShadowX = value; ShadowY = value;
             }
         }
@@ -128,8 +144,10 @@ namespace Otter {
         /// <summary>
         /// Get the actual center Y of the Text.
         /// </summary>
-        public float CenterY {
-            get {
+        public float CenterY
+        {
+            get
+            {
                 return HalfHeight + BoundsTop;
             }
         }
@@ -137,8 +155,10 @@ namespace Otter {
         /// <summary>
         /// The top bounds of the Text.
         /// </summary>
-        public float BoundsTop {
-            get {
+        public float BoundsTop
+        {
+            get
+            {
                 return text.GetLocalBounds().Top;
             }
         }
@@ -146,8 +166,10 @@ namespace Otter {
         /// <summary>
         /// The left bounds of the Text.
         /// </summary>
-        public float BoundsLeft {
-            get {
+        public float BoundsLeft
+        {
+            get
+            {
                 return text.GetLocalBounds().Left;
             }
         }
@@ -164,7 +186,8 @@ namespace Otter {
         /// <param name="font">The file path to the font to use.</param>
         /// <param name="size">The size of the font.</param>
         public Text(string str, string font = "", int size = 16)
-            : base() {
+            : base()
+        {
             Initialize(str, font, size);
         }
 
@@ -175,7 +198,8 @@ namespace Otter {
         /// <param name="font">The stream to load the font to use.</param>
         /// <param name="size">The size of the font.</param>
         public Text(string str, Stream font, int size = 16)
-            : base() {
+            : base()
+        {
             Initialize(str, font, size);
         }
 
@@ -185,7 +209,8 @@ namespace Otter {
         /// <param name="str">The string to display.</param>
         /// <param name="font">The Font to use.</param>
         /// <param name="size">The size of the font.</param>
-        public Text(string str, Font font, int size = 16) : base() {
+        public Text(string str, Font font, int size = 16) : base()
+        {
             Initialize(str, font.font, size);
         }
 
@@ -206,7 +231,8 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize(string str, object font, int size) {
+        void Initialize(string str, object font, int size)
+        {
             if (size < 0) throw new ArgumentException("Font size must be greater than 0.");
 
             if (font is string)
@@ -215,14 +241,15 @@ namespace Otter {
             }
             else if (font is Font)
             {
-                this.font = ((Font) font).font;
+                this.font = ((Font)font).font;
             }
-            else if (font is SFML.Graphics.Font) {
+            else if (font is SFML.Graphics.Font)
+            {
                 this.font = (SFML.Graphics.Font)font;
             }
             else
             {
-                this.font = Fonts.Load((Stream) font);
+                this.font = Fonts.Load((Stream)font);
             }
 
             text = new SFML.Graphics.Text(str, this.font, (uint)size);
@@ -232,7 +259,8 @@ namespace Otter {
             SFMLDrawable = text;
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             Width = (int)text.GetLocalBounds().Width;
@@ -242,11 +270,12 @@ namespace Otter {
         #endregion
 
         #region Public Methods
-        
+
         /// <summary>
         /// Center the Text's origin. This factors in the Text's local bounds.
         /// </summary>
-        public void CenterTextOrigin() {
+        public void CenterTextOrigin()
+        {
             CenterTextOriginX();
             CenterTextOriginY();
         }
@@ -254,30 +283,36 @@ namespace Otter {
         /// <summary>
         /// Center the Text's X origin.  This factors in the Text's left bounds.
         /// </summary>
-        public void CenterTextOriginX() {
+        public void CenterTextOriginX()
+        {
             OriginX = HalfWidth + BoundsLeft;
         }
 
         /// <summary>
         /// Center the Text's Y origin.  This factors in the Text's top bounds.
         /// </summary>
-        public void CenterTextOriginY() {
+        public void CenterTextOriginY()
+        {
             OriginY = HalfHeight + BoundsTop;
         }
-        
+
         /// <summary>
         /// Draw the Text.
         /// </summary>
         /// <param name="x">The X position offset.</param>
         /// <param name="y">The Y position offset.</param>
-        public override void Render(float x = 0, float y = 0) {
-            if (isUsingOutline) {
+        public override void Render(float x = 0, float y = 0)
+        {
+            if (isUsingOutline)
+            {
                 var outlineColor = new Color(OutlineColor);
                 outlineColor.A = Color.A;
                 text.Color = outlineColor.SFMLColor;
                 var angleIncrement = (int)OutlineQuality;
-                for (float o = OutlineThickness * 0.5f; o < OutlineThickness; o += 0.5f) {
-                    for (int a = 0; a < 360; a += angleIncrement) {
+                for (float o = OutlineThickness * 0.5f; o < OutlineThickness; o += 0.5f)
+                {
+                    for (int a = 0; a < 360; a += angleIncrement)
+                    {
                         var rx = x + Util.PolarX(a, o);
                         var ry = y + Util.PolarY(a, o);
 
@@ -286,7 +321,8 @@ namespace Otter {
                 }
             }
 
-            if (isUsingShadow) {
+            if (isUsingShadow)
+            {
                 var shadowColor = new Color(ShadowColor);
                 shadowColor.A = Color.A;
                 text.Color = shadowColor.SFMLColor;
@@ -305,25 +341,6 @@ namespace Otter {
         internal SFML.Graphics.Font font;
 
         #endregion
-        
+
     }
-
-    #region Enum
-
-    [Flags]
-    public enum TextStyle {
-        Regular = 0,
-        Bold = 1,
-        Italic = 2,
-        Underlined = 4,
-    }
-
-    public enum TextOutlineQuality {
-        Good = 45,
-        Better = 30,
-        Best = 15,
-        Absurd = 10
-    }
-
-    #endregion
 }

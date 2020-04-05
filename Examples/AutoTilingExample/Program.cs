@@ -1,7 +1,9 @@
-﻿using Otter;
+using Otter;
 
-namespace AutoTilingExample {
-    class Program {
+namespace AutoTilingExample
+{
+    class Program
+    {
         /// <summary>
         /// This program serves as an example on how to get started with Otter's auto tiling functionality.
         /// 
@@ -53,7 +55,8 @@ namespace AutoTilingExample {
         /// use. Make sure it is formatted properly, or you might get a crash or crazy results.
         /// </summary>
         /// <param name="args"></param>
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
 
             // Create a new game.
             var game = new Game("AutoTiling Example", 320, 240);
@@ -68,7 +71,5 @@ namespace AutoTilingExample {
             game.Start(new SceneEditor());
 
         }
-
-
     }
 }

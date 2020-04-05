@@ -1,18 +1,16 @@
-﻿using Otter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Otter;
 
-namespace FlippyFlop {
-    class HudTitleInfo : Entity {
+namespace FlippyFlop
+{
+    class HudTitleInfo : Entity
+    {
 
         public RichText TextTitle = new RichText("FLIPPY FLOP", 50);
         public RichText TextDetails = new RichText("PUSH X A LOT", 20);
         public RichText TextWebzone = new RichText("kpulv.com", 10);
 
-        public HudTitleInfo() {
+        public HudTitleInfo()
+        {
 
             TextTitle.X = Game.Instance.HalfWidth;
             TextDetails.X = Game.Instance.HalfWidth;
@@ -47,7 +45,8 @@ namespace FlippyFlop {
 
             AddGraphics(TextTitle, TextDetails, TextWebzone);
 
-            EventRouter.Subscribe(Events.GameStarted, (EventRouter.Event e) => {
+            EventRouter.Subscribe(Events.GameStarted, (EventRouter.Event e) =>
+            {
                 Tween(this, new { Y = 480 }, 30).Ease(Ease.BackIn);
             });
         }

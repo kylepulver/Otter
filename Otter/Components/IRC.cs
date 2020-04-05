@@ -1,14 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net.Sockets;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Component for connecting to and interacting with an IRC server.  Contains only very basic functionality.  Probably not very useable yet!
     /// </summary>
-    public class IRC : Component {
+    public class IRC : Component
+    {
 
         #region Private Fields
 
@@ -80,7 +82,8 @@ namespace Otter {
         /// <param name="port">The port to use when connecting.</param>
         /// <param name="nick">The nickname to use when connecting.</param>
         /// <param name="pass">The password to use when connecting.</param>
-        public IRC(string server, int port = 6667, string nick = "otter_bot", string pass = null) {
+        public IRC(string server, int port = 6667, string nick = "otter_bot", string pass = null)
+        {
             Server = server;
             Nick = nick;
             Port = port;
@@ -93,19 +96,25 @@ namespace Otter {
 
         #region Private Methods
 
-        void Work(object sender, DoWorkEventArgs e) {
-            if (Connected) {
+        void Work(object sender, DoWorkEventArgs e)
+        {
+            if (Connected)
+            {
                 string data;
-                if (Running) {
+                if (Running)
+                {
 
                     data = streamReader.ReadLine();
                     if (Debug) Console.WriteLine("IRC> " + data);
-                    if (data != null) {
-                        if (data.Substring(0, 4) == "PING") {
+                    if (data != null)
+                    {
+                        if (data.Substring(0, 4) == "PING")
+                        {
                             SendData("PONG");
                         }
                     }
-                    else {
+                    else
+                    {
                         //Assume null data is disconnect?
                         Close();
                     }
@@ -122,10 +131,12 @@ namespace Otter {
         /// </summary>
         /// <param name="channel">The channel to join.</param>
         /// <param name="password">The password to use when joining.</param>
-        public void Join(string channel, string password = null) {
+        public void Join(string channel, string password = null)
+        {
             if (!Connected) return;
 
-            if (!channels.Contains(channel)) {
+            if (!channels.Contains(channel))
+            {
                 channels.Add(channel);
                 SendData("JOIN", channel);
             }
@@ -135,15 +146,18 @@ namespace Otter {
         /// Leave a channel.
         /// </summary>
         /// <param name="channel">The channel to leave.</param>
-        public void Part(string channel) {
+        public void Part(string channel)
+        {
             channels.Remove(channel);
         }
 
         /// <summary>
         /// Close the current connection.
         /// </summary>
-        public void Close() {
-            if (Connected) {
+        public void Close()
+        {
+            if (Connected)
+            {
                 streamReader.Close();
                 streamWriter.Close();
                 networkStream.Close();
@@ -156,26 +170,33 @@ namespace Otter {
         /// <summary>
         /// Connect to the server.
         /// </summary>
-        public void Connect() {
-            try {
+        public void Connect()
+        {
+            try
+            {
                 connection = new TcpClient(Server, Port);
             }
-            catch {
+            catch
+            {
                 if (Debug) Console.WriteLine("Connection Error");
             }
 
-            try {
+            try
+            {
                 networkStream = connection.GetStream();
                 streamReader = new StreamReader(networkStream);
                 streamWriter = new StreamWriter(networkStream);
             }
-            catch {
+            catch
+            {
                 if (Debug) Console.WriteLine("Communication Error");
             }
-            finally {
+            finally
+            {
                 Connected = true;
 
-                if (Password != null) {
+                if (Password != null)
+                {
                     SendData("PASS", Password);
                 }
                 SendData("USER", Nick + " something something " + Name);
@@ -190,13 +211,16 @@ namespace Otter {
         /// </summary>
         /// <param name="command">The command to send.</param>
         /// <param name="param">The parameter to send along with the command.</param>
-        public void SendData(string command, string param = null) {
+        public void SendData(string command, string param = null)
+        {
             if (!Connected) return;
 
-            if (param == null) {
+            if (param == null)
+            {
                 streamWriter.WriteLine(command);
             }
-            else {
+            else
+            {
                 streamWriter.WriteLine(command + " " + param);
             }
             streamWriter.Flush();
@@ -207,9 +231,11 @@ namespace Otter {
         /// <summary>
         /// Updates the IRC connection.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
-            if (!backgroundWorker.IsBusy) {
+            if (!backgroundWorker.IsBusy)
+            {
                 backgroundWorker.RunWorkerAsync();
             }
 

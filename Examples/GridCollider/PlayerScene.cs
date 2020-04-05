@@ -1,7 +1,9 @@
 using Otter;
 
-namespace GridColliderPlayerTest {  
-    class PlayScene : Scene {
+namespace GridColliderPlayerTest
+{
+    class PlayScene : Scene
+    {
 
         // The tilemap that will be used to show the grid collider.
         Tilemap tiles = new Tilemap(640, 480, 20, 20);
@@ -9,7 +11,8 @@ namespace GridColliderPlayerTest {
         // The grid collider that the player will collide with.
         GridCollider grid = new GridCollider(640, 480, 20, 20, 0);
 
-        public PlayScene() {
+        public PlayScene()
+        {
             // Add the tilemap graphic to the scene.
             AddGraphic(tiles);
 
@@ -38,4 +41,4 @@ namespace GridColliderPlayerTest {
         }
 
     }
-  }
+}

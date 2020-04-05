@@ -1,10 +1,11 @@
-﻿using SFML.Graphics;
+using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Graphic that renders text with some more options than normal Text.
     /// RichText can be very slow to render with large strings of text so be careful!
@@ -44,7 +45,8 @@ namespace Otter {
     ///     {charOffsetY:0} - Set the character offset Y for the BitmapFont.
     /// </code>
     /// </example>
-    public class RichText : Graphic {
+    public class RichText : Graphic
+    {
 
         #region Static Fields
 
@@ -63,8 +65,10 @@ namespace Otter {
         /// </example>
         /// <param name="name">The name of the style.</param>
         /// <param name="content">The properties to set using commas as a delim character.</param>
-        static public void AddStyle(string name, string content) {
-            if (styles.ContainsKey(name)) {
+        static public void AddStyle(string name, string content)
+        {
+            if (styles.ContainsKey(name))
+            {
                 styles[name] = content;
                 return;
             }
@@ -75,14 +79,16 @@ namespace Otter {
         /// Removes a style from all RichText objects.
         /// </summary>
         /// <param name="name">The name of the style to remove.</param>
-        static public void RemoveStyle(string name) {
+        static public void RemoveStyle(string name)
+        {
             styles.Remove(name);
         }
 
         /// <summary>
         /// Remove all styles from RichText objects.
         /// </summary>
-        static public void ClearStyles() {
+        static public void ClearStyles()
+        {
             styles.Clear();
         }
 
@@ -354,16 +360,19 @@ namespace Otter {
         /// <summary>
         /// True if the text is using MonospaceWidth.
         /// </summary>
-        public bool Monospaced {
+        public bool Monospaced
+        {
             get { return MonospaceWidth > 0; }
         }
 
         /// <summary>
         /// The width of the text box.  If not set it will be automatically set.
         /// </summary>
-        public int TextWidth {
+        public int TextWidth
+        {
             get { return textWidth; }
-            set {
+            set
+            {
                 textWidth = value;
                 UpdateCharacterData();
             }
@@ -372,9 +381,11 @@ namespace Otter {
         /// <summary>
         /// The height of the text box.  If not set it will be automatically set.
         /// </summary>
-        public int TextHeight {
+        public int TextHeight
+        {
             get { return textHeight; }
-            set {
+            set
+            {
                 textHeight = value;
                 UpdateCharacterData();
             }
@@ -383,16 +394,19 @@ namespace Otter {
         /// <summary>
         /// The line spacing between each vertical line.
         /// </summary>
-        public float LineSpacing {
+        public float LineSpacing
+        {
             get { return font.GetLineSpacing(charSize); }
         }
 
         /// <summary>
         /// Determines if the text will automatically wrap.  This will not work unless TextWidth is set.
         /// </summary>
-        public bool WordWrap {
+        public bool WordWrap
+        {
             get { return wordWrap; }
-            set {
+            set
+            {
                 wordWrap = value;
                 UpdateCharacterData();
             }
@@ -401,11 +415,14 @@ namespace Otter {
         /// <summary>
         /// The font size of the text.
         /// </summary>
-        public int FontSize {
-            get {
+        public int FontSize
+        {
+            get
+            {
                 return charSize;
             }
-            set {
+            set
+            {
                 charSize = value;
                 glyphs.Clear();
 
@@ -417,25 +434,30 @@ namespace Otter {
         /// <summary>
         /// True of the width was not manually set.
         /// </summary>
-        public bool AutoWidth {
+        public bool AutoWidth
+        {
             get { return TextWidth < 0; }
         }
 
         /// <summary>
         /// True if the height was not manually set.
         /// </summary>
-        public bool AutoHeight {
+        public bool AutoHeight
+        {
             get { return TextHeight < 0; }
         }
 
         /// <summary>
         /// The string to display stripped of all commands.
         /// </summary>
-        public string CleanString {
-            get {
+        public string CleanString
+        {
+            get
+            {
                 if (cachedCleanString != "") return cachedCleanString;
                 var str = "";
-                foreach (var c in chars) {
+                foreach (var c in chars)
+                {
                     str += c.Character.ToString();
                 }
                 cachedCleanString = str;
@@ -446,11 +468,14 @@ namespace Otter {
         /// <summary>
         /// The pixel width of the longest line in the displayed string.
         /// </summary>
-        public float LongestLine {
-            get {
+        public float LongestLine
+        {
+            get
+            {
                 var lines = CleanString.Split('\n');
                 float longest = 0;
-                for (int i = 0; i < NumLines; i++) {
+                for (int i = 0; i < NumLines; i++)
+                {
                     var width = GetLineWidth(i);
                     longest = Math.Max(longest, width);
                 }
@@ -467,18 +492,22 @@ namespace Otter {
         /// <summary>
         /// The total number of lines in the displayed string.
         /// </summary>
-        public int NumLines {
+        public int NumLines
+        {
             get { return Lines.Length; }
         }
 
         /// <summary>
         /// The string to display.  This string can contain commands to alter the text dynamically.
         /// </summary>
-        public string String {
-            get {
+        public string String
+        {
+            get
+            {
                 return textString;
             }
-            set {
+            set
+            {
                 textString = value;
                 UpdateCharacterData();
 
@@ -490,15 +519,18 @@ namespace Otter {
         /// <summary>
         /// The character count of the string without formatting commands.
         /// </summary>
-        public int CharacterCount {
+        public int CharacterCount
+        {
             get { return chars.Count; }
         }
 
         /// <summary>
         /// The top bounds of the RichText.
         /// </summary>
-        public float BoundsTop {
-            get {
+        public float BoundsTop
+        {
+            get
+            {
                 return boundsTop;
             }
         }
@@ -506,8 +538,10 @@ namespace Otter {
         /// <summary>
         /// The top bounds of the RichText.
         /// </summary>
-        public float BoundsLeft {
-            get {
+        public float BoundsLeft
+        {
+            get
+            {
                 return boundsLeft;
             }
         }
@@ -525,7 +559,8 @@ namespace Otter {
         /// <param name="textWidth">The width of the text box.</param>
         /// <param name="textHeight">The height of the text box.</param>
         public RichText(string str, string font = "", int size = 16, int textWidth = -1, int textHeight = -1)
-            : base() {
+            : base()
+        {
             Initialize(str, (font == "" ? new Font() : new Font(font)), size, textWidth, textHeight);
         }
 
@@ -538,11 +573,13 @@ namespace Otter {
         /// <param name="textWidth">The width of the text box.</param>
         /// <param name="textHeight">The height of the text box.</param>
         public RichText(string str, Stream font, int size = 16, int textWidth = -1, int textHeight = -1)
-            : base() {
+            : base()
+        {
             Initialize(str, new Font(font), size, textWidth, textHeight);
         }
 
-        public RichText(string str, BaseFont font, int size = 16, int textWidth = -1, int textHeight = -1) : base() {
+        public RichText(string str, BaseFont font, int size = 16, int textWidth = -1, int textHeight = -1) : base()
+        {
             Initialize(str, font, size, textWidth, textHeight);
         }
 
@@ -553,7 +590,8 @@ namespace Otter {
         /// <param name="config">The config to set all the default style values.</param>
         /// <param name="textWidth">The width of the text box.</param>
         /// <param name="textHeight">The height of the text box.</param>
-        public RichText(string str, RichTextConfig config, int textWidth = -1, int textHeight = -1) {
+        public RichText(string str, RichTextConfig config, int textWidth = -1, int textHeight = -1)
+        {
             // I probably should've used a dictionary of values or something.
             if (config == null) config = Default;
 
@@ -587,16 +625,20 @@ namespace Otter {
             OffsetX = config.OffsetX;
             OffsetY = config.OffsetY;
 
-            if (config.String != "") {
+            if (config.String != "")
+            {
                 str = config.String;
             }
-            if (config.TextWidth != -1) {
+            if (config.TextWidth != -1)
+            {
                 textWidth = config.TextWidth;
             }
-            if (config.TextHeight != -1) {
+            if (config.TextHeight != -1)
+            {
                 textHeight = config.TextHeight;
             }
-            if (config.Font == null) {
+            if (config.Font == null)
+            {
                 config.Font = new Font();
             }
 
@@ -620,13 +662,14 @@ namespace Otter {
         /// Create a new RichText object
         /// </summary>
         /// <param name="config">The RichTextConfig to use.</param>
-        public RichText(RichTextConfig config) : this("", config) { } 
+        public RichText(RichTextConfig config) : this("", config) { }
 
         #endregion
 
         #region Private Methods
 
-        void Initialize(string str, BaseFont font, int size, int textWidth, int textHeight) {
+        void Initialize(string str, BaseFont font, int size, int textWidth, int textHeight)
+        {
             Dynamic = true;
 
             this.font = font;
@@ -637,23 +680,27 @@ namespace Otter {
             String = str;
             roundRendering = false;
 
-            if (font is BitmapFont) {
+            if (font is BitmapFont)
+            {
                 charSize = 0; // Char size shouldn't matter for bitmap fonts?
             }
         }
 
-        float Advance(Glyph glyph) {
+        float Advance(Glyph glyph)
+        {
             if (Monospaced) return MonospaceWidth;
             // Note: This is to fix an issue before SFML updates to 2.3!!
             var bytes = BitConverter.GetBytes(glyph.Advance);
             return BitConverter.ToSingle(bytes, 0);
         }
 
-        Glyph Glyph(char charCode) {
+        Glyph Glyph(char charCode)
+        {
             var g = font.GetGlyph(charCode, charSize, currentBold);
 
             //update otter texture because SFML font texture updates
-            if (!glyphs.Contains(charCode)) {
+            if (!glyphs.Contains(charCode))
+            {
                 SetTexture(font.GetTexture(charSize));
                 glyphs.Add(charCode);
             }
@@ -661,19 +708,23 @@ namespace Otter {
             return g;
         }
 
-        void PrecalculateLineWidths() {
+        void PrecalculateLineWidths()
+        {
             if (cachedLineWidths.Count > 0) return; // Already calculated, will reset when string changes.
             //Console.WriteLine("Precalculate line width go");
             int lineNumber = 0;
-            foreach (var line in Lines) {
+            foreach (var line in Lines)
+            {
                 cachedLineWidths.Add(GetLineWidth(lineNumber));
                 lineNumber++;
             }
             //Console.WriteLine("cached line width count {0}", cachedLineWidths.Count);
         }
 
-        void ApplyCommand(string command, string args) {
-            switch (command) {
+        void ApplyCommand(string command, string args)
+        {
+            switch (command)
+            {
                 case "color":
                     currentCharColor = new Color(args);
                     break;
@@ -772,10 +823,12 @@ namespace Otter {
             }
         }
 
-        void UpdateCharacterData() {
+        void UpdateCharacterData()
+        {
             parsedString = textString;
 
-            if (textString == "") {
+            if (textString == "")
+            {
                 chars.Clear();
                 return;
             }
@@ -790,7 +843,8 @@ namespace Otter {
             var writingText = true;
 
             //auto word wrap string on input, before parsing?
-            if (!AutoWidth && WordWrap) {
+            if (!AutoWidth && WordWrap)
+            {
                 textString = PreWrap(textString);
             }
 
@@ -798,51 +852,63 @@ namespace Otter {
 
             //create the set of chars with properties and parse commands
             var charIndex = 0;
-            for (var i = 0; i < textString.Length; i++) {
+            for (var i = 0; i < textString.Length; i++)
+            {
                 var c = textString[i];
-                if (c == CommandOpen) {
+                if (c == CommandOpen)
+                {
                     //scan for commandclose
                     var cmdEnd = textString.IndexOf(CommandClose, i + 1);
-                    if (cmdEnd >= 0) {
+                    if (cmdEnd >= 0)
+                    {
                         //only continue of command close character is found
                         writingText = false;
                         var cmd = textString.Substring(i + 1, cmdEnd - i - 1);
                         var cmdSplit = cmd.Split(CommandDelim);
                         var command = cmdSplit[0];
-                        if (command == "clear") {
+                        if (command == "clear")
+                        {
                             Clear();
                         }
-                        else if (command == "style") {
+                        else if (command == "style")
+                        {
                             var args = cmdSplit[1];
-                            if (styles.ContainsKey(args)) {
+                            if (styles.ContainsKey(args))
+                            {
                                 var stylestring = styles[args];
 
                                 var styleSplit = stylestring.Split(',');
-                                foreach (var str in styleSplit) {
+                                foreach (var str in styleSplit)
+                                {
                                     var styleStrSplit = str.Split(CommandDelim);
 
                                     ApplyCommand(styleStrSplit[0], styleStrSplit[1]);
                                 }
                             }
                         }
-                        else {
+                        else
+                        {
                             ApplyCommand(command, cmdSplit[1]);
                         }
 
                         continue;
                     }
                 }
-                if (c == CommandClose) {
+                if (c == CommandClose)
+                {
                     writingText = true;
                     continue;
                 }
-                if (writingText) {
+                if (writingText)
+                {
                     RichTextCharacter rtchar;
-                    if (chars.Count > charIndex) {
+                    if (chars.Count > charIndex)
+                    {
                         rtchar = chars[charIndex];
                         rtchar.Character = c;
                     }
-                    else {
+                    else
+                    {
                         rtchar = new RichTextCharacter(c, charIndex);
                         chars.Add(rtchar);
                     }
@@ -873,12 +939,13 @@ namespace Otter {
                     rtchar.scaleX = currentScaleX;
                     rtchar.scaleY = currentScaleY;
                     rtchar.angle = currentAngle;
-                    
+
                     charIndex++;
                 }
             }
 
-            if (charIndex < oldStringLength) {
+            if (charIndex < oldStringLength)
+            {
                 chars.RemoveRange(charIndex, oldStringLength - charIndex);
             }
 
@@ -887,7 +954,8 @@ namespace Otter {
             totalHeight = (int)Math.Ceiling(NumLines * font.GetLineSpacing(charSize) * LineHeight);
         }
 
-        void Clear() {
+        void Clear()
+        {
             currentVisible = DefaultVisible;
             currentCharColor = DefaultCharColor;
             currentCharColor0 = DefaultCharColor0;
@@ -915,7 +983,8 @@ namespace Otter {
             currentAngle = 0;
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             SFMLVertices.Clear();
@@ -944,7 +1013,8 @@ namespace Otter {
 
             var buildLineCache = false;
 
-            if (cachedLineWidths.Count == 0) {
+            if (cachedLineWidths.Count == 0)
+            {
                 //build cached line widths this draw.
                 //cache will be cleared on string change
                 buildLineCache = true;
@@ -952,16 +1022,19 @@ namespace Otter {
 
             char prevChar = (char)0;
 
-            for (var i = 0; i < chars.Count; i++) {
+            for (var i = 0; i < chars.Count; i++)
+            {
 
                 var c = chars[i].Character;
 
-                if (c == ' ' || c == '\t' || c == '\n') {
+                if (c == ' ' || c == '\t' || c == '\n')
+                {
 
                     minX = Util.Min(minX, x - LineStartPosition(currentLine));
                     minY = Util.Min(minY, y);
 
-                    switch (c) {
+                    switch (c)
+                    {
                         case ' ':
                             x += advanceSpace * LetterSpacing;
                             lineLength += advanceSpace * LetterSpacing;
@@ -985,7 +1058,8 @@ namespace Otter {
                     maxY = Util.Max(maxY, y);
 
                 }
-                else {
+                else
+                {
                     var glyph = Glyph(c);
                     var rect = glyph.TextureRect;
                     var bounds = glyph.Bounds;
@@ -1040,7 +1114,8 @@ namespace Otter {
                     // Draw shadow
                     Color nextColor;
 
-                    if (chars[i].ShadowX != 0 || chars[i].ShadowY != 0) {
+                    if (chars[i].ShadowX != 0 || chars[i].ShadowY != 0)
+                    {
                         var shadowx = chars[i].ShadowX;
                         var shadowy = chars[i].ShadowY;
 
@@ -1055,13 +1130,17 @@ namespace Otter {
                     }
 
                     // Draw outline
-                    if (chars[i].Visible) {
-                        if (chars[i].OutlineThickness > 0) {
+                    if (chars[i].Visible)
+                    {
+                        if (chars[i].OutlineThickness > 0)
+                        {
                             var outline = chars[i].OutlineThickness;
                             nextColor = chars[i].OutlineColor * Color;
 
-                            for (float o = outline * 0.5f; o < outline; o += outline * 0.5f) {
-                                for (float r = 0; r < 360; r += OutlineQuality) {
+                            for (float o = outline * 0.5f; o < outline; o += outline * 0.5f)
+                            {
+                                for (float r = 0; r < 360; r += OutlineQuality)
+                                {
                                     var outlinex = Util.PolarX(r, o);
                                     var outliney = Util.PolarY(r, o);
 
@@ -1107,7 +1186,8 @@ namespace Otter {
                     maxX = Util.Max(maxX, x + right - LineStartPosition(currentLine));
                     maxY = Util.Max(maxY, y + bottom);
 
-                    if (Monospaced) {
+                    if (Monospaced)
+                    {
                         // Note: messy fix for wiggling monospaced text. Whatever I'm done with text forever.
                         maxX = Util.Max(maxX, x + Advance(glyph) - LineStartPosition(currentLine));
                         minX = 0;
@@ -1128,18 +1208,22 @@ namespace Otter {
             if (buildLineCache) cachedLineWidths.Add(lineLength);
 
             // Figure out dimensions
-            if (AutoWidth) {
+            if (AutoWidth)
+            {
                 Width = (int)(maxX - minX);
             }
-            else {
+            else
+            {
                 Width = TextWidth;
             }
 
-            if (AutoHeight) {
+            if (AutoHeight)
+            {
                 Height = (int)(maxY - minY);
                 Height = (int)Util.Max(Height, charSize); // Temp fix for negative height?
             }
-            else {
+            else
+            {
                 Height = TextHeight;
             }
 
@@ -1147,12 +1231,14 @@ namespace Otter {
             boundsTop = minY;
         }
 
-        float LineStartPosition(int lineNumber) {
+        float LineStartPosition(int lineNumber)
+        {
             if (TextAlign == TextAlign.Left) return 0;
 
             float lineStart = 0;
             var lineLength = GetLineWidth(lineNumber);
-            switch (TextAlign) {
+            switch (TextAlign)
+            {
                 case TextAlign.Center:
                     lineStart = (Width - lineLength) / 2;
                     break;
@@ -1170,7 +1256,8 @@ namespace Otter {
         /// <summary>
         /// Center the RichText's origin. This factors in the RichText's local bounds.
         /// </summary>
-        public void CenterTextOrigin() {
+        public void CenterTextOrigin()
+        {
             CenterTextOriginX();
             CenterTextOriginY();
         }
@@ -1178,18 +1265,21 @@ namespace Otter {
         /// <summary>
         /// Center the RichText's Y origin.  This factors in the RichText's top bounds.
         /// </summary>
-        public void CenterTextOriginY() {
+        public void CenterTextOriginY()
+        {
             OriginY = Util.Round(HalfHeight + BoundsTop);
         }
 
         /// <summary>
         /// Center the RichText's X origin.  This factors in the RichText's left bounds.
         /// </summary>
-        public void CenterTextOriginX() {
+        public void CenterTextOriginX()
+        {
             OriginX = Util.Round(HalfWidth + BoundsLeft);
         }
 
-        public override void CenterOrigin() {
+        public override void CenterOrigin()
+        {
             // Rounding to an int for this because origins of 0.5f cause bad text blurring.
             OriginX = Util.Round(HalfWidth);
             OriginY = Util.Round(HalfHeight);
@@ -1201,7 +1291,8 @@ namespace Otter {
         /// </summary>
         /// <param name="str">The string to wrap.</param>
         /// <returns>The wrapped string.</returns>
-        public string PreWrap(string str) {
+        public string PreWrap(string str)
+        {
             if (AutoWidth) return str; //Auto width cannot auto word wrap.
 
             var finalStr = str;
@@ -1211,40 +1302,52 @@ namespace Otter {
             float pixels = 0;
             int lastSpaceIndex = 0;
 
-            for (var i = 0; i < str.Length; i++) {
+            for (var i = 0; i < str.Length; i++)
+            {
                 var c = str[i];
                 var glyph = Glyph(c);
 
-                if (c == CommandOpen) {
+                if (c == CommandOpen)
+                {
                     var cmdEnd = str.IndexOf(CommandClose, i + 1);
-                    if (cmdEnd >= 0) {
+                    if (cmdEnd >= 0)
+                    {
                         writingText = false;
                     }
                 }
-                if (!writingText) {
-                    if (c == CommandClose) {
+                if (!writingText)
+                {
+                    if (c == CommandClose)
+                    {
                         writingText = true;
                     }
                 }
-                else if (writingText) {
-                    if (c == '\t') {
+                else if (writingText)
+                {
+                    if (c == '\t')
+                    {
                         pixels += Advance(glyph) * 4;
                     }
-                    else if (c == '\n') {
+                    else if (c == '\n')
+                    {
                         pixels = 0;
                     }
-                    else {
+                    else
+                    {
                         pixels += Advance(glyph);
 
-                        if (c == ' ') {
+                        if (c == ' ')
+                        {
                             // Keep track of the last space.
                             lastSpaceIndex = i;
                         }
-                        if (pixels > TextWidth) {
+                        if (pixels > TextWidth)
+                        {
                             StringBuilder sb = new StringBuilder(finalStr);
 
                             // Turn last space into new line if pixels exceeds allowed width
-                            if (lastSpaceIndex < sb.Length) {
+                            if (lastSpaceIndex < sb.Length)
+                            {
                                 sb[lastSpaceIndex] = '\n';
                             }
 
@@ -1268,17 +1371,20 @@ namespace Otter {
         /// </summary>
         /// <param name="lineNumber">The line number to check.</param>
         /// <returns>The length of the line in pixels.</returns>
-        public float GetLineWidth(int lineNumber) {
+        public float GetLineWidth(int lineNumber)
+        {
             if (lineNumber < 0 || lineNumber >= NumLines) throw new ArgumentOutOfRangeException("Line doesn't exist in string!");
             if (lineNumber < cachedLineWidths.Count) return cachedLineWidths[lineNumber];
-            
+
             //This is very slow on large text objects, but I'm not sure how to get around that!
 
             var line = Lines[lineNumber];
             float width = 0;
-            foreach (var c in line) {
+            foreach (var c in line)
+            {
                 var glyph = Glyph(c);
-                if (c == '\t') {
+                if (c == '\t')
+                {
                     width += (Advance(glyph) * 3 * LetterSpacing);
                 }
                 width += (Advance(glyph) * LetterSpacing);
@@ -1289,17 +1395,20 @@ namespace Otter {
         /// <summary>
         /// Refresh the text.  This will reapply all commands and update the text image.
         /// </summary>
-        public void Refresh() {
+        public void Refresh()
+        {
             UpdateCharacterData();
         }
 
         /// <summary>
         /// Update the RichText.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             timer += Game.Instance.DeltaTime;
 
-            foreach (var c in chars) {
+            foreach (var c in chars)
+            {
                 c.Update();
             }
 
@@ -1311,7 +1420,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The specific type of Font.</typeparam>
         /// <returns>The font as type font type T.</returns>
-        public T GetFont<T>() where T : BaseFont {
+        public T GetFont<T>() where T : BaseFont
+        {
             return (T)font;
         }
 
@@ -1322,7 +1432,8 @@ namespace Otter {
         /// </summary>
         /// <param name="index">The index of the character.</param>
         /// <returns>The RichTextCharacter at that index in the RichText string.</returns>
-        public RichTextCharacter this[int index] {
+        public RichTextCharacter this[int index]
+        {
             get { return chars[index]; }
             set { chars[index] = value; }
         }
@@ -1330,587 +1441,10 @@ namespace Otter {
         /// <summary>
         /// Get a list of RichTextCharacter
         /// </summary>
-        public List<RichTextCharacter> Characters {
+        public List<RichTextCharacter> Characters
+        {
             get { return chars; }
         }
 
-    }
-
-    #region Enum
-
-    public enum TextAlign {
-        Left,
-        Right,
-        Center
-    }
-
-    #endregion
-
-    /// <summary>
-    /// Internal class for managing characters in RichText.
-    /// </summary>
-    public class RichTextCharacter {
-
-        #region Private Fields
-
-        float finalShakeX;
-        float finalShakeY;
-        float finalSinX;
-        float finalSinY;
-        
-        float activeScaleX = 1;
-        float activeScaleY = 1;
-        float activeAngle;
-        float activeX;
-        float activeY;
-        float activeSineAmpX;
-        float activeSineAmpY;
-        float activeSineRateX;
-        float activeSineRateY;
-        float activeSineOffsetX;
-        float activeSineOffsetY;
-        float activeShakeX;
-        float activeShakeY;
-        float activeShadowX;
-        float activeShadowY;
-        float activeOutlineThickness;
-        int activeTextureOffsetX;
-        int activeTextureOffsetY;
-        float activeOffsetAmount;
-        bool activeVisible = true;
-        Color activeColor = Color.White;
-        Color activeColor0 = Color.White;
-        Color activeColor1 = Color.White;
-        Color activeColor2 = Color.White;
-        Color activeColor3 = Color.White;
-        Color activeShadowColor = Color.White;
-        Color activeOutlineColor = Color.White;
-
-        #endregion
-
-        #region Public Fields
-
-        /// <summary>
-        /// The character.
-        /// </summary>
-        public char Character;
-
-        /// <summary>
-        /// Timer used for animation.
-        /// </summary>
-        public float Timer;
-
-        /// <summary>
-        /// The sine wave offset for this specific character.
-        /// </summary>
-        public float CharOffset;
-
-        /// <summary>
-        /// Determines if the character is bold.  Not supported yet.
-        /// </summary>
-        public bool Bold = false;
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// If the character is visible.
-        /// </summary>
-        public bool Visible {
-            get { return visible && activeVisible; }
-            set { activeVisible = value; }
-        }
-
-        /// <summary>
-        /// The Color of the character.
-        /// </summary>
-        public Color Color {
-            get { return color * activeColor; }
-            set { activeColor = value; }
-        }
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color Color0 {
-            get { return color0 * activeColor0; }
-            set { activeColor0 = value; }
-        }
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color Color1 {
-            get { return color1 * activeColor1; }
-            set { activeColor1 = value; }
-        }
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color Color2 {
-            get { return color2 * activeColor2; }
-            set { activeColor2 = value; }
-        }
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color Color3 {
-            get { return color3 * activeColor3; }
-            set { activeColor3 = value; }
-        }
-
-        /// <summary>
-        /// The Color of the shadow.
-        /// </summary>
-        public Color ShadowColor {
-            get { return shadowColor * activeShadowColor; }
-            set { activeShadowColor = value; }
-        }
-
-        /// <summary>
-        /// The Color of the outline.
-        /// </summary>
-        public Color OutlineColor {
-            get { return outlineColor * activeShadowColor; }
-            set { activeShadowColor = value; }
-        }
-
-        /// <summary>
-        /// The offset amount for each character.
-        /// </summary>
-        public float OffsetAmount {
-            get { return offsetAmount + activeOffsetAmount; }
-            set { activeOffsetAmount = value; }
-        }
-
-        /// <summary>
-        /// The horizontal texture offset of the character.  BitmapFont only.
-        /// </summary>
-        public int TextureOffsetX {
-            get { return textureOffsetX + activeTextureOffsetX; }
-            set { activeTextureOffsetX = value; }
-        }
-
-        /// <summary>
-        /// The vertical texture offset of the character.  BitmapFont only.
-        /// </summary>
-        public int TextureOffsetY {
-            get { return textureOffsetY + activeTextureOffsetY; }
-            set { activeTextureOffsetY = value; }
-        }
-
-        /// <summary>
-        /// The outline thickness.
-        /// </summary>
-        public float OutlineThickness {
-            get { return outlineThickness + activeOutlineThickness; }
-            set { activeOutlineThickness = value; }
-        }
-
-        /// <summary>
-        /// The horizontal sine wave offset.
-        /// </summary>
-        public float SineOffsetX {
-            get { return sineOffsetX + activeSineOffsetX; }
-            set { activeSineOffsetX = value; }
-        }
-
-        /// <summary>
-        /// The vertical sine wave offset.
-        /// </summary>
-        public float SineOffsetY {
-            get { return sineOffsetY + activeSineOffsetY; }
-            set { activeSineOffsetY = value; }
-        }
-
-        /// <summary>
-        /// The X position of the shadow.
-        /// </summary>
-        public float ShadowX {
-            get { return shadowX + activeShadowX; }
-            set { activeShadowX = value; }
-        }
-
-        /// <summary>
-        /// The Y position of the shadow.
-        /// </summary>
-        public float ShadowY {
-            get { return shadowY + activeShadowY; }
-            set { activeShadowY = value; }
-        }
-
-        /// <summary>
-        /// The horizontal sine wave rate.
-        /// </summary>
-        public float SineRateX {
-            get { return sineRateX + activeSineRateX; }
-            set { activeSineRateX = value; }
-        }
-
-        /// <summary>
-        /// The vertical sine wave rate.
-        /// </summary>
-        public float SineRateY {
-            get { return sineRateY + activeSineRateY; }
-            set { activeSineRateY = value; }
-        }
-
-        /// <summary>
-        /// The amount of horizontal shake.
-        /// </summary>
-        public float ShakeX {
-            get { return shakeX + activeShakeX; }
-            set { activeShakeX = value; }
-        }
-
-        /// <summary>
-        /// The amount of vertical shake.
-        /// </summary>
-        public float ShakeY {
-            get { return shakeY + activeShakeY; }
-            set { activeShakeY = value; }
-        }
-
-        /// <summary>
-        /// The horizontal sine wave amplitude.
-        /// </summary>
-        public float SineAmpX {
-            get { return sineAmpX + activeSineAmpX; }
-            set { activeSineAmpX = value; }
-        }
-
-        /// <summary>
-        /// The vertical sine wave amplitude.
-        /// </summary>
-        public float SineAmpY {
-            get { return sineAmpY + activeSineAmpY; }
-            set { activeSineAmpY = value; }
-        }
-
-        /// <summary>
-        /// The X scale of the character.
-        /// </summary>
-        public float ScaleX {
-            get { return scaleX * activeScaleX; }
-            set { activeScaleX = value; }
-        }
-
-        /// <summary>
-        /// The Y scale of the character.
-        /// </summary>
-        public float ScaleY {
-            get { return scaleY * activeScaleY; }
-            set { activeScaleY = value; }
-        }
-
-        /// <summary>
-        /// The angle of the character.
-        /// </summary>
-        public float Angle {
-            get { return angle + activeAngle; }
-            set { activeAngle = value; }
-        }
-
-        /// <summary>
-        /// The X position offset of the character.
-        /// </summary>
-        public float X {
-            get { return x + activeX; }
-            set { activeX = value; }
-        }
-
-        /// <summary>
-        /// The Y position offset of the character.
-        /// </summary>
-        public float Y {
-            get { return y + activeY; }
-            set { activeY = value; }
-        }
-
-        /// <summary>
-        /// The final horizontal offset position of the character when rendered.
-        /// </summary>
-        public float OffsetX {
-            get {
-                return finalShakeX + finalSinX + X;
-            }
-        }
-
-        /// <summary>
-        /// The final vertical offset position of the character when rendered.
-        /// </summary>
-        public float OffsetY {
-            get {
-                return finalShakeY + finalSinY + Y;
-            }
-        }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Creates a new RichTextCharacter.
-        /// </summary>
-        /// <param name="character">The character.</param>
-        /// <param name="charOffset">The character offset for animation.</param>
-        public RichTextCharacter(char character, int charOffset = 0) {
-            Character = character;
-            CharOffset = charOffset;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Update the character.
-        /// </summary>
-        public void Update() {
-            Timer += Game.Instance.DeltaTime;
-
-            finalShakeX = Rand.Float(-ShakeX, ShakeX);
-            finalShakeY = Rand.Float(-ShakeY, ShakeY);
-            finalSinX = Util.SinScale((Timer + SineOffsetX - CharOffset * OffsetAmount) * SineRateX, -SineAmpX, SineAmpX);
-            finalSinY = Util.SinScale((Timer + SineOffsetY - CharOffset * OffsetAmount) * SineRateY, -SineAmpY, SineAmpY);
-        }
-
-        #endregion
-
-        #region Internal
-
-        internal void Append(VertexArray vertices, float x, float y) {
-            var col = new Color(Color0);
-            col.R *= Color.R;
-            col.G *= Color.G;
-            col.B *= Color.B;
-            col.A *= Color.A;
-        }
-
-        internal float scaleX = 1;
-        internal float scaleY = 1;
-        internal float angle;
-        internal float x;
-        internal float y;
-        internal float sineAmpX;
-        internal float sineAmpY;
-        internal float sineRateX = 1;
-        internal float sineRateY = 1;
-        internal float sineOffsetX;
-        internal float sineOffsetY;
-        internal float shakeX;
-        internal float shakeY;
-        internal float shadowX;
-        internal float shadowY;
-        internal float outlineThickness;
-        internal int textureOffsetX;
-        internal int textureOffsetY;
-        internal float offsetAmount = 10;
-        internal bool visible = true;
-        internal Color color = Color.White;
-        internal Color color0 = Color.White;
-        internal Color color1 = Color.White;
-        internal Color color2 = Color.White;
-        internal Color color3 = Color.White;
-        internal Color shadowColor = Color.Black;
-        internal Color outlineColor = Color.White;
-
-        #endregion
-        
-    }
-
-    /// <summary>
-    /// A utility class used for storing default values for a RichText object.
-    /// Set the values by using "var config = new RichTextConfig() { Font = "MyFont.ttf", FontSize = 16, ... };"
-    /// </summary>
-    public class RichTextConfig {
-
-        #region Public Fields
-
-        /// <summary>
-        /// The horizontal sine wave amplitude.
-        /// </summary>
-        public float SineAmpX = 0;
-
-        /// <summary>
-        /// The vertical sine wave amplitude.
-        /// </summary>
-        public float SineAmpY = 0;
-
-        /// <summary>
-        /// The horizontal sine wave rate.
-        /// </summary>
-        public float SineRateX = 1;
-
-        /// <summary>
-        /// The vertical sine wave rate.
-        /// </summary>
-        public float SineRateY = 1;
-
-        /// <summary>
-        /// The horizontal sine wave offset.
-        /// </summary>
-        public float SineOffsetX = 0;
-
-        /// <summary>
-        /// The vertical sine wave offset.
-        /// </summary>
-        public float SineOffsetY = 0;
-
-        /// <summary>
-        /// The offset amount for each character for sine wave related transformations.
-        /// </summary>
-        public float OffsetAmount = 10;
-
-        /// <summary>
-        /// The X position of the shadow.
-        /// </summary>
-        public float ShadowX = 0;
-
-        /// <summary>
-        /// The Y position of the shadow.
-        /// </summary>
-        public float ShadowY = 0;
-
-        /// <summary>
-        /// The outline thickness.
-        /// </summary>
-        public float OutlineThickness = 0;
-
-        /// <summary>
-        /// The amount of horizontal shake.
-        /// </summary>
-        public float ShakeX = 0;
-
-        /// <summary>
-        /// The amount of vertical shake.
-        /// </summary>
-        public float ShakeY = 0;
-
-        /// <summary>
-        /// If the character is visible.
-        /// </summary>
-        public bool Visible = true;
-
-        /// <summary>
-        /// The Color of the character.
-        /// </summary>
-        public Color CharColor = Color.White;
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color CharColor0 = Color.White;
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color CharColor1 = Color.White;
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color CharColor2 = Color.White;
-
-        /// <summary>
-        /// The Color of the top left corner.
-        /// </summary>
-        public Color CharColor3 = Color.White;
-
-        /// <summary>
-        /// The Color of the shadow.
-        /// </summary>
-        public Color ShadowColor = Color.Black;
-
-        /// <summary>
-        /// The Color of the outline.
-        /// </summary>
-        public Color OutlineColor = Color.White;
-
-        /// <summary>
-        /// The X offset of the character.  BitmapFont only.
-        /// </summary>
-        public int CharOffsetX = 0;
-
-        /// <summary>
-        /// The Y offset of the character.  BitmapFont only.
-        /// </summary>
-        public int CharOffsetY = 0;
-
-        /// <summary>
-        /// The X scale of the character.
-        /// </summary>
-        public float ScaleX = 1;
-
-        /// <summary>
-        /// The Y scale of the character.
-        /// </summary>
-        public float ScaleY = 1;
-
-        /// <summary>
-        /// The angle of the character.
-        /// </summary>
-        public float Angle = 0;
-
-        /// <summary>
-        /// The spacing between each character.
-        /// </summary>
-        public float LetterSpacing = 1.0f;
-
-        /// <summary>
-        /// The line height between each line. Default is 1.
-        /// </summary>
-        public float LineHeight = 1.0f;
-
-        /// <summary>
-        /// Controls the spacing between each character. If set above 0 the text will use a monospacing.
-        /// </summary>
-        public int MonospaceWidth = -1;
-
-        /// <summary>
-        /// The alignment of the text.  Left, Right, or Center.
-        /// </summary>
-        public TextAlign TextAlign = TextAlign.Left;
-
-        /// <summary>
-        /// The font to use.
-        /// </summary>
-        public BaseFont Font;
-
-        /// <summary>
-        /// The font size.
-        /// </summary>
-        public int FontSize = 16;
-
-        /// <summary>
-        /// The string to display.
-        /// </summary>
-        public string String = "";
-
-        /// <summary>
-        /// The width of the text block.
-        /// </summary>
-        public int TextWidth = -1;
-
-        /// <summary>
-        /// The height of the text block.
-        /// </summary>
-        public int TextHeight = -1;
-
-        /// <summary>
-        /// How far to offset the text rendering horizontally from the origin.
-        /// </summary>
-        public float OffsetX;
-
-        /// <summary>
-        /// How far to offset the text rendering vertically from the origin.
-        /// </summary>
-        public float OffsetY;
-
-        #endregion
-        
     }
 }

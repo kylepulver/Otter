@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Entity that is a quick way to make a particle.  Has lots of parameters that can be set, so
     /// use this with that constructor where you do { } and put a bunch of properties inside.
@@ -14,7 +15,8 @@ namespace Otter {
     /// };
     /// </example>
     /// </summary>
-    public class Particle : Entity {
+    public class Particle : Entity
+    {
 
         #region Private Fields
 
@@ -269,7 +271,8 @@ namespace Otter {
         /// <summary>
         /// The Color of the Particle.  Overrides ColorR, ColorG, ColorB.
         /// </summary>
-        public Color Color {
+        public Color Color
+        {
             set { color = value; hasColor = true; }
             get { return color; }
         }
@@ -277,7 +280,8 @@ namespace Otter {
         /// <summary>
         /// The magnitude of the particle's movement.  Overrides SpeedX and SpeedY.
         /// </summary>
-        public float SpeedLen {
+        public float SpeedLen
+        {
             set { speedLen = value; hasSpeedLen = true; }
             get { return speedLen; }
         }
@@ -285,7 +289,8 @@ namespace Otter {
         /// <summary>
         /// The direction of the particle's movement.  Overrides SpeedX and SpeedY.
         /// </summary>
-        public float SpeedDir {
+        public float SpeedDir
+        {
             set { speedDir = value; hasSpeedDir = true; }
             get { return speedDir; }
         }
@@ -293,7 +298,8 @@ namespace Otter {
         /// <summary>
         /// How many frames are present in the ImageSet for the Particle to animate through.
         /// </summary>
-        public int FrameCount {
+        public int FrameCount
+        {
             set { frameCount = value; hasFrameCount = true; }
             get { return frameCount; }
         }
@@ -301,7 +307,8 @@ namespace Otter {
         /// <summary>
         /// The final horizontal speed of the Particle.
         /// </summary>
-        public float FinalSpeedX {
+        public float FinalSpeedX
+        {
             set { finalSpeedX = value; hasFinalSpeedX = true; }
             get { return finalSpeedX; }
         }
@@ -309,7 +316,8 @@ namespace Otter {
         /// <summary>
         /// The final vertical speed of the Particle.
         /// </summary>
-        public float FinalSpeedY {
+        public float FinalSpeedY
+        {
             set { finalSpeedY = value; hasFinalSpeedY = true; }
             get { return finalSpeedY; }
         }
@@ -317,7 +325,8 @@ namespace Otter {
         /// <summary>
         /// The final X scale of the rendered Image.
         /// </summary>
-        public float FinalScaleX {
+        public float FinalScaleX
+        {
             set { finalScaleX = value; hasFinalScaleX = true; }
             get { return finalScaleX; }
         }
@@ -325,7 +334,8 @@ namespace Otter {
         /// <summary>
         /// The final Y scale of the rendered Image.
         /// </summary>
-        public float FinalScaleY {
+        public float FinalScaleY
+        {
             set { finalScaleY = value; hasFinalScaleY = true; }
             get { return finalScaleY; }
         }
@@ -333,7 +343,8 @@ namespace Otter {
         /// <summary>
         /// The final angle of the rendered Image.
         /// </summary>
-        public float FinalAngle {
+        public float FinalAngle
+        {
             set { finalAngle = value; hasFinalAngle = true; }
             get { return finalAngle; }
         }
@@ -341,7 +352,8 @@ namespace Otter {
         /// <summary>
         /// The final X position of the Particle. If set this overrides speed values.
         /// </summary>
-        public float FinalX {
+        public float FinalX
+        {
             set { finalX = value; hasFinalX = true; }
             get { return finalX; }
         }
@@ -349,7 +361,8 @@ namespace Otter {
         /// <summary>
         /// The final Y position of the Particle. If set this overrides speed values.
         /// </summary>
-        public float FinalY {
+        public float FinalY
+        {
             set { finalY = value; hasFinalY = true; }
             get { return finalY; }
         }
@@ -357,7 +370,8 @@ namespace Otter {
         /// <summary>
         /// The final Alpha of the rendered Image.
         /// </summary>
-        public float FinalAlpha {
+        public float FinalAlpha
+        {
             set { finalAlpha = value; hasFinalAlpha = true; }
             get { return finalAlpha; }
         }
@@ -365,7 +379,8 @@ namespace Otter {
         /// <summary>
         /// The final Color R component of the rendered Image.
         /// </summary>
-        public float FinalColorR {
+        public float FinalColorR
+        {
             set { finalColorR = value; hasFinalColorR = true; }
             get { return finalColorR; }
         }
@@ -373,7 +388,8 @@ namespace Otter {
         /// <summary>
         /// The final Color G component of the rendered Image.
         /// </summary>
-        public float FinalColorG {
+        public float FinalColorG
+        {
             set { finalColorG = value; hasFinalColorG = true; }
             get { return finalColorG; }
         }
@@ -381,7 +397,8 @@ namespace Otter {
         /// <summary>
         /// The final Color B component of the rendered Image.
         /// </summary>
-        public float FinalColorB {
+        public float FinalColorB
+        {
             set { finalColorB = value; hasFinalColorB = true; }
             get { return finalColorB; }
         }
@@ -389,7 +406,8 @@ namespace Otter {
         /// <summary>
         /// The final Color of the rendered Image.  If set will override the R G B components.
         /// </summary>
-        public Color FinalColor {
+        public Color FinalColor
+        {
             set { finalColor = value; hasFinalColor = true; }
             get { return finalColor; }
         }
@@ -397,7 +415,8 @@ namespace Otter {
         /// <summary>
         /// The final speed length of the Particle.  If set will override SpeedX and SpeedY.
         /// </summary>
-        public float FinalSpeedLen {
+        public float FinalSpeedLen
+        {
             set { finalSpeedLen = value; hasFinalSpeedLen = true; }
             get { return finalSpeedLen; }
         }
@@ -405,7 +424,8 @@ namespace Otter {
         /// <summary>
         /// The final speed direction of the Particle.  If set will override SpeedX and SpeedY.
         /// </summary>
-        public float FinalSpeedDir {
+        public float FinalSpeedDir
+        {
             set { finalSpeedDir = value; hasFinalSpeedDir = true; }
             get { return finalSpeedDir; }
         }
@@ -413,9 +433,11 @@ namespace Otter {
         /// <summary>
         /// The X origin of the rendered Image.
         /// </summary>
-        public float OriginX {
+        public float OriginX
+        {
             get { return originX; }
-            set {
+            set
+            {
                 originX = value;
                 useOrigin = true;
             }
@@ -424,9 +446,11 @@ namespace Otter {
         /// <summary>
         /// The Y origin of the rendered Image.
         /// </summary>
-        public float OriginY {
+        public float OriginY
+        {
             get { return originY; }
-            set {
+            set
+            {
                 originY = value;
                 useOrigin = true;
             }
@@ -445,7 +469,8 @@ namespace Otter {
         /// <param name="width">The width of the ImageSet cell.</param>
         /// <param name="height">The height of the ImageSet cell.</param>
         public Particle(float x, float y, string source = null, int width = 0, int height = 0)
-            : base(x, y) {
+            : base(x, y)
+        {
             Image = new ImageSet(source, width, height);
         }
 
@@ -458,7 +483,8 @@ namespace Otter {
         /// <param name="width">The width of the ImageSet cell.</param>
         /// <param name="height">The height of the ImageSet cell.</param>
         public Particle(float x, float y, Texture texture, int width = 0, int height = 0)
-            : base(x, y) {
+            : base(x, y)
+        {
             Image = new ImageSet(texture, width, height);
         }
 
@@ -471,7 +497,8 @@ namespace Otter {
         /// <param name="width"></param>
         /// <param name="height"></param>
         public Particle(float x, float y, AtlasTexture texture, int width = 0, int height = 0)
-            : base(x, y) {
+            : base(x, y)
+        {
             Image = new ImageSet(texture, width, height);
         }
 
@@ -481,7 +508,8 @@ namespace Otter {
         /// <param name="x">The x position.</param>
         /// <param name="y">The y position.</param>
         public Particle(float x, float y)
-            : base(x, y) {
+            : base(x, y)
+        {
 
         }
 
@@ -492,7 +520,8 @@ namespace Otter {
         /// <param name="y">The y position.</param>
         /// <param name="ImageSet">The ImageSet to use for the Particle.</param>
         public Particle(float x, float y, ImageSet imageSet)
-            : base(x, y) {
+            : base(x, y)
+        {
             Image = imageSet;
         }
 
@@ -503,7 +532,8 @@ namespace Otter {
         /// <summary>
         /// Added to the Scene.
         /// </summary>
-        public override void Added() {
+        public override void Added()
+        {
             base.Added();
 
             if (Delay == 0) Start();
@@ -512,33 +542,43 @@ namespace Otter {
         /// <summary>
         /// Start the Particle.
         /// </summary>
-        public void Start() {
-            if (LifeSpan == 0) {
+        public void Start()
+        {
+            if (LifeSpan == 0)
+            {
                 LifeSpan = DefaultLifeSpan;
             }
 
-            if (Frames != null) {
+            if (Frames != null)
+            {
                 useFrameList = true;
                 FrameCount = Frames.Count;
             }
 
-            if (FrameCount > 0) {
+            if (FrameCount > 0)
+            {
                 Animate = true;
             }
 
-            if (hasSpeedLen || hasSpeedDir) {
+            if (hasSpeedLen || hasSpeedDir)
+            {
                 useSpeedXY = false;
             }
-            if (hasFinalX || hasFinalY) {
+            if (hasFinalX || hasFinalY)
+            {
                 tweenPosition = true;
             }
 
-            if (!tweenPosition) {
-                if (useSpeedXY) {
-                    if (!hasFinalSpeedX) {
+            if (!tweenPosition)
+            {
+                if (useSpeedXY)
+                {
+                    if (!hasFinalSpeedX)
+                    {
                         FinalSpeedX = SpeedX;
                     }
-                    if (!hasFinalSpeedY) {
+                    if (!hasFinalSpeedY)
+                    {
                         FinalSpeedY = SpeedY;
                     }
                     SpeedLen = 0;
@@ -546,48 +586,61 @@ namespace Otter {
                     SpeedDir = 0;
                     FinalSpeedDir = 0;
                 }
-                else {
+                else
+                {
                     FinalSpeedX = 0;
                     FinalSpeedY = 0;
-                    if (!hasFinalSpeedLen) {
+                    if (!hasFinalSpeedLen)
+                    {
                         FinalSpeedLen = SpeedLen;
                     }
-                    if (!hasFinalSpeedDir) {
+                    if (!hasFinalSpeedDir)
+                    {
                         FinalSpeedDir = SpeedDir;
                     }
                 }
                 FinalX = 0;
                 FinalY = 0;
             }
-            else {
+            else
+            {
                 xpos = X;
                 ypos = Y;
-                if (!hasFinalX) {
+                if (!hasFinalX)
+                {
                     FinalX = X;
                 }
-                if (!hasFinalY) {
+                if (!hasFinalY)
+                {
                     FinalY = Y;
                 }
             }
-            if (!hasFinalScaleX) {
+            if (!hasFinalScaleX)
+            {
                 FinalScaleX = ScaleX;
             }
-            if (!hasFinalScaleY) {
+            if (!hasFinalScaleY)
+            {
                 FinalScaleY = ScaleY;
             }
-            if (!hasFinalAngle) {
+            if (!hasFinalAngle)
+            {
                 FinalAngle = Angle;
             }
-            if (!hasFinalAlpha) {
+            if (!hasFinalAlpha)
+            {
                 FinalAlpha = Alpha;
             }
-            if (!hasFinalColorR) {
+            if (!hasFinalColorR)
+            {
                 FinalColorR = ColorR;
             }
-            if (!hasFinalColorG) {
+            if (!hasFinalColorG)
+            {
                 FinalColorG = ColorG;
             }
-            if (!hasFinalColorB) {
+            if (!hasFinalColorB)
+            {
                 FinalColorB = ColorB;
             }
 
@@ -612,16 +665,20 @@ namespace Otter {
 
             AddGraphic(Image);
 
-            if (useOrigin) {
+            if (useOrigin)
+            {
                 Image.OriginX = originX;
                 Image.OriginY = originY;
             }
-            else {
+            else
+            {
                 if (CenterOrigin) Image.CenterOrigin();
             }
 
-            for (var i = 0; i < AdvanceSteps; i++) {
-                if (!useSpeedXY) {
+            for (var i = 0; i < AdvanceSteps; i++)
+            {
+                if (!useSpeedXY)
+                {
                     SpeedX = Util.PolarX(SpeedDir, SpeedLen);
                     SpeedY = Util.PolarY(SpeedDir, SpeedLen);
                 }
@@ -629,11 +686,13 @@ namespace Otter {
                 Y += SpeedY;
             }
 
-            if (Ease == null) {
+            if (Ease == null)
+            {
                 Ease = Otter.Ease.Linear;
             }
 
-            if (Shader != null) {
+            if (Shader != null)
+            {
                 Image.Shader = Shader;
             }
 
@@ -645,14 +704,17 @@ namespace Otter {
         /// <summary>
         /// Update the Particle.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
             // Handle delay
-            if (delayTimer < Delay) {
+            if (delayTimer < Delay)
+            {
                 delayTimer += Game.DeltaTime;
                 Timer = 0;
-                if (delayTimer == Delay) {
+                if (delayTimer == Delay)
+                {
                     Start();
                 }
                 return;
@@ -678,9 +740,11 @@ namespace Otter {
             Image.Visible = true;
 
             // If the positions are not controlled by tweens.
-            if (!tweenPosition) {
+            if (!tweenPosition)
+            {
                 // if SpeedDir and Len are being used
-                if (!useSpeedXY) {
+                if (!useSpeedXY)
+                {
                     SpeedX = Util.PolarX(SpeedDir, SpeedLen);
                     SpeedY = Util.PolarY(SpeedDir, SpeedLen);
                 }
@@ -689,7 +753,8 @@ namespace Otter {
                 X += SpeedX;
                 Y += SpeedY;
             }
-            else {
+            else
+            {
                 // Control the position with the interpolated/tweened position.
                 X = xpos;
                 Y = ypos;
@@ -697,43 +762,53 @@ namespace Otter {
 
             // Set up animation
             int endFrame;
-            if (hasFrameCount) {
+            if (hasFrameCount)
+            {
                 endFrame = FrameOffset + FrameCount;
             }
-            else {
+            else
+            {
                 endFrame = Image.Frames;
             }
 
             // Animate the particle
-            if (Animate) {
+            if (Animate)
+            {
                 var playCount = Loops + 1;
                 var frameIndex = (int)Util.ScaleClamp(Timer, 0, LifeSpan, 0, FrameCount * playCount);
                 frameIndex %= FrameCount;
-                if (useFrameList) {
+                if (useFrameList)
+                {
                     Image.Frame = Frames[frameIndex];
                 }
-                else {
+                else
+                {
                     Image.Frame = frameIndex + FrameOffset;
                 }
             }
-            else {
+            else
+            {
                 Image.Frame = 0;
             }
 
             // Control the image scale.
             Image.ScaleX = ScaleX;
-            if (LockScaleRatio) {
+            if (LockScaleRatio)
+            {
                 Image.ScaleY = ScaleX;
             }
-            else {
+            else
+            {
                 Image.ScaleY = ScaleY;
             }
 
             // Determines if the particle faces the direction of its speed vector.
-            if (MotionAngle) {
+            if (MotionAngle)
+            {
                 Image.Angle = Util.Angle(SpeedX, SpeedY);
             }
-            else {
+            else
+            {
                 Image.Angle = Angle;
             }
 
@@ -741,16 +816,20 @@ namespace Otter {
             Image.Blend = Blend;
 
             // Color the color.
-            if (hasColor) {
-                if (hasFinalColor) {
+            if (hasColor)
+            {
+                if (hasFinalColor)
+                {
                     Image.Color = Util.LerpColor(initColor, finalColor, colorLerp);
                 }
-                else {
+                else
+                {
                     Image.Color = Color;
                 }
                 Image.Alpha = Alpha;
             }
-            else {
+            else
+            {
                 Image.Color = new Color(ColorR, ColorG, ColorB, Alpha);
             }
 
@@ -762,7 +841,8 @@ namespace Otter {
         /// <summary>
         /// Removed from the Scene.
         /// </summary>
-        public override void Removed() {
+        public override void Removed()
+        {
             base.Removed();
 
             Timer = 0;
@@ -770,13 +850,14 @@ namespace Otter {
             ActiveCount--;
         }
 
-        public override void SceneEnd() {
+        public override void SceneEnd()
+        {
             base.SceneEnd();
 
             RemoveSelf();
         }
 
         #endregion
-        
+
     }
 }

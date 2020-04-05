@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -12,11 +12,13 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Main utility function class. Various useful functions for 2d game development and Otter stuff.
     /// </summary>
-    public static class Util {
+    public static class Util
+    {
 
         #region Constants
 
@@ -80,7 +82,8 @@ namespace Otter {
         /// A shortcut function to send text to the debugger log.
         /// </summary>
         /// <param name="str">The string to send.</param>
-        public static void Log(object str) {
+        public static void Log(object str)
+        {
             if (Debugger.Instance == null) return;
             Debugger.Instance.Log(str);
         }
@@ -90,17 +93,20 @@ namespace Otter {
         /// </summary>
         /// <param name="tag">The tag to log with.</param>
         /// <param name="str">The string to send.</param>
-        public static void LogTag(string tag, object str) {
+        public static void LogTag(string tag, object str)
+        {
             if (Debugger.Instance == null) return;
             Debugger.Instance.Log(tag, str);
         }
 
-        public static void LogTag(string tag, string str, params object[] obj) {
+        public static void LogTag(string tag, string str, params object[] obj)
+        {
             if (Debugger.Instance == null) return;
             Debugger.Instance.Log(tag, string.Format(str, obj));
         }
 
-        public static void Log(string str, params object[] obj) {
+        public static void Log(string str, params object[] obj)
+        {
             if (Debugger.Instance == null) return;
             Debugger.Instance.Log("", string.Format(str, obj));
         }
@@ -108,7 +114,8 @@ namespace Otter {
         /// <summary>
         /// Summon the Debugger.
         /// </summary>
-        public static void ShowDebugger() {
+        public static void ShowDebugger()
+        {
             if (Debugger.Instance == null) return;
             Debugger.Instance.Summon();
         }
@@ -119,10 +126,11 @@ namespace Otter {
         /// </summary>
         /// <param name="str">The name of the value.</param>
         /// <param name="obj">The value.</param>
-        public static void Watch(string str, object obj) {
+        public static void Watch(string str, object obj)
+        {
             if (Debugger.Instance == null) return;
             Debugger.Instance.Watch(str, obj);
-        }       
+        }
 
         /// <summary>
         /// Interpolate between two values.
@@ -131,7 +139,8 @@ namespace Otter {
         /// <param name="b">The second value.</param>
         /// <param name="t">The progress of the interpolation.</param>
         /// <returns>The interpolated value.</returns>
-        public static float Lerp(float a, float b, float t = 1) {
+        public static float Lerp(float a, float b, float t = 1)
+        {
             return a + (b - a) * t;
         }
 
@@ -142,7 +151,8 @@ namespace Otter {
         /// <param name="b">The second value.</param>
         /// <param name="t">The progress of the interpolation.</param>
         /// <returns>The interpolated value.</returns>
-        public static Vector2 Lerp(Vector2 a, Vector2 b, float t = 1) {
+        public static Vector2 Lerp(Vector2 a, Vector2 b, float t = 1)
+        {
             return a + (b - a) * t;
         }
 
@@ -152,7 +162,8 @@ namespace Otter {
         /// <param name="amount">The amount of completion of the lerp. (0 - 1)</param>
         /// <param name="numbers">The numbers to interpolate through.</param>
         /// <returns>The interpolated number.</returns>
-        public static float LerpSet(float amount, params float[] numbers) {
+        public static float LerpSet(float amount, params float[] numbers)
+        {
             if (amount <= 0) return numbers[0];
             if (amount >= 1) return numbers[numbers.Length - 1];
 
@@ -164,7 +175,8 @@ namespace Otter {
 
             // This is a fix for odd numbered color amounts. When fromIndex was
             // odd, lerp would evaluate to 1 when it should be 0.
-            if (lerp >= 0.9999f && fromIndex % 2 == 1) {
+            if (lerp >= 0.9999f && fromIndex % 2 == 1)
+            {
                 lerp = 0;
             }
 
@@ -177,18 +189,21 @@ namespace Otter {
         /// <param name="amount">The amount of completion of the lerp. (0 - 1)</param>
         /// <param name="numbers">The numbers to interpolate through.</param>
         /// <returns>The interpolated number.</returns>
-        public static float LerpSetLoop(float amount, params float[] numbers) {
+        public static float LerpSetLoop(float amount, params float[] numbers)
+        {
             //convert numbers to looping set
 
             List<float> set = new List<float>();
             List<float> numberSet = new List<float>(numbers);
             numberSet.Add(numbers[0]);
 
-            for (var i = 0; i < numberSet.Count; i++) {
+            for (var i = 0; i < numberSet.Count; i++)
+            {
                 var current = numberSet[i];
                 set.Add(current);
-                
-                if (i + 1 < numberSet.Count) {
+
+                if (i + 1 < numberSet.Count)
+                {
                     var next = numberSet[i + 1];
                     var nextSet = (current + next) / 2f;
                     set.Add(nextSet);
@@ -205,7 +220,8 @@ namespace Otter {
         /// <param name="to">The end Color.</param>
         /// <param name="amount">The amount of completion on the lerp. (0 - 1)</param>
         /// <returns>The interpolated Color.</returns>
-        public static Color LerpColor(Color from, Color to, float amount) {
+        public static Color LerpColor(Color from, Color to, float amount)
+        {
             if (amount <= 0) return new Color(from);
             if (amount >= 1) return new Color(to);
 
@@ -224,7 +240,8 @@ namespace Otter {
         /// <param name="amount">The amount of completion on the lerp. (0 - 1)</param>
         /// <param name="colors">The Colors to interpolate through.</param>
         /// <returns>The interpolated Color.</returns>
-        public static Color LerpColor(float amount, params Color[] colors) {
+        public static Color LerpColor(float amount, params Color[] colors)
+        {
             if (amount <= 0) return colors[0];
             if (amount >= 1) return colors[colors.Length - 1];
 
@@ -236,7 +253,8 @@ namespace Otter {
 
             // This is a fix for odd numbered color amounts. When fromIndex was
             // odd, lerp would evaluate to 1 when it should be 0.
-            if (lerp >= 0.9999f && fromIndex % 2 == 1) {
+            if (lerp >= 0.9999f && fromIndex % 2 == 1)
+            {
                 lerp = 0;
             }
 
@@ -250,7 +268,8 @@ namespace Otter {
         /// <param name="min">Min clamp.</param>
         /// <param name="max">Max clamp.</param>
         /// <returns>The new value between min and max.</returns>
-        public static float Clamp(float value, float min, float max) {
+        public static float Clamp(float value, float min, float max)
+        {
             if (value < min) return min;
             if (value > max) return max;
             return value;
@@ -263,7 +282,8 @@ namespace Otter {
         /// <param name="min">Min clamp.</param>
         /// <param name="max">Max clamp.</param>
         /// <returns>The new value between min and max.</returns>
-        public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max) {
+        public static Vector2 Clamp(Vector2 value, Vector2 min, Vector2 max)
+        {
             return new Vector2(
                 Util.Clamp(value.X, min.X, max.X),
                 Util.Clamp(value.Y, min.Y, max.Y)
@@ -276,7 +296,8 @@ namespace Otter {
         /// <param name="value">The value to clamp.</param>
         /// <param name="max">Max clamp.</param>
         /// <returns>The new value between 0 and max.</returns>
-        public static Vector2 Clamp(Vector2 value, Vector2 max) {
+        public static Vector2 Clamp(Vector2 value, Vector2 max)
+        {
             return Clamp(value, Vector2.Zero, max);
         }
 
@@ -286,7 +307,8 @@ namespace Otter {
         /// <param name="value">The value to clamp.</param>
         /// <param name="max">Max clamp</param>
         /// <returns>The new value between 0 and max.</returns>
-        public static float Clamp(float value, float max) {
+        public static float Clamp(float value, float max)
+        {
             return Clamp(value, 0, max);
         }
 
@@ -296,7 +318,8 @@ namespace Otter {
         /// <param name="value">The value to clamp.</param>
         /// <param name="range">The range.</param>
         /// <returns>The clamped value in the range.</returns>
-        public static float Clamp(float value, Range range) {
+        public static float Clamp(float value, Range range)
+        {
             return Clamp(value, range.Min, range.Max);
         }
 
@@ -307,7 +330,8 @@ namespace Otter {
         /// <param name="to">The target value to approach.</param>
         /// <param name="amount">The amount to approach by.</param>
         /// <returns>The new angle value approaching the target from 0 to 360.</returns>
-        public static float ApproachAngle(float from, float to, float amount) {
+        public static float ApproachAngle(float from, float to, float amount)
+        {
             var sign = AngleDifferenceSign(from, to);
             var diff = AngleDifference(from, to);
             var maxMove = Math.Min(Math.Abs(diff), amount);
@@ -321,7 +345,8 @@ namespace Otter {
         /// <param name="target">The target to approach.</param>
         /// <param name="maxMove">The maximum increment toward the target.</param>
         /// <returns>The new value approaching the target.</returns>
-        static public float Approach(float val, float target, float maxMove) {
+        static public float Approach(float val, float target, float maxMove)
+        {
             return val > target ? Math.Max(val - maxMove, target) : Math.Min(val + maxMove, target);
         }
 
@@ -332,14 +357,16 @@ namespace Otter {
         /// <param name="target">The target to approach.</param>
         /// <param name="maxMove">The maximum increment toward the target.</param>
         /// <returns>The new value approaching the target.</returns>
-        static public Vector2 Approach(Vector2 val, Vector2 target, Vector2 maxMove) {
+        static public Vector2 Approach(Vector2 val, Vector2 target, Vector2 maxMove)
+        {
             return new Vector2(
                 Approach(val.X, target.X, maxMove.X),
                 Approach(val.Y, target.Y, maxMove.Y)
                 );
         }
 
-        static public Vector2 Approach(Vector2 val, Vector2 target, float maxMove) {
+        static public Vector2 Approach(Vector2 val, Vector2 target, float maxMove)
+        {
             return Approach(val, target, new Vector2(maxMove, maxMove));
         }
 
@@ -350,7 +377,8 @@ namespace Otter {
         /// <param name="increment">The size of each grid space.</param>
         /// <param name="offset">The offset to apply after the snap.</param>
         /// <returns>The snapped value.</returns>
-        static public float SnapToGrid(float value, float increment, float offset = 0) {
+        static public float SnapToGrid(float value, float increment, float offset = 0)
+        {
             return ((float)Math.Floor(value / increment) * increment) + offset;
         }
 
@@ -359,7 +387,8 @@ namespace Otter {
         /// </summary>
         /// <param name="c">The input character.</param>
         /// <returns>The byte.</returns>
-        static public byte HexToByte(char c) {
+        static public byte HexToByte(char c)
+        {
             return (byte)HEX.IndexOf(char.ToUpper(c));
         }
 
@@ -368,7 +397,8 @@ namespace Otter {
         /// </summary>
         /// <param name="values">The values to test.</param>
         /// <returns>The minimum value.</returns>
-        static public float Min(params float[] values) {
+        static public float Min(params float[] values)
+        {
             float min = values[0];
             for (int i = 1; i < values.Length; i++)
                 min = Math.Min(values[i], min);
@@ -380,7 +410,8 @@ namespace Otter {
         /// </summary>
         /// <param name="values">The values to test.</param>
         /// <returns>The maximum value.</returns>
-        static public float Max(params float[] values) {
+        static public float Max(params float[] values)
+        {
             float max = values[0];
             for (int i = 1; i < values.Length; i++)
                 max = Math.Max(values[i], max);
@@ -397,7 +428,8 @@ namespace Otter {
         /// <param name="min2">The new minimum.</param>
         /// <param name="max2">The new maximum.</param>
         /// <returns>A value scaled from the original min and max to the new min and max.</returns>
-        public static float Scale(float value, float min, float max, float min2, float max2) {
+        public static float Scale(float value, float min, float max, float min2, float max2)
+        {
             return min2 + ((value - min) / (max - min)) * (max2 - min2);
         }
 
@@ -411,9 +443,11 @@ namespace Otter {
         /// <param name="min2">The new minimum.</param>
         /// <param name="max2">The new maximum.</param>
         /// <returns>A value scaled from the original min and max to the new min and max, and clamped to the new min and max.</returns>
-        public static float ScaleClamp(float value, float min, float max, float min2, float max2) {
+        public static float ScaleClamp(float value, float min, float max, float min2, float max2)
+        {
             value = min2 + ((value - min) / (max - min)) * (max2 - min2);
-            if (max2 > min2) {
+            if (max2 > min2)
+            {
                 value = value < max2 ? value : max2;
                 return value > min2 ? value : min2;
             }
@@ -428,7 +462,8 @@ namespace Otter {
         /// <param name="min">The new minimum.</param>
         /// <param name="max">The new maximum.</param>
         /// <returns>A value scaled from -1 and 1 to the new min and max.</returns>
-        public static float SinScale(float value, float min, float max) {
+        public static float SinScale(float value, float min, float max)
+        {
             return Scale((float)Math.Sin(value * DEG_TO_RAD), -1f, 1f, min, max);
         }
 
@@ -439,7 +474,8 @@ namespace Otter {
         /// <param name="min">The new minimum.</param>
         /// <param name="max">The new maximum.</param>
         /// <returns>A value scaled from -1 and 1 to the new min and max, and clamped to the new min and max.</returns>
-        public static float SinScaleClamp(float value, float min, float max) {
+        public static float SinScaleClamp(float value, float min, float max)
+        {
             return ScaleClamp((float)Math.Sin(value * DEG_TO_RAD), -1f, 1f, min, max);
         }
 
@@ -448,7 +484,8 @@ namespace Otter {
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The value rounded down.</returns>
-        public static float Floor(float value) {
+        public static float Floor(float value)
+        {
             return (float)Math.Floor(value);
         }
 
@@ -457,7 +494,8 @@ namespace Otter {
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The value rounded up.</returns>
-        public static float Ceil(float value) {
+        public static float Ceil(float value)
+        {
             return (float)Math.Ceiling(value);
         }
 
@@ -466,7 +504,8 @@ namespace Otter {
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>The value rounded.</returns>
-        public static float Round(float value) {
+        public static float Round(float value)
+        {
             return (float)Math.Round(value);
         }
 
@@ -476,7 +515,8 @@ namespace Otter {
         /// <param name="x">The X position.</param>
         /// <param name="y">The Y position.</param>
         /// <returns>An angle between 0 - 360 degrees.</returns>
-        public static float Angle(float x, float y) {
+        public static float Angle(float x, float y)
+        {
             //y is negative since y is DOWN in video games
             //return degrees by default
             return (float)Math.Atan2(-y, x) * Util.RAD_TO_DEG;
@@ -488,7 +528,8 @@ namespace Otter {
         /// <param name="e1">The first Entity.</param>
         /// <param name="e2">The second Entity.</param>
         /// <returns>The angle between the two Entity's positions between 0 - 360 degrees.</returns>
-        public static float Angle(Entity e1, Entity e2) {
+        public static float Angle(Entity e1, Entity e2)
+        {
             return Angle(e1.X, e1.Y, e2.X, e2.Y);
         }
 
@@ -497,7 +538,8 @@ namespace Otter {
         /// </summary>
         /// <param name="vector">The vector.</param>
         /// <returns>An angle between 0 - 360 degrees.</returns>
-        public static float Angle(Vector2 vector) {
+        public static float Angle(Vector2 vector)
+        {
             return Angle((float)vector.X, (float)vector.Y);
         }
 
@@ -507,7 +549,8 @@ namespace Otter {
         /// <param name="from">The first vector.</param>
         /// <param name="to">The second vector.</param>
         /// <returns>The angle between the two vectors.</returns>
-        public static float Angle(Vector2 from, Vector2 to) {
+        public static float Angle(Vector2 from, Vector2 to)
+        {
             return Angle((float)(to.X - from.X), (float)(to.Y - from.Y));
         }
 
@@ -519,7 +562,8 @@ namespace Otter {
         /// <param name="x2">The second X position.</param>
         /// <param name="y2">The second Y position.</param>
         /// <returns>The angle between the two positions.</returns>
-        public static float Angle(float x1, float y1, float x2, float y2) {
+        public static float Angle(float x1, float y1, float x2, float y2)
+        {
             return Angle(x2 - x1, y2 - y1);
         }
 
@@ -529,7 +573,8 @@ namespace Otter {
         /// <param name="a">The first angle.</param>
         /// <param name="b">The second angle.</param>
         /// <returns>The difference between the angles from -180 to 180.</returns>
-        public static float AngleDifference(float a, float b) {
+        public static float AngleDifference(float a, float b)
+        {
             var diff = b - a;
 
             while (diff > 180) { diff -= 360; }
@@ -544,7 +589,8 @@ namespace Otter {
         /// <param name="a">The first angle.</param>
         /// <param name="b">The second angle..</param>
         /// <returns>1 for clockwise, -1 for counter clockwise, 0 if angles are the same.</returns>
-        public static int AngleDifferenceSign(float a, float b) {
+        public static int AngleDifferenceSign(float a, float b)
+        {
             if (a == b) return 0;
             var dif = AngleDifference(a, b);
             return (int)Math.Sign(dif);
@@ -556,7 +602,8 @@ namespace Otter {
         /// <param name="vector">The position to rotate.</param>
         /// <param name="amount">The amount to rotate the position in degrees.</param>
         /// <returns>The new rotated position.</returns>
-        public static Vector2 Rotate(Vector2 vector, float amount) {
+        public static Vector2 Rotate(Vector2 vector, float amount)
+        {
             return Rotate(vector.X, vector.Y, amount);
         }
 
@@ -567,7 +614,8 @@ namespace Otter {
         /// <param name="y">The Y position to rotate.</param>
         /// <param name="amount">The amount to rotate the position in degrees.</param>
         /// <returns>The new rotated position.</returns>
-        public static Vector2 Rotate(float x, float y, float amount) {
+        public static Vector2 Rotate(float x, float y, float amount)
+        {
             amount *= -1;  // Flip Y because of video game coordinates.
             return new Vector2(x * Cos(amount) - y * Sin(amount), x * Sin(amount) + y * Cos(amount)); // Wow this is fancy
             /*
@@ -590,7 +638,8 @@ namespace Otter {
         /// <param name="aroundY">The Y position to rotate around.</param>
         /// <param name="amount">The amount to rotate the position in degrees.</param>
         /// <returns>The new rotated position.</returns>
-        public static Vector2 RotateAround(float x, float y, float aroundX, float aroundY, float amount) {
+        public static Vector2 RotateAround(float x, float y, float aroundX, float aroundY, float amount)
+        {
             var vec = Rotate(x - aroundX, y - aroundY, amount);
             vec.X += aroundX;
             vec.Y += aroundY;
@@ -604,7 +653,8 @@ namespace Otter {
         /// <param name="around">The position to rotate around.</param>
         /// <param name="amount">The amount to rotate the position in degrees.</param>
         /// <returns>The new rotated position.</returns>
-        public static Vector2 RotateAround(Vector2 point, Vector2 around, float amount) {
+        public static Vector2 RotateAround(Vector2 point, Vector2 around, float amount)
+        {
             return RotateAround(point.X, point.Y, around.X, around.Y, amount);
         }
 
@@ -618,7 +668,8 @@ namespace Otter {
         /// <param name="amountX">The X amount to scale by.</param>
         /// <param name="amountY">The Y amount to scale by.</param>
         /// <returns>The new scaled position.</returns>
-        public static Vector2 ScaleAround(float x, float y, float aroundX, float aroundY, float amountX, float amountY) {
+        public static Vector2 ScaleAround(float x, float y, float aroundX, float aroundY, float amountX, float amountY)
+        {
             x -= aroundX;
             y -= aroundY;
 
@@ -639,7 +690,8 @@ namespace Otter {
         /// <param name="amountX">The X amount to scale by.</param>
         /// <param name="amountY">The Y amount to scale by.</param>
         /// <returns>The new scaled position.</returns>
-        public static Vector2 ScaleAround(Vector2 point, Vector2 around, float amountX, float amountY) {
+        public static Vector2 ScaleAround(Vector2 point, Vector2 around, float amountX, float amountY)
+        {
             return ScaleAround(point.X, point.Y, around.X, around.Y, amountX, amountY);
         }
 
@@ -650,7 +702,8 @@ namespace Otter {
         /// <param name="around">The position to scale around.</param>
         /// <param name="amount">The amount to scale by.</param>
         /// <returns>The new scaled position.</returns>
-        public static Vector2 ScaleAround(Vector2 point, Vector2 around, float amount) {
+        public static Vector2 ScaleAround(Vector2 point, Vector2 around, float amount)
+        {
             return ScaleAround(point, around, amount, amount);
         }
 
@@ -661,7 +714,8 @@ namespace Otter {
         /// <param name="around">The position to scale around.</param>
         /// <param name="amount">The amount to scale by.</param>
         /// <returns>The new scaled position.</returns>
-        public static Vector2 ScaleAround(Vector2 point, Vector2 around, Vector2 amount) {
+        public static Vector2 ScaleAround(Vector2 point, Vector2 around, Vector2 amount)
+        {
             return ScaleAround(point.X, point.Y, around.X, around.Y, amount.X, amount.Y);
         }
 
@@ -673,7 +727,8 @@ namespace Otter {
         /// <param name="x2">The second X position.</param>
         /// <param name="y2">The second Y position.</param>
         /// <returns>The distance between the two points.</returns>
-        public static float Distance(float x1, float y1, float x2, float y2) {
+        public static float Distance(float x1, float y1, float x2, float y2)
+        {
             return (float)Math.Sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
         }
 
@@ -683,7 +738,8 @@ namespace Otter {
         /// <param name="from">The first position.</param>
         /// <param name="to">The second position.</param>
         /// <returns>The distance between the two positions.</returns>
-        public static float Distance(Vector2 from, Vector2 to) {
+        public static float Distance(Vector2 from, Vector2 to)
+        {
             return Distance(from.X, from.Y, to.X, to.Y);
         }
 
@@ -693,7 +749,8 @@ namespace Otter {
         /// <param name="e1">The first Entity.</param>
         /// <param name="e2">The second Entity.</param>
         /// <returns>The distance between the Entities.</returns>
-        public static float Distance(Entity e1, Entity e2) {
+        public static float Distance(Entity e1, Entity e2)
+        {
             return Distance(e1.X, e1.Y, e2.X, e2.Y);
         }
 
@@ -704,7 +761,8 @@ namespace Otter {
         /// <param name="min">The top left corner of the rectangle.</param>
         /// <param name="max">The bottom right corner of the rectangle.</param>
         /// <returns>True if the point is in the rectangle.</returns>
-        public static bool InRect(Vector2 p, Vector2 min, Vector2 max) {
+        public static bool InRect(Vector2 p, Vector2 min, Vector2 max)
+        {
             return p.X > min.X && p.Y > min.Y && p.X < max.X && p.Y < max.Y;
         }
 
@@ -715,7 +773,8 @@ namespace Otter {
         /// <param name="y">The Y position of the point to check.</param>
         /// <param name="rect">The rectangle.</param>
         /// <returns>True if the point is in the rectangle.</returns>
-        public static bool InRect(float x, float y, Rectangle rect) {
+        public static bool InRect(float x, float y, Rectangle rect)
+        {
             if (x <= rect.X) return false;
             if (x >= rect.X + rect.Width) return false;
             if (y <= rect.Y) return false;
@@ -733,7 +792,8 @@ namespace Otter {
         /// <param name="rw">The width of the rectangle.</param>
         /// <param name="rh">The height of the rectangle.</param>
         /// <returns>True if the point is in the rectangle.</returns>
-        public static bool InRect(float x, float y, float rx, float ry, float rw, float rh) {
+        public static bool InRect(float x, float y, float rx, float ry, float rw, float rh)
+        {
             if (x <= rx) return false;
             if (x >= rx + rw) return false;
             if (y <= ry) return false;
@@ -747,7 +807,8 @@ namespace Otter {
         /// <param name="xy">The X and Y position of the point to check.</param>
         /// <param name="rect">The rectangle.</param>
         /// <returns>True if the point is in the rectangle.</returns>
-        public static bool InRect(Vector2 xy, Rectangle rect) {
+        public static bool InRect(Vector2 xy, Rectangle rect)
+        {
             return InRect((float)xy.X, (float)xy.Y, rect);
         }
 
@@ -758,7 +819,8 @@ namespace Otter {
         /// <param name="circleP">The center point of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <returns>True if the point is inside the circle.</returns>
-        public static bool InCircle(Vector2 p, Vector2 circleP, float radius) {
+        public static bool InCircle(Vector2 p, Vector2 circleP, float radius)
+        {
             return Distance((float)p.X, (float)p.Y, (float)circleP.X, (float)circleP.Y) <= radius;
         }
 
@@ -771,7 +833,8 @@ namespace Otter {
         /// <param name="circleY">The center Y position of the check.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <returns>True if the point is inside the circle.</returns>
-        public static bool InCircle(float x, float y, float circleX, float circleY, float radius) {
+        public static bool InCircle(float x, float y, float circleX, float circleY, float radius)
+        {
             return Distance(x, y, circleX, circleY) <= radius;
         }
 
@@ -787,7 +850,8 @@ namespace Otter {
         /// <param name="w2">The width of the second rectangle.</param>
         /// <param name="h2">The height of the second rectangle.</param>
         /// <returns>True if the rectangles intersect.</returns>
-        public static bool IntersectRectangles(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2) {
+        public static bool IntersectRectangles(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2)
+        {
             if (x1 + w1 <= x2) return false;
             if (x1 >= x2 + w2) return false;
             if (y1 + h1 <= y2) return false;
@@ -801,7 +865,8 @@ namespace Otter {
         /// <param name="angle">The angle of the vector.</param>
         /// <param name="length">The length of the vector.</param>
         /// <returns>The X component.</returns>
-        public static float PolarX(float angle, float length) {
+        public static float PolarX(float angle, float length)
+        {
             return Cos(angle) * length;
         }
 
@@ -811,7 +876,8 @@ namespace Otter {
         /// <param name="angle">The angle of the vector.</param>
         /// <param name="length">The length of the vector.</param>
         /// <returns>The Y component.</returns>
-        public static float PolarY(float angle, float length) {
+        public static float PolarY(float angle, float length)
+        {
             //Radius is negative since Y positive is DOWN in video games.
             return Sin(angle) * -length;
         }
@@ -821,7 +887,8 @@ namespace Otter {
         /// </summary>
         /// <param name="degrees">The angle.</param>
         /// <returns>The sine of the angle.</returns>
-        public static float Sin(float degrees) {
+        public static float Sin(float degrees)
+        {
             return (float)Math.Sin(degrees * DEG_TO_RAD);
         }
 
@@ -830,7 +897,8 @@ namespace Otter {
         /// </summary>
         /// <param name="degrees">The angle.</param>
         /// <returns>The cosine of the angle.</returns>
-        public static float Cos(float degrees) {
+        public static float Cos(float degrees)
+        {
             return (float)Math.Cos(degrees * DEG_TO_RAD);
         }
 
@@ -841,7 +909,8 @@ namespace Otter {
         /// <param name="x">The X position in the two dimensional set.</param>
         /// <param name="y">The Y position in the two dimensional set.</param>
         /// <returns>The one dimensional index in a two dimensional set.</returns>
-        public static int OneDee(int width, int x, int y) {
+        public static int OneDee(int width, int x, int y)
+        {
             return y * width + x;
         }
 
@@ -851,8 +920,10 @@ namespace Otter {
         /// <param name="index">The one dimensional index in the two dimensional set.</param>
         /// <param name="width">The width of the two dimensional set.</param>
         /// <returns>The X and Y position in the two dimensional set.</returns>
-        public static Vector2 TwoDee(int index, int width) {
-            if (width == 0) {
+        public static Vector2 TwoDee(int index, int width)
+        {
+            if (width == 0)
+            {
                 return new Vector2(index, 0);
             }
             return new Vector2(index % width, index / width);
@@ -864,7 +935,8 @@ namespace Otter {
         /// <param name="index">The one dimensional index in the two dimensional set.</param>
         /// <param name="width">The width of the two dimensional set.</param>
         /// <returns>The X position in the two dimensional set.</returns>
-        public static int TwoDeeX(int index, int width) {
+        public static int TwoDeeX(int index, int width)
+        {
             return (int)TwoDee(index, width).X;
         }
 
@@ -874,7 +946,8 @@ namespace Otter {
         /// <param name="index">The one dimensional index in the two dimensional set.</param>
         /// <param name="width">The width of the two dimensional set.</param>
         /// <returns>The Y position in the two dimensional set.</returns>
-        public static int TwoDeeY(int index, int width) {
+        public static int TwoDeeY(int index, int width)
+        {
             return (int)TwoDee(index, width).Y;
         }
 
@@ -883,7 +956,8 @@ namespace Otter {
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The normal vector of that angle.</returns>
-        public static Vector2 Normal(float angle) {
+        public static Vector2 Normal(float angle)
+        {
             return new Vector2(Cos(angle), Sin(angle));
         }
 
@@ -893,7 +967,8 @@ namespace Otter {
         /// <param name="objectToCheck">The object to check for the method on.</param>
         /// <param name="methodName">The name of the method to check for.</param>
         /// <returns>True if the object has that method.</returns>
-        public static bool HasMethod(object objectToCheck, string methodName) {
+        public static bool HasMethod(object objectToCheck, string methodName)
+        {
             var type = objectToCheck.GetType();
             return type.GetMethod(methodName) != null || type.BaseType.GetMethod(methodName) != null;
         }
@@ -904,7 +979,8 @@ namespace Otter {
         /// <param name="objectToCheck">The object to check for the property on.</param>
         /// <param name="propertyName">The name of the property.</param>
         /// <returns>True if the object has that property.</returns>
-        public static bool HasProperty(object objectToCheck, string propertyName) {
+        public static bool HasProperty(object objectToCheck, string propertyName)
+        {
             var type = objectToCheck.GetType();
             return type.GetProperty(propertyName) != null || type.BaseType.GetProperty(propertyName) != null;
         }
@@ -915,7 +991,8 @@ namespace Otter {
         /// <param name="source">The object to get the property from.</param>
         /// <param name="propName">The name of the property.</param>
         /// <returns>The property value.</returns>
-        public static object GetPropValue(object source, string propName) {
+        public static object GetPropValue(object source, string propName)
+        {
             return source.GetType().GetProperty(propName).GetValue(source, null);
         }
 
@@ -925,7 +1002,8 @@ namespace Otter {
         /// <param name="objectToCheck">The object to check for the field on.</param>
         /// <param name="fieldName">The name of the field.</param>
         /// <returns>True if the object has that property.</returns>
-        public static bool HasField(object objectToCheck, string fieldName) {
+        public static bool HasField(object objectToCheck, string fieldName)
+        {
             return objectToCheck.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public) != null;
         }
 
@@ -935,7 +1013,8 @@ namespace Otter {
         /// <param name="source">The object to get the field from.</param>
         /// <param name="fieldName">The name of the field.</param>
         /// <returns>The value of the field.</returns>
-        public static object GetFieldValue(object source, string fieldName) {
+        public static object GetFieldValue(object source, string fieldName)
+        {
             return source.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).GetValue(source);
         }
 
@@ -945,7 +1024,8 @@ namespace Otter {
         /// <param name="type">The type to look for the field in.</param>
         /// <param name="fieldName">The name of the static field.</param>
         /// <returns>The value of the static field.</returns>
-        public static object GetFieldValue(Type type, string fieldName) {
+        public static object GetFieldValue(Type type, string fieldName)
+        {
             return type.GetField(fieldName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
         }
 
@@ -956,7 +1036,8 @@ namespace Otter {
         /// <param name="fieldName">The name of the field.</param>
         /// <param name="returnOnNull">The value to return if the field is not found.</param>
         /// <returns>The field value or the value to return if the field is not found.</returns>
-        public static object GetFieldValue(object src, string fieldName, object returnOnNull) {
+        public static object GetFieldValue(object src, string fieldName, object returnOnNull)
+        {
             if (src == null) return returnOnNull;
             if (!Util.HasField(src, fieldName)) return returnOnNull;
             return GetFieldValue(src, fieldName);
@@ -968,11 +1049,12 @@ namespace Otter {
         /// <param name="src">The object to set the field on.</param>
         /// <param name="fieldName">The name of the field.</param>
         /// <param name="value">The new value of the field.</param>
-        public static void SetFieldValue(object src, string fieldName, object value) {
+        public static void SetFieldValue(object src, string fieldName, object value)
+        {
             var fi = src.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
             fi.SetValue(src, value);
         }
-        
+
         /// <summary>
         /// Checks if a value is in a specified range.
         /// </summary>
@@ -980,7 +1062,8 @@ namespace Otter {
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>True if the value is in the range.</returns>
-        public static bool InRange(float value, float min, float max) {
+        public static bool InRange(float value, float min, float max)
+        {
             if (value >= min && value <= max) return true;
             return false;
         }
@@ -992,7 +1075,8 @@ namespace Otter {
         /// <param name="min">The minimum.</param>
         /// <param name="max">The maximum.</param>
         /// <returns>0 if the value is in the set.  -1 if the value is below the minimum.  1 if the value is above the maximum.</returns>
-        public static int Subset(float value, float min, float max) {
+        public static int Subset(float value, float min, float max)
+        {
             if (value < min) return -1;
             if (value > max) return 1;
             return 0;
@@ -1003,7 +1087,8 @@ namespace Otter {
         /// </summary>
         /// <param name="angle">The angle.</param>
         /// <returns>The angle wrapped to be in the range of 0 to 360.</returns>
-        public static float WrapAngle(float angle) {
+        public static float WrapAngle(float angle)
+        {
             angle %= 360;
             if (angle > 180)
                 return angle - 360;
@@ -1023,17 +1108,21 @@ namespace Otter {
         /// <param name="rw">The width of the rectangle.</param>
         /// <param name="rh">The height of the rectangle.</param>
         /// <returns>The distance.  Returns 0 if the point is within the rectangle.</returns>
-        public static float DistanceRectPoint(float px, float py, float rx, float ry, float rw, float rh) {
-            if (px >= rx && px <= rx + rw) {
+        public static float DistanceRectPoint(float px, float py, float rx, float ry, float rw, float rh)
+        {
+            if (px >= rx && px <= rx + rw)
+            {
                 if (py >= ry && py <= ry + rh) return 0;
                 if (py > ry) return py - (ry + rh);
                 return ry - py;
             }
-            if (py >= ry && py <= ry + rh) {
+            if (py >= ry && py <= ry + rh)
+            {
                 if (px > rx) return px - (rx + rw);
                 return rx - px;
             }
-            if (px > rx) {
+            if (px > rx)
+            {
                 if (py > ry) return Distance(px, py, rx + rw, ry + rh);
                 return Distance(px, py, rx + rw, ry);
             }
@@ -1048,7 +1137,8 @@ namespace Otter {
         /// <param name="py">The Y position of the point.</param>
         /// <param name="rect">The rectangle.</param>
         /// <returns>The distance.  Returns 0 if the point is within the rectangle.</returns>
-        public static float DistanceRectPoint(float px, float py, Rectangle rect) {
+        public static float DistanceRectPoint(float px, float py, Rectangle rect)
+        {
             return DistanceRectPoint(px, py, rect.X, rect.Y, rect.Width, rect.Height);
         }
 
@@ -1057,9 +1147,11 @@ namespace Otter {
         /// </summary>
         /// <param name="attributes">The attributes to convert.</param>
         /// <returns>A dictionary of string, string with the attribute names and values.</returns>
-        public static Dictionary<string, string> XmlAttributesToDictionary(XmlAttributeCollection attributes) {
+        public static Dictionary<string, string> XmlAttributesToDictionary(XmlAttributeCollection attributes)
+        {
             var d = new Dictionary<string, string>();
-            foreach (XmlAttribute attr in attributes) {
+            foreach (XmlAttribute attr in attributes)
+            {
                 d.Add(attr.Name, attr.Value);
             }
             return d;
@@ -1071,16 +1163,22 @@ namespace Otter {
         /// <param name="type">The type to search for.</param>
         /// <returns>The type found.  Null if no match.</returns>
         [Obsolete("Use GetTypesFromAllAssemblies instead")]
-        public static Type GetTypeFromAllAssemblies(string type, bool ignoreCase = false) {
+        public static Type GetTypeFromAllAssemblies(string type, bool ignoreCase = false)
+        {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var assembly in assemblies) {
+            foreach (var assembly in assemblies)
+            {
                 var types = assembly.GetTypes();
-                foreach (var t in types) {
-                    if (t.Name == type) {
+                foreach (var t in types)
+                {
+                    if (t.Name == type)
+                    {
                         return t;
                     }
-                    if (ignoreCase) {
-                        if (t.Name.ToLower() == type) {
+                    if (ignoreCase)
+                    {
+                        if (t.Name.ToLower() == type)
+                        {
                             return t;
                         }
                     }
@@ -1114,21 +1212,24 @@ namespace Otter {
                 : StringComparison.InvariantCulture;
 
             return AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(assembly=>assembly.GetTypes())
-                .Where(t=>t.Name.Equals(type, comparisonType))
-                .Where(t=>typeof(TBaseType).IsAssignableFrom(t));
+                .SelectMany(assembly => assembly.GetTypes())
+                .Where(t => t.Name.Equals(type, comparisonType))
+                .Where(t => typeof(TBaseType).IsAssignableFrom(t));
         }
 
         /// <summary>
         /// Get the list of all types in all known assemblies.
         /// </summary>
         /// <returns>The list of all types in all known assemblies.</returns>
-        public static List<Type> GetTypesFromAllAssemblies() {
+        public static List<Type> GetTypesFromAllAssemblies()
+        {
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
             var allTypes = new List<Type>();
-            foreach (var assembly in assemblies) {
+            foreach (var assembly in assemblies)
+            {
                 var types = assembly.GetTypes();
-                foreach (var t in types) {
+                foreach (var t in types)
+                {
                     allTypes.Add(t);
                 }
             }
@@ -1140,7 +1241,8 @@ namespace Otter {
         /// </summary>
         /// <param name="obj">The object.</param>
         /// <returns>The basic type name of the object.</returns>
-        public static string GetBasicTypeName(object obj) {
+        public static string GetBasicTypeName(object obj)
+        {
             var strarr = obj.GetType().ToString().Split('.');
             return strarr[strarr.Length - 1];
         }
@@ -1150,12 +1252,15 @@ namespace Otter {
         /// </summary>
         /// <param name="str">The string to compress.</param>
         /// <returns>The compressed string.</returns>
-        public static string CompressString(string str) {
+        public static string CompressString(string str)
+        {
             var bytes = Encoding.UTF8.GetBytes(str);
 
             using (var msi = new MemoryStream(bytes))
-            using (var mso = new MemoryStream()) {
-                using (var gs = new GZipStream(mso, CompressionMode.Compress)) {
+            using (var mso = new MemoryStream())
+            {
+                using (var gs = new GZipStream(mso, CompressionMode.Compress))
+                {
                     CopyStream(msi, gs);
                 }
 
@@ -1168,12 +1273,14 @@ namespace Otter {
         /// </summary>
         /// <param name="src">The string to copy.</param>
         /// <param name="dest">The stream to copy the string to.</param>
-        public static void CopyStream(Stream src, Stream dest) {
+        public static void CopyStream(Stream src, Stream dest)
+        {
             byte[] bytes = new byte[4096];
 
             int cnt;
 
-            while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0) {
+            while ((cnt = src.Read(bytes, 0, bytes.Length)) != 0)
+            {
                 dest.Write(bytes, 0, cnt);
             }
         }
@@ -1183,18 +1290,23 @@ namespace Otter {
         /// </summary>
         /// <param name="base64str">The compressed string.</param>
         /// <returns>The uncompressed string.</returns>
-        public static string DecompressString(string base64str) {
+        public static string DecompressString(string base64str)
+        {
             byte[] bytes;
-            try {
+            try
+            {
                 bytes = Convert.FromBase64String(base64str);
             }
-            catch {
+            catch
+            {
                 return null;
             }
 
             using (var msi = new MemoryStream(bytes))
-            using (var mso = new MemoryStream()) {
-                using (var gs = new GZipStream(msi, CompressionMode.Decompress)) {
+            using (var mso = new MemoryStream())
+            {
+                using (var gs = new GZipStream(msi, CompressionMode.Decompress))
+                {
                     CopyStream(gs, mso);
                 }
 
@@ -1207,9 +1319,11 @@ namespace Otter {
         /// </summary>
         /// <param name="data">The data to compress</param>
         /// <returns>The compressed byte array</returns>
-        public static byte[] CompressBytes(byte[] data) {
+        public static byte[] CompressBytes(byte[] data)
+        {
             using (var compressedStream = new MemoryStream())
-            using (var zipStream = new GZipStream(compressedStream, CompressionLevel.Optimal)) {
+            using (var zipStream = new GZipStream(compressedStream, CompressionLevel.Optimal))
+            {
                 zipStream.Write(data, 0, data.Length);
                 zipStream.Close();
                 return compressedStream.ToArray();
@@ -1221,10 +1335,12 @@ namespace Otter {
         /// </summary>
         /// <param name="data">The data to decompress</param>
         /// <returns>The decompressed byte array</returns>
-        public static byte[] DecompressBytes(byte[] data) {
+        public static byte[] DecompressBytes(byte[] data)
+        {
             using (var compressedStream = new MemoryStream(data))
             using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
-            using (var resultStream = new MemoryStream()) {
+            using (var resultStream = new MemoryStream())
+            {
                 zipStream.CopyTo(resultStream);
                 return resultStream.ToArray();
             }
@@ -1237,10 +1353,12 @@ namespace Otter {
         /// <param name="keydelim">The string that separates keys.</param>
         /// <param name="valuedelim">The string that separates values.</param>
         /// <returns>A string with all of the dictionary's data.</returns>
-        public static string DictionaryToString(Dictionary<string, string> dictionary, string keydelim, string valuedelim) {
+        public static string DictionaryToString(Dictionary<string, string> dictionary, string keydelim, string valuedelim)
+        {
             string str = "";
 
-            foreach (var s in dictionary) {
+            foreach (var s in dictionary)
+            {
                 str += s.Key + keydelim + s.Value + valuedelim;
             }
 
@@ -1256,12 +1374,14 @@ namespace Otter {
         /// <param name="keydelim">The string that separates keys.</param>
         /// <param name="valuedelim">The string that separates values.</param>
         /// <returns>A dictionary with all the string's data.</returns>
-        public static Dictionary<string, string> StringToDictionary(string source, string keydelim, string valuedelim) {
+        public static Dictionary<string, string> StringToDictionary(string source, string keydelim, string valuedelim)
+        {
             var d = new Dictionary<string, string>();
 
             string[] split = Regex.Split(source, valuedelim);
 
-            foreach (var s in split) {
+            foreach (var s in split)
+            {
                 string[] entry = Regex.Split(s, keydelim);
                 d.Add(entry[0], entry[1]);
             }
@@ -1274,7 +1394,8 @@ namespace Otter {
         /// </summary>
         /// <param name="input">The string to calculate the has for.</param>
         /// <returns>The MD5 hash of the string.</returns>
-        public static string MD5Hash(string input) {
+        public static string MD5Hash(string input)
+        {
             // step 1, calculate MD5 hash from input
             MD5 md5 = System.Security.Cryptography.MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
@@ -1282,7 +1403,8 @@ namespace Otter {
 
             // step 2, convert byte array to hex string
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++) {
+            for (int i = 0; i < hash.Length; i++)
+            {
                 sb.Append(hash[i].ToString("X2"));
             }
             return sb.ToString();
@@ -1293,7 +1415,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of the Enum.</typeparam>
         /// <returns>An enumerable containing all the enum values.</returns>
-        public static IEnumerable<T> EnumValues<T>() {
+        public static IEnumerable<T> EnumValues<T>()
+        {
             return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
@@ -1303,8 +1426,10 @@ namespace Otter {
         /// </summary>
         /// <param name="percent">The string to parse.</param>
         /// <returns>If the string contained % a float of the percent on the scale of 0 to 1. Otherwise the float.</returns>
-        public static float ParsePercent(string percent) {
-            if (percent.Contains('%')) {
+        public static float ParsePercent(string percent)
+        {
+            if (percent.Contains('%'))
+            {
                 percent = percent.TrimEnd('%');
                 return float.Parse(percent) * 0.01f;
             }
@@ -1318,9 +1443,11 @@ namespace Otter {
         /// </summary>
         /// <param name="url">The url to download.</param>
         /// <returns>The string downloaded from the url.</returns>
-        public static string GetURLString(string url) {
+        public static string GetURLString(string url)
+        {
             string s = "";
-            using (WebClient client = new WebClient()) {
+            using (WebClient client = new WebClient())
+            {
                 s = client.DownloadString(url);
             }
             return s;
@@ -1332,7 +1459,8 @@ namespace Otter {
         /// <typeparam name="T">The type of the enum.</typeparam>
         /// <param name="str">The string to parse.</param>
         /// <returns>The enum value.</returns>
-        public static T ParseEnum<T>(string str) {
+        public static T ParseEnum<T>(string str)
+        {
             return (T)Enum.Parse(typeof(T), str);
         }
 
@@ -1341,7 +1469,8 @@ namespace Otter {
         /// </summary>
         /// <param name="value">The enum value.</param>
         /// <returns>The string of the enum value.</returns>
-        public static string EnumValueToString(Enum value) {
+        public static string EnumValueToString(Enum value)
+        {
             if (enumStringCache.ContainsKey(value)) return enumStringCache[value];
             var str = string.Format("{0}.{1}", value.GetType(), value);
             enumStringCache.Add(value, str);
@@ -1354,7 +1483,8 @@ namespace Otter {
         /// </summary>
         /// <param name="e">The enum value.</param>
         /// <returns>The value of the enum following the final period.</returns>
-        public static string EnumValueToBasicString(Enum e) {
+        public static string EnumValueToBasicString(Enum e)
+        {
             var split = Util.EnumValueToString(e).Split('.');
             return split[split.Length - 1];
         }
@@ -1364,17 +1494,21 @@ namespace Otter {
         /// </summary>
         /// <param name="enums">The enums to convert.</param>
         /// <returns>An array of ints.</returns>
-        public static int[] EnumToIntArray(params Enum[] enums) {
+        public static int[] EnumToIntArray(params Enum[] enums)
+        {
             int[] ints = new int[enums.Length];
-            for (var i = 0; i < enums.Length; i++) {
+            for (var i = 0; i < enums.Length; i++)
+            {
                 ints[i] = Convert.ToInt32(enums[i]);
             }
             return ints;
         }
 
-        public static int[] EnumToIntArray(List<Enum> enums) {
+        public static int[] EnumToIntArray(List<Enum> enums)
+        {
             int[] ints = new int[enums.Count];
-            for (var i = 0; i < enums.Count; i++) {
+            for (var i = 0; i < enums.Count; i++)
+            {
                 ints[i] = Convert.ToInt32(enums[i]);
             }
             return ints;
@@ -1387,7 +1521,8 @@ namespace Otter {
         /// <param name="y">The Y position of the point.</param>
         /// <param name="line">The line.</param>
         /// <returns>The distance from the point to the line.</returns>
-        public static float DistanceLinePoint(float x, float y, Line2 line) {
+        public static float DistanceLinePoint(float x, float y, Line2 line)
+        {
             return (DistanceLinePoint(x, y, line.X1, line.Y1, line.X2, line.Y2));
         }
 
@@ -1401,7 +1536,8 @@ namespace Otter {
         /// <param name="x2">The second X position of the line.</param>
         /// <param name="y2">The second Y position of the line.</param>
         /// <returns>The distance from the point to the line.</returns>
-        public static float DistanceLinePoint(float x, float y, float x1, float y1, float x2, float y2) {
+        public static float DistanceLinePoint(float x, float y, float x1, float y1, float x2, float y2)
+        {
             if (x1 == x2 && y1 == y2) return Util.Distance(x, y, x1, y1);
 
             var px = x2 - x1;
@@ -1429,7 +1565,8 @@ namespace Otter {
         /// <typeparam name="T">The type of object.</typeparam>
         /// <param name="list">A list of objects.</param>
         /// <returns>An IEnumerable of every possible combination in the List.</returns>
-        public static IEnumerable<IEnumerable<T>> GetPowerSet<T>(List<T> list) {
+        public static IEnumerable<IEnumerable<T>> GetPowerSet<T>(List<T> list)
+        {
             return from m in Enumerable.Range(0, 1 << list.Count)
                    select
                        from i in Enumerable.Range(0, list.Count)
@@ -1443,7 +1580,8 @@ namespace Otter {
         /// <typeparam name="T">The type of object.</typeparam>
         /// <param name="obj">The object to serialize.</param>
         /// <param name="path">The file to write to.</param>
-        public static void SerializeToFile<T>(T obj, string path) {
+        public static void SerializeToFile<T>(T obj, string path)
+        {
             path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Create);
             BinaryFormatter bformatter = new BinaryFormatter();
@@ -1458,7 +1596,8 @@ namespace Otter {
         /// <typeparam name="T">The type of object.</typeparam>
         /// <param name="path">The file to read from.</param>
         /// <returns>The deserialized object.</returns>
-        public static T DeserializeFromFile<T>(string path) {
+        public static T DeserializeFromFile<T>(string path)
+        {
             path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
@@ -1478,7 +1617,8 @@ namespace Otter {
         /// <param name="p2">The third control point.</param>
         /// <param name="p3">The fourth control point.</param>
         /// <returns>A Vector2 point along the curve at distance t.</returns>
-        public static Vector2 BezierCurvePoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3) {
+        public static Vector2 BezierCurvePoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3)
+        {
             // http://devmag.org.za/2011/04/05/bzier-curves-a-tutorial/
             float u = 1 - t;
             float uu = u * u;
@@ -1501,7 +1641,8 @@ namespace Otter {
         /// <param name="t">The progress along the path 0 to 1.</param>
         /// <param name="points">The points that make up the cubic Bezier path. (4 points per curve, 1 point of overlap.)</param>
         /// <returns>The position on the curve at t.</returns>
-        static public Vector2 BezierPathPoint(float t, params Vector2[] points) {
+        static public Vector2 BezierPathPoint(float t, params Vector2[] points)
+        {
             var length = points.Length - (points.Length - 1) % 3;
 
             var steps = length / 3;
@@ -1521,7 +1662,8 @@ namespace Otter {
             return BezierCurvePoint(st, p0, p1, p2, p3);
         }
 
-        static float CatmullRom(float a, float b, float c, float d, float t) {
+        static float CatmullRom(float a, float b, float c, float d, float t)
+        {
             // Hermite Spline... I think?
             return 0.5f * (2 * b + (c - a) * t + (2 * a - 5 * b + 4 * c - d) * (t * t) + (3 * b - a - 3 * c + d) * (t * t * t));
         }
@@ -1532,7 +1674,8 @@ namespace Otter {
         /// <param name="t">The progress on the path from 0 to 1.</param>
         /// <param name="path">The set of points making the path.</param>
         /// <returns>The position on the spline path for the progress t.</returns>
-        public static Vector2 SplinePathPoint(float t, params Vector2[] path) {
+        public static Vector2 SplinePathPoint(float t, params Vector2[] path)
+        {
             // Shoutouts to Chevy Ray
             int b = (int)((path.Length - 1) * t);
             int a = b - 1;
@@ -1553,8 +1696,10 @@ namespace Otter {
         /// <summary>
         /// The Width of the desktop.  Note that this is for the display that the game was initialized in.
         /// </summary>
-        public static int DesktopWidth {
-            get {
+        public static int DesktopWidth
+        {
+            get
+            {
                 return (int)SFML.Window.VideoMode.DesktopMode.Width;
             }
         }
@@ -1562,8 +1707,10 @@ namespace Otter {
         /// <summary>
         /// The height of the desktop.  Note that this is for the display that the game was initialized in.
         /// </summary>
-        public static int DesktopHeight {
-            get {
+        public static int DesktopHeight
+        {
+            get
+            {
                 return (int)SFML.Window.VideoMode.DesktopMode.Height;
             }
         }
@@ -1574,12 +1721,14 @@ namespace Otter {
         /// <typeparam name="T">The type of object.</typeparam>
         /// <param name="lists">The Lists to combine.</param>
         /// <returns>One List to rule them all.</returns>
-        public static List<T> ListCombine<T>(params List<T>[] lists) {
+        public static List<T> ListCombine<T>(params List<T>[] lists)
+        {
             if (lists.Length == 0) return null;
             if (lists.Length == 1) return lists[0];
 
             var list = lists[0];
-            for (int i = 1; i < lists.Length; i++) {
+            for (int i = 1; i < lists.Length; i++)
+            {
                 list.AddRange(lists[i]);
             }
             return list;
@@ -1591,11 +1740,12 @@ namespace Otter {
         /// <typeparam name="T">The type of Attribute.</typeparam>
         /// <param name="inherit">Check inherited classes.</param>
         /// <returns>All types with the Attribute T.</returns>
-        public static IEnumerable<Type> GetTypesWithAttribute<T>(bool inherit = true) where T : Attribute {
+        public static IEnumerable<Type> GetTypesWithAttribute<T>(bool inherit = true) where T : Attribute
+        {
             return from a in AppDomain.CurrentDomain.GetAssemblies()
-            from t in a.GetTypes()
-            where t.IsDefined(typeof(T), inherit)
-            select t;
+                   from t in a.GetTypes()
+                   where t.IsDefined(typeof(T), inherit)
+                   select t;
         }
 
         /// <summary>
@@ -1605,7 +1755,8 @@ namespace Otter {
         /// <param name="docKey">The long id of the sheet.  Usually a big set of numbers and letters in the url.</param>
         /// <param name="sheetId">The sheet id.  Usually a shorter set of letters and numbers.  Default is "od6".</param>
         /// <returns>A json feed of the spreadsheet.</returns>
-        public static string GetSpreadsheetJsonById(string docKey, string sheetId = "od6") {
+        public static string GetSpreadsheetJsonById(string docKey, string sheetId = "od6")
+        {
             var url = string.Format("https://spreadsheets.google.com/feeds/list/{0}/{1}/public/values?alt=json", docKey, sheetId);
             return DownloadData(url);
         }
@@ -1617,7 +1768,8 @@ namespace Otter {
         /// <param name="docKey">The long id of the sheet.  Usually a big set of numbers and letters in the url.</param>
         /// <param name="sheetName">The name of the sheet as it appears on the bottom left of the spreadsheet window.</param>
         /// <returns>A json feed of the spreadsheet.</returns>
-        public static string GetSpreadsheetJsonByName(string docKey, string sheetName) {
+        public static string GetSpreadsheetJsonByName(string docKey, string sheetName)
+        {
             return GetSpreadsheetJsonById(docKey, GetSpreadsheetId(docKey, sheetName));
         }
 
@@ -1628,7 +1780,8 @@ namespace Otter {
         /// <param name="docKey">The long id of the sheet.  Usually a big set of numbers and letters in the url.</param>
         /// <param name="sheetName">The name of the sheet as it appears on the bottom left of the spreadsheet window.</param>
         /// <returns>The internal id of the sheet.</returns>
-        public static string GetSpreadsheetId(string docKey, string sheetName) {
+        public static string GetSpreadsheetId(string docKey, string sheetName)
+        {
             var url = string.Format("https://spreadsheets.google.com/feeds/worksheets/{0}/public/full", docKey);
             var xml = DownloadData(url);
             XElement xDoc = XElement.Parse(xml);
@@ -1638,7 +1791,8 @@ namespace Otter {
             xDoc.Elements(ns + "entry")
                 .Where(x => x.Element(ns + "title").Value == sheetName)
                 .Each(x => x.Elements(ns + "id")
-                    .Each(xx => {
+                    .Each(xx =>
+                    {
                         id = xx.Value.Split('/').Last();
                     }));
 
@@ -1651,7 +1805,8 @@ namespace Otter {
         /// </summary>
         /// <param name="docKey">The long id of the sheet.  Usually a big set of numbers and letters in the url.</param>
         /// <returns>A dictionary with sheet names as the keys, and ids as the values.</returns>
-        public static Dictionary<string, string> GetSpreadsheetIds(string docKey) {
+        public static Dictionary<string, string> GetSpreadsheetIds(string docKey)
+        {
             var url = string.Format("https://spreadsheets.google.com/feeds/worksheets/{0}/public/full", docKey);
             var xml = DownloadData(url);
             XElement xDoc = XElement.Parse(xml);
@@ -1661,7 +1816,8 @@ namespace Otter {
             var id = "";
 
             xDoc.Elements(ns + "entry")
-                .Each(e => {
+                .Each(e =>
+                {
                     name = e.Element(ns + "title").Value;
                     id = e.Element(ns + "id").Value.Split('/').Last();
                     dict.Add(name, id);
@@ -1674,8 +1830,10 @@ namespace Otter {
         static string downloadData;
         static string downloadUrl = "";
 
-        static string DownloadData(string url) {
-            if (downloadUrl != url) {
+        static string DownloadData(string url)
+        {
+            if (downloadUrl != url)
+            {
                 downloadData = new WebClient().DownloadString(url);
                 downloadUrl = url;
             }

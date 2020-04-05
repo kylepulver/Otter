@@ -2,8 +2,10 @@ using System;
 
 using Otter;
 
-namespace GridColliderPlayerTest {
-  class Player : Entity {
+namespace GridColliderPlayerTest
+{
+    class Player : Entity
+    {
 
         // A default square image to use.
         Image image = Image.CreateRectangle(20, 20, Color.Red);
@@ -23,7 +25,8 @@ namespace GridColliderPlayerTest {
         // The buffered amount to move each update.
         Vector2 moveBuffer = new Vector2();
 
-        public Player(float x, float y) : base(x, y) {
+        public Player(float x, float y) : base(x, y)
+        {
             // Set the entity's graphic to the image of the rectangle.
             SetGraphic(image);
 
@@ -34,25 +37,30 @@ namespace GridColliderPlayerTest {
             AddComponent(movementAxis);
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
             // If the x axis is currently being used.
-            if (movementAxis.X != 0) {
+            if (movementAxis.X != 0)
+            {
                 // Accelerate the speed in the x direction.
                 speed.X += acceleration * movementAxis.X;
             }
-            else {
+            else
+            {
                 // Otherwise make the speed in the x direction go back to zero.
                 speed.X = Util.Approach(speed.X, 0, acceleration);
             }
 
             // If the y axis is currently being used.
-            if (movementAxis.Y != 0) {
+            if (movementAxis.Y != 0)
+            {
                 // Accelerate the speed in the y direction.
                 speed.Y += acceleration * movementAxis.Y;
             }
-            else {
+            else
+            {
                 // Otherwise make the speed in the y direction go back to zero.
                 speed.Y = Util.Approach(speed.Y, 0, acceleration);
             }
@@ -65,16 +73,19 @@ namespace GridColliderPlayerTest {
             float move;
 
             // While the move buffer has at least one pixel of movement stored, move the object and test for collisions.
-            while (Math.Abs(moveBuffer.X) >= perPixel) {
+            while (Math.Abs(moveBuffer.X) >= perPixel)
+            {
                 // Figure out which way the entity is moved (+1 or -1)
                 move = Math.Sign(moveBuffer.X);
 
                 // If there is no overlap with the tag 0 where we want to move
-                if (!Overlap(X + move, Y, 0)) {
+                if (!Overlap(X + move, Y, 0))
+                {
                     // Then it's okay to move the X position of the entity by the "move" amount
                     X += move;
                 }
-                else {
+                else
+                {
                     // Otherwise, cancel all other X movement for this update (since there is a wall in the way.)
                     moveBuffer.X = 0;
                 }
@@ -84,12 +95,15 @@ namespace GridColliderPlayerTest {
             }
 
             // Do the same thing for the Y movement.
-            while (Math.Abs(moveBuffer.Y) >= perPixel) {
+            while (Math.Abs(moveBuffer.Y) >= perPixel)
+            {
                 move = Math.Sign(moveBuffer.Y);
-                if (!Overlap(X, Y + move, 0)) {
+                if (!Overlap(X, Y + move, 0))
+                {
                     Y += move;
                 }
-                else {
+                else
+                {
                     moveBuffer.Y = 0;
                 }
 

@@ -1,14 +1,16 @@
-﻿using System;
+using System;
 using System.IO;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class that represents a player session.  Use this for maintaining and using information about
     /// a player.  For example a two player game might have two sessions, one for each player, each with
     /// their own controls configured and save data.
     /// </summary>
-    
-    public class Session {
+
+    public class Session
+    {
 
         static private int nextSessionId = 0;
 
@@ -16,11 +18,13 @@ namespace Otter {
         /// Create a new Session using the current Game.Instance.
         /// </summary>
         /// <returns></returns>
-        static public Session Create(string name) {
+        static public Session Create(string name)
+        {
             return new Session(Game.Instance, name);
         }
 
-        static public Session Create(Enum name) {
+        static public Session Create(Enum name)
+        {
             return Session.Create(Util.EnumValueToString(name));
         }
 
@@ -40,7 +44,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of Controller.</typeparam>
         /// <returns>The Controller as type T.</returns>
-        public T GetController<T>() where T : Controller {
+        public T GetController<T>() where T : Controller
+        {
             return Controller as T;
         }
 
@@ -60,13 +65,15 @@ namespace Otter {
         /// Create a new Session.
         /// </summary>
         /// <param name="game">The Game that the session is tied to.</param>
-        public Session(Game game, string name) {
+        public Session(Game game, string name)
+        {
             Game = game;
             Name = name;
 
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + Game.GameFolder;
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + Game.GameFolder + "/" + Name + ".";
-            if (!Directory.Exists(folder)) {
+            if (!Directory.Exists(folder))
+            {
                 Directory.CreateDirectory(folder);
             }
             Data = new DataSaver(path);
@@ -75,8 +82,10 @@ namespace Otter {
             nextSessionId++;
         }
 
-        internal void Update() {
-            if (Controller != null) {
+        internal void Update()
+        {
+            if (Controller != null)
+            {
                 Controller.UpdateFirst();
             }
         }

@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// State machine that uses a specific type.  This is really meant for using an enum as your list of states.
     /// If an enum is used, the state machine will automatically populate the states using methods in the parent
@@ -17,7 +18,8 @@ namespace Otter {
     /// And use those to build the states.  This saves a lot of boilerplate set up code.
     /// </example>
     /// <typeparam name="TState">An enum of states.</typeparam>
-    public class StateMachine<TState> : Component {
+    public class StateMachine<TState> : Component
+    {
 
         #region Private Fields
 
@@ -39,9 +41,12 @@ namespace Otter {
         bool updating;
         bool noState = true;
 
-        TState topState {
-            get {
-                if (stateStack.Count > 0) {
+        TState topState
+        {
+            get
+            {
+                if (stateStack.Count > 0)
+                {
                     return stateStack[0];
                 }
                 return CurrentState;
@@ -52,9 +57,12 @@ namespace Otter {
 
         #region Private Properties
 
-        State s {
-            get {
-                if (!states.ContainsKey(CurrentState)) {
+        State s
+        {
+            get
+            {
+                if (!states.ContainsKey(CurrentState))
+                {
                     return null;
                 }
                 return states[CurrentState];
@@ -86,27 +94,36 @@ namespace Otter {
         /// <summary>
         /// Create a new StateMachine.
         /// </summary>
-        public StateMachine() {
+        public StateMachine()
+        {
         }
 
         #endregion
 
         #region Private Methods
 
-        void Transition(TState from, TState to) {
-            if (transitions.ContainsKey(from)) {
-                if (transitions[from].ContainsKey(to)) {
+        void Transition(TState from, TState to)
+        {
+            if (transitions.ContainsKey(from))
+            {
+                if (transitions[from].ContainsKey(to))
+                {
                     transitions[from][to]();
                 }
             }
         }
 
-        void EnsurePopulatedMethods() {
-            if (AutoPopulate) { // Populate the methods on the state change.
-                if (!populatedMethods) {
+        void EnsurePopulatedMethods()
+        {
+            if (AutoPopulate)
+            { // Populate the methods on the state change.
+                if (!populatedMethods)
+                {
                     populatedMethods = true;
-                    if (typeof(TState).IsEnum) {
-                        foreach (TState value in Enum.GetValues(typeof(TState))) {
+                    if (typeof(TState).IsEnum)
+                    {
+                        foreach (TState value in Enum.GetValues(typeof(TState)))
+                        {
                             AddState(value);
                         }
                     }
@@ -114,13 +131,15 @@ namespace Otter {
             }
         }
 
-        void PushStateImmediate(TState state) {
+        void PushStateImmediate(TState state)
+        {
             EnsurePopulatedMethods();
 
             stateStack.Insert(0, state);
             timers.Insert(0, 0);
             var from = CurrentState;
-            if (stateStack.Count > 1) {
+            if (stateStack.Count > 1)
+            {
                 timers[1] = Timer;
             }
             Timer = 0;
@@ -130,7 +149,8 @@ namespace Otter {
             noState = false;
         }
 
-        void PopStateImmediate() {
+        void PopStateImmediate()
+        {
             EnsurePopulatedMethods();
 
             if (stateStack.Count == 0) return; // No states to pop!
@@ -142,24 +162,30 @@ namespace Otter {
             CurrentState = topState;
             Transition(from, CurrentState);
 
-            if (stateStack.Count > 0) {
+            if (stateStack.Count > 0)
+            {
                 Timer = timers[0];
             }
-            else {
+            else
+            {
                 noState = true; // No more states... :(
                 Timer = 0;
             }
         }
 
-        void ChangeState() {
-            if (change) {
+        void ChangeState()
+        {
+            if (change)
+            {
                 var state = changeTo;
                 change = false;
 
                 EnsurePopulatedMethods();
 
-                if (!firstChange) {
-                    if (states.ContainsKey(CurrentState)) {
+                if (!firstChange)
+                {
+                    if (states.ContainsKey(CurrentState))
+                    {
                         if (states[CurrentState] == states[state]) return; // No change actually happening so return
                     }
                 }
@@ -168,8 +194,10 @@ namespace Otter {
 
                 var fromState = CurrentState;
 
-                if (states.ContainsKey(state)) {
-                    if (s != null && !firstChange) {
+                if (states.ContainsKey(state))
+                {
+                    if (s != null && !firstChange)
+                    {
                         s.Exit();
                     }
                     CurrentState = state;
@@ -179,19 +207,24 @@ namespace Otter {
                     Transition(fromState, CurrentState);
                 }
 
-                if (firstChange) {
+                if (firstChange)
+                {
                     firstChange = false;
                 }
             }
-            else {
-                pushPopBuffer.ForEach(push => {
-                    if (push) { // Push
+            else
+            {
+                pushPopBuffer.ForEach(push =>
+                {
+                    if (push)
+                    { // Push
                         var pushState = pushQueue[0];
                         pushQueue.RemoveAt(0);
 
                         PushStateImmediate(pushState);
                     }
-                    else { // Pop
+                    else
+                    { // Pop
                         PopStateImmediate();
                     }
                 });
@@ -208,9 +241,12 @@ namespace Otter {
         /// component if AutoPopulate is set to true.
         /// </summary>
         /// <param name="e">The Entity to get methods from.</param>
-        public void PopulateMethodsFromEntity(Entity e) {
-            if (typeof(TState).IsEnum) {
-                foreach (TState value in Enum.GetValues(typeof(TState))) {
+        public void PopulateMethodsFromEntity(Entity e)
+        {
+            if (typeof(TState).IsEnum)
+            {
+                foreach (TState value in Enum.GetValues(typeof(TState)))
+                {
                     AddState(value, e);
                 }
             }
@@ -221,7 +257,8 @@ namespace Otter {
         /// component if AutoPopulate is set to true.  If no Entity is specified, get the methods from the
         /// Entity that owns this component.
         /// </summary>
-        public void PopulateMethodsFromEntity() {
+        public void PopulateMethodsFromEntity()
+        {
             PopulateMethodsFromEntity(Entity);
         }
 
@@ -231,17 +268,20 @@ namespace Otter {
         /// update has completed.
         /// </summary>
         /// <param name="state">The state to change to.</param>
-        public void ChangeState(TState state) {
+        public void ChangeState(TState state)
+        {
             pushQueue.Clear();
             stateStack.Clear();
 
             changeTo = state;
             change = true;
 
-            if (updating) {
+            if (updating)
+            {
 
             }
-            else {
+            else
+            {
                 ChangeState();
             }
         }
@@ -250,12 +290,15 @@ namespace Otter {
         /// Push a state onto a stack of states.  The state machine will always run the top of the stack.
         /// </summary>
         /// <param name="state">The state to push.</param>
-        public void PushState(TState state) {
-            if (updating) {
+        public void PushState(TState state)
+        {
+            if (updating)
+            {
                 pushQueue.Add(state);
                 pushPopBuffer.Add(true); //true means push
             }
-            else {
+            else
+            {
                 PushStateImmediate(state);
             }
         }
@@ -263,11 +306,14 @@ namespace Otter {
         /// <summary>
         /// Pop the top state on the stack (if there is a stack.)
         /// </summary>
-        public void PopState() {
-            if (updating) {
+        public void PopState()
+        {
+            if (updating)
+            {
                 pushPopBuffer.Add(false); //false means pop
             }
-            else {
+            else
+            {
                 PopStateImmediate();
             }
         }
@@ -275,9 +321,11 @@ namespace Otter {
         /// <summary>
         /// Update the State Machine.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
-            if (states.ContainsKey(CurrentState) && !noState) {
+            if (states.ContainsKey(CurrentState) && !noState)
+            {
                 updating = true;
                 s.Update();
                 updating = false;
@@ -292,8 +340,10 @@ namespace Otter {
         /// <param name="fromState">The State that is ending.</param>
         /// <param name="toState">The State that is starting.</param>
         /// <param name="function">The Action to run when the machine goes from the fromState to the toState.</param>
-        public void AddTransition(TState fromState, TState toState, Action function) {
-            if (!transitions.ContainsKey(fromState)) {
+        public void AddTransition(TState fromState, TState toState, Action function)
+        {
+            if (!transitions.ContainsKey(fromState))
+            {
                 transitions.Add(fromState, new Dictionary<TState, Action>());
             }
             transitions[fromState].Add(toState, function);
@@ -306,7 +356,8 @@ namespace Otter {
         /// <param name="onEnter">The method to call when entering this state.</param>
         /// <param name="onUpdate">The method to call when updating this state.</param>
         /// <param name="onExit">The method to call when exiting this state.</param>
-        public void AddState(TState key, Action onEnter, Action onUpdate, Action onExit) {
+        public void AddState(TState key, Action onEnter, Action onUpdate, Action onExit)
+        {
             states.Add(key, new State(onEnter, onUpdate, onExit));
         }
 
@@ -315,7 +366,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key to reference the State with.</param>
         /// <param name="onUpdate">The method to call when updating this state.</param>
-        public void AddState(TState key, Action onUpdate) {
+        public void AddState(TState key, Action onUpdate)
+        {
             states.Add(key, new State(onUpdate));
         }
 
@@ -324,7 +376,8 @@ namespace Otter {
         /// </summary>
         /// <param name="key">The key to reference the State with.</param>
         /// <param name="value">The State to add.</param>
-        public void AddState(TState key, State value) {
+        public void AddState(TState key, State value)
+        {
             states.Add(key, value);
         }
 
@@ -333,7 +386,8 @@ namespace Otter {
         /// For example, a key with a value of "Idle" will retrieve the methods "EnterIdle" "UpdateIdle" and "ExitIdle" automatically.
         /// </summary>
         /// <param name="key">The key to reference the State with.</param>
-        public void AddState(TState key, Entity e = null) {
+        public void AddState(TState key, Entity e = null)
+        {
             if (e == null) e = Entity; // Use the Component's Entity if no entity specified.
 
             if (states.ContainsKey(key)) return; // Dont add duplicate states.
@@ -344,19 +398,22 @@ namespace Otter {
             MethodInfo mi;
             mi = e.GetType().GetMethod("Enter" + name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             if (mi == null) e.GetType().GetMethod("Enter" + name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            if (mi != null) {
+            if (mi != null)
+            {
                 state.OnEnter = (Action)Delegate.CreateDelegate(typeof(Action), e, mi);
             }
 
             mi = e.GetType().GetMethod("Update" + name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             if (mi == null) e.GetType().GetMethod("Update" + name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            if (mi != null) {
+            if (mi != null)
+            {
                 state.OnUpdate = (Action)Delegate.CreateDelegate(typeof(Action), e, mi);
             }
 
             mi = e.GetType().GetMethod("Exit" + name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public | BindingFlags.FlattenHierarchy);
             if (mi == null) e.GetType().GetMethod("Exit" + name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-            if (mi != null) {
+            if (mi != null)
+            {
                 state.OnExit = (Action)Delegate.CreateDelegate(typeof(Action), e, mi);
             }
 
@@ -365,103 +422,5 @@ namespace Otter {
 
         #endregion
 
-    }
-
-    /// <summary>
-    /// Used in StateMachine. Contains functions for enter, update, and exit.
-    /// </summary>
-    public class State {
-
-        #region Public Fields
-
-        /// <summary>
-        /// The method to call when entering this state.
-        /// </summary>
-        public Action OnEnter = delegate { };
-
-        /// <summary>
-        /// The method to call when updating this state.
-        /// </summary>
-        public Action OnUpdate = delegate { };
-
-        /// <summary>
-        /// The method to call when exiting this state.
-        /// </summary>
-        public Action OnExit = delegate { };
-
-        #endregion
-
-        #region Public Properties
-
-        /// <summary>
-        /// The Id that this state has been assigned.
-        /// </summary>
-        public int Id { get; internal set; }
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Create a new State with three Actions.
-        /// </summary>
-        /// <param name="onEnter">The method to call when entering this state.</param>
-        /// <param name="onUpdate">The method to call when updating this state.</param>
-        /// <param name="onExit">The method to call when exiting this state.</param>
-        public State(Action onEnter = null, Action onUpdate = null, Action onExit = null) {
-            Functions(onEnter, onUpdate, onExit);
-        }
-         
-        /// <summary>
-        /// Create a new State with just an update Action.
-        /// </summary>
-        /// <param name="onUpdate">The method to call when updating this state.</param>
-        public State(Action onUpdate) : this(null, onUpdate) { }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Set all three of the methods for enter, update, and exit.
-        /// </summary>
-        /// <param name="onEnter">The method to call when entering this state.</param>
-        /// <param name="onUpdate">The method to call when updating this state.</param>
-        /// <param name="onExit">The method to call when exiting this state.</param>
-        public void Functions(Action onEnter, Action onUpdate, Action onExit) {
-            if (onEnter != null) {
-                OnEnter = onEnter;
-            }
-            if (onUpdate != null) {
-                OnUpdate = onUpdate;
-            }
-            if (onExit != null) {
-                OnExit = onExit;
-            }
-        }
-
-        /// <summary>
-        /// Call OnUpdate.
-        /// </summary>
-        public void Update() {
-            OnUpdate();
-        }
-
-        /// <summary>
-        /// Call OnEnter.
-        /// </summary>
-        public void Enter() {
-            OnEnter();
-        }
-
-        /// <summary>
-        /// Call OnExit.
-        /// </summary>
-        public void Exit() {
-            OnExit();
-        }
-
-        #endregion
-        
     }
 }

@@ -1,12 +1,9 @@
-﻿using Otter;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Otter;
 
-namespace FlippyFlop {
-    class GameManager : Entity {
+namespace FlippyFlop
+{
+    class GameManager : Entity
+    {
 
         public int CurrentGap = 180;
         public int MaxGap = 180;
@@ -23,7 +20,8 @@ namespace FlippyFlop {
 
         public float R, G, B;
 
-        public enum GameState {
+        public enum GameState
+        {
             Title,
             Playing,
             End
@@ -31,23 +29,27 @@ namespace FlippyFlop {
 
         public StateMachine<GameState> GameStateMachine = new StateMachine<GameState>();
 
-        public GameManager() : base() {
+        public GameManager() : base()
+        {
             Session = Game.Instance.Session(0);
             AddComponent(GameStateMachine);
             //Session.LoadData();                                         //todo:  w.sams - fix this...low priority
 
             //BestScore = float.Parse(Session.GetData("best", "0"));       //todo:  w.sams - fix this...low priority
 
-            EventRouter.Subscribe(Events.FlippyFlipped, (EventRouter.Event e) => {
+            EventRouter.Subscribe(Events.FlippyFlipped, (EventRouter.Event e) =>
+            {
                 ScoreMultiplier += 1;
             });
 
-            EventRouter.Subscribe(Events.FlippyDied, (EventRouter.Event e) => {
+            EventRouter.Subscribe(Events.FlippyDied, (EventRouter.Event e) =>
+            {
                 GameStateMachine.ChangeState(GameState.End);
             });
 
-            EventRouter.Subscribe(Events.UpdateBestScore, (EventRouter.Event e) => {
-               //Session.Data["best"] = BestScore.ToString(); //todo:  w.sams - fix this...low priority
+            EventRouter.Subscribe(Events.UpdateBestScore, (EventRouter.Event e) =>
+            {
+                //Session.Data["best"] = BestScore.ToString(); //todo:  w.sams - fix this...low priority
                 //Session.SaveData();                          //todo:  w.sams - fix this...low priority
             });
 
@@ -56,7 +58,8 @@ namespace FlippyFlop {
             B = Game.Instance.Color.B;
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
             Game.Instance.Color.R = R * Util.ScaleClamp(Score, 0, 100, 1, 0);
@@ -64,29 +67,35 @@ namespace FlippyFlop {
             Game.Instance.Color.B = B * Util.ScaleClamp(Score, 0, 100, 1, 0);
         }
 
-        public override void Added() {
+        public override void Added()
+        {
             base.Added();
 
             GameStateMachine.ChangeState(GameState.Title);
 
         }
 
-        void EnterTitle() {
+        void EnterTitle()
+        {
             Scene.Add(new HudTitleInfo());
             Scene.Add(new HudScore());
             Scene.Add(new HudHighScore());
         }
-        void UpdateTitle() {
-            if (Session.Controller.Button(Key.Space).Pressed) {
+        void UpdateTitle()
+        {
+            if (Session.Controller.Button("Action").Pressed)
+            {
                 GameStateMachine.ChangeState(GameState.Playing);
             }
 
         }
-        void ExitTitle() {
+        void ExitTitle()
+        {
 
         }
 
-        void EnterPlaying() {
+        void EnterPlaying()
+        {
             CurrentGap = 180;
             Score = 0;
             ScoreMultiplier = 1;
@@ -95,16 +104,20 @@ namespace FlippyFlop {
             EventRouter.Publish(Events.GameStarted);
             EventRouter.Publish(Events.UpdateBestScore, BestScore, FinalScore);
         }
-        void UpdatePlaying() {
-            if (GameStateMachine.Timer % 75 == 0) {
+        void UpdatePlaying()
+        {
+            if (GameStateMachine.Timer % 75 == 0)
+            {
                 float wallY = 0, secondWallY = 0;
                 wallY = Rand.Float(-430, -210);
                 secondWallY = wallY + CurrentGap + 480;
 
-                if (CurrentGap > 60) {
+                if (CurrentGap > 60)
+                {
                     CurrentGap -= 5;
                 }
-                else {
+                else
+                {
                     CurrentGap -= 2;
                 }
 
@@ -113,14 +126,16 @@ namespace FlippyFlop {
                 Scene.Add(new Wall(700, wallY));
                 Scene.Add(new Wall(700, secondWallY));
             }
-            if (GameStateMachine.Timer % 60 == 0) {
+            if (GameStateMachine.Timer % 60 == 0)
+            {
                 Score++;
             }
-            
+
             EventRouter.Publish(Events.ScoreUpdated, Score, ScoreMultiplier);
         }
 
-        void EnterEnd() {
+        void EnterEnd()
+        {
             FinalScore = Score * ScoreMultiplier;
             BestScore = Util.Max(FinalScore, BestScore);
             EventRouter.Publish(Events.ShowFinalScore, FinalScore);
@@ -128,30 +143,20 @@ namespace FlippyFlop {
             Tween(this, new { Score = 0 }, 30);
         }
 
-        void UpdateEnd() {
-            if (GameStateMachine.Timer > 60) {
-                if (Session.Controller.Button(Key.Space).Pressed) {   
+        void UpdateEnd()
+        {
+            if (GameStateMachine.Timer > 60)
+            {
+                if (Session.Controller.Button("Action").Pressed)
+                {
                     GameStateMachine.ChangeState(GameState.Playing);
                 }
             }
         }
 
-        void ExitEnd() {
+        void ExitEnd()
+        {
 
         }
-    }
-
-    public enum Events {
-        ScoreUpdated,
-        FlippyDied,
-        ShowFinalScore,
-        FlippyFlipped,
-        GameStarted,
-        UpdateBestScore
-    }
-
-    public enum Tags {
-        Flippy,
-        Wall
     }
 }
