@@ -1,5 +1,6 @@
 using System;
-namespace Otter
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Point Collider.

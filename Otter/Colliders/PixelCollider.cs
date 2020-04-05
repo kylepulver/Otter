@@ -1,5 +1,6 @@
 using System;
-namespace Otter
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Collider that can use an image as a mask.  This is not recommended to use for most cases as it can

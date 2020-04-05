@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+namespace Otter.Colliders
 {
     /// <summary>
     /// Polygon Collider.  Only works with convex polygons!

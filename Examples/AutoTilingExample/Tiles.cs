@@ -1,4 +1,5 @@
 using Otter;
+using Otter.Colliders;
 
 namespace AutoTilingExample {
     class Tiles : Entity {
@@ -81,6 +82,6 @@ namespace AutoTilingExample {
                 Tilemap.LoadGridAutoTile(GridCollider);
             }
         }
-        
+
     }
 }

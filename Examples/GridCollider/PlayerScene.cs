@@ -1,4 +1,5 @@
 using Otter;
+using Otter.Colliders;
 
 namespace GridColliderPlayerTest
 {

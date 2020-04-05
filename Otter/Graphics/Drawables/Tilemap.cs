@@ -1,10 +1,12 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+
+using SFML.Graphics;
+using SFML.System;
+
+using Otter.Colliders;
 
 namespace Otter {
     /// <summary>
@@ -292,7 +294,7 @@ namespace Otter {
 =
 45:
     ? 1 ?
-    0 x 0 
+    0 x 0
     ? 1 ?
 =
 46:
@@ -601,7 +603,7 @@ namespace Otter {
         public TileInfo SetTile(int tileX, int tileY, int tileIndex, Enum layer) {
             return SetTile(tileX, tileY, tileIndex, Util.EnumValueToString(layer));
         }
-        
+
         /// <summary>
         /// Set a tile on the Tilemap to be flipped horizontally and/or vertically.
         /// </summary>
@@ -901,7 +903,7 @@ namespace Otter {
                         autoTileTable.Add(t, tileList);
                     }
                 }
-                
+
                 tileNumber++;
             }
         }
@@ -923,11 +925,11 @@ namespace Otter {
 
                         /*
                             * auto tiling grid
-                            * 
+                            *
                             * 128 001 016
                             * 008 ___ 002
                             * 064 004 032
-                            * 
+                            *
                             */
 
                         if (grid.GetTile(i - 1, j - 1)) {
@@ -1148,7 +1150,7 @@ namespace Otter {
             if (layer == "") layer = DefaultLayerName;
 
             TileLayers[layerNames[layer]].Clear();
-            
+
             NeedsUpdate = true;
         }
 
@@ -1297,7 +1299,7 @@ namespace Otter {
         }
 
         #endregion
-        
+
     }
 
     /// <summary>
@@ -1336,7 +1338,7 @@ namespace Otter {
         /// The height of the tile.
         /// </summary>
         public int Height;
-        
+
         /// <summary>
         /// Flipped tile options.
         /// </summary>
@@ -1430,7 +1432,7 @@ namespace Otter {
                     array.Append(CreateVertex(0, 0, Width, Height));
                     array.Append(CreateVertex(Width, 0, 0, Height));
                     array.Append(CreateVertex(Width, Height, 0, 0));
-                    array.Append(CreateVertex(0, Height, Width, 0));  
+                    array.Append(CreateVertex(0, Height, Width, 0));
                 }
                 if (FlipX & !FlipY) {
                     array.Append(CreateVertex(0, 0, Width, 0));
@@ -1473,6 +1475,6 @@ namespace Otter {
             }
         }
         #endregion
-        
+
     }
 }

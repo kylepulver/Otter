@@ -1,5 +1,7 @@
 using System;
 
+using Otter.Colliders;
+
 namespace Otter
 {
     /// <summary>
