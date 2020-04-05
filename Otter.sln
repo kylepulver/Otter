@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtterPongGame", "Examples\O
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformingMovement", "Examples\PlatformingMovement\PlatformingMovement.csproj", "{BFDA45F0-EF24-4414-908B-A4EB25F22E08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Specs", "Specs\Specs.csproj", "{82CFE6A3-B85E-4818-8526-4B337C65B124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,18 @@ Global
 		{BFDA45F0-EF24-4414-908B-A4EB25F22E08}.Release|x64.Build.0 = Release|Any CPU
 		{BFDA45F0-EF24-4414-908B-A4EB25F22E08}.Release|x86.ActiveCfg = Release|Any CPU
 		{BFDA45F0-EF24-4414-908B-A4EB25F22E08}.Release|x86.Build.0 = Release|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Debug|x64.Build.0 = Debug|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Debug|x86.Build.0 = Debug|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Release|x64.ActiveCfg = Release|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Release|x64.Build.0 = Release|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Release|x86.ActiveCfg = Release|Any CPU
+		{82CFE6A3-B85E-4818-8526-4B337C65B124}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{23718BD8-D803-461A-851A-C70E2FDC079B} = {EA030299-F007-4BEF-ABEA-9F2F5F209F4D}
