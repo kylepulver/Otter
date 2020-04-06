@@ -581,10 +581,6 @@ namespace Otter
         /// <param name="fullscreen">Run the game in fullscreen.</param>
         public Game(string title = "Game", int width = 640, int height = 480, int targetFramerate = 60, bool fullscreen = false)
         {
-#if Unix
-            XInitThreads();
-#endif
-
             Sessions = new List<Session>();
             Scenes = new Stack<Scene>();
             Surfaces = new List<Surface>();
@@ -1512,11 +1508,6 @@ namespace Otter
         internal bool countRendering = true;
 
         internal int debuggerAdvance = 0;
-
-#if Unix
-        [DllImport("X11")]
-        static extern int XInitThreads();
-#endif
 
         #endregion
 
