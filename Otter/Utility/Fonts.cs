@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>
@@ -23,7 +25,7 @@ namespace Otter
 
         internal static SFML.Graphics.Font Load(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
             if (fonts.ContainsKey(path)) return fonts[path];
 

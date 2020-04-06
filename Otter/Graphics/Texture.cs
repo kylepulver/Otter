@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>
@@ -281,7 +283,7 @@ namespace Otter
         {
             CreateImage();
 
-            image.SaveToFile(Helpers.FileHelpers.GetAbsoluteFilePath(path));
+            image.SaveToFile(FileHandling.GetAbsoluteFilePath(path));
         }
 
         /// <summary>

@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter
 {
@@ -1584,7 +1585,7 @@ namespace Otter
         /// <param name="path">The file to write to.</param>
         public static void SerializeToFile<T>(T obj, string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Create);
             BinaryFormatter bformatter = new BinaryFormatter();
 
@@ -1600,7 +1601,7 @@ namespace Otter
         /// <returns>The deserialized object.</returns>
         public static T DeserializeFromFile<T>(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
 

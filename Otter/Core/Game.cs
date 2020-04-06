@@ -8,6 +8,8 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
+using Otter.Utility;
+
 namespace Otter.Core
 {
     /// <summary>
@@ -457,7 +459,7 @@ namespace Otter.Core
             set
             {
                 gameFolder = value;
-                var folder = Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder);
+                var folder = FileHandling.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder);
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
@@ -473,7 +475,7 @@ namespace Otter.Core
         /// </summary>
         public string Filepath
         {
-            get { return Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"); }
+            get { return FileHandling.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"); }
         }
 
         /// <summary>

@@ -1,5 +1,8 @@
-﻿using SFML.Graphics;
 using System.Collections.Generic;
+
+using SFML.Graphics;
+
+using Otter.Utility;
 
 namespace Otter {
     /// <summary>
@@ -529,7 +532,7 @@ namespace Otter {
         /// </summary>
         /// <param name="path">The path to the Texture to use.</param>
         public void SetTexture(string path) {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             SetTexture(new Texture(path));
         }
 

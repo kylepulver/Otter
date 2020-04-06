@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.IO;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>
@@ -48,7 +50,7 @@ namespace Otter
 
         internal static SFML.Graphics.Texture Load(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             //if (!File.Exists(source)) throw new FileNotFoundException("Texture path " + source + " not found.");
             if (!Files.FileExists(path)) throw new FileNotFoundException("Texture path " + path + " not found.");
             if (textures.ContainsKey(path))

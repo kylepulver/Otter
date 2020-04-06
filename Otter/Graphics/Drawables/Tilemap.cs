@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -7,6 +7,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Colliders;
+using Otter.Utility;
 
 namespace Otter {
     /// <summary>
@@ -321,7 +322,7 @@ namespace Otter {
         /// <param name="tileWidth">The width of each tile in pixels.</param>
         /// <param name="tileHeight">The height of each tile in pixels.</param>
         public Tilemap(string source, int width, int height, int tileWidth, int tileHeight) : base() {
-            source = Helpers.FileHelpers.GetAbsoluteFilePath(source);
+            source = FileHandling.GetAbsoluteFilePath(source);
             SetTexture(new Texture(source));
             Initialize(width, height, tileWidth, tileHeight);
         }

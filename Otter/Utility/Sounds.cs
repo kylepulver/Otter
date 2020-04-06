@@ -3,6 +3,8 @@ using System.IO;
 
 using SFML.Audio;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>
@@ -14,7 +16,7 @@ namespace Otter
 
         public static SoundBuffer Load(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
             if (sounds.ContainsKey(path))
             {

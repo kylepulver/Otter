@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Text;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter
 {
@@ -322,7 +323,7 @@ namespace Otter
         /// <param name="path">The path to the file relative to Game.Filepath.</param>
         public void PlaybackFile(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(Game.Instance.Filepath + path);
+            path = FileHandling.GetAbsoluteFilePath(Game.Instance.Filepath + path);
             byte[] b;
             using (FileStream f = new FileStream(path, FileMode.Open))
             using (GZipStream gz = new GZipStream(f, CompressionMode.Decompress))
@@ -356,7 +357,7 @@ namespace Otter
         public void SaveRecording(string path = "")
         {
             // I realize that I'm compressing this data twice but whatever ;D
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(Game.Instance.Filepath + path);
+            path = FileHandling.GetAbsoluteFilePath(Game.Instance.Filepath + path);
             string temp = Path.GetTempFileName();
             File.WriteAllText(temp, LastRecordedString);
             File.WriteAllText(path, LastRecordedString);

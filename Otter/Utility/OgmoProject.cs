@@ -7,6 +7,7 @@ using System.Xml;
 
 using Otter.Core;
 using Otter.Colliders;
+using Otter.Utility;
 
 namespace Otter
 {
@@ -109,7 +110,7 @@ namespace Otter
         /// <param name="imagePath">The default image path to use for loading tilemaps.</param>
         public OgmoProject(string source, string imagePath = "")
         {
-            source = Helpers.FileHelpers.GetAbsoluteFilePath(source);
+            source = FileHandling.GetAbsoluteFilePath(source);
             if (!File.Exists(source)) throw new ArgumentException("Ogmo project file could not be found.");
 
             if (imagePath == "")
@@ -297,7 +298,7 @@ namespace Otter
         /// <param name="scene">The Scene to load into.</param>
         public void LoadLevel(string data, Scene scene)
         {
-            data = Helpers.FileHelpers.GetAbsoluteFilePath(data);
+            data = FileHandling.GetAbsoluteFilePath(data);
             Entities.Clear();
 
             CurrentLevel = data;
@@ -415,7 +416,7 @@ namespace Otter
         /// <param name="scene">The Scene to load into.</param>
         public void LoadLevelFromFile(string path, Scene scene)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             LoadLevel(File.ReadAllText(path), scene);
         }
 

@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace Otter.Helpers
+namespace Otter.Utility
 {
-    public class FileHelpers
+    public class FileHandling
     {
         public static string GetAbsoluteFilePath(string fileName, string path)
         {
