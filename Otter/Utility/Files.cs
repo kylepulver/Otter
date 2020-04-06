@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-using Otter.Utility;
-
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Manages files used for game assets.  Can use a packed data file of paths and byte arrays.

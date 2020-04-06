@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class for a simple line with two points.

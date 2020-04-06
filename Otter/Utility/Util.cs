@@ -13,9 +13,8 @@ using System.Xml;
 using System.Xml.Linq;
 
 using Otter.Core;
-using Otter.Utility;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Main utility function class. Various useful functions for 2d game development and Otter stuff.

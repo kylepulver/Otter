@@ -18,7 +18,6 @@ namespace Otter.Core
     /// </summary>
     public class Game
     {
-
         #region Static Fields
 
         /// <summary>
@@ -325,7 +324,7 @@ namespace Otter.Core
         /// <summary>
         /// The debugger.  Only accessable in Debug mode, otherwise null.
         /// </summary>
-        public Debugger Debugger { get; private set; }
+        public Utility.Debugger Debugger { get; private set; }
 
         /// <summary>
         /// The Coroutine manager.
@@ -644,7 +643,7 @@ namespace Otter.Core
                 // No console
             }
             Console.WriteLine("[ Otter is running in debug mode! ]");
-            Debugger = new Debugger(this);
+            Debugger = new Utility.Debugger(this);
 #endif
 
             HasFocus = true;
@@ -877,7 +876,7 @@ namespace Otter.Core
             {
                 if (Debugger == null)
                 {
-                    Debugger = new Debugger(this);
+                    Debugger = new Utility.Debugger(this);
                     Debugger.WindowInit();
                 }
             }
@@ -1050,7 +1049,7 @@ namespace Otter.Core
         {
             if (Debugger != null) return;
             ReleaseModeDebugger = true;
-            Debugger = new Debugger(this);
+            Debugger = new Utility.Debugger(this);
             Debugger.WindowInit();
         }
 
@@ -1521,6 +1520,5 @@ namespace Otter.Core
 #endif
 
         #endregion
-
     }
 }

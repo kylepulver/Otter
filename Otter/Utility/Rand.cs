@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 //thanks to chevy ray for this class
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class full of random number generation related functions.

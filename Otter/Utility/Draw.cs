@@ -3,7 +3,7 @@ using SFML.System;
 
 using Otter.Core;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class used for rendering graphics.

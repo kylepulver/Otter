@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// A simple data class that just extends Dictionary.

@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>
@@ -8,7 +10,6 @@ namespace Otter
     /// </summary>
     public class Text : Graphic
     {
-
         #region Private Fields
 
         TextStyle textStyle;
@@ -341,6 +342,5 @@ namespace Otter
         internal SFML.Graphics.Font font;
 
         #endregion
-
     }
 }

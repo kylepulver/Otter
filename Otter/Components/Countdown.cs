@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Otter.Utility;
 
 namespace Otter
 {
@@ -66,7 +64,5 @@ namespace Otter
             Value = Max;
             Triggered = false;
         }
-
-
     }
 }

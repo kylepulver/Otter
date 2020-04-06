@@ -6,6 +6,7 @@ using System.Text;
 using SFML.Graphics;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter
 {

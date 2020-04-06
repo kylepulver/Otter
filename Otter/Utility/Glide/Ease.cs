@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Static class with useful easer functions that can be used by Tweens.

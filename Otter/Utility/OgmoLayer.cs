@@ -1,6 +1,6 @@
 using System.Xml;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class representing a layer loaded from Ogmo.

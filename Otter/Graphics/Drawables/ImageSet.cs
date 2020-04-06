@@ -1,4 +1,6 @@
-﻿using System;
+using System;
+
+using Otter.Utility;
 
 namespace Otter {
     /// <summary>

@@ -28,7 +28,7 @@ SOFTWARE.
 using System;
 using System.Text;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Struct for representing a Vector4.

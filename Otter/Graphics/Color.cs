@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>

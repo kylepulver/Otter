@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Otter.Core;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Entity that is a quick way to make a particle.  Has lots of parameters that can be set, so
@@ -690,7 +690,7 @@ namespace Otter
 
             if (Ease == null)
             {
-                Ease = Otter.Ease.Linear;
+                Ease = Utility.Ease.Linear;
             }
 
             if (Shader != null)

@@ -5,6 +5,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter {
     /// <summary>
@@ -318,10 +319,10 @@ namespace Otter {
         /// <param name="x">The X position of the Graphic.</param>
         /// <param name="y">The Y position of the Graphic.</param>
         public void Draw(Graphic graphic, float x = 0, float y = 0) {
-            Surface tempSurface = Otter.Draw.Target;
-            Otter.Draw.SetTarget(this);
+            Surface tempSurface = Utility.Draw.Target;
+            Utility.Draw.SetTarget(this);
             graphic.Render(x, y);
-            Otter.Draw.SetTarget(tempSurface);
+            Utility.Draw.SetTarget(tempSurface);
         }
 
         /// <summary>

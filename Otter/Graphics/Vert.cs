@@ -3,6 +3,8 @@ using System;
 using SFML.Graphics;
 using SFML.System;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>

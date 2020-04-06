@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class representing a Polygon.

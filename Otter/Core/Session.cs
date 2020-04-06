@@ -2,6 +2,7 @@ using System;
 using System.IO;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter
 {

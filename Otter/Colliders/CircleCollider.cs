@@ -1,5 +1,7 @@
 using System;
 
+using Otter.Utility;
+
 namespace Otter.Colliders
 {
     /// <summary>
@@ -7,7 +9,6 @@ namespace Otter.Colliders
     /// </summary>
     public class CircleCollider : Collider
     {
-
         #region Public Fields
 
         /// <summary>
@@ -63,6 +64,5 @@ namespace Otter.Colliders
         }
 
         #endregion
-
     }
 }

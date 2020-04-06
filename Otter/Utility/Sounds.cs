@@ -3,9 +3,7 @@ using System.IO;
 
 using SFML.Audio;
 
-using Otter.Utility;
-
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that manages the cache of sounds.

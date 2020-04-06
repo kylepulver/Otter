@@ -7,9 +7,7 @@ using System.Xml;
 
 using Otter.Core;
 using Otter.Colliders;
-using Otter.Utility;
-
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class used for importing OgmoProject files quickly, and loading levels created in Ogmo Editor

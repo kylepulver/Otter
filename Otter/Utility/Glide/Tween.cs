@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Otter
+namespace Otter.Utility
 {
     public partial class Tween
     {

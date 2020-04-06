@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-using Otter.Utility;
-
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that manages the cache of fonts.

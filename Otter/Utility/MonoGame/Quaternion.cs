@@ -27,7 +27,7 @@ SOFTWARE.
 
 using System;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Struct for representing a Quaternion.

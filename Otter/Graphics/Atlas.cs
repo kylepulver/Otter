@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
+using Otter.Utility;
+
 namespace Otter {
     /// <summary>
     /// Class used for loading textures from an Atlas, or a set of Atlases. This class is built to support

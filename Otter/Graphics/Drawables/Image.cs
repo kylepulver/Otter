@@ -2,6 +2,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter {
     /// <summary>

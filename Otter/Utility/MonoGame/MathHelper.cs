@@ -27,7 +27,7 @@ SOFTWARE.
 
 using System;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Contains commonly used precalculated values and mathematical operations.

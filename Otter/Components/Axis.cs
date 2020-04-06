@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using SFML.Window;
 
 using Otter.Core;
+using Otter.Utility;
 
 namespace Otter
 {

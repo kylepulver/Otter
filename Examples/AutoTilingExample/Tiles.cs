@@ -1,6 +1,7 @@
 using Otter;
 using Otter.Core;
 using Otter.Colliders;
+using Otter.Utility;
 
 namespace AutoTilingExample {
     class Tiles : Entity {

@@ -28,7 +28,7 @@ SOFTWARE.
 using System;
 using System.Globalization;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Struct for representing a Vector2.

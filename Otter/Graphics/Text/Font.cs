@@ -1,6 +1,6 @@
 using System.IO;
 
-using SFML.Graphics;
+using Otter.Utility;
 
 namespace Otter
 {

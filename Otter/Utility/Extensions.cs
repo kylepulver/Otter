@@ -1,12 +1,12 @@
-using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
 
-namespace Otter
+using SFML.Graphics;
+using SFML.System;
+
+namespace Otter.Utility
 {
     /// <summary>
     /// Various extensions for classes are in here.

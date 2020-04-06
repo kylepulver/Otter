@@ -1,5 +1,7 @@
 using System;
 
+using Otter.Utility;
+
 namespace Otter
 {
     /// <summary>
@@ -8,7 +10,6 @@ namespace Otter
     /// </summary>
     public class GridCounter : Component
     {
-
         #region Private Fields
 
         int x, y;
@@ -202,6 +203,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

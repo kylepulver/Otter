@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Otter.Colliders;
+using Otter.Utility;
 
 namespace Otter
 {
@@ -9,8 +10,7 @@ namespace Otter
     /// A base class for Movement Components to extend.
     /// </summary>
     public class Movement : Component
-    {  //todo: w.sams - this was abstract....need to put this all under test and refactor
-
+    {  
         #region Private Fields
 
         protected int

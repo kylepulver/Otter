@@ -1,6 +1,6 @@
 //special thanks to chevy ray for this class <3
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class of utility functions for ref related things.

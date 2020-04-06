@@ -1,6 +1,6 @@
 using Otter.Core;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Entity that acts as a screen flash.  Best used when using the constructor that allows for

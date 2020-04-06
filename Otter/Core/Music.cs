@@ -4,6 +4,8 @@ using System.IO;
 
 using SFML.Audio;
 
+using Otter.Utility;
+
 namespace Otter.Core
 {
     /// <summary>
