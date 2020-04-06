@@ -14,7 +14,7 @@ namespace Otter
     ///  ᶜ(ᵔᴥᵔ)ᵓ
     ///  Core class Otter. Create a Game, and then use Game.Start(); to run it.
     /// </summary>
-    public class Game
+    public class Game : IDisposable
     {
 
         #region Static Fields
@@ -1499,6 +1499,17 @@ namespace Otter
         public Session Session(int id)
         {
             return Sessions[id];
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing) Window.Dispose();
         }
 
         #endregion
