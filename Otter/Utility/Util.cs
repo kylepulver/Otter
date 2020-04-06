@@ -12,6 +12,8 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
+using Otter.Core;
+
 namespace Otter
 {
     /// <summary>

@@ -1,8 +1,10 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 using System;
 using System.Collections.Generic;
+
+using SFML.Graphics;
+using SFML.System;
+
+using Otter.Core;
 
 namespace Otter {
     /// <summary>

@@ -1,6 +1,8 @@
 using SFML.Graphics;
 using SFML.System;
 
+using Otter.Core;
+
 namespace Otter
 {
     /// <summary>

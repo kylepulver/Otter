@@ -7,6 +7,8 @@ using System.Text;
 
 using SFML.Window;
 
+using Otter.Core;
+
 namespace Otter
 {
     /// <summary>

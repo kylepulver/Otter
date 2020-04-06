@@ -1,4 +1,5 @@
 using Otter;
+using Otter.Core;
 
 namespace AutoTilingExample
 {

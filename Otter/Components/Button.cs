@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 using SFML.Window;
 
+using Otter.Core;
+
 namespace Otter
 {
     /// <summary>

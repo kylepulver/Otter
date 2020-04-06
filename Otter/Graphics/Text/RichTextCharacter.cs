@@ -1,5 +1,7 @@
 using SFML.Graphics;
 
+using Otter.Core;
+
 namespace Otter
 {
     /// <summary>

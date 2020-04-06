@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 
+using Otter.Core;
 using Otter.Colliders;
 
 namespace Otter

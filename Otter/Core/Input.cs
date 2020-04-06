@@ -6,7 +6,7 @@ using System.Text;
 using SFML.System;
 using SFML.Window;
 
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Class used for managing input from the keyboard, mouse, and joysticks. Updated by the active Game.

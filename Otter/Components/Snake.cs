@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using Otter.Core;
+
 namespace Otter
 {
     public class Snake : Component

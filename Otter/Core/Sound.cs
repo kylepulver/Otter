@@ -1,8 +1,8 @@
-using SFML.Audio;
-using System;
 using System.IO;
 
-namespace Otter
+using SFML.Audio;
+
+namespace Otter.Core
 {
     /// <summary>
     /// Class used to play a sound from a file or an IO Stream. Sounds are cached if loaded from a file.

@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
 using Otter;
+using Otter.Core;
 
 namespace OtterPongGame
 {

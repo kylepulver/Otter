@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using Otter.Core;
+
 namespace Otter
 {
     /// <summary>

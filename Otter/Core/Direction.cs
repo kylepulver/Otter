@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Flags to represent Direction.

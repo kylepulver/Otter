@@ -1,3 +1,5 @@
+using Otter.Core;
+
 namespace Otter
 {
     public class EventProcessorEvent

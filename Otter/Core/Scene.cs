@@ -4,7 +4,7 @@ using System.Linq;
 
 using Otter.Colliders;
 
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Class used to manage Entities. The active Game should update the active Scene, which then updates

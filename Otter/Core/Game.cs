@@ -8,7 +8,7 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     ///  ᶜ(ᵔᴥᵔ)ᵓ

@@ -1,9 +1,10 @@
-using SFML.Audio;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Otter
+using SFML.Audio;
+
+namespace Otter.Core
 {
     /// <summary>
     /// Class used to load and play music files. Music is streamed from the file source, or an IO stream.
