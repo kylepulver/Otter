@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Otter {
+namespace Otter
+{
 
     /// <summary>
     /// Class used for a game object. The bread and butter of your game. Entities are added to Scenes which are controlled by the Game.
     /// </summary>
-    public class Entity {
+    public class Entity
+    {
 
         #region Public Fields
 
@@ -116,8 +118,10 @@ namespace Otter {
 
         #region Public Indexers
 
-        public Component this[int id] {
-            get {
+        public Component this[int id]
+        {
+            get
+            {
                 if (componentsById.ContainsKey(id)) return componentsById[id];
                 return null;
             }
@@ -142,7 +146,7 @@ namespace Otter {
         private List<Component> componentsToAdd = new List<Component>();
         Dictionary<int, Component> componentsById = new Dictionary<int, Component>();
         int nextComponentId;
-        
+
 
         #endregion Private Fields
 
@@ -156,7 +160,8 @@ namespace Otter {
         /// <param name="graphic">The graphic to assign to the entity.  Defaults to null.</param>
         /// <param name="collider">The collider to assign to the entity.  Defaults to null.</param>
         /// <param name="name">The name of the entity. Defaults to the type name.</param>
-        public Entity(float x = 0, float y = 0, Graphic graphic = null, Collider collider = null, string name = "") {
+        public Entity(float x = 0, float y = 0, Graphic graphic = null, Collider collider = null, string name = "")
+        {
             X = x;
             Y = y;
 
@@ -167,18 +172,22 @@ namespace Otter {
             Colliders = new List<Collider>();
             Surfaces = new List<Surface>();
 
-            if (graphic != null) {
+            if (graphic != null)
+            {
                 Graphic = graphic;
             }
 
-            if (collider != null) {
+            if (collider != null)
+            {
                 Collider = collider;
             }
 
-            if (name == "") {
+            if (name == "")
+            {
                 Name = this.GetType().Name;
             }
-            else {
+            else
+            {
                 Name = name;
             }
         }
@@ -225,13 +234,16 @@ namespace Otter {
         /// <summary>
         /// The default Surface that the entity should render to.
         /// </summary>
-        public Surface Surface {
-            get {
+        public Surface Surface
+        {
+            get
+            {
                 if (Surfaces == null) return null;
                 if (Surfaces.Count == 0) return null;
                 return Surfaces[Surfaces.Count - 1];
             }
-            set {
+            set
+            {
                 Surfaces.Clear();
                 Surfaces.Add(value);
             }
@@ -250,8 +262,10 @@ namespace Otter {
         /// <summary>
         /// Returns the first available collider, or set the Collider.
         /// </summary>
-        public Collider Collider {
-            get {
+        public Collider Collider
+        {
+            get
+            {
                 if (Colliders.Count == 0) return null;
                 return Colliders[0];
             }
@@ -261,23 +275,28 @@ namespace Otter {
         /// <summary>
         /// A reference to the Input object in the Game that controls the Scene.
         /// </summary>
-        public Input Input {
+        public Input Input
+        {
             get { return Scene.Game.Input; }
         }
 
         /// <summary>
         /// A reference to the Game that controls the Scene.
         /// </summary>
-        public Game Game {
+        public Game Game
+        {
             get { return Scene.Game; }
         }
 
         /// <summary>
         /// If the entity is currently paused by the scene.
         /// </summary>
-        public bool IsPaused {
-            get {
-                if (Scene != null) {
+        public bool IsPaused
+        {
+            get
+            {
+                if (Scene != null)
+                {
                     return Scene.IsGroupPaused(Group);
                 }
                 return false;
@@ -287,9 +306,12 @@ namespace Otter {
         /// <summary>
         /// The x position in screen space of the entity.
         /// </summary>
-        public float ScreenX {
-            get {
-                if (Scene != null) {
+        public float ScreenX
+        {
+            get
+            {
+                if (Scene != null)
+                {
                     return X - Scene.CameraX;
                 }
                 return X;
@@ -299,9 +321,12 @@ namespace Otter {
         /// <summary>
         /// The y position in screen space of the entity.
         /// </summary>
-        public float ScreenY {
-            get {
-                if (Scene != null) {
+        public float ScreenY
+        {
+            get
+            {
+                if (Scene != null)
+                {
                     return Y - Scene.CameraY;
                 }
                 return Y;
@@ -311,8 +336,10 @@ namespace Otter {
         /// <summary>
         /// Returns the first available graphic, or set the graphic.
         /// </summary>
-        public Graphic Graphic {
-            get {
+        public Graphic Graphic
+        {
+            get
+            {
                 if (Graphics.Count == 0) return null;
                 return Graphics[0];
             }
@@ -322,11 +349,14 @@ namespace Otter {
         /// <summary>
         /// The position of the Entity represented as a Vector2
         /// </summary>
-        public Vector2 Position {
-            get {
+        public Vector2 Position
+        {
+            get
+            {
                 return new Vector2(X, Y);
             }
-            set {
+            set
+            {
                 X = value.X;
                 Y = value.Y;
             }
@@ -340,7 +370,8 @@ namespace Otter {
         /// Sets the graphic to a new graphic, removing all previous graphics.
         /// </summary>
         /// <param name="g"></param>
-        public void SetGraphic(Graphic g) {
+        public void SetGraphic(Graphic g)
+        {
             Graphics.Clear();
             Graphics.Add(g);
         }
@@ -349,7 +380,8 @@ namespace Otter {
         /// Set the X and Y position to a value.
         /// </summary>
         /// <param name="xy">The value of the X and Y position.</param>
-        public void SetPosition(float xy) {
+        public void SetPosition(float xy)
+        {
             X = Y = xy;
         }
 
@@ -358,7 +390,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The amount to add to the x position.</param>
         /// <param name="y">The amount to add to the y position.</param>
-        public void AddPosition(float x, float y) {
+        public void AddPosition(float x, float y)
+        {
             X += x;
             Y += y;
         }
@@ -368,7 +401,8 @@ namespace Otter {
         /// </summary>
         /// <param name="axis">The axis to add from.</param>
         /// <param name="multiplier">The amount to muliply the axis values by before adding.</param>
-        public void AddPosition(Axis axis, float multiplier = 1) {
+        public void AddPosition(Axis axis, float multiplier = 1)
+        {
             AddPosition(axis.X * multiplier, axis.Y * multiplier);
         }
 
@@ -376,7 +410,8 @@ namespace Otter {
         /// Add to the X and Y position of the Entity.
         /// </summary>
         /// <param name="vector">The Vector2 to add to the position.</param>
-        public void AddPosition(Vector2 vector) {
+        public void AddPosition(Vector2 vector)
+        {
             AddPosition(vector.X, vector.Y);
         }
 
@@ -385,7 +420,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The new x position.</param>
         /// <param name="y">The new y position.</param>
-        public void SetPosition(float x, float y) {
+        public void SetPosition(float x, float y)
+        {
             X = x;
             Y = y;
         }
@@ -394,7 +430,8 @@ namespace Otter {
         /// Set the position of the Entity to another Entity's position.
         /// </summary>
         /// <param name="e">The Entity to match positions with.</param>
-        public void SetPosition(Entity e, float offsetX = 0, float offsetY = 0) {
+        public void SetPosition(Entity e, float offsetX = 0, float offsetY = 0)
+        {
             SetPosition(e.X + offsetX, e.Y + offsetY);
         }
 
@@ -402,7 +439,8 @@ namespace Otter {
         /// Set the position of the Entity.
         /// </summary>
         /// <param name="v">The vector of the new position.</param>
-        public void SetPosition(Vector2 v) {
+        public void SetPosition(Vector2 v)
+        {
             SetPosition(v.X, v.Y);
         }
 
@@ -411,7 +449,8 @@ namespace Otter {
         /// </summary>
         /// <param name="g">The Graphic to add.</param>
         /// <returns>The added Graphic.</returns>
-        public T AddGraphic<T>(T g) where T : Graphic {
+        public T AddGraphic<T>(T g) where T : Graphic
+        {
             Graphics.Add(g);
             return g;
         }
@@ -424,7 +463,8 @@ namespace Otter {
         /// <param name="x">The X position to place the Graphic relative to the Entity.</param>
         /// <param name="y">The Y position to place the Graphic relative to the Entity.</param>
         /// <returns>The added Graphic.</returns>
-        public T AddGraphic<T>(T g, float x, float y) where T : Graphic {
+        public T AddGraphic<T>(T g, float x, float y) where T : Graphic
+        {
             Graphics.Add(g);
             g.X = x;
             g.Y = y;
@@ -435,9 +475,11 @@ namespace Otter {
         /// Adds the graphics to the Entity.
         /// </summary>
         /// <param name="graphics">The Graphics to add.</param>
-        public List<Graphic> AddGraphics(params Graphic[] graphics) {
+        public List<Graphic> AddGraphics(params Graphic[] graphics)
+        {
             var r = new List<Graphic>();
-            foreach (var g in graphics) {
+            foreach (var g in graphics)
+            {
                 r.Add(AddGraphic(g));
             }
             return r;
@@ -449,7 +491,8 @@ namespace Otter {
         /// <typeparam name="T"></typeparam>
         /// <param name="g">The Graphic to add.</param>
         /// <returns>The added Graphic.</returns>
-        public T AddGraphicGUI<T>(T g) where T : Graphic {
+        public T AddGraphicGUI<T>(T g) where T : Graphic
+        {
             g.Scroll = 0;
             return AddGraphic(g);
         }
@@ -462,7 +505,8 @@ namespace Otter {
         /// <param name="x">The X position to place the Graphic relative to the Entity.</param>
         /// <param name="y">The Y position to place the Graphic relative to the Entity.</param>
         /// <returns>The added Graphic.</returns>
-        public T AddGraphicGUI<T>(T g, float x, float y) where T : Graphic {
+        public T AddGraphicGUI<T>(T g, float x, float y) where T : Graphic
+        {
             g.Scroll = 0;
             return AddGraphic(g, x, y);
         }
@@ -473,9 +517,11 @@ namespace Otter {
         /// <typeparam name="T"></typeparam>
         /// <param name="graphics">The Graphics to add.</param>
         /// <returns>The added Graphics.</returns>
-        public List<Graphic> AddGraphicsGUI(params Graphic[] graphics) {
+        public List<Graphic> AddGraphicsGUI(params Graphic[] graphics)
+        {
             var r = new List<Graphic>();
-            foreach (var g in graphics) {
+            foreach (var g in graphics)
+            {
                 r.Add(AddGraphicGUI(g));
             }
             return r;
@@ -485,7 +531,8 @@ namespace Otter {
         /// Removes a Graphic from the Entity.
         /// </summary>
         /// <param name="g">The Graphic to remove.</param>
-        public T RemoveGraphic<T>(T g) where T : Graphic {
+        public T RemoveGraphic<T>(T g) where T : Graphic
+        {
             Graphics.Remove(g);
             return g;
         }
@@ -494,14 +541,16 @@ namespace Otter {
         /// Removes Graphics from the Entity.
         /// </summary>
         /// <param name="g">The Graphics to remove.</param>
-        public void RemoveGraphics(params Graphic[] g) {
+        public void RemoveGraphics(params Graphic[] g)
+        {
             g.Each(gr => RemoveGraphic(gr));
         }
 
         /// <summary>
         /// Remove all the graphics from the entity.
         /// </summary>
-        public void ClearGraphics() {
+        public void ClearGraphics()
+        {
             Graphics.Clear();
         }
 
@@ -509,7 +558,8 @@ namespace Otter {
         /// Adds a component to the entity.
         /// </summary>
         /// <param name="c"></param>
-        public T AddComponent<T>(T c) where T : Component {
+        public T AddComponent<T>(T c) where T : Component
+        {
             if (c.Entity != null) return c;
             c.Entity = this;
             componentsToAdd.Add(c);
@@ -522,7 +572,8 @@ namespace Otter {
         /// <typeparam name="T">The type of Component to create.</typeparam>
         /// <param name="constructorArgs">The arguments for the Component's constructor.</param>
         /// <returns>The newly created Component.</returns>
-        public T AddComponent<T>(params object[] constructorArgs) where T : Component {
+        public T AddComponent<T>(params object[] constructorArgs) where T : Component
+        {
             var c = (T)Activator.CreateInstance(typeof(T), constructorArgs);
             return AddComponent(c);
         }
@@ -532,9 +583,11 @@ namespace Otter {
         /// </summary>
         /// <param name="c">The components to add.</param>
         /// <returns>A list of the added components.</returns>
-        public List<Component> AddComponents(params Component[] c) {
+        public List<Component> AddComponents(params Component[] c)
+        {
             var r = new List<Component>();
-            foreach (var com in c) {
+            foreach (var com in c)
+            {
                 r.Add(AddComponent(com));
             }
             return r;
@@ -544,8 +597,10 @@ namespace Otter {
         /// Removes a component from the Entity.
         /// </summary>
         /// <param name="c"></param>
-        public T RemoveComponent<T>(T c) where T : Component {
-            if (componentsToAdd.Contains(c)) {
+        public T RemoveComponent<T>(T c) where T : Component
+        {
+            if (componentsToAdd.Contains(c))
+            {
                 componentsToAdd.Remove(c);
                 return c;
             }
@@ -558,15 +613,18 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of component to remove.</typeparam>
         /// <returns>The removed component.</returns>
-        public T RemoveComponent<T>() where T : Component {
+        public T RemoveComponent<T>() where T : Component
+        {
             return RemoveComponent(GetComponent<T>());
         }
 
         /// <summary>
         /// Remove all components from the Entity.
         /// </summary>
-        public void ClearComponents() {
-            foreach (var c in Components) {
+        public void ClearComponents()
+        {
+            foreach (var c in Components)
+            {
                 RemoveComponent(c);
             }
         }
@@ -575,7 +633,8 @@ namespace Otter {
         /// Add a surface that the entity should render to.
         /// </summary>
         /// <param name="target"></param>
-        public void AddSurface(Surface target) {
+        public void AddSurface(Surface target)
+        {
             Surfaces.Add(target);
         }
 
@@ -583,14 +642,16 @@ namespace Otter {
         /// Remove a surface from the list of surfaces that the entity should render to.
         /// </summary>
         /// <param name="target"></param>
-        public void RemoveSurface(Surface target) {
+        public void RemoveSurface(Surface target)
+        {
             Surfaces.Remove(target);
         }
 
         /// <summary>
         /// Remove all Surfaces from the list of Surfaces that the Entity should render to.
         /// </summary>
-        public void ClearSurfaces() {
+        public void ClearSurfaces()
+        {
             Surfaces.Clear();
         }
 
@@ -601,7 +662,8 @@ namespace Otter {
         /// <param name="height">The height of the box collider.</param>
         /// <param name="tags">The tags assigned to the box collider.</param>
         /// <returns>The created box collider.</returns>
-        public BoxCollider SetHitbox(int width, int height, params int[] tags) {
+        public BoxCollider SetHitbox(int width, int height, params int[] tags)
+        {
             var hitbox = new BoxCollider(width, height, tags);
             SetCollider(hitbox);
             Hitbox = hitbox;
@@ -616,7 +678,8 @@ namespace Otter {
         /// <param name="tag">The first tag to add.</param>
         /// <param name="tags">The rest of the tags to add.</param>
         /// <returns></returns>
-        public BoxCollider SetHitbox(int width, int height, Enum tag, params Enum[] tags) {
+        public BoxCollider SetHitbox(int width, int height, Enum tag, params Enum[] tags)
+        {
             var hitbox = new BoxCollider(width, height, tag, tags);
             SetCollider(hitbox);
             Hitbox = hitbox;
@@ -628,7 +691,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The entity type to search for.</typeparam>
         /// <returns>The first entity of that type in the scene.</returns>
-        public T GetEntity<T>() where T : Entity {
+        public T GetEntity<T>() where T : Entity
+        {
             return Scene.GetEntity<T>();
         }
 
@@ -637,7 +701,8 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of entity to collect.</typeparam>
         /// <returns>A list of entities of type T.</returns>
-        public List<T> GetEntities<T>() where T : Entity {
+        public List<T> GetEntities<T>() where T : Entity
+        {
             return Scene.GetEntities<T>();
         }
 
@@ -646,11 +711,14 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of Component to look for.</typeparam>
         /// <returns>The Component.</returns>
-        public T GetComponent<T>() where T : Component {
-            foreach (var c in Components) {
+        public T GetComponent<T>() where T : Component
+        {
+            foreach (var c in Components)
+            {
                 if (c is T) return (T)c;
             }
-            foreach (var c in componentsToAdd) {
+            foreach (var c in componentsToAdd)
+            {
                 if (c is T) return (T)c;
             }
             return null;
@@ -661,8 +729,10 @@ namespace Otter {
         /// </summary>
         /// <param name="type">The Type of Component to look for.</param>
         /// <returns>The first Component of that Type.</returns>
-        public Component GetComponent(Type type) {
-            foreach (var c in Components) {
+        public Component GetComponent(Type type)
+        {
+            foreach (var c in Components)
+            {
                 if (c.GetType() == type) return c;
             }
             return null;
@@ -673,12 +743,15 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of Component to look for.</typeparam>
         /// <returns>A list of Components of type T.</returns>
-        public List<T> GetComponents<T>() where T : Component {
+        public List<T> GetComponents<T>() where T : Component
+        {
             var list = new List<T>();
-            foreach (var c in Components) {
+            foreach (var c in Components)
+            {
                 if (c is T) list.Add((T)c);
             }
-            foreach (var c in componentsToAdd) {
+            foreach (var c in componentsToAdd)
+            {
                 if (c is T) list.Add((T)c);
             }
             return list;
@@ -689,8 +762,10 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of graphic to look for.</typeparam>
         /// <returns>The graphic.</returns>
-        public T GetGraphic<T>() where T : Graphic {
-            foreach (var g in Graphics) {
+        public T GetGraphic<T>() where T : Graphic
+        {
+            foreach (var g in Graphics)
+            {
                 if (g is T) return (T)g;
             }
             return null;
@@ -701,8 +776,10 @@ namespace Otter {
         /// </summary>
         /// <typeparam name="T">The type of collider to look for.</typeparam>
         /// <returns>The collider.</returns>
-        public T GetCollider<T>() where T : Collider {
-            foreach (var c in Colliders) {
+        public T GetCollider<T>() where T : Collider
+        {
+            foreach (var c in Colliders)
+            {
                 if (c is T) return (T)c;
             }
             return null;
@@ -712,11 +789,13 @@ namespace Otter {
         /// Add a collider to the entity.
         /// </summary>
         /// <param name="c"></param>
-        public T AddCollider<T>(T c) where T : Collider {
+        public T AddCollider<T>(T c) where T : Collider
+        {
             Colliders.Add(c);
             c.Entity = this;
             c.Added();
-            if (Scene != null) {
+            if (Scene != null)
+            {
                 Scene.AddColliderInternal(c);
             }
             return c;
@@ -726,13 +805,16 @@ namespace Otter {
         /// Remove the collider from the entity.
         /// </summary>
         /// <param name="c"></param>
-        public T RemoveCollider<T>(T c) where T : Collider {
-            if (Colliders.Contains(c)) {
+        public T RemoveCollider<T>(T c) where T : Collider
+        {
+            if (Colliders.Contains(c))
+            {
                 Colliders.Remove(c);
                 c.Removed();
                 c.Entity = null;
 
-                if (Scene != null) {
+                if (Scene != null)
+                {
                     Scene.RemoveColliderInternal(c);
                 }
             }
@@ -742,9 +824,11 @@ namespace Otter {
         /// <summary>
         /// Remove all colliders from the entity.
         /// </summary>
-        public void ClearColliders() {
+        public void ClearColliders()
+        {
             var colliders = new List<Collider>(Colliders);
-            foreach (var c in colliders) {
+            foreach (var c in colliders)
+            {
                 RemoveCollider(c);
             }
             Hitbox = null;
@@ -754,7 +838,8 @@ namespace Otter {
         /// Remove all current colliders and set collider to a new one.
         /// </summary>
         /// <param name="c"></param>
-        public T SetCollider<T>(T c) where T : Collider {
+        public T SetCollider<T>(T c) where T : Collider
+        {
             ClearColliders();
             return AddCollider(c);
         }
@@ -763,9 +848,11 @@ namespace Otter {
         /// Adds colliders to the entity.
         /// </summary>
         /// <param name="colliders"></param>
-        public List<Collider> AddColliders(params Collider[] colliders) {
+        public List<Collider> AddColliders(params Collider[] colliders)
+        {
             var r = new List<Collider>();
-            foreach (var c in colliders) {
+            foreach (var c in colliders)
+            {
                 r.Add(AddCollider(c));
             }
             return r;
@@ -775,8 +862,10 @@ namespace Otter {
         /// Removes colliders from the entity.
         /// </summary>
         /// <param name="colliders"></param>
-        public void RemoveColliders(params Collider[] colliders) {
-            foreach (var c in colliders) {
+        public void RemoveColliders(params Collider[] colliders)
+        {
+            foreach (var c in colliders)
+            {
                 RemoveCollider(c);
             }
         }
@@ -788,7 +877,8 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The int tags to check for.</param>
         /// <returns></returns>
-        public Collider Collide(float x, float y, params int[] tags) {
+        public Collider Collide(float x, float y, params int[] tags)
+        {
             return Collider.Collide(x, y, tags);
         }
 
@@ -799,7 +889,8 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The enum tags to check for.</param>
         /// <returns></returns>
-        public Collider Collide(float x, float y, params Enum[] tags) {
+        public Collider Collide(float x, float y, params Enum[] tags)
+        {
             return Collider.Collide(x, y, tags);
         }
 
@@ -810,7 +901,8 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The int tags to check for.</param>
         /// <returns>A list of all colliders touched.</returns>
-        public List<Collider> CollideList(float x, float y, params int[] tags) {
+        public List<Collider> CollideList(float x, float y, params int[] tags)
+        {
             return Collider.CollideList(x, y, tags);
         }
 
@@ -821,7 +913,8 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The enum tags to check for.</param>
         /// <returns>A list of all colliders touched.</returns>
-        public List<Collider> CollideList(float x, float y, params Enum[] tags) {
+        public List<Collider> CollideList(float x, float y, params Enum[] tags)
+        {
             return Collider.CollideList(x, y, tags);
         }
 
@@ -832,7 +925,8 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The int tags to check for.</param>
         /// <returns>A list of all entities touched.</returns>
-        public List<Entity> CollideEntities(float x, float y, params int[] tags) {
+        public List<Entity> CollideEntities(float x, float y, params int[] tags)
+        {
             return Collider.CollideEntities(x, y, tags);
         }
 
@@ -843,19 +937,23 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The enum tags to check for.</param>
         /// <returns>A list of all Entities touched.</returns>
-        public List<Entity> CollideEntities(float x, float y, params Enum[] tags) {
+        public List<Entity> CollideEntities(float x, float y, params Enum[] tags)
+        {
             return Collider.CollideEntities(x, y, tags);
         }
 
-        public List<T> CollideEntities<T>(float x, float y, List<T> entities) where T : Entity {
+        public List<T> CollideEntities<T>(float x, float y, List<T> entities) where T : Entity
+        {
             return Collider.CollideEntities(x, y, entities);
         }
 
-        public List<T> CollideEntities<T>(float x, float y, params int[] tags) where T : Entity {
+        public List<T> CollideEntities<T>(float x, float y, params int[] tags) where T : Entity
+        {
             return Collider.CollideEntities<T>(x, y, tags);
         }
 
-        public List<T> CollideEntities<T>(float x, float y, params Enum[] tags) where T : Entity {
+        public List<T> CollideEntities<T>(float x, float y, params Enum[] tags) where T : Entity
+        {
             return Collider.CollideEntities<T>(x, y, tags);
         }
 
@@ -866,12 +964,14 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The int tags to check for.</param>
         /// <returns>True if there is a collision.</returns>
-        public bool Overlap(float x, float y, params int[] tags) {
+        public bool Overlap(float x, float y, params int[] tags)
+        {
             Overlapped = null;
             if (Collider == null) return false; // If no collider, cant possibly overlap.
 
             var result = Collider.Overlap(x, y, tags);
-            if (result) {
+            if (result)
+            {
                 Overlapped = Collider.Collide(x, y, tags).Entity;
             }
 
@@ -885,7 +985,8 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="tags">The enum tags to check for.</param>
         /// <returns>True if there is a collision.</returns>
-        public bool Overlap(float x, float y, params Enum[] tags) {
+        public bool Overlap(float x, float y, params Enum[] tags)
+        {
             return Overlap(x, y, Util.EnumToIntArray(tags));
         }
 
@@ -896,11 +997,13 @@ namespace Otter {
         /// <param name="y">The Y position to check for a collision at.</param>
         /// <param name="e">The Entity to check for a collision with.</param>
         /// <returns>True if there is a collision.</returns>
-        public bool Overlap(float x, float y, Entity e) {
+        public bool Overlap(float x, float y, Entity e)
+        {
             Overlapped = null;
 
             var result = Collider.Overlap(x, y, e);
-            if (result) {
+            if (result)
+            {
                 Overlapped = Collider.Collide(x, y, e).Entity;
             }
 
@@ -910,49 +1013,57 @@ namespace Otter {
         /// <summary>
         /// Called when the entity is added to a scene.  The reference to the Scene is available here.
         /// </summary>
-        public virtual void Added() {
+        public virtual void Added()
+        {
         }
 
         /// <summary>
         /// Called when the entity is removed from a scene.  The reference to Scene is now null.
         /// </summary>
-        public virtual void Removed() {
+        public virtual void Removed()
+        {
         }
 
         /// <summary>
         /// Called when the Scene begins.
         /// </summary>
-        public virtual void SceneBegin() {
+        public virtual void SceneBegin()
+        {
         }
 
         /// <summary>
         /// Called when the Scene ends.
         /// </summary>
-        public virtual void SceneEnd() {
+        public virtual void SceneEnd()
+        {
         }
 
         /// <summary>
         /// Called when the Scene is paused.
         /// </summary>
-        public virtual void ScenePause() {
+        public virtual void ScenePause()
+        {
         }
 
         /// <summary>
         /// Called when the Scene is resumed.
         /// </summary>
-        public virtual void SceneResume() {
+        public virtual void SceneResume()
+        {
         }
 
         /// <summary>
         /// Called when the entity is paused by the Scene.
         /// </summary>
-        public virtual void Paused() {
+        public virtual void Paused()
+        {
         }
 
         /// <summary>
         /// Called when the entity is resumed by the Scene.
         /// </summary>
-        public virtual void Resumed() {
+        public virtual void Resumed()
+        {
         }
 
         /// <summary>
@@ -963,45 +1074,53 @@ namespace Otter {
         /// <param name="duration">Duration of the tween in seconds.</param>
         /// <param name="delay">Delay before the tween starts, in seconds.</param>
         /// <returns>The tween created, for setting properties on.</returns>
-        public Tween Tween(object target, object values, float duration, float delay = 0) {
+        public Tween Tween(object target, object values, float duration, float delay = 0)
+        {
             return Tweener.Tween(target, values, duration, delay);
         }
 
         /// <summary>
         /// Called first during the update.  Happens before Update.
         /// </summary>
-        public virtual void UpdateFirst() {
+        public virtual void UpdateFirst()
+        {
         }
 
         /// <summary>
         /// Called last during the update.  Happens after Update.
         /// </summary>
-        public virtual void UpdateLast() {
+        public virtual void UpdateLast()
+        {
         }
 
         /// <summary>
         /// Called during the update of the game.
         /// </summary>
-        public virtual void Update() {
+        public virtual void Update()
+        {
         }
 
         /// <summary>
         /// Called when the entity is rendering to the screen.
         /// </summary>
-        public virtual void Render() {
+        public virtual void Render()
+        {
         }
 
         /// <summary>
         /// Called before an entity is rendered. Things rendered here will appear below the Entity's Graphics.
         /// </summary>
-        public virtual void Prerender() {
+        public virtual void Prerender()
+        {
         }
 
         /// <summary>
         /// Remove this entity from the Scene it's in.
         /// </summary>
-        public void RemoveSelf() {
-            if (Scene != null && !MarkedForRemoval) {
+        public void RemoveSelf()
+        {
+            if (Scene != null && !MarkedForRemoval)
+            {
                 Scene.Remove(this);
             }
         }
@@ -1010,86 +1129,105 @@ namespace Otter {
 
         #region Internal Methods
 
-        internal void UpdateComponentLists() {
-            while (componentsToRemove.Count > 0) {
+        internal void UpdateComponentLists()
+        {
+            while (componentsToRemove.Count > 0)
+            {
                 var removing = new List<Component>(componentsToRemove);
                 componentsToRemove.Clear();
-                
-                foreach (var c in removing) {
+
+                foreach (var c in removing)
+                {
                     Components.Remove(c);
                     componentsById.Remove(c.InstanceId);
                     c.InstanceId = -1;
                 }
-                foreach (var c in removing) {
+                foreach (var c in removing)
+                {
                     c.Removed();
                     c.Entity = null;
                 }
             }
 
-            while (componentsToAdd.Count > 0) {
+            while (componentsToAdd.Count > 0)
+            {
                 var adding = new List<Component>(componentsToAdd);
                 componentsToAdd.Clear();
-                
-                foreach (var c in adding) {
+
+                foreach (var c in adding)
+                {
                     Components.Add(c);
                     var id = GetNextComponentId();
                     componentsById.Add(id, c);
                     c.InstanceId = id;
                 }
-                foreach (var c in adding) {
+                foreach (var c in adding)
+                {
                     c.Added();
                 }
             }
         }
 
-        internal void UpdateFirstInternal() {
+        internal void UpdateFirstInternal()
+        {
             Game.UpdateCount++;
 
             UpdatedOnce = true;
 
             UpdateComponentLists();
 
-            foreach (var c in Components) {
+            foreach (var c in Components)
+            {
                 c.UpdateFirst();
             }
-            if (OnUpdateFirst != null) {
+            if (OnUpdateFirst != null)
+            {
                 OnUpdateFirst();
             }
             UpdateFirst();
         }
 
-        internal void UpdateLastInternal() {
+        internal void UpdateLastInternal()
+        {
             UpdateComponentLists();
 
-            foreach (var c in Components) {
+            foreach (var c in Components)
+            {
                 c.UpdateLast();
                 c.Timer += Game.DeltaTime;
             }
 
             UpdateLast();
-            if (OnUpdateLast != null) {
+            if (OnUpdateLast != null)
+            {
                 OnUpdateLast();
             }
 
-            foreach (var g in Graphics) {
+            foreach (var g in Graphics)
+            {
                 g.Update();
             }
 
             Timer += Game.DeltaTime;
-            if (LifeSpan > 0) {
-                if (Timer >= LifeSpan) {
+            if (LifeSpan > 0)
+            {
+                if (Timer >= LifeSpan)
+                {
                     RemoveSelf();
                 }
             }
         }
 
-        internal void UpdateInternal() {
+        internal void UpdateInternal()
+        {
             UpdateComponentLists();
 
-            foreach (var c in Components) {
+            foreach (var c in Components)
+            {
                 c.Update();
             }
-            if (OnUpdate != null) {
+            if (OnUpdate != null)
+            {
                 OnUpdate();
             }
             Tweener.Update(Game.DeltaTime);
@@ -1097,16 +1235,20 @@ namespace Otter {
             Update();
         }
 
-        internal void RenderInternal() {
+        internal void RenderInternal()
+        {
             if (!UpdatedOnce) return; //prevent rendering before update
             if (!Visible) return;
             if (Scene == null) return;
 
-            if (Surface == null) {
+            if (Surface == null)
+            {
                 RenderEntity();
             }
-            else {
-                foreach (var surface in Surfaces) {
+            else
+            {
+                foreach (var surface in Surfaces)
+                {
                     Surface temp = Draw.Target;
 
                     Draw.SetTarget(surface);
@@ -1122,38 +1264,48 @@ namespace Otter {
 
         #region Private Methods
 
-        int GetNextComponentId() {
+        int GetNextComponentId()
+        {
             var id = nextComponentId;
             nextComponentId++;
             return id;
         }
 
-        private void RenderEntity() {
+        private void RenderEntity()
+        {
             Prerender();
 
-            foreach (var c in Components) {
-                if (!c.RenderAfterEntity) {
+            foreach (var c in Components)
+            {
+                if (!c.RenderAfterEntity)
+                {
                     if (c.Visible) c.Render();
                 }
             }
 
-            foreach (var g in Graphics) {
-                if (g.Relative) {
+            foreach (var g in Graphics)
+            {
+                if (g.Relative)
+                {
                     g.Render(X, Y);
                 }
-                else {
+                else
+                {
                     g.Render(0, 0);
                 }
             }
 
             Render();
 
-            if (OnRender != null) {
+            if (OnRender != null)
+            {
                 OnRender();
             }
 
-            foreach (var c in Components) {
-                if (c.RenderAfterEntity) {
+            foreach (var c in Components)
+            {
+                if (c.RenderAfterEntity)
+                {
                     if (c.Visible) c.Render();
                 }
             }

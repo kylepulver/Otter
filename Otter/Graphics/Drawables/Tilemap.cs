@@ -319,6 +319,7 @@ namespace Otter {
         /// <param name="tileWidth">The width of each tile in pixels.</param>
         /// <param name="tileHeight">The height of each tile in pixels.</param>
         public Tilemap(string source, int width, int height, int tileWidth, int tileHeight) : base() {
+            source = Helpers.FileHelpers.GetAbsoluteFilePath(source);
             SetTexture(new Texture(source));
             Initialize(width, height, tileWidth, tileHeight);
         }

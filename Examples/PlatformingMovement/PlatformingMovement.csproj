@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Otter\Otter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="OgmoProject.oep" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Level.oel" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

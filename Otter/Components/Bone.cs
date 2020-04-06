@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace Otter {
-    public class Bone : Component {
+namespace Otter
+{
+    public class Bone : Component
+    {
 
         public Bone Parent;
         public Skeleton Skeleton;
@@ -58,7 +60,8 @@ namespace Otter {
 
         internal Entity BoneEntity { get; private set; }
 
-        public struct BoneSlot {
+        public struct BoneSlot
+        {
             public float Rotation;
             public bool FlipX;
             public bool FlipY;
@@ -68,7 +71,8 @@ namespace Otter {
 
         public BoneSlot Slot { get; private set; }
 
-        public Bone(float x = 0, float y = 0, float rotation = 0, float scaleX = 1, float scaleY = 1) {
+        public Bone(float x = 0, float y = 0, float rotation = 0, float scaleX = 1, float scaleY = 1)
+        {
             BaseX = x;
             BaseY = y;
             BaseScaleX = scaleX;
@@ -80,7 +84,8 @@ namespace Otter {
             Visible = false;
         }
 
-        public Bone(Entity e, float x = 0, float y = 0, float rotation = 0, float scaleX = 1, float scaleY = 1) : this(x, y, rotation, scaleX, scaleY) {
+        public Bone(Entity e, float x = 0, float y = 0, float rotation = 0, float scaleX = 1, float scaleY = 1) : this(x, y, rotation, scaleX, scaleY)
+        {
             SetEntity(e);
         }
 
@@ -89,7 +94,8 @@ namespace Otter {
         /// </summary>
         /// <param name="e">The bone to add.</param>
         /// <returns>The added bone.</returns>
-        public Bone AddBone(Bone e) {
+        public Bone AddBone(Bone e)
+        {
             Children.Add(e);
             e.Parent = this;
             return e;
@@ -99,39 +105,47 @@ namespace Otter {
         /// Gets all the children of a specified Bone.
         /// </summary>
         /// <returns>A list of bones that are the children of the specified Bone.</returns>
-        public List<Bone> GetAllChildren() {
+        public List<Bone> GetAllChildren()
+        {
             var bones = new List<Bone>();
-            foreach (var c in Children) {
+            foreach (var c in Children)
+            {
                 bones.AddRange(c.GetAllChildren());
                 bones.Add(c);
             }
             return bones;
         }
 
-        public Bone SetEntity(Entity e) {
+        public Bone SetEntity(Entity e)
+        {
             e.AddComponent(this);
             BoneEntity = e;
             return this;
         }
 
-        public override void Added() {
+        public override void Added()
+        {
             base.Added();
             BoneEntity = null;
         }
 
-        public void UpdateTransforms() {
+        public void UpdateTransforms()
+        {
             LocalRotation = Util.WrapAngle(LocalRotation); // Don't want the angle to get CRAZY
 
-            if (Parent != null) {
+            if (Parent != null)
+            {
                 flipX = LocalFlipX ^ Parent.FlipX;
                 flipY = LocalFlipY ^ Parent.FlipY;
                 var pos = new Vector2(Parent.FlipX ? -LocalX - BaseX : LocalX + BaseX, Parent.FlipY ? -LocalY - BaseY : LocalY + BaseY);
 
-                if (InheritScale) {
+                if (InheritScale)
+                {
                     scaleX = Parent.ScaleX * LocalScaleX * BaseScaleX;
                     scaleY = Parent.ScaleY * LocalScaleY * BaseScaleY;
                 }
-                else {
+                else
+                {
                     scaleX = LocalScaleX * BaseScaleX;
                     scaleY = LocalScaleY * BaseScaleY;
                 }
@@ -142,10 +156,12 @@ namespace Otter {
                 pos.X += Parent.X;
                 pos.Y += Parent.Y;
 
-                if (InheritRotation) {
+                if (InheritRotation)
+                {
                     rotation = Parent.Rotation + LocalRotation + BaseRotation;
                 }
-                else {
+                else
+                {
                     rotation = LocalRotation + BaseRotation;
                 }
 
@@ -156,7 +172,8 @@ namespace Otter {
 
                 Depth = Parent.Depth + 1;
             }
-            else {
+            else
+            {
                 rotation = LocalRotation + BaseRotation;
                 scaleX = LocalScaleX * BaseScaleX;
                 scaleY = LocalScaleY * BaseScaleY;
@@ -170,30 +187,37 @@ namespace Otter {
 
             rotation = Util.WrapAngle(rotation); // No crazy angles please.
 
-            if (Entity != null) {
+            if (Entity != null)
+            {
                 var flipGraphicX = false;
                 var flipGraphicY = false;
 
-                if (FlipX && !FlipY) {
+                if (FlipX && !FlipY)
+                {
                     slotRotation = 180 - Rotation;
                     flipGraphicY = true;
                 }
-                else if (FlipY && !FlipX) {
+                else if (FlipY && !FlipX)
+                {
                     slotRotation = -Rotation;
                     flipGraphicY = true;
                 }
-                else if (FlipX && FlipY) {
+                else if (FlipX && FlipY)
+                {
                     slotRotation = 180 + Rotation;
                 }
-                else {
+                else
+                {
                     slotRotation = Rotation;
                 }
 
-                if (InheritScale) {
+                if (InheritScale)
+                {
                     slotScaleX = ScaleX;
                     slotScaleY = ScaleY;
                 }
-                else {
+                else
+                {
                     slotScaleX = LocalScaleX * BaseScaleX;
                     slotScaleY = LocalScaleY * BaseScaleY;
                 }
@@ -204,7 +228,8 @@ namespace Otter {
                 Entity.X = X;
                 Entity.Y = Y;
 
-                Slot = new BoneSlot() {
+                Slot = new BoneSlot()
+                {
                     FlipX = slotFlipX,
                     FlipY = slotFlipY,
                     Rotation = slotRotation,
@@ -212,19 +237,23 @@ namespace Otter {
                     ScaleY = slotScaleY
                 };
 
-                if (!Entity.IsInScene && AutoAddEntities) {
-                    if (Skeleton.Entity.IsInScene) {
+                if (!Entity.IsInScene && AutoAddEntities)
+                {
+                    if (Skeleton.Entity.IsInScene)
+                    {
                         Skeleton.Entity.Scene.Add(Entity);
                     }
                 }
             }
 
-            foreach (var c in Children) {
+            foreach (var c in Children)
+            {
                 c.UpdateTransforms();
             }
         }
 
-        public override void Render() {
+        public override void Render()
+        {
             base.Render();
             //Draw.Circle(X - 3, Y - 3, 3, Color.Black, Color.White, 3);
         }

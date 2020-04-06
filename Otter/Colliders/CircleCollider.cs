@@ -1,9 +1,12 @@
-﻿using System;
-namespace Otter {
+using System;
+
+namespace Otter
+{
     /// <summary>
     /// Circle Collider.
     /// </summary>
-    public class CircleCollider : Collider {
+    public class CircleCollider : Collider
+    {
 
         #region Public Fields
 
@@ -16,11 +19,13 @@ namespace Otter {
 
         #region Public Properties
 
-        public override float Width {
+        public override float Width
+        {
             get { return Radius * 2; }
         }
 
-        public override float Height {
+        public override float Height
+        {
             get { return Radius * 2; }
         }
 
@@ -28,12 +33,14 @@ namespace Otter {
 
         #region Constructors
 
-        public CircleCollider(int radius, params int[] tags) {
+        public CircleCollider(int radius, params int[] tags)
+        {
             Radius = radius;
             AddTag(tags);
         }
 
-        public CircleCollider(int radius, Enum tag, params Enum[] tags) : this(radius) {
+        public CircleCollider(int radius, Enum tag, params Enum[] tags) : this(radius)
+        {
             AddTag(tag);
             AddTag(tags);
         }
@@ -45,7 +52,8 @@ namespace Otter {
         /// <summary>
         /// Draw the collider for debug purposes.
         /// </summary>
-        public override void Render(Color color = null) {
+        public override void Render(Color color = null)
+        {
             base.Render(color);
             if (color == null) color = Color.Red;
 

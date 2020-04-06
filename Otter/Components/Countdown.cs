@@ -1,23 +1,28 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Otter {
-    public class Countdown : Component {
+namespace Otter
+{
+    public class Countdown : Component
+    {
 
         public float Max;
         public float Min;
         public float Decrement = -1;
         public float Value;
 
-        public bool IsCompleted {
+        public bool IsCompleted
+        {
             get { return Value <= 0; }
         }
 
-        public float Completion {
-            get {
+        public float Completion
+        {
+            get
+            {
                 return Util.Clamp((Max - Value) / Max, 0, 1);
             }
         }
@@ -25,36 +30,43 @@ namespace Otter {
         public Action OnTrigger = delegate { };
         public bool Triggered;
 
-        public Countdown(float max) {
+        public Countdown(float max)
+        {
             Max = max;
             Value = max;
         }
 
-        public Countdown(float max, float value) : this(max) {
+        public Countdown(float max, float value) : this(max)
+        {
             Value = value;
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
             Tick();
         }
 
-        public void Tick() {
+        public void Tick()
+        {
             Value += Decrement;
-            if (IsCompleted) {
+            if (IsCompleted)
+            {
                 Value = 0;
-                if (!Triggered) {
+                if (!Triggered)
+                {
                     Triggered = true;
                     OnTrigger();
                 }
             }
         }
 
-        public void Reset() {
+        public void Reset()
+        {
             Value = Max;
             Triggered = false;
         }
 
-        
+
     }
 }

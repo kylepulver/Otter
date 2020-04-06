@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class used for tracking an X and Y speed of an object. Speed also has an XMax and YMax that can
     /// be used to clamp the X and Y values automatically.
     /// </summary>
-    public class Speed {
+    public class Speed
+    {
 
         float x, y;
 
@@ -28,16 +30,21 @@ namespace Otter {
         /// <summary>
         /// The current X value of the speed.
         /// </summary>
-        public float X {
-            get {
-                if (HardClamp) {
+        public float X
+        {
+            get
+            {
+                if (HardClamp)
+                {
                     return Util.Clamp(x, -MaxX, MaxX);
                 }
-                else {
+                else
+                {
                     return x;
                 }
             }
-            set {
+            set
+            {
                 x = value;
             }
         }
@@ -45,16 +52,21 @@ namespace Otter {
         /// <summary>
         /// The current Y value of the speed.
         /// </summary>
-        public float Y {
-            get {
-                if (HardClamp) {
+        public float Y
+        {
+            get
+            {
+                if (HardClamp)
+                {
                     return Util.Clamp(y, -MaxY, MaxY);
                 }
-                else {
+                else
+                {
                     return y;
                 }
             }
-            set {
+            set
+            {
                 y = value;
             }
         }
@@ -62,8 +74,10 @@ namespace Otter {
         /// <summary>
         /// Shortcut to set both MaxX and MaxY.
         /// </summary>
-        public float Max {
-            set {
+        public float Max
+        {
+            set
+            {
                 MaxX = value; MaxY = value;
             }
         }
@@ -71,8 +85,10 @@ namespace Otter {
         /// <summary>
         /// The length of the speed object.
         /// </summary>
-        public float Length {
-            get {
+        public float Length
+        {
+            get
+            {
                 return (float)Math.Sqrt(X * X + Y * Y);
             }
         }
@@ -85,7 +101,8 @@ namespace Otter {
         /// <param name="maxX">The maximum X value.</param>
         /// <param name="maxY">The maximum Y value.</param>
         /// <param name="hardClamp">Determines if the value can exceed the maximum.</param>
-        public Speed(float x, float y, float maxX, float maxY, bool hardClamp) {
+        public Speed(float x, float y, float maxX, float maxY, bool hardClamp)
+        {
             this.x = x;
             this.y = y;
             MaxX = maxX;
@@ -136,7 +153,8 @@ namespace Otter {
         /// <returns>
         /// A String that represents this instance.
         /// </returns>
-        public override string ToString() {
+        public override string ToString()
+        {
             return "X: " + X + " Y: " + Y;
         }
 

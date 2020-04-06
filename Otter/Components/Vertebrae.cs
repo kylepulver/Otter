@@ -1,9 +1,10 @@
-﻿namespace Otter {
-
+namespace Otter
+{
     /// <summary>
     /// Class representing one piece of a Snake.
     /// </summary>
-    public class Vertebra : Component {
+    public class Vertebra : Component
+    {
 
         #region Public Fields
 
@@ -52,11 +53,14 @@
         /// <summary>
         /// The rotation of the Vertebra.  When setting this the LocalRotation will be set.
         /// </summary>
-        public float Rotation {
-            get {
+        public float Rotation
+        {
+            get
+            {
                 return rotation + LocalRotation;
             }
-            set {
+            set
+            {
                 LocalRotation = value;
             }
         }
@@ -69,11 +73,13 @@
         /// Sets the Entity of the Vertebra (another way to add this component to an Entity.)
         /// </summary>
         /// <param name="e">The Entity to assign to this Vertebra.</param>
-        public void SetEntity(Entity e) {
+        public void SetEntity(Entity e)
+        {
             e.AddComponent(this);
         }
 
-        public override void Update() {
+        public override void Update()
+        {
             Entity.SetPosition(Snake.GetPosition(TotalDistance));
 
             var lookFrom = Snake.GetPosition(TotalDistance + 1);
@@ -81,12 +87,15 @@
 
             slotRotation = Rotation;
 
-            Slot = new VertebraSlot() {
+            Slot = new VertebraSlot()
+            {
                 Rotation = slotRotation
             };
 
-            if (!Entity.IsInScene && AutoAddEntities) {
-                if (Snake.Entity.IsInScene) {
+            if (!Entity.IsInScene && AutoAddEntities)
+            {
+                if (Snake.Entity.IsInScene)
+                {
                     Snake.Entity.Scene.Add(Entity);
                 }
             }
@@ -99,7 +108,8 @@
         /// <summary>
         /// A struct containing the final transformation of the Vertebra from the Snake.
         /// </summary>
-        public struct VertebraSlot {
+        public struct VertebraSlot
+        {
             /// <summary>
             /// The final transformed rotation of the Vertebra.
             /// </summary>

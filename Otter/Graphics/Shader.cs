@@ -1,14 +1,16 @@
-﻿using System.IO;
+using System.IO;
 using System;
 using System.Collections.Generic;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class representing a shader written in GLSL.
     /// Warning: Visual Studio encoding must be set to Western European (Windows) Codepage 1252 when editing shaders!
     /// More details here: http://blog.pixelingene.com/2008/07/file-encodings-matter-when-writing-pixel-shaders/
     /// </summary>
-    public class Shader : IDisposable {
+    public class Shader : IDisposable
+    {
 
         #region Static Methods
 
@@ -28,7 +30,7 @@ namespace Otter {
         /// <returns>New shader instance</returns>
         public static SFML.Graphics.Shader FromString(string vertexShader, string fragmentShader)
         {
-            SFML.Graphics.Shader shader = SFML.Graphics.Shader.FromString(vertexShader, fragmentShader);
+            SFML.Graphics.Shader shader = SFML.Graphics.Shader.FromString(vertexShader, null, fragmentShader);
 
             return shader;
         }
@@ -59,7 +61,8 @@ namespace Otter {
         /// </example>
         /// <param name="name">The Enum value to use as the key for the shader parameter name.</param>
         /// <param name="nameInShader">The name of the parameter in the shader code.</param>
-        public static void AddParameter(Enum name, string nameInShader) {
+        public static void AddParameter(Enum name, string nameInShader)
+        {
             parameters.Add(Util.EnumValueToString(name), nameInShader);
         }
 
@@ -68,7 +71,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The Enum name that is the key for the string parameter.</param>
         /// <returns>The string parameter.</returns>
-        public static string Parameter(Enum name) {
+        public static string Parameter(Enum name)
+        {
             return parameters[Util.EnumValueToString(name)];
         }
         #endregion
@@ -86,8 +90,9 @@ namespace Otter {
         /// </summary>
         /// <param name="vertexFile">The file path to the vertex shader.</param>
         /// <param name="fragmentFile">The file path to the fragment shader.</param>
-        public Shader(string vertexFile, string fragmentFile) {
-            SFMLShader = new SFML.Graphics.Shader(Files.LoadFileStream(vertexFile), Files.LoadFileStream(fragmentFile));
+        public Shader(string vertexFile, string fragmentFile)
+        {
+            SFMLShader = new SFML.Graphics.Shader(Files.LoadFileStream(vertexFile), null, Files.LoadFileStream(fragmentFile));
         }
 
         /// <summary>
@@ -95,8 +100,9 @@ namespace Otter {
         /// </summary>
         /// <param name="vertexStream">The stream for the vertex shader.</param>
         /// <param name="fragmentStream">The stream for the fragment shader.</param>
-        public Shader(Stream vertexStream, Stream fragmentStream) {
-            SFMLShader = new SFML.Graphics.Shader(vertexStream, fragmentStream);
+        public Shader(Stream vertexStream, Stream fragmentStream)
+        {
+            SFMLShader = new SFML.Graphics.Shader(vertexStream, null, fragmentStream);
         }
 
         /// <summary>
@@ -104,12 +110,15 @@ namespace Otter {
         /// </summary>
         /// <param name="shaderType">The shader type (fragment or vertex)</param>
         /// <param name="source">The stream for the shader.</param>
-        public Shader(ShaderType shaderType, Stream source) {
-            if (shaderType == ShaderType.Vertex) {
-                SFMLShader = new SFML.Graphics.Shader(source, null);
+        public Shader(ShaderType shaderType, Stream source)
+        {
+            if (shaderType == ShaderType.Vertex)
+            {
+                SFMLShader = new SFML.Graphics.Shader(source, null, null);
             }
-            else {
-                SFMLShader = new SFML.Graphics.Shader(null, source);
+            else
+            {
+                SFMLShader = new SFML.Graphics.Shader(null, null, source);
             }
         }
 
@@ -118,13 +127,16 @@ namespace Otter {
         /// it is.  If the file path contains ".frag" or ".fs" it is assumed to be a fragment shader.
         /// </summary>
         /// <param name="source">The file path.</param>
-        public Shader(string source) {
+        public Shader(string source)
+        {
             var str = System.Text.Encoding.Default.GetString(Files.LoadFileBytes(source));
-            if (source.Contains(".frag") || source.Contains(".fs")) {
-                SFMLShader = SFML.Graphics.Shader.FromString(null, str);
+            if (source.Contains(".frag") || source.Contains(".fs"))
+            {
+                SFMLShader = SFML.Graphics.Shader.FromString(null, null, str);
             }
-            else {
-                SFMLShader = new SFML.Graphics.Shader(str, null);
+            else
+            {
+                SFMLShader = new SFML.Graphics.Shader(str, null, null);
             }
         }
 
@@ -139,12 +151,15 @@ namespace Otter {
         /// </summary>
         /// <param name="shaderType">The shader type (fragment or vertex)</param>
         /// <param name="source">The file path.</param>
-        public Shader(ShaderType shaderType, string source) {
-            if (shaderType == ShaderType.Vertex) {
-                SFMLShader = new SFML.Graphics.Shader(source, null);
+        public Shader(ShaderType shaderType, string source)
+        {
+            if (shaderType == ShaderType.Vertex)
+            {
+                SFMLShader = new SFML.Graphics.Shader(source, null, null);
             }
-            else {
-                SFMLShader = new SFML.Graphics.Shader(null, source);
+            else
+            {
+                SFMLShader = new SFML.Graphics.Shader(null, null, source);
             }
         }
 
@@ -163,7 +178,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="color">The color to set it to.</param>
-        public void SetParameter(string name, Color color) {
+        public void SetParameter(string name, Color color)
+        {
             SFMLShader.SetParameter(name, color.SFMLColor);
         }
 
@@ -172,7 +188,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="color">The color to set it to.</param>
-        public void SetParameter(Enum name, Color color) {
+        public void SetParameter(Enum name, Color color)
+        {
             SetParameter(Parameter(name), color);
         }
 
@@ -181,7 +198,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="x">The value to set it to.</param>
-        public void SetParameter(string name, float x) {
+        public void SetParameter(string name, float x)
+        {
             SFMLShader.SetParameter(name, x);
         }
 
@@ -190,7 +208,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="x">The value to set it to.</param>
-        public void SetParameter(Enum name, float x) {
+        public void SetParameter(Enum name, float x)
+        {
             SetParameter(Parameter(name), x);
         }
 
@@ -200,7 +219,8 @@ namespace Otter {
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="x">The first value of a vec2.</param>
         /// <param name="y">The first value of a vec2.</param>
-        public void SetParameter(string name, float x, float y) {
+        public void SetParameter(string name, float x, float y)
+        {
             SFMLShader.SetParameter(name, x, y);
         }
 
@@ -210,7 +230,8 @@ namespace Otter {
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="x">The first value of a vec2.</param>
         /// <param name="y">The first value of a vec2.</param>
-        public void SetParameter(Enum name, float x, float y) {
+        public void SetParameter(Enum name, float x, float y)
+        {
             SetParameter(Parameter(name), x, y);
         }
 
@@ -219,7 +240,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="xy">A Vector2 to set.</param>
-        public void SetParameter(string name, Vector2 xy) {
+        public void SetParameter(string name, Vector2 xy)
+        {
             SFMLShader.SetParameter(name, xy.X, xy.Y);
         }
 
@@ -228,16 +250,18 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="xy">A Vector2 to set.</param>
-        public void SetParameter(Enum name, Vector2 xy) {
+        public void SetParameter(Enum name, Vector2 xy)
+        {
             SetParameter(Parameter(name), xy.X, xy.Y);
         }
-        
+
         /// <summary>
         /// Set a parameter on the shader.
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="xyz">A Vector3 to set.</param>
-        public void SetParameter(string name, Vector3 xyz) {
+        public void SetParameter(string name, Vector3 xyz)
+        {
             SFMLShader.SetParameter(name, xyz.X, xyz.Y, xyz.Z);
         }
 
@@ -246,16 +270,18 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="xyz">A Vector3 to set.</param>
-        public void SetParameter(Enum name, Vector3 xyz) {
+        public void SetParameter(Enum name, Vector3 xyz)
+        {
             SetParameter(Parameter(name), xyz.X, xyz.Y, xyz.Z);
         }
-        
+
         /// <summary>
         /// Set a parameter on the shader.
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="xyzw">A Vector4 to set.</param>
-        public void SetParameter(string name, Vector4 xyzw) {
+        public void SetParameter(string name, Vector4 xyzw)
+        {
             SFMLShader.SetParameter(name, xyzw.X, xyzw.Y, xyzw.Z, xyzw.W);
         }
 
@@ -264,7 +290,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="xyzw">A Vector4 to set.</param>
-        public void SetParameter(Enum name, Vector4 xyzw) {
+        public void SetParameter(Enum name, Vector4 xyzw)
+        {
             SetParameter(Parameter(name), xyzw.X, xyzw.Y, xyzw.Z, xyzw.W);
         }
 
@@ -275,7 +302,8 @@ namespace Otter {
         /// <param name="x">The first value of a vec3.</param>
         /// <param name="y">The second value of a vec3.</param>
         /// <param name="z">The third value of a vec3.</param>
-        public void SetParameter(string name, float x, float y, float z) {
+        public void SetParameter(string name, float x, float y, float z)
+        {
             SFMLShader.SetParameter(name, x, y, z);
         }
 
@@ -286,7 +314,8 @@ namespace Otter {
         /// <param name="x">The first value of a vec3.</param>
         /// <param name="y">The second value of a vec3.</param>
         /// <param name="z">The third value of a vec3.</param>
-        public void SetParameter(Enum name, float x, float y, float z) {
+        public void SetParameter(Enum name, float x, float y, float z)
+        {
             SetParameter(Parameter(name), x, y, z);
         }
 
@@ -298,7 +327,8 @@ namespace Otter {
         /// <param name="y">The second value of a vec4.</param>
         /// <param name="z">The third value of a vec4.</param>
         /// <param name="w">The fourth value of a vec4.</param>
-        public void SetParameter(string name, float x, float y, float z, float w) {
+        public void SetParameter(string name, float x, float y, float z, float w)
+        {
             SFMLShader.SetParameter(name, x, y, z, w);
         }
 
@@ -310,7 +340,8 @@ namespace Otter {
         /// <param name="y">The second value of a vec4.</param>
         /// <param name="z">The third value of a vec4.</param>
         /// <param name="w">The fourth value of a vec4.</param>
-        public void SetParameter(Enum name, float x, float y, float z, float w) {
+        public void SetParameter(Enum name, float x, float y, float z, float w)
+        {
             SetParameter(Parameter(name), x, y, z, w);
         }
 
@@ -319,7 +350,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="texture">The texture to set it to.</param>
-        public void SetParameter(string name, Texture texture) {
+        public void SetParameter(string name, Texture texture)
+        {
             SFMLShader.SetParameter(name, texture.SFMLTexture);
         }
 
@@ -328,7 +360,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="texture">The texture to set it to.</param>
-        public void SetParameter(Enum name, Texture texture) {
+        public void SetParameter(Enum name, Texture texture)
+        {
             SetParameter(Parameter(name), texture);
         }
 
@@ -337,7 +370,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="textureSource">The path to an image to load as a texture.</param>
-        public void SetParameter(string name, string textureSource) {
+        public void SetParameter(string name, string textureSource)
+        {
             SFMLShader.SetParameter(name, new Texture(textureSource).SFMLTexture);
         }
 
@@ -346,7 +380,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="textureSource">The path to an image to load as a texture.</param>
-        public void SetParameter(Enum name, string textureSource) {
+        public void SetParameter(Enum name, string textureSource)
+        {
             SetParameter(Parameter(name), textureSource);
         }
 
@@ -355,7 +390,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="matrix">The matrix to use. SFML internally uses 3x3 matrices, but you need to use a mat4 in the shader.</param>
-        public void SetParameter(string name, Matrix matrix) {
+        public void SetParameter(string name, Matrix matrix)
+        {
             SFMLShader.SetParameter(name, new SFML.Graphics.Transform(matrix.M11, matrix.M12, matrix.M13, matrix.M21, matrix.M22, matrix.M23, matrix.M31, matrix.M32, matrix.M33));
         }
 
@@ -364,16 +400,19 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The parameter in the shader to set.</param>
         /// <param name="matrix">The matrix to use. SFML internally uses 3x3 matrices, but you need to use a mat4 in the shader.</param>
-        public void SetParameter(Enum name, Matrix matrix) {
+        public void SetParameter(Enum name, Matrix matrix)
+        {
             SetParameter(Parameter(name), matrix);
         }
 
         /// <summary>
         /// Disposes the shader to probably clear up memory.
         /// </summary>
-        public void Dispose() {
+        public void Dispose()
+        {
             if (SFMLShader == null) return;
-            if (!IsDisposed) {
+            if (!IsDisposed)
+            {
                 SFMLShader.Dispose();
                 IsDisposed = true;
             }
@@ -385,7 +424,8 @@ namespace Otter {
 
         internal SFML.Graphics.Shader SFMLShader;
 
-        internal Shader(SFML.Graphics.Shader shader) {
+        internal Shader(SFML.Graphics.Shader shader)
+        {
             this.SFMLShader = shader;
         }
 
@@ -393,20 +433,11 @@ namespace Otter {
         /// For when the garbage collector destroys shaders, also
         /// free up the memory on the video card that the shader is using.
         /// </summary>
-        ~Shader() {
+        ~Shader()
+        {
             Dispose();
         }
 
         #endregion
     }
-
-    #region Enum
-
-    public enum ShaderType {
-        Vertex,
-        Fragment
-    }
-
-    #endregion
-
 }

@@ -27,11 +27,13 @@ SOFTWARE.
 
 using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Contains commonly used precalculated values and mathematical operations.
     /// </summary>
-    public static class MathHelper {
+    public static class MathHelper
+    {
         /// <summary>
         /// Represents the mathematical constant e(2.71828175).
         /// </summary>
@@ -76,7 +78,8 @@ namespace Otter {
         /// <param name="amount1">The normalized barycentric (areal) coordinate b2, equal to the weighting factor for vertex 2, the coordinate of which is specified in value2.</param>
         /// <param name="amount2">The normalized barycentric (areal) coordinate b3, equal to the weighting factor for vertex 3, the coordinate of which is specified in value3.</param>
         /// <returns>Cartesian coordinate of the specified point with respect to the axis being used.</returns>
-        public static float Barycentric(float value1, float value2, float value3, float amount1, float amount2) {
+        public static float Barycentric(float value1, float value2, float value3, float amount1, float amount2)
+        {
             return value1 + (value2 - value1) * amount1 + (value3 - value1) * amount2;
         }
 
@@ -89,7 +92,8 @@ namespace Otter {
         /// <param name="value4">The fourth position in the interpolation.</param>
         /// <param name="amount">Weighting factor.</param>
         /// <returns>A position that is the result of the Catmull-Rom interpolation.</returns>
-        public static float CatmullRom(float value1, float value2, float value3, float value4, float amount) {
+        public static float CatmullRom(float value1, float value2, float value3, float value4, float amount)
+        {
             // Using formula from http://www.mvps.org/directx/articles/catmull/
             // Internally using doubles not to lose precission
             double amountSquared = amount * amount;
@@ -107,7 +111,8 @@ namespace Otter {
         /// <param name="min">The minimum value. If <c>value</c> is less than <c>min</c>, <c>min</c> will be returned.</param>
         /// <param name="max">The maximum value. If <c>value</c> is greater than <c>max</c>, <c>max</c> will be returned.</param>
         /// <returns>The clamped value.</returns>
-        public static float Clamp(float value, float min, float max) {
+        public static float Clamp(float value, float min, float max)
+        {
             // First we check to see if we're greater than the max
             value = (value > max) ? max : value;
 
@@ -125,7 +130,8 @@ namespace Otter {
         /// <param name="min">The minimum value. If <c>value</c> is less than <c>min</c>, <c>min</c> will be returned.</param>
         /// <param name="max">The maximum value. If <c>value</c> is greater than <c>max</c>, <c>max</c> will be returned.</param>
         /// <returns>The clamped value.</returns>
-        public static int Clamp(int value, int min, int max) {
+        public static int Clamp(int value, int min, int max)
+        {
             value = (value > max) ? max : value;
             value = (value < min) ? min : value;
             return value;
@@ -137,7 +143,8 @@ namespace Otter {
         /// <param name="value1">Source value.</param>
         /// <param name="value2">Source value.</param>
         /// <returns>Distance between the two values.</returns>
-        public static float Distance(float value1, float value2) {
+        public static float Distance(float value1, float value2)
+        {
             return Math.Abs(value1 - value2);
         }
 
@@ -150,7 +157,8 @@ namespace Otter {
         /// <param name="tangent2">Source tangent.</param>
         /// <param name="amount">Weighting factor.</param>
         /// <returns>The result of the Hermite spline interpolation.</returns>
-        public static float Hermite(float value1, float tangent1, float value2, float tangent2, float amount) {
+        public static float Hermite(float value1, float tangent1, float value2, float tangent2, float amount)
+        {
             // All transformed to double not to lose precission
             // Otherwise, for high numbers of param:amount the result is NaN instead of Infinity
             double v1 = value1, v2 = value2, t1 = tangent1, t2 = tangent2, s = amount, result;
@@ -181,7 +189,8 @@ namespace Otter {
         /// <c>value1 + (value2 - value1) * amount</c>
         /// Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.
         /// </remarks>
-        public static float Lerp(float value1, float value2, float amount) {
+        public static float Lerp(float value1, float value2, float amount)
+        {
             return value1 + (value2 - value1) * amount;
         }
 
@@ -191,7 +200,8 @@ namespace Otter {
         /// <param name="value1">Source value.</param>
         /// <param name="value2">Source value.</param>
         /// <returns>The greater value.</returns>
-        public static float Max(float value1, float value2) {
+        public static float Max(float value1, float value2)
+        {
             return Math.Max(value1, value2);
         }
 
@@ -201,7 +211,8 @@ namespace Otter {
         /// <param name="value1">Source value.</param>
         /// <param name="value2">Source value.</param>
         /// <returns>The lesser value.</returns>
-        public static float Min(float value1, float value2) {
+        public static float Min(float value1, float value2)
+        {
             return Math.Min(value1, value2);
         }
 
@@ -212,7 +223,8 @@ namespace Otter {
         /// <param name="value2">Source value.</param>
         /// <param name="amount">Weighting value.</param>
         /// <returns>Interpolated value.</returns>
-        public static float SmoothStep(float value1, float value2, float amount) {
+        public static float SmoothStep(float value1, float value2, float amount)
+        {
             // It is expected that 0 < amount < 1
             // If amount < 0, return value1
             // If amount > 1, return value2
@@ -232,7 +244,8 @@ namespace Otter {
         /// though it returns single float
         /// Factor = 180 / pi
         /// </remarks>
-        public static float ToDegrees(float radians) {
+        public static float ToDegrees(float radians)
+        {
             return (float)(radians * 57.295779513082320876798154814105);
         }
 
@@ -246,7 +259,8 @@ namespace Otter {
         /// though it returns single float
         /// Factor = pi / 180
         /// </remarks>
-        public static float ToRadians(float degrees) {
+        public static float ToRadians(float degrees)
+        {
             return (float)(degrees * 0.017453292519943295769236907684886);
         }
 
@@ -255,13 +269,17 @@ namespace Otter {
         /// </summary>
         /// <param name="angle">The angle to reduce, in radians.</param>
         /// <returns>The new angle, in radians.</returns>
-        public static float WrapAngle(float angle) {
+        public static float WrapAngle(float angle)
+        {
             angle = (float)Math.IEEERemainder((double)angle, 6.2831854820251465);
-            if (angle <= -3.14159274f) {
+            if (angle <= -3.14159274f)
+            {
                 angle += 6.28318548f;
             }
-            else {
-                if (angle > 3.14159274f) {
+            else
+            {
+                if (angle > 3.14159274f)
+                {
                     angle -= 6.28318548f;
                 }
             }
@@ -273,7 +291,8 @@ namespace Otter {
         /// </summary>
         /// <param name="value">A value.</param>
         /// <returns><c>true</c> if <c>value</c> is powered by two; otherwise <c>false</c>.</returns>
-        public static bool IsPowerOfTwo(int value) {
+        public static bool IsPowerOfTwo(int value)
+        {
             return (value > 0) && ((value & (value - 1)) == 0);
         }
     }

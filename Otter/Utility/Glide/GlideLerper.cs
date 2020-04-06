@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 
-namespace Otter {
-    public abstract class GlideLerper {
+namespace Otter
+{
+    public abstract class GlideLerper
+    {
         [Flags]
-        public enum Behavior {
+        public enum Behavior
+        {
             None = 0,
             Reflect = 1,
             Rotation = 2,

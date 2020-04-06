@@ -1,9 +1,11 @@
-﻿namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class that is used for debug input. Wraps the Input class but only works when debug input
     /// is enabled.
     /// </summary>
-    public class DebugInput {
+    public class DebugInput
+    {
 
         #region Static Fields
 
@@ -35,7 +37,8 @@
         /// </summary>
         /// <param name="k">The key to check.</param>
         /// <returns>True if that key was pressed.</returns>
-        public bool KeyPressed(Key k) {
+        public bool KeyPressed(Key k)
+        {
             if (!Enabled) return false;
 
             return Game.Input.KeyPressed(k);
@@ -46,7 +49,8 @@
         /// </summary>
         /// <param name="k">The key to check.</param>
         /// <returns>True if that key was released.</returns>
-        public bool KeyReleased(Key k) {
+        public bool KeyReleased(Key k)
+        {
             if (!Enabled) return false;
 
             return Game.Input.KeyReleased(k);
@@ -57,7 +61,8 @@
         /// </summary>
         /// <param name="k">The key to check.</param>
         /// <returns>True if that key is down.</returns>
-        public bool KeyDown(Key k) {
+        public bool KeyDown(Key k)
+        {
             if (!Enabled) return false;
 
             return Game.Input.KeyDown(k);
@@ -68,7 +73,8 @@
         /// </summary>
         /// <param name="k">The key to check.</param>
         /// <returns>True if that key is up.</returns>
-        public bool KeyUp(Key k) {
+        public bool KeyUp(Key k)
+        {
             if (!Enabled) return false;
 
             return Game.Input.KeyUp(k);
@@ -78,7 +84,8 @@
 
         #region Internal
 
-        internal DebugInput(Game game) {
+        internal DebugInput(Game game)
+        {
             Game = game;
 
             Instance = this;

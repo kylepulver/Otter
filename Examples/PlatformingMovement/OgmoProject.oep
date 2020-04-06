@@ -16,7 +16,7 @@
     <Width>640</Width>
     <Height>480</Height>
   </LevelMaximumSize>
-  <Filename>D:\Work\Repositories\kpulvprojects\Mono Projects\_testProjects\PlatformingExample\PlatformingExample\Assets\OgmoProject.oep</Filename>
+  <Filename>OgmoProject.oep</Filename>
   <AngleMode>Radians</AngleMode>
   <CameraEnabled>false</CameraEnabled>
   <CameraSize>

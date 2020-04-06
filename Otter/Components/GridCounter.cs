@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Counter in which the value can be moved in both an X and Y direction.  Probably most useful
     /// for making menus that are grids which the player can move around in.
     /// </summary>
-    public class GridCounter : Component {
+    public class GridCounter : Component
+    {
 
         #region Private Fields
 
@@ -42,9 +44,11 @@ namespace Otter {
         /// <summary>
         /// The 1d value of the counter on the grid.
         /// </summary>
-        public int Index {
+        public int Index
+        {
             get { return Util.OneDee(Width, X, Y); }
-            set {
+            set
+            {
                 X = Util.TwoDeeX(value, Width);
                 Y = Util.TwoDeeY(value, Width);
             }
@@ -53,60 +57,72 @@ namespace Otter {
         /// <summary>
         /// Set both WrapX and WrapY.
         /// </summary>
-        public bool Wrap {
+        public bool Wrap
+        {
             set { WrapX = value; WrapY = value; }
         }
 
         /// <summary>
         /// The total number of grid spaces.
         /// </summary>
-        public int Count {
+        public int Count
+        {
             get { return Width * Height; }
         }
 
         /// <summary>
         /// Move the index left.
         /// </summary>
-        public void MoveLeft() {
+        public void MoveLeft()
+        {
             X -= 1;
         }
 
         /// <summary>
         /// Move the index right.
         /// </summary>
-        public void MoveRight() {
+        public void MoveRight()
+        {
             X += 1;
         }
 
         /// <summary>
         /// Move the index up.
         /// </summary>
-        public void MoveUp() {
+        public void MoveUp()
+        {
             Y -= 1;
         }
 
         /// <summary>
         /// Move the index down.
         /// </summary>
-        public void MoveDown() {
+        public void MoveDown()
+        {
             Y += 1;
         }
 
         /// <summary>
         /// The X value of the counter.
         /// </summary>
-        public int X {
-            set {
-                if (WrapX) {
+        public int X
+        {
+            set
+            {
+                if (WrapX)
+                {
                     x = value;
-                    while (x < 0) {
+                    while (x < 0)
+                    {
                         x += Width;
                     }
-                    while (x > Width - 1) {
+                    while (x > Width - 1)
+                    {
                         x -= Width;
                     }
                 }
-                else {
+                else
+                {
                     x = (int)Util.Clamp(value, Width - 1);
                 }
             }
@@ -116,18 +132,24 @@ namespace Otter {
         /// <summary>
         /// The Y value of the counter.
         /// </summary>
-        public int Y {
-            set {
-                if (WrapY) {
+        public int Y
+        {
+            set
+            {
+                if (WrapY)
+                {
                     y = value;
-                    while (y < 0) {
+                    while (y < 0)
+                    {
                         y += Height;
                     }
-                    while (y > Height - 1) {
+                    while (y > Height - 1)
+                    {
                         y -= Height;
                     }
                 }
-                else {
+                else
+                {
                     y = (int)Util.Clamp(value, Height - 1);
                 }
             }
@@ -146,11 +168,14 @@ namespace Otter {
         /// <param name="height">The height of the grid.</param>
         /// <param name="wrapX">Determines if the counter should wrap horizontally.</param>
         /// <param name="wrapY">Determines if the counter should wrap vertically.</param>
-        public GridCounter(int value, int width = 1, int height = 1, bool wrapX = false, bool wrapY = false) {
-            if (width < 1) {
+        public GridCounter(int value, int width = 1, int height = 1, bool wrapX = false, bool wrapY = false)
+        {
+            if (width < 1)
+            {
                 throw new ArgumentException("Width must be at least 1!");
             }
-            if (height < 1) {
+            if (height < 1)
+            {
                 throw new ArgumentException("Height must be at least 1!");
             }
 
@@ -167,10 +192,12 @@ namespace Otter {
 
         #region Operators
 
-        public static implicit operator float(GridCounter counter) {
+        public static implicit operator float(GridCounter counter)
+        {
             return counter.Index;
         }
-        public static implicit operator int(GridCounter counter) {
+        public static implicit operator int(GridCounter counter)
+        {
             return (int)counter.Index;
         }
 

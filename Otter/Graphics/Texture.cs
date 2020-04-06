@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.IO;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class representing a texture. Can perform pixel operations on the CPU, but those will be
     /// pretty slow and shouldn't be used that much.
     /// </summary>
-    public class Texture : IDisposable {
+    public class Texture : IDisposable
+    {
 
         #region Public Fields
 
@@ -40,11 +42,14 @@ namespace Otter {
         /// </summary>
         /// <param name="source">The file path to load from.</param>
         /// <param name="useCache">Determines if the cache should be checked first.</param>
-        public Texture(string source, bool useCache = true) {
-            if (useCache) {
+        public Texture(string source, bool useCache = true)
+        {
+            if (useCache)
+            {
                 texture = Textures.Load(source);
             }
-            else {
+            else
+            {
                 texture = new SFML.Graphics.Texture(source);
             }
             Source = source;
@@ -57,11 +62,14 @@ namespace Otter {
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <param name="useCache">Determines if the cache should be checked first.</param>
-        public Texture(Stream stream, bool useCache = true) {
-            if (useCache) {
+        public Texture(Stream stream, bool useCache = true)
+        {
+            if (useCache)
+            {
                 texture = Textures.Load(stream);
             }
-            else {
+            else
+            {
                 texture = new SFML.Graphics.Texture(stream);
             }
             Source = "stream";
@@ -73,7 +81,8 @@ namespace Otter {
         /// Creates a new texture from a copy of another texture.  No cache option for this.
         /// </summary>
         /// <param name="copy">The texture to copy from.</param>
-        public Texture(Texture copy) {
+        public Texture(Texture copy)
+        {
             texture = new SFML.Graphics.Texture(copy.SFMLTexture);
 
             Source = copy.Source;
@@ -86,14 +95,19 @@ namespace Otter {
         /// </summary>
         /// <param name="bytes">The byte array to load from.</param>
         /// <param name="useCache">Determines if the cache should be checked first.</param>
-        public Texture(byte[] bytes, bool useCache = true) {
-            if (useCache) {
-                using (MemoryStream ms = new MemoryStream(bytes)) {
+        public Texture(byte[] bytes, bool useCache = true)
+        {
+            if (useCache)
+            {
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
                     texture = Textures.Load(ms);
                 }
             }
-            else {
-                using (MemoryStream ms = new MemoryStream(bytes)) {
+            else
+            {
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
                     texture = new SFML.Graphics.Texture(ms);
                 }
             }
@@ -107,7 +121,8 @@ namespace Otter {
         /// </summary>
         /// <param name="width">The width of the texture.</param>
         /// <param name="height">The height of the texture.</param>
-        public Texture(int width, int height) {
+        public Texture(int width, int height)
+        {
             if (width < 0) throw new ArgumentException("Width must be greater than 0.");
             if (height < 0) throw new ArgumentException("Height must be greater than 0.");
 
@@ -126,7 +141,8 @@ namespace Otter {
         /// Load a texture from an SFML texture.
         /// </summary>
         /// <param name="texture"></param>
-        internal Texture(SFML.Graphics.Texture texture) {
+        internal Texture(SFML.Graphics.Texture texture)
+        {
             this.texture = texture;
         }
 
@@ -137,19 +153,23 @@ namespace Otter {
         /// <summary>
         /// The height of the texture.
         /// </summary>
-        public int Height {
+        public int Height
+        {
             get { return (int)texture.Size.Y; }
         }
 
         /// <summary>
         /// The array of pixels in the texture in bytes.
         /// </summary>
-        public byte[] Pixels {
-            get {
+        public byte[] Pixels
+        {
+            get
+            {
                 CreateImage();
                 return image.Pixels;
             }
-            set {
+            set
+            {
                 image = new SFML.Graphics.Image((uint)Width, (uint)Height, value);
                 Update();
             }
@@ -158,7 +178,8 @@ namespace Otter {
         /// <summary>
         /// The rectangle created by the Texture's width and height.
         /// </summary>
-        public Rectangle Region {
+        public Rectangle Region
+        {
             get { return new Rectangle(0, 0, Width, Height); }
         }
 
@@ -174,7 +195,8 @@ namespace Otter {
         /// <summary>
         /// The width of the Texture.
         /// </summary>
-        public int Width {
+        public int Width
+        {
             get { return (int)texture.Size.X; }
         }
 
@@ -182,7 +204,8 @@ namespace Otter {
 
         #region Internal Properties
 
-        internal SFML.Graphics.Texture SFMLTexture {
+        internal SFML.Graphics.Texture SFMLTexture
+        {
             get { return texture; }
         }
 
@@ -198,7 +221,8 @@ namespace Otter {
         /// <param name="fromY"></param>
         /// <param name="toX"></param>
         /// <param name="toY"></param>
-        public void CopyPixels(Texture from, int fromX, int fromY, int toX, int toY) {
+        public void CopyPixels(Texture from, int fromX, int fromY, int toX, int toY)
+        {
             CreateImage();
             from.CreateImage();
 
@@ -208,7 +232,8 @@ namespace Otter {
             needsUpdate = true;
         }
 
-        public void CopyPixels(Texture from, int fromX, int fromY, int fromWidth, int fromHeight, int toX, int toY) {
+        public void CopyPixels(Texture from, int fromX, int fromY, int fromWidth, int fromHeight, int toX, int toY)
+        {
             CreateImage();
             from.CreateImage();
 
@@ -223,8 +248,10 @@ namespace Otter {
         /// handled automatically, but it's exposed so that it can be manually controlled.
         /// </summary>
         /// <param name="forceNewImage">If set to true a new image will always be created instead of only when there is no image.</param>
-        public void CreateImage(bool forceNewImage = false) {
-            if (image == null || forceNewImage) {
+        public void CreateImage(bool forceNewImage = false)
+        {
+            if (image == null || forceNewImage)
+            {
                 image = texture.CopyToImage();
             }
         }
@@ -236,7 +263,8 @@ namespace Otter {
         /// <param name="x">The x coordinate of the pixel to get.</param>
         /// <param name="y">The y coordinate of the pixel to get.</param>
         /// <returns>The Color of the pixel.</returns>
-        public Color GetPixel(int x, int y) {
+        public Color GetPixel(int x, int y)
+        {
             if (x < 0) throw new ArgumentException("X must be greater or equal to than 0.");
             if (y < 0) throw new ArgumentException("Y must be greater or equal to than 0.");
 
@@ -249,10 +277,11 @@ namespace Otter {
         /// Save the texture to a file. The supported image formats are bmp, png, tga and jpg.
         /// </summary>
         /// <param name="path">The file path to save to. The type of image is deduced from the extension.</param>
-        public void SaveToFile(string path) {
+        public void SaveToFile(string path)
+        {
             CreateImage();
 
-            image.SaveToFile(path);
+            image.SaveToFile(Helpers.FileHelpers.GetAbsoluteFilePath(path));
         }
 
         /// <summary>
@@ -261,14 +290,15 @@ namespace Otter {
         /// <param name="x">The x coordinate of the pixel.</param>
         /// <param name="y">The y coordinate of the pixel.</param>
         /// <param name="color">The Color to set the pixel to.</param>
-        public void SetPixel(int x, int y, Color color) {
+        public void SetPixel(int x, int y, Color color)
+        {
             if (x < 0) throw new ArgumentException("X must be greater than 0.");
             if (y < 0) throw new ArgumentException("Y must be greater than 0.");
             if (x > Width) throw new ArgumentException("X must be within the texture width.");
             if (y > Height) throw new ArgumentException("Y must be within the texture width.");
-           
+
             CreateImage();
-            
+
             image.SetPixel((uint)x, (uint)y, color.SFMLColor);
             //texture = new SFML.Graphics.Texture(image);
             texture.Update(image);
@@ -284,14 +314,17 @@ namespace Otter {
         /// <param name="width">The width of the rectangle.</param>
         /// <param name="height">The height of the rectangle.</param>
         /// <param name="color">The color of the rectangle.</param>
-        public void SetRect(int x, int y, int width, int height, Color color) {
+        public void SetRect(int x, int y, int width, int height, Color color)
+        {
             if (x < 0) throw new ArgumentException("X must be greater than 0.");
             if (y < 0) throw new ArgumentException("Y must be greater than 0.");
             if (width < 0) throw new ArgumentException("Width must be greater than 0.");
             if (height < 0) throw new ArgumentException("Height must be greater than 0.");
 
-            for (var xx = x; xx < x + width; xx++) {
-                for (var yy = y; yy < y + height; yy++) {
+            for (var xx = x; xx < x + width; xx++)
+            {
+                for (var yy = y; yy < y + height; yy++)
+                {
                     SetPixel(xx, yy, color);
                 }
             }
@@ -299,8 +332,10 @@ namespace Otter {
         /// <summary>
         /// Updates the texture to reflect changes made from SetPixel.
         /// </summary>
-        public void Update() {
-            if (needsUpdate) {
+        public void Update()
+        {
+            if (needsUpdate)
+            {
                 texture.Update(image);
                 needsUpdate = false;
             }
@@ -311,7 +346,8 @@ namespace Otter {
         /// Note: Updates immediately. Probably not the fastest.
         /// </summary>
         /// <param name="bytes">The byte array containing our pixels.</param>
-        public void SetBytes(byte[] bytes) {
+        public void SetBytes(byte[] bytes)
+        {
             texture.Update(bytes);
         }
 
@@ -324,7 +360,8 @@ namespace Otter {
         /// <param name="height">The height of the section we are updating.</param>
         /// <param name="x">The X coordinate of the section we are updating.</param>
         /// <param name="y">The Y coordinate of the section we are updating.</param>
-        public void SetBytes(byte[] bytes, int width, int height, int x = 0, int y = 0) {
+        public void SetBytes(byte[] bytes, int width, int height, int x = 0, int y = 0)
+        {
             texture.Update(bytes, (uint)width, (uint)height, (uint)x, (uint)y);
         }
 
@@ -332,12 +369,11 @@ namespace Otter {
         /// Dispose the SFML texture to clear up memory probably.
         /// Warning: might not want to do this since other Textures might be using the same cached texture!
         /// </summary>
-        public void Dispose() {
+        public void Dispose()
+        {
             SFMLTexture.Dispose();
         }
 
         #endregion Public Methods
-
-        
     }
 }

@@ -1,14 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Movement Component that adds platforming movement behavior to an Entity.  This is built for
     /// fixed framerate applications.  Make sure you have the Axis, JumpButton, and Collider assigned
     /// before using it!  If you want to use jump through platforms, you'll also need to use the
     /// JumpThroughCollider, which should be a 1 pixel tall collider at the bottom of your Entity.
     /// </summary>
-    public class PlatformingMovement : Movement {
+    public class PlatformingMovement : Movement
+    {
 
         #region Private Fields
 
@@ -182,10 +184,13 @@ namespace Otter {
         /// <summary>
         /// The total X speed.
         /// </summary>
-        public float SumSpeedX {
-            get {
+        public float SumSpeedX
+        {
+            get
+            {
                 float r = 0;
-                foreach (var s in Speeds) {
+                foreach (var s in Speeds)
+                {
                     r += s.X;
                 }
                 return r;
@@ -195,16 +200,19 @@ namespace Otter {
         /// <summary>
         /// The total Y speed.
         /// </summary>
-        public float SumSpeedY {
-            get {
+        public float SumSpeedY
+        {
+            get
+            {
                 float r = 0;
-                foreach (var s in Speeds) {
+                foreach (var s in Speeds)
+                {
                     r += s.Y;
                 }
                 return r;
             }
         }
-        
+
         #endregion
 
         #region Constructors
@@ -215,7 +223,8 @@ namespace Otter {
         /// <param name="xSpeedMax">The maximum X input speed.</param>
         /// <param name="ySpeedMax">The maximum Y speed from jumping and gravity.</param>
         /// <param name="gravity">The acceleration caused by gravity.</param>
-        public PlatformingMovement(float xSpeedMax, float ySpeedMax, float gravity) {
+        public PlatformingMovement(float xSpeedMax, float ySpeedMax, float gravity)
+        {
             Speed = new Speed(xSpeedMax, ySpeedMax);
             ExtraSpeed = new Speed(xSpeedMax, ySpeedMax);
 
@@ -242,8 +251,10 @@ namespace Otter {
         /// Register a collision tag to treat as jump through platforms.
         /// </summary>
         /// <param name="tags">Tags to register.</param>
-        public void AddJumpThrough(params int[] tags) {
-            foreach (var t in tags) {
+        public void AddJumpThrough(params int[] tags)
+        {
+            foreach (var t in tags)
+            {
                 CollisionsJumpThrough.Add(t);
             }
         }
@@ -252,14 +263,16 @@ namespace Otter {
         /// Register a collision tag to treat as jump through platforms.
         /// </summary>
         /// <param name="tags">Tags to register.</param>
-        public void AddJumpThrough(params Enum[] tags) {
+        public void AddJumpThrough(params Enum[] tags)
+        {
             AddJumpThrough(Util.EnumToIntArray(tags));
         }
 
         /// <summary>
         /// Updates the movement.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
             if (Entity == null) return;
@@ -267,11 +280,13 @@ namespace Otter {
             JustJumped = false;
 
             OnGround = Collider.Collide(Entity.X, Entity.Y + 1, CollisionsSolid) != null;
-            if (!OnGround && JumpThroughCollider != null) {
+            if (!OnGround && JumpThroughCollider != null)
+            {
                 // Check for a jump through platform too
-                
+
                 OnGround = JumpThroughCollider.Overlap(Entity.X, Entity.Y + 1, CollisionsJumpThrough);
-                if (OnGround) {
+                if (OnGround)
+                {
                     var platformCollider = JumpThroughCollider.Collide(Entity.X, Entity.Y + 1, CollisionsJumpThrough);
                     OnGround = !JumpThroughCollider.Overlap(Entity.X, Entity.Y, platformCollider);
                 }
@@ -281,50 +296,66 @@ namespace Otter {
             AgainstWallRight = Collider.Collide(Entity.X + 1, Entity.Y, CollisionsSolid) != null;
             AgainstCeiling = Collider.Collide(Entity.X, Entity.Y - 1, CollisionsSolid) != null;
 
-            if (OnGround) {
+            if (OnGround)
+            {
                 HasJumped = false;
                 JumpsLeft = JumpsMax;
                 ledgeBuffer = LedgeBufferMax;
             }
 
-            if (!OnGround) {
+            if (!OnGround)
+            {
                 ledgeBuffer = (int)Util.Approach(ledgeBuffer, 0, 1);
             }
 
             jumpBuffer = (int)Util.Approach(jumpBuffer, 0, 1);
-            if (JumpEnabled) {
-                if (JumpButton.Pressed) {
-                    if (DownJumpDrop && JumpThroughCollider != null) { // Drop through platforms with Down + Jump
+            if (JumpEnabled)
+            {
+                if (JumpButton.Pressed)
+                {
+                    if (DownJumpDrop && JumpThroughCollider != null)
+                    { // Drop through platforms with Down + Jump
                         var jumping = true;
-                        if (Axis.Y > 0.5f) {
-                            if (!Collider.Overlap(Entity.X, Entity.Y + 1, CollisionsSolid)) {
-                                if (JumpThroughCollider.Overlap(Entity.X, Entity.Y + 1, CollisionsJumpThrough)) {
+                        if (Axis.Y > 0.5f)
+                        {
+                            if (!Collider.Overlap(Entity.X, Entity.Y + 1, CollisionsSolid))
+                            {
+                                if (JumpThroughCollider.Overlap(Entity.X, Entity.Y + 1, CollisionsJumpThrough))
+                                {
                                     Entity.Y += 1;
                                     jumping = false;
                                 }
                             }
                         }
-                        if (jumping) {
+                        if (jumping)
+                        {
                             jumpBuffer = JumpBufferMax;
                         }
                     }
-                    else {
+                    else
+                    {
                         jumpBuffer = JumpBufferMax;
                     }
                 }
-                if (JumpButton.Up) {
+                if (JumpButton.Up)
+                {
                     jumpBuffer = 0;
                 }
 
-                if (jumpBuffer > 0) {
-                    if (JumpsLeft > 0) {
-                        if (OnJump != null) {
+                if (jumpBuffer > 0)
+                {
+                    if (JumpsLeft > 0)
+                    {
+                        if (OnJump != null)
+                        {
                             OnJump();
                         }
-                        if (HardDoubleJump) {
+                        if (HardDoubleJump)
+                        {
                             Speed.Y = -JumpStrength;
                         }
-                        else {
+                        else
+                        {
                             Speed.Y -= JumpStrength;
                         }
                         HasJumped = true;
@@ -335,9 +366,12 @@ namespace Otter {
                 }
             }
 
-            if (!OnGround && Speed.Y < 0) {
-                if (HasJumped) {
-                    if (!JumpButton.Down && VariableJumpHeight) {
+            if (!OnGround && Speed.Y < 0)
+            {
+                if (HasJumped)
+                {
+                    if (!JumpButton.Down && VariableJumpHeight)
+                    {
                         Speed.Y *= JumpDampening;
                     }
                 }
@@ -345,27 +379,33 @@ namespace Otter {
 
             if (!OnGround && !HasJumped && ledgeBuffer == 0) JumpsLeft = JumpsMax - 1;
 
-            if (OnGround) {
+            if (OnGround)
+            {
                 CurrentAccel = Acceleration[AccelType.Ground];
             }
-            else {
+            else
+            {
                 CurrentAccel = Acceleration[AccelType.Air];
             }
 
-            if (UseAxis) {
+            if (UseAxis)
+            {
                 TargetSpeed.X = Axis.X * Speed.MaxX;
 
                 Speed.X = Util.Approach(Speed.X, TargetSpeed.X, CurrentAccel);
 
-                if (Speed.X < 0 && AgainstWallLeft) {
+                if (Speed.X < 0 && AgainstWallLeft)
+                {
                     Speed.X = 0;
                 }
-                if (Speed.X > 0 && AgainstWallRight) {
+                if (Speed.X > 0 && AgainstWallRight)
+                {
                     Speed.X = 0;
                 }
             }
 
-            if (ApplyGravity) {
+            if (ApplyGravity)
+            {
                 if (!OnGround)
                     Speed.Y += Gravity * GravityMultiplier;
             }
@@ -373,71 +413,88 @@ namespace Otter {
             MoveXY((int)SumSpeedX, (int)SumSpeedY, Collider);
         }
 
-        public override void MoveCollideX(Collider collider) {
+        public override void MoveCollideX(Collider collider)
+        {
             base.MoveCollideX(collider);
             Speed.X = 0;
             ExtraSpeed.X = 0;
         }
 
-        public override void MoveCollideY(Collider collider) {
+        public override void MoveCollideY(Collider collider)
+        {
             base.MoveCollideY(collider);
             if (SumSpeedY > 0) OnGround = true;
             Speed.Y = 0;
             ExtraSpeed.Y = 0;
         }
 
-        public override void MoveY(int speed, Collider collider = null) {
+        public override void MoveY(int speed, Collider collider = null)
+        {
             MoveBufferY += speed;
 
-            while (Math.Abs(MoveBufferY) >= SpeedScale) {
+            while (Math.Abs(MoveBufferY) >= SpeedScale)
+            {
                 int move = Math.Sign(MoveBufferY);
-                if (collider != null) {
+                if (collider != null)
+                {
                     bool freeToMove = true;
                     Collider c = null;
 
-                    if (move > 0) {
+                    if (move > 0)
+                    {
                         c = collider.Collide(Entity.X, Entity.Y + move, CollisionsSolid);
-                        if (c == null) {
-                            if (JumpThroughCollider != null) {
+                        if (c == null)
+                        {
+                            if (JumpThroughCollider != null)
+                            {
                                 var hasPlatformBelow = JumpThroughCollider.Overlap(Entity.X, Entity.Y + move, CollisionsJumpThrough);
-                                if (hasPlatformBelow) {
+                                if (hasPlatformBelow)
+                                {
                                     hasPlatformBelow = false;
 
                                     // Check to see if only bottom 1 pixel is overlapping jump throughs
                                     var platform = JumpThroughCollider.Collide(Entity.X, Entity.Y + move, CollisionsJumpThrough);
-                                    if (!JumpThroughCollider.Overlap(Entity.X, Entity.Y, platform)) {
+                                    if (!JumpThroughCollider.Overlap(Entity.X, Entity.Y, platform))
+                                    {
                                         // This makes sense just trust me ok
                                         hasPlatformBelow = true;
                                     }
                                 }
 
-                                if (hasPlatformBelow) {
+                                if (hasPlatformBelow)
+                                {
                                     freeToMove = false;
                                     c = JumpThroughCollider.Collide(Entity.X, Entity.Y + move, CollisionsJumpThrough);
                                 }
                             }
                         }
-                        else {
+                        else
+                        {
                             freeToMove = false;
                         }
                     }
-                    else {
+                    else
+                    {
                         c = collider.Collide(Entity.X, Entity.Y + move, CollisionsSolid);
-                        if (c != null) {
+                        if (c != null)
+                        {
                             freeToMove = false;
                         }
                     }
 
-                    if (freeToMove) {
+                    if (freeToMove)
+                    {
                         Entity.Y += move;
                         MoveBufferY = (int)Util.Approach(MoveBufferY, 0, SpeedScale);
                     }
-                    else {
+                    else
+                    {
                         MoveBufferY = 0;
                         MoveCollideY(c);
                     }
                 }
-                if (collider == null || CollisionsSolid.Count == 0) {
+                if (collider == null || CollisionsSolid.Count == 0)
+                {
                     Entity.Y += move;
                     MoveBufferY = (int)Util.Approach(MoveBufferY, 0, SpeedScale);
                 }
@@ -446,16 +503,4 @@ namespace Otter {
 
         #endregion
     }
-
-    #region Enums
-
-    /// <summary>
-    /// The different acceleration types.
-    /// </summary>
-    public enum AccelType {
-        Ground,
-        Air
-    }
-
-    #endregion
 }

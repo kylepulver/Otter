@@ -1,16 +1,11 @@
-﻿using Otter;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
+
+using Otter;
 
 namespace CoroutineExample {
     class CoroutineScene : Scene {
 
         public Image ImageBox = Image.CreateRectangle(50);
-
         public Color NextColor = Color.White;
         public Color CurrentColor = Color.White;
 

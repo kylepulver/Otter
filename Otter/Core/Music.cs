@@ -1,13 +1,15 @@
-﻿using SFML.Audio;
+using SFML.Audio;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class used to load and play music files. Music is streamed from the file source, or an IO stream.
     /// </summary>
-    public class Music : IDisposable {
+    public class Music : IDisposable
+    {
 
         #region Static Fields
 
@@ -22,13 +24,17 @@ namespace Otter {
         /// <summary>
         /// The global volume to play all music at.
         /// </summary>
-        public static float GlobalVolume {
-            get {
+        public static float GlobalVolume
+        {
+            get
+            {
                 return globalVolume;
             }
-            set {
+            set
+            {
                 globalVolume = Util.Clamp(value, 0, 1);
-                foreach (var m in musics) {
+                foreach (var m in musics)
+                {
                     m.Volume = m.Volume; //update music volume
                 }
             }
@@ -48,11 +54,14 @@ namespace Otter {
         /// <summary>
         /// The local volume to play this music at.
         /// </summary>
-        public float Volume {
-            get {
+        public float Volume
+        {
+            get
+            {
                 return volume;
             }
-            set {
+            set
+            {
                 volume = value;
                 music.Volume = Util.Clamp(GlobalVolume * volume, 0f, 1f) * 100f;
             }
@@ -61,7 +70,8 @@ namespace Otter {
         /// <summary>
         /// Adjust the pitch of the music.  Default value is 1.
         /// </summary>
-        public float Pitch {
+        public float Pitch
+        {
             set { music.Pitch = value; }
             get { return music.Pitch; }
         }
@@ -69,7 +79,8 @@ namespace Otter {
         /// <summary>
         /// Set the playback offset of the music in milliseconds.
         /// </summary>
-        public int Offset {
+        public int Offset
+        {
             set { music.PlayingOffset = SFML.System.Time.FromMilliseconds(value); }
             get { return (int)music.PlayingOffset.AsMilliseconds(); }
         }
@@ -77,7 +88,8 @@ namespace Otter {
         /// <summary>
         /// Determines if the music should loop or not.
         /// </summary>
-        public bool Loop {
+        public bool Loop
+        {
             set { music.Loop = value; }
             get { return music.Loop; }
         }
@@ -85,7 +97,8 @@ namespace Otter {
         /// <summary>
         /// The duration in milliseconds of the music.
         /// </summary>
-        public int Duration {
+        public int Duration
+        {
             get { return (int)music.Duration.AsMilliseconds(); }
         }
 
@@ -102,11 +115,14 @@ namespace Otter {
         /// Load a music file from a file path.
         /// </summary>
         /// <param name="source"></param>
-        public Music(string source, bool loop = true) {
-            if (!File.Exists(source)) {
+        public Music(string source, bool loop = true)
+        {
+            if (!File.Exists(source))
+            {
                 music = new SFML.Audio.Music(Files.LoadFileBytes(source));
             }
-            else {
+            else
+            {
                 music = new SFML.Audio.Music(source);
             }
             music.Loop = loop;
@@ -117,7 +133,8 @@ namespace Otter {
         /// Load a music stream from an IO stream.
         /// </summary>
         /// <param name="stream"></param>
-        public Music(Stream stream) {
+        public Music(Stream stream)
+        {
             music = new SFML.Audio.Music(stream);
             music.Loop = true;
             Initialize();
@@ -127,7 +144,8 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize() {
+        void Initialize()
+        {
             music.RelativeToListener = false;
             music.Attenuation = 100;
             musics.Add(this);
@@ -140,7 +158,8 @@ namespace Otter {
         /// <summary>
         /// Play the music.
         /// </summary>
-        public void Play() {
+        public void Play()
+        {
             music.Volume = Util.Clamp(GlobalVolume * Volume, 0f, 1f) * 100f;
             music.Play();
         }
@@ -148,27 +167,30 @@ namespace Otter {
         /// <summary>
         /// Stop the music!
         /// </summary>
-        public void Stop() {
+        public void Stop()
+        {
             music.Stop();
         }
 
         /// <summary>
         /// Pause the music.
         /// </summary>
-        public void Pause() {
+        public void Pause()
+        {
             music.Pause();
         }
 
         /// <summary>
         /// Dispose the music. (I don't think this works right now.)
         /// </summary>
-        public void Dispose() {
+        public void Dispose()
+        {
             musics.Remove(this);
             music.Dispose();
             music = null;
         }
 
-        #endregion 
-        
+        #endregion
+
     }
 }

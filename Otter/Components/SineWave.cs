@@ -1,8 +1,10 @@
-﻿namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Component that controls a sine wave.  Can be useful for special effects and such.
     /// </summary>
-    public class SineWave : Component {
+    public class SineWave : Component
+    {
 
         #region Public Fields
 
@@ -38,12 +40,16 @@
         /// <summary>
         /// The current value of the wave.
         /// </summary>
-        public float Value {
-            get {
-                if (Amplitude == 0) {
+        public float Value
+        {
+            get
+            {
+                if (Amplitude == 0)
+                {
                     return Util.SinScaleClamp((Timer + Offset) * Rate, Min, Max);
                 }
-                else {
+                else
+                {
                     return Util.Sin((Timer + Offset) * Rate) * Amplitude;
                 }
             }
@@ -59,7 +65,8 @@
         /// <param name="rate">The rate of the wave.</param>
         /// <param name="amp">The amplitude of the wave.</param>
         /// <param name="offset">The offset of the value processed.</param>
-        public SineWave(float rate = 1, float amp = 1, float offset = 0) {
+        public SineWave(float rate = 1, float amp = 1, float offset = 0)
+        {
             Rate = rate;
             Amplitude = amp;
             Offset = offset;
@@ -72,7 +79,8 @@
         /// <param name="min">The minimum value of the wave.</param>
         /// <param name="max">The maximum value of the wave.</param>
         /// <param name="offset">The offset of the value processed.</param>
-        public SineWave(float rate = 1, float min = -1, float max = 1, float offset = 0) {
+        public SineWave(float rate = 1, float min = -1, float max = 1, float offset = 0)
+        {
             Rate = rate;
             Min = min;
             Max = max;
@@ -83,10 +91,12 @@
 
         #region Operators
 
-        public static implicit operator float(SineWave s) {
+        public static implicit operator float(SineWave s)
+        {
             return s.Value;
         }
-        public static implicit operator int(SineWave s) {
+        public static implicit operator int(SineWave s)
+        {
             return (int)s.Value;
         }
 

@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Movement Component that can be used by an Entity to provide simple top-down style movement.
     /// This class requires an Axis component be assigned to it, and that Axis must be also updated
@@ -10,8 +11,9 @@ namespace Otter {
     /// The movement also requires a Collider if you want it to be able to collide with walls and other
     /// things!
     /// </summary>
-    public class BasicMovement : Movement {
-        
+    public class BasicMovement : Movement
+    {
+
         #region Public Fields
 
         /// <summary>
@@ -56,7 +58,8 @@ namespace Otter {
         /// <param name="yMax">The maximum speed allowed in the y axis.</param>
         /// <param name="accel">The acceleration.</param>
         public BasicMovement(float xMax, float yMax, float accel)
-            : base() {
+            : base()
+        {
             Speed = new Speed(xMax, yMax);
             TargetSpeed = new Speed(xMax, yMax);
             Accel = accel;
@@ -69,7 +72,8 @@ namespace Otter {
         /// <summary>
         /// Updates the Movement.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
             if (Freeze) return;
@@ -77,12 +81,14 @@ namespace Otter {
             TargetSpeed.MaxX = Speed.MaxX;
             TargetSpeed.MaxY = Speed.MaxY;
 
-            if (Axis != null) {
+            if (Axis != null)
+            {
                 TargetSpeed.X = Axis.X * TargetSpeed.MaxX;
                 TargetSpeed.Y = Axis.Y * TargetSpeed.MaxY;
 
                 // Multiply by 1/sqrt(2) for circle clamp.
-                if (CircleClamp && Math.Abs(TargetSpeed.X) == 1 && Math.Abs(TargetSpeed.Y) == 1) {
+                if (CircleClamp && Math.Abs(TargetSpeed.X) == 1 && Math.Abs(TargetSpeed.Y) == 1)
+                {
                     TargetSpeed.X *= .7071f;
                     TargetSpeed.Y *= .7071f;
                 }
@@ -93,7 +99,8 @@ namespace Otter {
 
             MoveXY((int)Speed.X, (int)Speed.Y, Collider);
 
-            if (OnMove != null) {
+            if (OnMove != null)
+            {
                 OnMove();
             }
         }
@@ -102,7 +109,8 @@ namespace Otter {
         /// A callback for when the horizontal sweep test hits a collision.
         /// </summary>
         /// <param name="collider"></param>
-        public override void MoveCollideX(Collider collider) {
+        public override void MoveCollideX(Collider collider)
+        {
             Speed.X = 0;
         }
 
@@ -110,7 +118,8 @@ namespace Otter {
         /// A callback for when the vertical sweep test hits a collision.
         /// </summary>
         /// <param name="collider"></param>
-        public override void MoveCollideY(Collider collider) {
+        public override void MoveCollideY(Collider collider)
+        {
             Speed.Y = 0;
         }
 

@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class used for animations in Spritemap.
     /// </summary>
-    public class Anim {
+    public class Anim
+    {
 
         #region Static Methods
 
@@ -16,9 +18,11 @@ namespace Otter {
         /// <param name="min">The start of the animation (includes this number.)</param>
         /// <param name="max">The end of the animation (includes this number.)</param>
         /// <returns>The array of ints representing an animation.</returns>
-        public static int[] FramesRange(int min, int max) {
+        public static int[] FramesRange(int min, int max)
+        {
             int[] f = new int[max - min + 1];
-            for (int i = min; i <= max; i++) {
+            for (int i = min; i <= max; i++)
+            {
                 f[i - min] = i;
             }
             return f;
@@ -30,7 +34,8 @@ namespace Otter {
         /// Whitespace is permitted, and commas are optional.
         /// <param name="input">A string formatted as above, describing the frames to generate.</param>
         /// </summary>
-        public static int[] ParseFrames(string input) {
+        public static int[] ParseFrames(string input)
+        {
             // Make sure the pattern matches, and alert the user if it doesn't
             var parse = SyntaxCheck.Match(input);
             if (!parse.Success)
@@ -38,23 +43,28 @@ namespace Otter {
 
             // Get all numbers/ranges in the input string.
             var frames = new List<int>();
-            foreach (Match match in GetMatches.Matches(input)) {
+            foreach (Match match in GetMatches.Matches(input))
+            {
                 var range = GetRange.Match(match.Value);
-                if (range.Success) {
+                if (range.Success)
+                {
                     int from = int.Parse(range.Groups[1].Value);
                     int to = int.Parse(range.Groups[2].Value);
 
                     // Support ascending and descending ranges
-                    if (from < to) {
+                    if (from < to)
+                    {
                         while (from <= to)
                             frames.Add(from++);
                     }
-                    else {
+                    else
+                    {
                         while (from >= to)
                             frames.Add(from--);
                     }
                 }
-                else {
+                else
+                {
                     frames.Add(int.Parse(match.Value));
                 }
             }
@@ -134,21 +144,24 @@ namespace Otter {
         /// <summary>
         /// The total number of frames in this animation.
         /// </summary>
-        public int FrameCount {
+        public int FrameCount
+        {
             get { return Frames.Count; }
         }
 
         /// <summary>
         /// The current frame of the animation.
         /// </summary>
-        public int CurrentFrame {
+        public int CurrentFrame
+        {
             get { return Frames[currentFrame]; }
         }
 
         /// <summary>
         /// The current frame index of the animation.
         /// </summary>
-        public int CurrentFrameIndex {
+        public int CurrentFrameIndex
+        {
             get { return currentFrame; }
             set { currentFrame = value; }
         }
@@ -156,10 +169,13 @@ namespace Otter {
         /// <summary>
         /// The total duration of the animation.
         /// </summary>
-        public float TotalDuration {
-            get {
+        public float TotalDuration
+        {
+            get
+            {
                 float delay = 0;
-                foreach (float d in FrameDelays) {
+                foreach (float d in FrameDelays)
+                {
                     delay += d;
                 }
                 return delay;
@@ -175,7 +191,8 @@ namespace Otter {
         /// </summary>
         /// <param name="frames">The frames from the sprite sheet to display.</param>
         /// <param name="frameDelays">The time that each frame should be displayed.</param>
-        public Anim(int[] frames, float[] frameDelays = null) {
+        public Anim(int[] frames, float[] frameDelays = null)
+        {
             Initialize(frames, frameDelays);
         }
 
@@ -185,11 +202,13 @@ namespace Otter {
         /// <param name="frames">A string of frames separated by a delim character.  Example: "0,1,2-7,9,11"</param>
         /// <param name="frameDelays">A string of floats separated by a delim character.  Example: "0.5f,1,0.5f,1"</param>
         /// <param name="delim">The string of characters to parse the string by.  Default is ","</param>
-        public Anim(string frames, string frameDelays) {
+        public Anim(string frames, string frameDelays)
+        {
             string[] frameDelaysParts = Regex.Split(frameDelays.Replace(" ", ""), ",");
             float[] framedelaysfloat = new float[frameDelaysParts.Length];
 
-            for (int i = 0; i < frameDelaysParts.Length; i++) {
+            for (int i = 0; i < frameDelaysParts.Length; i++)
+            {
                 framedelaysfloat[i] = float.Parse(frameDelaysParts[i]);
             }
 
@@ -200,21 +219,27 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize(int[] frames, float[] frameDelays = null) {
+        void Initialize(int[] frames, float[] frameDelays = null)
+        {
             Frames = new List<int>();
             FrameDelays = new List<float>();
 
-            for (int i = 0; i < frames.Length; i++) {
+            for (int i = 0; i < frames.Length; i++)
+            {
                 Frames.Add(frames[i]);
-                if (frameDelays != null) {
-                    if (i >= frameDelays.Length) {
+                if (frameDelays != null)
+                {
+                    if (i >= frameDelays.Length)
+                    {
                         FrameDelays.Add(frameDelays[i % frameDelays.Length]);
                     }
-                    else {
+                    else
+                    {
                         FrameDelays.Add(frameDelays[i]);
                     }
                 }
-                else {
+                else
+                {
                     FrameDelays.Add(1);
                 }
             }
@@ -237,7 +262,8 @@ namespace Otter {
         /// </summary>
         /// <param name="times">How many times the animation should repeat.</param>
         /// <returns>The anim object.</returns>
-        public Anim Repeat(int times = -1) {
+        public Anim Repeat(int times = -1)
+        {
             RepeatCount = times;
             return this;
         }
@@ -246,7 +272,8 @@ namespace Otter {
         /// Disables repeating.  Animations default to repeat on.
         /// </summary>
         /// <returns>The anim object.</returns>
-        public Anim NoRepeat() {
+        public Anim NoRepeat()
+        {
             RepeatCount = 0;
             return this;
         }
@@ -256,7 +283,8 @@ namespace Otter {
         /// </summary>
         /// <param name="pingpong">True for yes, false for no no no.</param>
         /// <returns>The anim object.</returns>
-        public Anim PingPong(bool pingpong = true) {
+        public Anim PingPong(bool pingpong = true)
+        {
             pingPong = pingpong;
             return this;
         }
@@ -266,7 +294,8 @@ namespace Otter {
         /// </summary>
         /// <param name="speed">The new speed.</param>
         /// <returns>The anim object.</returns>
-        public Anim Speed(float speed) {
+        public Anim Speed(float speed)
+        {
             PlaybackSpeed = speed;
             return this;
         }
@@ -276,7 +305,8 @@ namespace Otter {
         /// </summary>
         /// <param name="frame">The frame to loop back to (from 0 to frame count - 1)</param>
         /// <returns>The anim object.</returns>
-        public Anim LoopBackTo(int frame = 0) {
+        public Anim LoopBackTo(int frame = 0)
+        {
             loopBack = frame;
             return this;
         }
@@ -285,7 +315,8 @@ namespace Otter {
         /// Stops the animation and returns it to the first frame.
         /// </summary>
         /// <returns>The anim object.</returns>
-        public Anim Stop() {
+        public Anim Stop()
+        {
             Active = false;
             currentFrame = 0;
             return this;
@@ -295,7 +326,8 @@ namespace Otter {
         /// Resets the animation back to frame 0 but does not stop it.
         /// </summary>
         /// <returns>The anim object.</returns>
-        public Anim Reset() {
+        public Anim Reset()
+        {
             timer = 0;
             currentFrame = 0;
             return this;
@@ -305,34 +337,44 @@ namespace Otter {
         /// Updates the Anim object.  Handled by the Spritemap usually.  If this doesn't run the animation will not play.
         /// </summary>
         /// <param name="t">The time scale.</param>
-        public void Update(float t = 1f) {
-            if (Active) {
+        public void Update(float t = 1f)
+        {
+            if (Active)
+            {
                 timer += PlaybackSpeed * Game.Instance.DeltaTime * t;
             }
 
             delay = FrameDelays[currentFrame];
 
-            while (timer >= delay) {
+            while (timer >= delay)
+            {
                 timer -= delay;
                 currentFrame += direction;
 
-                if (currentFrame == Frames.Count) {
-                    if (repeatsCounted < RepeatCount || RepeatCount < 0) {
+                if (currentFrame == Frames.Count)
+                {
+                    if (repeatsCounted < RepeatCount || RepeatCount < 0)
+                    {
                         repeatsCounted++;
-                        if (pingPong) {
+                        if (pingPong)
+                        {
                             direction *= -1;
                             currentFrame = Frames.Count - 2;
                         }
-                        else {
+                        else
+                        {
                             currentFrame = loopBack;
                         }
                     }
-                    else {
-                        if (pingPong) {
+                    else
+                    {
+                        if (pingPong)
+                        {
                             direction *= -1;
                             currentFrame = Frames.Count - 2;
                         }
-                        else {
+                        else
+                        {
                             OnComplete();
                             Stop();
                             currentFrame = Frames.Count - 1;
@@ -340,14 +382,18 @@ namespace Otter {
                     }
                 }
 
-                if (currentFrame < loopBack) {
-                    if (pingPong) {
-                        if (repeatsCounted < RepeatCount || RepeatCount < 0) {
+                if (currentFrame < loopBack)
+                {
+                    if (pingPong)
+                    {
+                        if (repeatsCounted < RepeatCount || RepeatCount < 0)
+                        {
                             repeatsCounted++;
                             direction *= -1;
                             currentFrame = loopBack + 1;
                         }
-                        else {
+                        else
+                        {
                             OnComplete();
                             Stop();
                         }

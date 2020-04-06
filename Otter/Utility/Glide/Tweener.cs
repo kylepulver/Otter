@@ -1,19 +1,22 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Otter;
 
-namespace Otter {
+namespace Otter
+{
     public class Tweener : Tween.TweenerImpl { };
 
-    public partial class Tween {
+    public partial class Tween
+    {
         private interface IRemoveTweens //	lol get it
         {
             void Remove(Tween t);
         }
 
-        public class TweenerImpl : IRemoveTweens {
-            static TweenerImpl() {
+        public class TweenerImpl : IRemoveTweens
+        {
+            static TweenerImpl()
+            {
                 registeredLerpers = new Dictionary<Type, ConstructorInfo>();
                 var numericTypes = new Type[] {
                     typeof(Int16),
@@ -35,11 +38,13 @@ namespace Otter {
             /// </summary>
             /// <typeparam name="TLerper">The Lerper class to use for properties of the given type.</typeparam>
             /// <param name="propertyType">The type of the property to associate the given Lerper with.</param>
-            public static void SetLerper<TLerper>(Type propertyType) where TLerper : GlideLerper, new() {
+            public static void SetLerper<TLerper>(Type propertyType) where TLerper : GlideLerper, new()
+            {
                 registeredLerpers[propertyType] = typeof(TLerper).GetConstructor(Type.EmptyTypes);
             }
 
-            protected TweenerImpl() {
+            protected TweenerImpl()
+            {
                 tweens = new Dictionary<object, List<Tween>>();
                 toRemove = new List<Tween>();
                 toAdd = new List<Tween>();
@@ -61,7 +66,8 @@ namespace Otter {
             /// <param name="delay">Delay before the tween starts, in seconds.</param>
             /// <param name="overwrite">Whether pre-existing tweens should be overwritten if this tween involves the same properties.</param>
             /// <returns>The tween created, for setting properties on.</returns>
-            public Tween Tween<T>(T target, object values, float duration, float delay = 0, bool overwrite = true) where T : class {
+            public Tween Tween<T>(T target, object values, float duration, float delay = 0, bool overwrite = true) where T : class
+            {
                 if (target == null)
                     throw new ArgumentNullException("target");
 
@@ -77,9 +83,11 @@ namespace Otter {
                     return tween;
 
                 var props = values.GetType().GetProperties();
-                for (int i = 0; i < props.Length; ++i) {
+                for (int i = 0; i < props.Length; ++i)
+                {
                     List<Tween> library = null;
-                    if (overwrite && tweens.TryGetValue(target, out library)) {
+                    if (overwrite && tweens.TryGetValue(target, out library))
+                    {
                         for (int j = 0; j < library.Count; j++)
                             library[j].Cancel(props[i].Name);
                     }
@@ -102,7 +110,8 @@ namespace Otter {
             /// <param name="duration">How long the timer will run for, in seconds.</param>
             /// <param name="delay">How long to wait before starting the timer, in seconds.</param>
             /// <returns>The tween created, for setting properties.</returns>
-            public Tween Timer(float duration, float delay = 0) {
+            public Tween Timer(float duration, float delay = 0)
+            {
                 var tween = new Tween(null, duration, delay, this);
                 AddAndRemove();
                 toAdd.Add(tween);
@@ -112,14 +121,16 @@ namespace Otter {
             /// <summary>
             /// Remove tweens from the tweener without calling their complete functions.
             /// </summary>
-            public void Cancel() {
+            public void Cancel()
+            {
                 toRemove.AddRange(allTweens);
             }
 
             /// <summary>
             /// Assign tweens their final value and remove them from the tweener.
             /// </summary>
-            public void CancelAndComplete() {
+            public void CancelAndComplete()
+            {
                 for (int i = 0; i < allTweens.Count; ++i)
                     allTweens[i].CancelAndComplete();
             }
@@ -127,8 +138,10 @@ namespace Otter {
             /// <summary>
             /// Set tweens to pause. They won't update and their delays won't tick down.
             /// </summary>
-            public void Pause() {
-                for (int i = 0; i < allTweens.Count; ++i) {
+            public void Pause()
+            {
+                for (int i = 0; i < allTweens.Count; ++i)
+                {
                     var tween = allTweens[i];
                     tween.Pause();
                 }
@@ -137,8 +150,10 @@ namespace Otter {
             /// <summary>
             /// Toggle tweens' paused value.
             /// </summary>
-            public void PauseToggle() {
-                for (int i = 0; i < allTweens.Count; ++i) {
+            public void PauseToggle()
+            {
+                for (int i = 0; i < allTweens.Count; ++i)
+                {
                     var tween = allTweens[i];
                     tween.PauseToggle();
                 }
@@ -147,8 +162,10 @@ namespace Otter {
             /// <summary>
             /// Resumes tweens from a paused state.
             /// </summary>
-            public void Resume() {
-                for (int i = 0; i < allTweens.Count; ++i) {
+            public void Resume()
+            {
+                for (int i = 0; i < allTweens.Count; ++i)
+                {
                     var tween = allTweens[i];
                     tween.Resume();
                 }
@@ -158,14 +175,16 @@ namespace Otter {
             /// Updates the tweener and all objects it contains.
             /// </summary>
             /// <param name="secondsElapsed">Seconds elapsed since last update.</param>
-            public void Update(float secondsElapsed) {
+            public void Update(float secondsElapsed)
+            {
                 for (int i = 0; i < allTweens.Count; ++i)
                     allTweens[i].Update(secondsElapsed);
 
                 AddAndRemove();
             }
 
-            private GlideLerper CreateLerper(Type propertyType) {
+            private GlideLerper CreateLerper(Type propertyType)
+            {
                 ConstructorInfo lerper = null;
                 if (!registeredLerpers.TryGetValue(propertyType, out lerper))
                     throw new Exception(string.Format("No Lerper found for type {0}.", propertyType.FullName));
@@ -173,12 +192,15 @@ namespace Otter {
                 return (GlideLerper)lerper.Invoke(null);
             }
 
-            void IRemoveTweens.Remove(Tween tween) {
+            void IRemoveTweens.Remove(Tween tween)
+            {
                 toRemove.Add(tween);
             }
 
-            private void AddAndRemove() {
-                for (int i = 0; i < toAdd.Count; ++i) {
+            private void AddAndRemove()
+            {
+                for (int i = 0; i < toAdd.Count; ++i)
+                {
                     var tween = toAdd[i];
                     allTweens.Add(tween);
                     if (tween.Target == null) continue; //	don't sort timers by target
@@ -190,15 +212,18 @@ namespace Otter {
                     list.Add(tween);
                 }
 
-                for (int i = 0; i < toRemove.Count; ++i) {
+                for (int i = 0; i < toRemove.Count; ++i)
+                {
                     var tween = toRemove[i];
                     allTweens.Remove(tween);
                     if (tween.Target == null) continue; // see above
 
                     List<Tween> list = null;
-                    if (tweens.TryGetValue(tween.Target, out list)) {
+                    if (tweens.TryGetValue(tween.Target, out list))
+                    {
                         list.Remove(tween);
-                        if (list.Count == 0) {
+                        if (list.Count == 0)
+                        {
                             tweens.Remove(tween.Target);
                         }
                     }
@@ -215,9 +240,11 @@ namespace Otter {
             /// Cancel all tweens with the given target.
             /// </summary>
             /// <param name="target">The object being tweened that you want to cancel.</param>
-            public void TargetCancel(object target) {
+            public void TargetCancel(object target)
+            {
                 List<Tween> list;
-                if (tweens.TryGetValue(target, out list)) {
+                if (tweens.TryGetValue(target, out list))
+                {
                     for (int i = 0; i < list.Count; ++i)
                         list[i].Cancel();
                 }
@@ -228,9 +255,11 @@ namespace Otter {
             /// </summary>
             /// <param name="target">The object being tweened that you want to cancel properties on.</param>
             /// <param name="properties">The properties to cancel.</param>
-            public void TargetCancel(object target, params string[] properties) {
+            public void TargetCancel(object target, params string[] properties)
+            {
                 List<Tween> list;
-                if (tweens.TryGetValue(target, out list)) {
+                if (tweens.TryGetValue(target, out list))
+                {
                     for (int i = 0; i < list.Count; ++i)
                         list[i].Cancel(properties);
                 }
@@ -240,9 +269,11 @@ namespace Otter {
             /// Cancel, complete, and call complete callbacks for all tweens with the given target..
             /// </summary>
             /// <param name="target">The object being tweened that you want to cancel and complete.</param>
-            public void TargetCancelAndComplete(object target) {
+            public void TargetCancelAndComplete(object target)
+            {
                 List<Tween> list;
-                if (tweens.TryGetValue(target, out list)) {
+                if (tweens.TryGetValue(target, out list))
+                {
                     for (int i = 0; i < list.Count; ++i)
                         list[i].CancelAndComplete();
                 }
@@ -253,9 +284,11 @@ namespace Otter {
             /// Pause all tweens with the given target.
             /// </summary>
             /// <param name="target">The object being tweened that you want to pause.</param>
-            public void TargetPause(object target) {
+            public void TargetPause(object target)
+            {
                 List<Tween> list;
-                if (tweens.TryGetValue(target, out list)) {
+                if (tweens.TryGetValue(target, out list))
+                {
                     for (int i = 0; i < list.Count; ++i)
                         list[i].Pause();
                 }
@@ -265,9 +298,11 @@ namespace Otter {
             /// Toggle the pause state of all tweens with the given target.
             /// </summary>
             /// <param name="target">The object being tweened that you want to toggle pause.</param>
-            public void TargetPauseToggle(object target) {
+            public void TargetPauseToggle(object target)
+            {
                 List<Tween> list;
-                if (tweens.TryGetValue(target, out list)) {
+                if (tweens.TryGetValue(target, out list))
+                {
                     for (int i = 0; i < list.Count; ++i)
                         list[i].PauseToggle();
                 }
@@ -277,24 +312,29 @@ namespace Otter {
             /// Resume all tweens with the given target.
             /// </summary>
             /// <param name="target">The object being tweened that you want to resume.</param>
-            public void TargetResume(object target) {
+            public void TargetResume(object target)
+            {
                 List<Tween> list;
-                if (tweens.TryGetValue(target, out list)) {
+                if (tweens.TryGetValue(target, out list))
+                {
                     for (int i = 0; i < list.Count; ++i)
                         list[i].Resume();
                 }
             }
             #endregion
 
-            private class NumericLerper : GlideLerper {
+            private class NumericLerper : GlideLerper
+            {
                 float from, to, range;
 
-                public override void Initialize(object fromValue, object toValue, Behavior behavior) {
+                public override void Initialize(object fromValue, object toValue, Behavior behavior)
+                {
                     from = Convert.ToSingle(fromValue);
                     to = Convert.ToSingle(toValue);
                     range = to - from;
 
-                    if (behavior.HasFlag(Behavior.Rotation)) {
+                    if (behavior.HasFlag(Behavior.Rotation))
+                    {
                         float angle = from;
                         if (behavior.HasFlag(Behavior.RotationRadians))
                             angle *= DEG;
@@ -311,9 +351,11 @@ namespace Otter {
                     }
                 }
 
-                public override object Interpolate(float t, object current, Behavior behavior) {
+                public override object Interpolate(float t, object current, Behavior behavior)
+                {
                     var value = from + range * t;
-                    if (behavior.HasFlag(Behavior.Rotation)) {
+                    if (behavior.HasFlag(Behavior.Rotation))
+                    {
                         if (behavior.HasFlag(Behavior.RotationRadians))
                             value *= DEG;
 

@@ -529,6 +529,7 @@ namespace Otter {
         /// </summary>
         /// <param name="path">The path to the Texture to use.</param>
         public void SetTexture(string path) {
+            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
             SetTexture(new Texture(path));
         }
 

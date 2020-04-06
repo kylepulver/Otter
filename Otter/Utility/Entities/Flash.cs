@@ -1,4 +1,5 @@
-﻿namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Entity that acts as a screen flash.  Best used when using the constructor that allows for
     /// initial parameters be set:
@@ -6,7 +7,8 @@
     /// Flash(Color.Red) { Alpha = 0.5, Blend = BlendMode.Add };
     /// </example>
     /// </summary>
-    public class Flash : Entity {
+    public class Flash : Entity
+    {
 
         #region Static Fields
 
@@ -53,7 +55,8 @@
         /// Create a new Flash.
         /// </summary>
         /// <param name="color">The Color of the Flash.</param>
-        public Flash(Color color) : base(0, 0) {
+        public Flash(Color color) : base(0, 0)
+        {
             Color = color;
         }
 
@@ -64,10 +67,12 @@
         /// <summary>
         /// Added to the Scene.
         /// </summary>
-        public override void Added() {
+        public override void Added()
+        {
             base.Added();
 
-            if (LifeSpan == 0) {
+            if (LifeSpan == 0)
+            {
                 LifeSpan = DefaultLifeSpan;
             }
 
@@ -75,10 +80,12 @@
             imgFlash.Blend = Blend;
             imgFlash.Scroll = 0;
             imgFlash.CenterOriginZero();
-            if (Surface != null) {
+            if (Surface != null)
+            {
                 imgFlash.Scale = 1 / Surface.CameraZoom;
             }
-            else {
+            else
+            {
                 imgFlash.Scale = 1 / Game.Surface.CameraZoom;
             }
             SetGraphic(imgFlash);
@@ -87,13 +94,16 @@
         /// <summary>
         /// Updated.
         /// </summary>
-        public override void Update() {
+        public override void Update()
+        {
             base.Update();
 
-            if (Surface != null) {
+            if (Surface != null)
+            {
                 imgFlash.Scale = 1 / Surface.CameraZoom;
             }
-            else {
+            else
+            {
                 imgFlash.Scale = 1 / Game.Surface.CameraZoom;
             }
 
@@ -103,7 +113,8 @@
         /// <summary>
         /// Removed from the Scene.
         /// </summary>
-        public override void Removed() {
+        public override void Removed()
+        {
             base.Removed();
 
             ClearGraphics();

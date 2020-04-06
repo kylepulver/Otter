@@ -27,11 +27,13 @@ SOFTWARE.
 
 using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Struct for representing a Rectangle.
     /// </summary>
-    public struct Rectangle : IEquatable<Rectangle> {
+    public struct Rectangle : IEquatable<Rectangle>
+    {
 
         #region Private Fields
 
@@ -50,23 +52,28 @@ namespace Otter {
 
         #region Public Properties
 
-        public static Rectangle Empty {
+        public static Rectangle Empty
+        {
             get { return emptyRectangle; }
         }
 
-        public int Left {
+        public int Left
+        {
             get { return this.X; }
         }
 
-        public int Right {
+        public int Right
+        {
             get { return (this.X + this.Width); }
         }
 
-        public int Top {
+        public int Top
+        {
             get { return this.Y; }
         }
 
-        public int Bottom {
+        public int Bottom
+        {
             get { return (this.Y + this.Height); }
         }
 
@@ -74,7 +81,8 @@ namespace Otter {
 
         #region Constructors
 
-        public Rectangle(int x, int y, int width, int height) {
+        public Rectangle(int x, int y, int width, int height)
+        {
             this.X = x;
             this.Y = y;
             this.Width = width;
@@ -85,48 +93,60 @@ namespace Otter {
 
         #region Public Methods
 
-        public static bool operator ==(Rectangle a, Rectangle b) {
+        public static bool operator ==(Rectangle a, Rectangle b)
+        {
             return ((a.X == b.X) && (a.Y == b.Y) && (a.Width == b.Width) && (a.Height == b.Height));
         }
 
-        public bool Contains(int x, int y) {
+        public bool Contains(int x, int y)
+        {
             return ((((this.X <= x) && (x < (this.X + this.Width))) && (this.Y <= y)) && (y < (this.Y + this.Height)));
         }
 
-        public bool Contains(Point value) {
+        public bool Contains(Point value)
+        {
             return ((((this.X <= value.X) && (value.X < (this.X + this.Width))) && (this.Y <= value.Y)) && (value.Y < (this.Y + this.Height)));
         }
 
-        public bool Contains(Rectangle value) {
+        public bool Contains(Rectangle value)
+        {
             return ((((this.X <= value.X) && ((value.X + value.Width) <= (this.X + this.Width))) && (this.Y <= value.Y)) && ((value.Y + value.Height) <= (this.Y + this.Height)));
         }
 
-        public static bool operator !=(Rectangle a, Rectangle b) {
+        public static bool operator !=(Rectangle a, Rectangle b)
+        {
             return !(a == b);
         }
 
-        public void Offset(Point offset) {
+        public void Offset(Point offset)
+        {
             X += offset.X;
             Y += offset.Y;
         }
 
-        public void Offset(int offsetX, int offsetY) {
+        public void Offset(int offsetX, int offsetY)
+        {
             X += offsetX;
             Y += offsetY;
         }
 
-        public Point Location {
-            get {
+        public Point Location
+        {
+            get
+            {
                 return new Point(this.X, this.Y);
             }
-            set {
+            set
+            {
                 X = value.X;
                 Y = value.Y;
             }
         }
 
-        public Point Center {
-            get {
+        public Point Center
+        {
+            get
+            {
                 // This is incorrect
                 //return new Point( (this.X + this.Width) / 2,(this.Y + this.Height) / 2 );
                 // What we want is the Center of the rectangle from the X and Y Origins
@@ -134,42 +154,51 @@ namespace Otter {
             }
         }
 
-        public void Inflate(int horizontalValue, int verticalValue) {
+        public void Inflate(int horizontalValue, int verticalValue)
+        {
             X -= horizontalValue;
             Y -= verticalValue;
             Width += horizontalValue * 2;
             Height += verticalValue * 2;
         }
 
-        public Rectangle Inflated(int horizontalValue, int verticalValue) {
+        public Rectangle Inflated(int horizontalValue, int verticalValue)
+        {
             var rect = new Rectangle(X, Y, Width, Height);
             rect.Inflate(horizontalValue, verticalValue);
             return rect;
         }
 
-        public bool IsEmpty {
-            get {
+        public bool IsEmpty
+        {
+            get
+            {
                 return ((((this.Width == 0) && (this.Height == 0)) && (this.X == 0)) && (this.Y == 0));
             }
         }
 
-        public bool Equals(Rectangle other) {
+        public bool Equals(Rectangle other)
+        {
             return this == other;
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             return (obj is Rectangle) ? this == ((Rectangle)obj) : false;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return string.Format("{{X:{0} Y:{1} Width:{2} Height:{3}}}", X, Y, Width, Height);
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return (this.X ^ this.Y ^ this.Width ^ this.Height);
         }
 
-        public bool Intersects(Rectangle value) {
+        public bool Intersects(Rectangle value)
+        {
             return value.Left < Right &&
                    Left < value.Right &&
                    value.Top < Bottom &&
@@ -177,34 +206,40 @@ namespace Otter {
         }
 
 
-        public void Intersects(ref Rectangle value, out bool result) {
+        public void Intersects(ref Rectangle value, out bool result)
+        {
             result = value.Left < Right &&
                      Left < value.Right &&
                      value.Top < Bottom &&
                      Top < value.Bottom;
         }
 
-        public static Rectangle Intersect(Rectangle value1, Rectangle value2) {
+        public static Rectangle Intersect(Rectangle value1, Rectangle value2)
+        {
             Rectangle rectangle;
             Intersect(ref value1, ref value2, out rectangle);
             return rectangle;
         }
 
 
-        public static void Intersect(ref Rectangle value1, ref Rectangle value2, out Rectangle result) {
-            if (value1.Intersects(value2)) {
+        public static void Intersect(ref Rectangle value1, ref Rectangle value2, out Rectangle result)
+        {
+            if (value1.Intersects(value2))
+            {
                 int right_side = Math.Min(value1.X + value1.Width, value2.X + value2.Width);
                 int left_side = Math.Max(value1.X, value2.X);
                 int top_side = Math.Max(value1.Y, value2.Y);
                 int bottom_side = Math.Min(value1.Y + value1.Height, value2.Y + value2.Height);
                 result = new Rectangle(left_side, top_side, right_side - left_side, bottom_side - top_side);
             }
-            else {
+            else
+            {
                 result = new Rectangle(0, 0, 0, 0);
             }
         }
 
-        public static Rectangle Union(Rectangle value1, Rectangle value2) {
+        public static Rectangle Union(Rectangle value1, Rectangle value2)
+        {
             int x = Math.Min(value1.X, value2.X);
             int y = Math.Min(value1.Y, value2.Y);
             return new Rectangle(x, y,
@@ -212,7 +247,8 @@ namespace Otter {
                                      Math.Max(value1.Bottom, value2.Bottom) - y);
         }
 
-        public static void Union(ref Rectangle value1, ref Rectangle value2, out Rectangle result) {
+        public static void Union(ref Rectangle value1, ref Rectangle value2, out Rectangle result)
+        {
             result.X = Math.Min(value1.X, value2.X);
             result.Y = Math.Min(value1.Y, value2.Y);
             result.Width = Math.Max(value1.Right, value2.Right) - result.X;

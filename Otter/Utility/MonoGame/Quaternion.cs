@@ -1,4 +1,4 @@
-﻿#region License
+#region License
 /*
 MIT License
 Copyright © 2006 The Mono.Xna Team
@@ -27,11 +27,13 @@ SOFTWARE.
 
 using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Struct for representing a Quaternion.
     /// </summary>
-    public struct Quaternion : IEquatable<Quaternion> {
+    public struct Quaternion : IEquatable<Quaternion>
+    {
         public float X;
 
         public float Y;
@@ -43,7 +45,8 @@ namespace Otter {
         static Quaternion identity = new Quaternion(0, 0, 0, 1);
 
 
-        public Quaternion(float x, float y, float z, float w) {
+        public Quaternion(float x, float y, float z, float w)
+        {
             this.X = x;
             this.Y = y;
             this.Z = z;
@@ -51,19 +54,22 @@ namespace Otter {
         }
 
 
-        public Quaternion(Vector3 vectorPart, float scalarPart) {
+        public Quaternion(Vector3 vectorPart, float scalarPart)
+        {
             this.X = vectorPart.X;
             this.Y = vectorPart.Y;
             this.Z = vectorPart.Z;
             this.W = scalarPart;
         }
 
-        public static Quaternion Identity {
+        public static Quaternion Identity
+        {
             get { return identity; }
         }
 
 
-        public static Quaternion Add(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion Add(Quaternion quaternion1, Quaternion quaternion2)
+        {
             //Syderis
             Quaternion quaternion;
             quaternion.X = quaternion1.X + quaternion2.X;
@@ -74,7 +80,8 @@ namespace Otter {
         }
 
 
-        public static void Add(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result) {
+        public static void Add(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+        {
             //Syderis
             result.X = quaternion1.X + quaternion2.X;
             result.Y = quaternion1.Y + quaternion2.Y;
@@ -83,7 +90,8 @@ namespace Otter {
         }
 
         //Funcion añadida Syderis
-        public static Quaternion Concatenate(Quaternion value1, Quaternion value2) {
+        public static Quaternion Concatenate(Quaternion value1, Quaternion value2)
+        {
             Quaternion quaternion;
             float x = value2.X;
             float y = value2.Y;
@@ -106,7 +114,8 @@ namespace Otter {
         }
 
         //Añadida por Syderis
-        public static void Concatenate(ref Quaternion value1, ref Quaternion value2, out Quaternion result) {
+        public static void Concatenate(ref Quaternion value1, ref Quaternion value2, out Quaternion result)
+        {
             float x = value2.X;
             float y = value2.Y;
             float z = value2.Z;
@@ -126,14 +135,16 @@ namespace Otter {
         }
 
         //Añadida por Syderis
-        public void Conjugate() {
+        public void Conjugate()
+        {
             this.X = -this.X;
             this.Y = -this.Y;
             this.Z = -this.Z;
         }
 
         //Añadida por Syderis
-        public static Quaternion Conjugate(Quaternion value) {
+        public static Quaternion Conjugate(Quaternion value)
+        {
             Quaternion quaternion;
             quaternion.X = -value.X;
             quaternion.Y = -value.Y;
@@ -143,14 +154,16 @@ namespace Otter {
         }
 
         //Añadida por Syderis
-        public static void Conjugate(ref Quaternion value, out Quaternion result) {
+        public static void Conjugate(ref Quaternion value, out Quaternion result)
+        {
             result.X = -value.X;
             result.Y = -value.Y;
             result.Z = -value.Z;
             result.W = value.W;
         }
 
-        public static Quaternion CreateFromAxisAngle(Vector3 axis, float angle) {
+        public static Quaternion CreateFromAxisAngle(Vector3 axis, float angle)
+        {
 
             Quaternion quaternion;
             float num2 = angle * 0.5f;
@@ -165,7 +178,8 @@ namespace Otter {
         }
 
 
-        public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Quaternion result) {
+        public static void CreateFromAxisAngle(ref Vector3 axis, float angle, out Quaternion result)
+        {
             float num2 = angle * 0.5f;
             float num = (float)Math.Sin((double)num2);
             float num3 = (float)Math.Cos((double)num2);
@@ -177,10 +191,12 @@ namespace Otter {
         }
 
 
-        public static Quaternion CreateFromRotationMatrix(Matrix matrix) {
+        public static Quaternion CreateFromRotationMatrix(Matrix matrix)
+        {
             float num8 = (matrix.M11 + matrix.M22) + matrix.M33;
             Quaternion quaternion = new Quaternion();
-            if (num8 > 0f) {
+            if (num8 > 0f)
+            {
                 float num = (float)Math.Sqrt((double)(num8 + 1f));
                 quaternion.W = num * 0.5f;
                 num = 0.5f / num;
@@ -189,7 +205,8 @@ namespace Otter {
                 quaternion.Z = (matrix.M12 - matrix.M21) * num;
                 return quaternion;
             }
-            if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33)) {
+            if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
+            {
                 float num7 = (float)Math.Sqrt((double)(((1f + matrix.M11) - matrix.M22) - matrix.M33));
                 float num4 = 0.5f / num7;
                 quaternion.X = 0.5f * num7;
@@ -198,7 +215,8 @@ namespace Otter {
                 quaternion.W = (matrix.M23 - matrix.M32) * num4;
                 return quaternion;
             }
-            if (matrix.M22 > matrix.M33) {
+            if (matrix.M22 > matrix.M33)
+            {
                 float num6 = (float)Math.Sqrt((double)(((1f + matrix.M22) - matrix.M11) - matrix.M33));
                 float num3 = 0.5f / num6;
                 quaternion.X = (matrix.M21 + matrix.M12) * num3;
@@ -219,9 +237,11 @@ namespace Otter {
         }
 
 
-        public static void CreateFromRotationMatrix(ref Matrix matrix, out Quaternion result) {
+        public static void CreateFromRotationMatrix(ref Matrix matrix, out Quaternion result)
+        {
             float num8 = (matrix.M11 + matrix.M22) + matrix.M33;
-            if (num8 > 0f) {
+            if (num8 > 0f)
+            {
                 float num = (float)Math.Sqrt((double)(num8 + 1f));
                 result.W = num * 0.5f;
                 num = 0.5f / num;
@@ -229,7 +249,8 @@ namespace Otter {
                 result.Y = (matrix.M31 - matrix.M13) * num;
                 result.Z = (matrix.M12 - matrix.M21) * num;
             }
-            else if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33)) {
+            else if ((matrix.M11 >= matrix.M22) && (matrix.M11 >= matrix.M33))
+            {
                 float num7 = (float)Math.Sqrt((double)(((1f + matrix.M11) - matrix.M22) - matrix.M33));
                 float num4 = 0.5f / num7;
                 result.X = 0.5f * num7;
@@ -237,7 +258,8 @@ namespace Otter {
                 result.Z = (matrix.M13 + matrix.M31) * num4;
                 result.W = (matrix.M23 - matrix.M32) * num4;
             }
-            else if (matrix.M22 > matrix.M33) {
+            else if (matrix.M22 > matrix.M33)
+            {
                 float num6 = (float)Math.Sqrt((double)(((1f + matrix.M22) - matrix.M11) - matrix.M33));
                 float num3 = 0.5f / num6;
                 result.X = (matrix.M21 + matrix.M12) * num3;
@@ -245,7 +267,8 @@ namespace Otter {
                 result.Z = (matrix.M32 + matrix.M23) * num3;
                 result.W = (matrix.M31 - matrix.M13) * num3;
             }
-            else {
+            else
+            {
                 float num5 = (float)Math.Sqrt((double)(((1f + matrix.M33) - matrix.M11) - matrix.M22));
                 float num2 = 0.5f / num5;
                 result.X = (matrix.M31 + matrix.M13) * num2;
@@ -256,7 +279,8 @@ namespace Otter {
 
         }
 
-        public static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll) {
+        public static Quaternion CreateFromYawPitchRoll(float yaw, float pitch, float roll)
+        {
             Quaternion quaternion;
             float num9 = roll * 0.5f;
             float num6 = (float)Math.Sin((double)num9);
@@ -274,7 +298,8 @@ namespace Otter {
             return quaternion;
         }
 
-        public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Quaternion result) {
+        public static void CreateFromYawPitchRoll(float yaw, float pitch, float roll, out Quaternion result)
+        {
             float num9 = roll * 0.5f;
             float num6 = (float)Math.Sin((double)num9);
             float num5 = (float)Math.Cos((double)num9);
@@ -290,7 +315,8 @@ namespace Otter {
             result.W = ((num * num3) * num5) + ((num2 * num4) * num6);
         }
 
-        public static Quaternion Divide(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion Divide(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             float x = quaternion1.X;
             float y = quaternion1.Y;
@@ -314,7 +340,8 @@ namespace Otter {
 
         }
 
-        public static void Divide(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result) {
+        public static void Divide(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+        {
             float x = quaternion1.X;
             float y = quaternion1.Y;
             float z = quaternion1.Z;
@@ -337,36 +364,43 @@ namespace Otter {
         }
 
 
-        public static float Dot(Quaternion quaternion1, Quaternion quaternion2) {
+        public static float Dot(Quaternion quaternion1, Quaternion quaternion2)
+        {
             return ((((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W));
         }
 
 
-        public static void Dot(ref Quaternion quaternion1, ref Quaternion quaternion2, out float result) {
+        public static void Dot(ref Quaternion quaternion1, ref Quaternion quaternion2, out float result)
+        {
             result = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
         }
 
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             bool flag = false;
-            if (obj is Quaternion) {
+            if (obj is Quaternion)
+            {
                 flag = this.Equals((Quaternion)obj);
             }
             return flag;
         }
 
 
-        public bool Equals(Quaternion other) {
+        public bool Equals(Quaternion other)
+        {
             return ((((this.X == other.X) && (this.Y == other.Y)) && (this.Z == other.Z)) && (this.W == other.W));
         }
 
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return (((this.X.GetHashCode() + this.Y.GetHashCode()) + this.Z.GetHashCode()) + this.W.GetHashCode());
         }
 
 
-        public static Quaternion Inverse(Quaternion quaternion) {
+        public static Quaternion Inverse(Quaternion quaternion)
+        {
             Quaternion quaternion2;
             float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
             float num = 1f / num2;
@@ -378,7 +412,8 @@ namespace Otter {
 
         }
 
-        public static void Inverse(ref Quaternion quaternion, out Quaternion result) {
+        public static void Inverse(ref Quaternion quaternion, out Quaternion result)
+        {
             float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
             float num = 1f / num2;
             result.X = -quaternion.X * num;
@@ -387,29 +422,34 @@ namespace Otter {
             result.W = quaternion.W * num;
         }
 
-        public float Length() {
+        public float Length()
+        {
             float num = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
             return (float)Math.Sqrt((double)num);
         }
 
 
-        public float LengthSquared() {
+        public float LengthSquared()
+        {
             return ((((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W));
         }
 
 
-        public static Quaternion Lerp(Quaternion quaternion1, Quaternion quaternion2, float amount) {
+        public static Quaternion Lerp(Quaternion quaternion1, Quaternion quaternion2, float amount)
+        {
             float num = amount;
             float num2 = 1f - num;
             Quaternion quaternion = new Quaternion();
             float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
-            if (num5 >= 0f) {
+            if (num5 >= 0f)
+            {
                 quaternion.X = (num2 * quaternion1.X) + (num * quaternion2.X);
                 quaternion.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
                 quaternion.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
                 quaternion.W = (num2 * quaternion1.W) + (num * quaternion2.W);
             }
-            else {
+            else
+            {
                 quaternion.X = (num2 * quaternion1.X) - (num * quaternion2.X);
                 quaternion.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
                 quaternion.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
@@ -425,17 +465,20 @@ namespace Otter {
         }
 
 
-        public static void Lerp(ref Quaternion quaternion1, ref Quaternion quaternion2, float amount, out Quaternion result) {
+        public static void Lerp(ref Quaternion quaternion1, ref Quaternion quaternion2, float amount, out Quaternion result)
+        {
             float num = amount;
             float num2 = 1f - num;
             float num5 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
-            if (num5 >= 0f) {
+            if (num5 >= 0f)
+            {
                 result.X = (num2 * quaternion1.X) + (num * quaternion2.X);
                 result.Y = (num2 * quaternion1.Y) + (num * quaternion2.Y);
                 result.Z = (num2 * quaternion1.Z) + (num * quaternion2.Z);
                 result.W = (num2 * quaternion1.W) + (num * quaternion2.W);
             }
-            else {
+            else
+            {
                 result.X = (num2 * quaternion1.X) - (num * quaternion2.X);
                 result.Y = (num2 * quaternion1.Y) - (num * quaternion2.Y);
                 result.Z = (num2 * quaternion1.Z) - (num * quaternion2.Z);
@@ -451,22 +494,26 @@ namespace Otter {
         }
 
 
-        public static Quaternion Slerp(Quaternion quaternion1, Quaternion quaternion2, float amount) {
+        public static Quaternion Slerp(Quaternion quaternion1, Quaternion quaternion2, float amount)
+        {
             float num2;
             float num3;
             Quaternion quaternion;
             float num = amount;
             float num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
             bool flag = false;
-            if (num4 < 0f) {
+            if (num4 < 0f)
+            {
                 flag = true;
                 num4 = -num4;
             }
-            if (num4 > 0.999999f) {
+            if (num4 > 0.999999f)
+            {
                 num3 = 1f - num;
                 num2 = flag ? -num : num;
             }
-            else {
+            else
+            {
                 float num5 = (float)Math.Acos((double)num4);
                 float num6 = (float)(1.0 / Math.Sin((double)num5));
                 num3 = ((float)Math.Sin((double)((1f - num) * num5))) * num6;
@@ -480,21 +527,25 @@ namespace Otter {
         }
 
 
-        public static void Slerp(ref Quaternion quaternion1, ref Quaternion quaternion2, float amount, out Quaternion result) {
+        public static void Slerp(ref Quaternion quaternion1, ref Quaternion quaternion2, float amount, out Quaternion result)
+        {
             float num2;
             float num3;
             float num = amount;
             float num4 = (((quaternion1.X * quaternion2.X) + (quaternion1.Y * quaternion2.Y)) + (quaternion1.Z * quaternion2.Z)) + (quaternion1.W * quaternion2.W);
             bool flag = false;
-            if (num4 < 0f) {
+            if (num4 < 0f)
+            {
                 flag = true;
                 num4 = -num4;
             }
-            if (num4 > 0.999999f) {
+            if (num4 > 0.999999f)
+            {
                 num3 = 1f - num;
                 num2 = flag ? -num : num;
             }
-            else {
+            else
+            {
                 float num5 = (float)Math.Acos((double)num4);
                 float num6 = (float)(1.0 / Math.Sin((double)num5));
                 num3 = ((float)Math.Sin((double)((1f - num) * num5))) * num6;
@@ -507,7 +558,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion Subtract(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion Subtract(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             quaternion.X = quaternion1.X - quaternion2.X;
             quaternion.Y = quaternion1.Y - quaternion2.Y;
@@ -517,7 +569,8 @@ namespace Otter {
         }
 
 
-        public static void Subtract(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result) {
+        public static void Subtract(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+        {
             result.X = quaternion1.X - quaternion2.X;
             result.Y = quaternion1.Y - quaternion2.Y;
             result.Z = quaternion1.Z - quaternion2.Z;
@@ -525,7 +578,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion Multiply(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion Multiply(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             float x = quaternion1.X;
             float y = quaternion1.Y;
@@ -547,7 +601,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion Multiply(Quaternion quaternion1, float scaleFactor) {
+        public static Quaternion Multiply(Quaternion quaternion1, float scaleFactor)
+        {
             Quaternion quaternion;
             quaternion.X = quaternion1.X * scaleFactor;
             quaternion.Y = quaternion1.Y * scaleFactor;
@@ -557,7 +612,8 @@ namespace Otter {
         }
 
 
-        public static void Multiply(ref Quaternion quaternion1, float scaleFactor, out Quaternion result) {
+        public static void Multiply(ref Quaternion quaternion1, float scaleFactor, out Quaternion result)
+        {
             result.X = quaternion1.X * scaleFactor;
             result.Y = quaternion1.Y * scaleFactor;
             result.Z = quaternion1.Z * scaleFactor;
@@ -565,7 +621,8 @@ namespace Otter {
         }
 
 
-        public static void Multiply(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result) {
+        public static void Multiply(ref Quaternion quaternion1, ref Quaternion quaternion2, out Quaternion result)
+        {
             float x = quaternion1.X;
             float y = quaternion1.Y;
             float z = quaternion1.Z;
@@ -585,7 +642,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion Negate(Quaternion quaternion) {
+        public static Quaternion Negate(Quaternion quaternion)
+        {
             Quaternion quaternion2;
             quaternion2.X = -quaternion.X;
             quaternion2.Y = -quaternion.Y;
@@ -595,7 +653,8 @@ namespace Otter {
         }
 
 
-        public static void Negate(ref Quaternion quaternion, out Quaternion result) {
+        public static void Negate(ref Quaternion quaternion, out Quaternion result)
+        {
             result.X = -quaternion.X;
             result.Y = -quaternion.Y;
             result.Z = -quaternion.Z;
@@ -603,7 +662,8 @@ namespace Otter {
         }
 
 
-        public void Normalize() {
+        public void Normalize()
+        {
             float num2 = (((this.X * this.X) + (this.Y * this.Y)) + (this.Z * this.Z)) + (this.W * this.W);
             float num = 1f / ((float)Math.Sqrt((double)num2));
             this.X *= num;
@@ -613,7 +673,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion Normalize(Quaternion quaternion) {
+        public static Quaternion Normalize(Quaternion quaternion)
+        {
             Quaternion quaternion2;
             float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
             float num = 1f / ((float)Math.Sqrt((double)num2));
@@ -625,7 +686,8 @@ namespace Otter {
         }
 
 
-        public static void Normalize(ref Quaternion quaternion, out Quaternion result) {
+        public static void Normalize(ref Quaternion quaternion, out Quaternion result)
+        {
             float num2 = (((quaternion.X * quaternion.X) + (quaternion.Y * quaternion.Y)) + (quaternion.Z * quaternion.Z)) + (quaternion.W * quaternion.W);
             float num = 1f / ((float)Math.Sqrt((double)num2));
             result.X = quaternion.X * num;
@@ -635,7 +697,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion operator +(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion operator +(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             quaternion.X = quaternion1.X + quaternion2.X;
             quaternion.Y = quaternion1.Y + quaternion2.Y;
@@ -645,7 +708,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion operator /(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion operator /(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             float x = quaternion1.X;
             float y = quaternion1.Y;
@@ -669,20 +733,24 @@ namespace Otter {
         }
 
 
-        public static bool operator ==(Quaternion quaternion1, Quaternion quaternion2) {
+        public static bool operator ==(Quaternion quaternion1, Quaternion quaternion2)
+        {
             return ((((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) && (quaternion1.W == quaternion2.W));
         }
 
 
-        public static bool operator !=(Quaternion quaternion1, Quaternion quaternion2) {
-            if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z)) {
+        public static bool operator !=(Quaternion quaternion1, Quaternion quaternion2)
+        {
+            if (((quaternion1.X == quaternion2.X) && (quaternion1.Y == quaternion2.Y)) && (quaternion1.Z == quaternion2.Z))
+            {
                 return (quaternion1.W != quaternion2.W);
             }
             return true;
         }
 
 
-        public static Quaternion operator *(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion operator *(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             float x = quaternion1.X;
             float y = quaternion1.Y;
@@ -704,7 +772,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion operator *(Quaternion quaternion1, float scaleFactor) {
+        public static Quaternion operator *(Quaternion quaternion1, float scaleFactor)
+        {
             Quaternion quaternion;
             quaternion.X = quaternion1.X * scaleFactor;
             quaternion.Y = quaternion1.Y * scaleFactor;
@@ -714,7 +783,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion operator -(Quaternion quaternion1, Quaternion quaternion2) {
+        public static Quaternion operator -(Quaternion quaternion1, Quaternion quaternion2)
+        {
             Quaternion quaternion;
             quaternion.X = quaternion1.X - quaternion2.X;
             quaternion.Y = quaternion1.Y - quaternion2.Y;
@@ -725,7 +795,8 @@ namespace Otter {
         }
 
 
-        public static Quaternion operator -(Quaternion quaternion) {
+        public static Quaternion operator -(Quaternion quaternion)
+        {
             Quaternion quaternion2;
             quaternion2.X = -quaternion.X;
             quaternion2.Y = -quaternion.Y;
@@ -735,7 +806,8 @@ namespace Otter {
         }
 
 
-        public override string ToString() {
+        public override string ToString()
+        {
             System.Text.StringBuilder sb = new System.Text.StringBuilder(32);
             sb.Append("{X:");
             sb.Append(this.X);
@@ -749,17 +821,20 @@ namespace Otter {
             return sb.ToString();
         }
 
-        internal Matrix ToMatrix() {
+        internal Matrix ToMatrix()
+        {
             Matrix matrix = Matrix.Identity;
             ToMatrix(out matrix);
             return matrix;
         }
 
-        internal void ToMatrix(out Matrix matrix) {
+        internal void ToMatrix(out Matrix matrix)
+        {
             Quaternion.ToMatrix(this, out matrix);
         }
 
-        internal static void ToMatrix(Quaternion quaternion, out Matrix matrix) {
+        internal static void ToMatrix(Quaternion quaternion, out Matrix matrix)
+        {
 
             // source -> http://content.gpwiki.org/index.php/OpenGL:Tutorials:Using_Quaternions_to_represent_rotation#Quaternion_to_Matrix
             float x2 = quaternion.X * quaternion.X;
@@ -802,12 +877,15 @@ namespace Otter {
             //	}
         }
 
-        internal Vector3 Xyz {
-            get {
+        internal Vector3 Xyz
+        {
+            get
+            {
                 return new Vector3(X, Y, Z);
             }
 
-            set {
+            set
+            {
                 X = value.X;
                 Y = value.Y;
                 Z = value.Z;

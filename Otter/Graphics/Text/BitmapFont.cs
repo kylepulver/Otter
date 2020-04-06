@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -414,38 +414,5 @@ namespace Otter {
         internal override Texture GetTexture(int size) {
             return Texture;
         }
-    }
-
-    class CharData {
-
-        public char Character;
-        public int CharacterId;
-        public int X;
-        public int Y;
-        public int Width;
-        public int Height;
-        public int Advance;
-        public int OffsetX;
-        public int OffsetY;
-
-    }
-
-    public class BitmapFontConfig {
-        public Texture Texture;
-        public int CharacterWidth;
-        public int CharacterHeight;
-        public int CharCodeOffset = 32;
-        public int CharacterOffsetX;
-        public int CharacterOffsetY;
-        public int LineSpacing;
-    }
-
-    public enum BitmapFontDataType {
-        None, // Just plain old monospaced characters.
-        BMFontText, // http://www.angelcode.com/products/bmfont/
-        BMFontXml, // http://www.angelcode.com/products/bmfont/
-        Littera, // http://kvazars.com/littera/
-        CodeheadCSV, // http://www.codehead.co.uk/cbfg/
-        Shoebox // http://renderhjs.net/shoebox/bitmapFont.htm
     }
 }

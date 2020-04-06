@@ -1,12 +1,14 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class that represents a color with red, green, blue, and alpha channels.
     /// </summary>
-    public class Color {
+    public class Color
+    {
 
         #region Static Methods
 
@@ -17,7 +19,8 @@ namespace Otter {
         /// <param name="to">The end Color.</param>
         /// <param name="amount">The amount of completion on the lerp. (0 - 1)</param>
         /// <returns>The interpolated Color.</returns>
-        public static Color Lerp(Color from, Color to, float amount) {
+        public static Color Lerp(Color from, Color to, float amount)
+        {
             if (amount <= 0) return new Color(from);
             if (amount >= 1) return new Color(to);
 
@@ -36,7 +39,8 @@ namespace Otter {
         /// <param name="amount">The amount of completion on the lerp. (0 - 1)</param>
         /// <param name="colors">The Colors to interpolate through.</param>
         /// <returns>The interpolated Color.</returns>
-        public static Color Lerp(float amount, params Color[] colors) {
+        public static Color Lerp(float amount, params Color[] colors)
+        {
             if (amount <= 0) return colors[0];
             if (amount >= 1) return colors[colors.Length - 1];
 
@@ -48,7 +52,8 @@ namespace Otter {
 
             // This is a fix for odd numbered color amounts. When fromIndex was
             // odd, lerp would evaluate to 1 when it should be 0.
-            if (lerp >= 0.9999f && fromIndex % 2 == 1) {
+            if (lerp >= 0.9999f && fromIndex % 2 == 1)
+            {
                 lerp = 0;
             }
 
@@ -61,10 +66,12 @@ namespace Otter {
         /// </summary>
         /// <param name="colors">The colors to be mixed.</param>
         /// <returns>A new color of all the colors mixed together.</returns>
-        public static Color Mix(params Color[] colors) {
+        public static Color Mix(params Color[] colors)
+        {
             float r = 0, g = 0, b = 0, a = 0;
 
-            foreach (var c in colors) {
+            foreach (var c in colors)
+            {
                 r += c.R;
                 g += c.G;
                 b += c.B;
@@ -87,7 +94,8 @@ namespace Otter {
         /// <param name="v">Value, 0 to 1.</param>
         /// <param name="a">Alpha, 0 to 1.</param>
         /// <returns>A new RGBA color.</returns>
-        public static Color FromHSV(float h, float s, float v, float a) {
+        public static Color FromHSV(float h, float s, float v, float a)
+        {
             h = h < 0 ? 0 : (h > 1 ? 1 : h);
             s = s < 0 ? 0 : (s > 1 ? 1 : s);
             v = v < 0 ? 0 : (v > 1 ? 1 : v);
@@ -100,7 +108,8 @@ namespace Otter {
             float t = (v * (1 - (1 - f) * s));
             float r, g, b;
 
-            switch (hi) {
+            switch (hi)
+            {
                 case 0: r = v; g = t; b = p; break;
                 case 1: r = q; g = v; b = p; break;
                 case 2: r = p; g = v; b = t; break;
@@ -118,7 +127,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The Color to store.</param>
         /// <param name="name">The name of the Color.</param>
-        public static void AddCustom(Color color, Enum name) {
+        public static void AddCustom(Color color, Enum name)
+        {
             customColors.Add(Util.EnumValueToString(name), new Color(color));
         }
 
@@ -127,7 +137,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The Color to store.</param>
         /// <param name="name">The name of the Color.</param>
-        public static void AddCustom(string color, Enum name) {
+        public static void AddCustom(string color, Enum name)
+        {
             AddCustom(new Color(color), name);
         }
 
@@ -136,7 +147,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The Color to store.</param>
         /// <param name="name">The name of the Color.</param>
-        public static void AddCustom(UInt32 color, Enum name) {
+        public static void AddCustom(UInt32 color, Enum name)
+        {
             AddCustom(new Color(color), name);
         }
 
@@ -145,7 +157,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The Color to store.</param>
         /// <param name="name">The name of the Color.</param>
-        public static void AddCustom(Color color, string name) {
+        public static void AddCustom(Color color, string name)
+        {
             customColors.Add(name, new Color(color));
         }
 
@@ -154,7 +167,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The Color to store.</param>
         /// <param name="name">The name of the Color.</param>
-        public static void AddCustom(string color, string name) {
+        public static void AddCustom(string color, string name)
+        {
             AddCustom(new Color(color), name);
         }
 
@@ -163,7 +177,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The Color to store.</param>
         /// <param name="name">The name of the Color.</param>
-        public static void AddCustom(UInt32 color, string name) {
+        public static void AddCustom(UInt32 color, string name)
+        {
             AddCustom(new Color(color), name);
         }
 
@@ -172,11 +187,13 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the Color stored.</param>
         /// <returns>A new copy of the custom Color.</returns>
-        public static Color Custom(Enum name) {
+        public static Color Custom(Enum name)
+        {
             return customColors[Util.EnumValueToString(name)].Copy();
         }
 
-        public static Color Custom(string name) {
+        public static Color Custom(string name)
+        {
             return customColors[name].Copy();
         }
 
@@ -185,7 +202,8 @@ namespace Otter {
         /// </summary>
         /// <param name="rgb">The level of gray. 0 is black, 1 is white.</param>
         /// <returns>A color of RGB equal to the value input for rgb.</returns>
-        public static Color Shade(float rgb) {
+        public static Color Shade(float rgb)
+        {
             return new Color(rgb, rgb, rgb);
         }
 
@@ -195,7 +213,8 @@ namespace Otter {
         /// <param name="rgb">The level of gray. 0 is black, 1 is white.</param>
         /// <param name="a">The alpha of the returned Color.</param>
         /// <returns>A color of RGB equal to the value input for rgb with alpha a.</returns>
-        public static Color Shade(float rgb, float a) {
+        public static Color Shade(float rgb, float a)
+        {
             return new Color(rgb, rgb, rgb, a);
         }
 
@@ -207,7 +226,8 @@ namespace Otter {
         /// <param name="b">Blue</param>
         /// <param name="a">Alpha</param>
         /// <returns>A new Color.</returns>
-        public static Color FromBytes(byte r, byte g, byte b, byte a = 255) {
+        public static Color FromBytes(byte r, byte g, byte b, byte a = 255)
+        {
             var color = new Color();
             color.ByteR = r;
             color.ByteG = g;
@@ -220,63 +240,78 @@ namespace Otter {
 
         #region Static Properties
 
-        public static Color White {
+        public static Color White
+        {
             get { return new Color(1f, 1f, 1f); }
         }
 
-        public static Color Black {
+        public static Color Black
+        {
             get { return new Color(0f, 0f, 0f); }
         }
 
-        public static Color Red {
+        public static Color Red
+        {
             get { return new Color(1f, 0f, 0f); }
         }
 
-        public static Color Green {
+        public static Color Green
+        {
             get { return new Color(0f, 1f, 0f); }
         }
 
-        public static Color Blue {
+        public static Color Blue
+        {
             get { return new Color(0f, 0f, 1f); }
         }
 
-        public static Color Cyan {
+        public static Color Cyan
+        {
             get { return new Color(0f, 1f, 1f); }
         }
 
-        public static Color Magenta {
+        public static Color Magenta
+        {
             get { return new Color(1f, 0f, 1f); }
         }
 
-        public static Color Yellow {
+        public static Color Yellow
+        {
             get { return new Color(1f, 1f, 0f); }
         }
 
-        public static Color Orange {
+        public static Color Orange
+        {
             get { return new Color(1f, 0.5f, 0); }
         }
 
-        public static Color Gold {
+        public static Color Gold
+        {
             get { return new Color("FFCC00"); }
         }
 
-        public static Color None {
+        public static Color None
+        {
             get { return new Color(0f, 0f, 0f, 0f); }
         }
 
-        public static Color Grey {
+        public static Color Grey
+        {
             get { return new Color("999999"); }
         }
 
-        public static Color Gray {
+        public static Color Gray
+        {
             get { return Color.Grey; }
         }
 
-        public static Color Random {
+        public static Color Random
+        {
             get { return Rand.Color; }
         }
 
-        public static Color RandomAlpha {
+        public static Color RandomAlpha
+        {
             get { return Rand.ColorAlpha; }
         }
 
@@ -299,9 +334,11 @@ namespace Otter {
         /// <summary>
         /// Red
         /// </summary>
-        public float R {
+        public float R
+        {
             get { return r; }
-            set {
+            set
+            {
                 r = Util.Clamp(value, 0, 1);
                 if (Graphic != null) { Graphic.NeedsUpdate = true; }
             }
@@ -310,9 +347,11 @@ namespace Otter {
         /// <summary>
         /// Green
         /// </summary>
-        public float G {
+        public float G
+        {
             get { return g; }
-            set {
+            set
+            {
                 g = Util.Clamp(value, 0, 1);
                 if (Graphic != null) { Graphic.NeedsUpdate = true; }
             }
@@ -321,9 +360,11 @@ namespace Otter {
         /// <summary>
         /// Blue
         /// </summary>
-        public float B {
+        public float B
+        {
             get { return b; }
-            set {
+            set
+            {
                 b = Util.Clamp(value, 0, 1);
                 if (Graphic != null) { Graphic.NeedsUpdate = true; }
             }
@@ -332,9 +373,11 @@ namespace Otter {
         /// <summary>
         /// Alpha
         /// </summary>
-        public float A {
+        public float A
+        {
             get { return a; }
-            set {
+            set
+            {
                 a = Util.Clamp(value, 0, 1);
                 if (Graphic != null) { Graphic.NeedsUpdate = true; }
             }
@@ -343,11 +386,14 @@ namespace Otter {
         /// <summary>
         /// The bytes for Red.
         /// </summary>
-        public byte ByteR {
-            set {
+        public byte ByteR
+        {
+            set
+            {
                 R = Convert.ToSingle(value) / 255f;
             }
-            get {
+            get
+            {
                 return (byte)(R * 255);
             }
         }
@@ -355,11 +401,14 @@ namespace Otter {
         /// <summary>
         /// The bytes for Green.
         /// </summary>
-        public byte ByteG {
-            set {
+        public byte ByteG
+        {
+            set
+            {
                 G = Convert.ToSingle(value) / 255f;
             }
-            get {
+            get
+            {
                 return (byte)(G * 255);
             }
         }
@@ -367,11 +416,14 @@ namespace Otter {
         /// <summary>
         /// The bytes for Blue.
         /// </summary>
-        public byte ByteB {
-            set {
+        public byte ByteB
+        {
+            set
+            {
                 B = Convert.ToSingle(value) / 255f;
             }
-            get {
+            get
+            {
                 return (byte)(B * 255);
             }
         }
@@ -379,11 +431,14 @@ namespace Otter {
         /// <summary>
         /// The bytes for Alpha.
         /// </summary>
-        public byte ByteA {
-            set {
+        public byte ByteA
+        {
+            set
+            {
                 A = Convert.ToSingle(value) / 255f;
             }
-            get {
+            get
+            {
                 return (byte)(A * 255);
             }
         }
@@ -399,7 +454,8 @@ namespace Otter {
         /// <param name="g">Green, 0 to 1.</param>
         /// <param name="b">Blue, 0 to 1.</param>
         /// <param name="a">Alpha, 0 to 1.</param>
-        public Color(float r = 1f, float g = 1f, float b = 1f, float a = 1f) {
+        public Color(float r = 1f, float g = 1f, float b = 1f, float a = 1f)
+        {
             R = r;
             G = g;
             B = b;
@@ -416,7 +472,8 @@ namespace Otter {
         /// Create a new color from an XML element.
         /// </summary>
         /// <param name="e">An XmlElement that contains attributes R, G, B, and A, from 0 to 255.</param>
-        public Color(XmlElement e) {
+        public Color(XmlElement e)
+        {
             A = float.Parse(e.Attributes["A"].Value) / 255;
             R = float.Parse(e.Attributes["R"].Value) / 255;
             G = float.Parse(e.Attributes["G"].Value) / 255;
@@ -427,7 +484,8 @@ namespace Otter {
         /// Return a new color containing the channels from this color.
         /// </summary>
         /// <returns></returns>
-        public Color Copy() {
+        public Color Copy()
+        {
             return new Color(R, G, B, A);
         }
 
@@ -435,26 +493,31 @@ namespace Otter {
         /// Create a new color from a string.  Formats are "RGB", "RGBA", "RRGGBB", and "RRGGBBAA".
         /// </summary>
         /// <param name="hex">A string with a hex representation of each channel.</param>
-        public Color(string hex) {
+        public Color(string hex)
+        {
             int red = 255, green = 255, blue = 255, alpha = 255;
 
-            if (hex.Length == 6) {
+            if (hex.Length == 6)
+            {
                 red = Convert.ToInt32(hex.Substring(0, 2), 16);
                 green = Convert.ToInt32(hex.Substring(2, 2), 16);
                 blue = Convert.ToInt32(hex.Substring(4, 2), 16);
             }
-            else if (hex.Length == 3) {
+            else if (hex.Length == 3)
+            {
                 red = Convert.ToInt32(hex.Substring(0, 1) + hex.Substring(0, 1), 16);
                 green = Convert.ToInt32(hex.Substring(1, 1) + hex.Substring(1, 1), 16);
                 blue = Convert.ToInt32(hex.Substring(2, 1) + hex.Substring(2, 1), 16);
             }
-            else if (hex.Length == 8) {
+            else if (hex.Length == 8)
+            {
                 red = Convert.ToInt32(hex.Substring(0, 2), 16);
                 green = Convert.ToInt32(hex.Substring(2, 2), 16);
                 blue = Convert.ToInt32(hex.Substring(4, 2), 16);
                 alpha = Convert.ToInt32(hex.Substring(6, 2), 16);
             }
-            else if (hex.Length == 4) {
+            else if (hex.Length == 4)
+            {
                 red = Convert.ToInt32(hex.Substring(0, 1) + hex.Substring(0, 1), 16);
                 green = Convert.ToInt32(hex.Substring(1, 1) + hex.Substring(1, 1), 16);
                 blue = Convert.ToInt32(hex.Substring(2, 1) + hex.Substring(2, 1), 16);
@@ -476,31 +539,37 @@ namespace Otter {
 
         #region Public Methods
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "Color [R: " + R.ToString("0.00") + " G: " + G.ToString("0.00") + " B: " + B.ToString("0.00") + " A: " + A.ToString("0.00") + "]";
         }
 
         /// <summary>
         /// Get a hex string of the Color.
         /// </summary>
-        public string ColorString {
-            get {
+        public string ColorString
+        {
+            get
+            {
                 return ByteR.ToString("X2") + ByteG.ToString("X2") + ByteB.ToString("X2") + ByteA.ToString("X2");
             }
         }
 
-        public void SetColor(float r, float g, float b, float a) {
+        public void SetColor(float r, float g, float b, float a)
+        {
             R = r;
             G = g;
             B = b;
             A = a;
         }
 
-        public void SetColor(float r, float g, float b) {
+        public void SetColor(float r, float g, float b)
+        {
             SetColor(r, g, b, A);
         }
 
-        public void SetColor(Color color) {
+        public void SetColor(Color color)
+        {
             SetColor(color.R, color.G, color.B, color.A);
         }
 
@@ -508,7 +577,8 @@ namespace Otter {
 
         #region Operators
 
-        public static Color operator *(Color value1, Color value2) {
+        public static Color operator *(Color value1, Color value2)
+        {
             value1 = new Color(value1); // Make new color otherwise this doesn't work properly.
             value1.R *= value2.R;
             value1.G *= value2.G;
@@ -517,16 +587,18 @@ namespace Otter {
             return value1;
         }
 
-        public static Color operator *(Color value1, float value2) {
-            value1 = new Color(value1); 
+        public static Color operator *(Color value1, float value2)
+        {
+            value1 = new Color(value1);
             value1.R *= value2;
             value1.G *= value2;
             value1.B *= value2;
             return value1;
         }
 
-        public static Color operator +(Color value1, Color value2) {
-            value1 = new Color(value1); 
+        public static Color operator +(Color value1, Color value2)
+        {
+            value1 = new Color(value1);
             value1.R += value2.R;
             value1.G += value2.G;
             value1.B += value2.B;
@@ -534,8 +606,9 @@ namespace Otter {
             return value1;
         }
 
-        public static Color operator -(Color value1, Color value2) {
-            value1 = new Color(value1); 
+        public static Color operator -(Color value1, Color value2)
+        {
+            value1 = new Color(value1);
             value1.R -= value2.R;
             value1.G -= value2.G;
             value1.B -= value2.B;
@@ -543,8 +616,9 @@ namespace Otter {
             return value1;
         }
 
-        public static Color operator /(Color value1, Color value2) {
-            value1 = new Color(value1); 
+        public static Color operator /(Color value1, Color value2)
+        {
+            value1 = new Color(value1);
             value1.R /= value2.R;
             value1.G /= value2.G;
             value1.B /= value2.B;
@@ -556,20 +630,21 @@ namespace Otter {
 
         #region Internal
 
-        internal Color(SFML.Graphics.Color copy) {
+        internal Color(SFML.Graphics.Color copy)
+        {
             ByteR = copy.R;
             ByteG = copy.G;
             ByteB = copy.B;
             ByteA = copy.A;
         }
 
-        internal SFML.Graphics.Color SFMLColor {
+        internal SFML.Graphics.Color SFMLColor
+        {
             get { return new SFML.Graphics.Color(ByteR, ByteG, ByteB, ByteA); }
         }
 
         internal Graphic Graphic; // Keep track of the graphic so it can be flagged for an update when the color changes
 
         #endregion
-
     }
 }

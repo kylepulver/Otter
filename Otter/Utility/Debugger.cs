@@ -1,4 +1,3 @@
-﻿using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -6,12 +5,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Otter {
+using SFML.Window;
+
+namespace Otter
+{
     /// <summary>
     /// The debug console.  Only exists when the game is built in Debug Mode.  The game will handle
     /// using this class.  Can be summoned by default with the ~ key.
     /// </summary>
-    public class Debugger {
+    public class Debugger
+    {
 
         #region Private Fields
 
@@ -151,11 +154,14 @@ namespace Otter {
         /// <summary>
         /// The size of the live console in lines. If 0 the live console is hidden.
         /// </summary>
-        public int LiveConsoleSize {
-            get {
+        public int LiveConsoleSize
+        {
+            get
+            {
                 return liveConsoleLines;
             }
-            set {
+            set
+            {
                 liveConsoleLines = value;
                 liveConsoleLines = (int)Util.Clamp(liveConsoleLines, 0, maxLines + 3);
             }
@@ -164,7 +170,8 @@ namespace Otter {
         /// <summary>
         /// The opacity of the debug console's black background.
         /// </summary>
-        public float Opacity {
+        public float Opacity
+        {
             get { return backgroundAlpha; }
             set { backgroundAlpha = Util.Clamp(value, 0f, 1f); }
         }
@@ -176,28 +183,33 @@ namespace Otter {
         #region Default Commands
 
         [OtterCommand(alias: "help", helpText: "Shows help.")]
-        void CmdHelp() {
+        void CmdHelp()
+        {
             Log("", false);
 
             var cmds = GetActiveCommands();
 
             var maxCommandNameLength = cmds.Max(c => c.Key.Length);
             var maxGroupNameLength = cmds.Max(c => GetOtterCommand(c.Key).Group);
-            
+
             Log("== Available Commands:", false);
             cmds // this looks so stupid lol
-                //.OrderBy(kv => kv.Key)
+                 //.OrderBy(kv => kv.Key)
                 .GroupBy(kv => GetOtterCommand(kv.Key).Group)
                 .OrderBy(kv => kv.Key)
-                .Each(group => {
-                    if (group.Key != "") {
+                .Each(group =>
+                {
+                    if (group.Key != "")
+                    {
                         Log("", false);
                         Log(string.Format("= {0}", group.Key), false);
                     }
-                    group.Each(cmd => {
+                    group.Each(cmd =>
+                    {
                         var attr = GetOtterCommand(cmd.Value);
                         var s = cmd.Key;
-                        if (attr.HelpText != "") {
+                        if (attr.HelpText != "")
+                        {
                             s = s.PadRight(maxCommandNameLength + 2, ' ');
                             s += ": ";
                             s += attr.HelpText;
@@ -205,7 +217,7 @@ namespace Otter {
                         Log(s, false);
                     });
                 });
- 
+
             Log("", false);
             Log("== Other:", false);
             Log("Press F2 to move the camera.", false);
@@ -215,10 +227,11 @@ namespace Otter {
         }
 
         [OtterCommand(
-            alias: "music", 
+            alias: "music",
             helpText: "Change the music volume. 0 to 1."
             )]
-        void CmdMusic(float volume) {
+        void CmdMusic(float volume)
+        {
             Music.GlobalVolume = volume;
         }
 
@@ -226,7 +239,8 @@ namespace Otter {
             alias: "sound",
             helpText: "Change the sound volume. 0 to 1."
             )]
-        void CmdSound(float volume) {
+        void CmdSound(float volume)
+        {
             Sound.GlobalVolume = volume;
         }
 
@@ -234,7 +248,8 @@ namespace Otter {
             alias: "overlay",
             helpText: "Set the opacity of the console background. 0 to 1."
             )]
-        void CmdOverlay(float amount) {
+        void CmdOverlay(float amount)
+        {
             backgroundAlpha = Util.Clamp(amount, 0, 1);
         }
 
@@ -242,7 +257,8 @@ namespace Otter {
             alias: "exit",
             helpText: "Exits the game."
             )]
-        void CmdExit() {
+        void CmdExit()
+        {
             game.Close();
         }
 
@@ -250,7 +266,8 @@ namespace Otter {
             alias: "clear",
             helpText: "Clears the console."
             )]
-        void CmdClear() {
+        void CmdClear()
+        {
             inputHistory.Clear();
             inputHistoryIndex = 0;
             debugLog.Clear();
@@ -262,7 +279,8 @@ namespace Otter {
             alias: "showfps",
             helpText: "Shows performance information. 0 to 5."
             )]
-        void CmdFps(int level) {
+        void CmdFps(int level)
+        {
             Console.WriteLine(level);
             ShowPerformance(level);
         }
@@ -271,11 +289,14 @@ namespace Otter {
             alias: "next",
             helpText: "Advances the game by a set number of updates."
             )]
-        void CmdNext(int advanceFrames) {
-            if (game.MeasureTimeInFrames && game.FixedFramerate) {
+        void CmdNext(int advanceFrames)
+        {
+            if (game.MeasureTimeInFrames && game.FixedFramerate)
+            {
                 countDownTimer = 30;
             }
-            else {
+            else
+            {
                 countDownTimer = 0.5f;
             }
             this.advanceFrames = (int)Util.Max(advanceFrames, 1);
@@ -287,29 +308,37 @@ namespace Otter {
             helpText: "Add a new entity at a set position.",
             usageText: "Add a new entity to the Scene at x, y.\nThe entityName must be an entity type,\nand must have a constructor that accepts\ntwo floats or two ints."
             )]
-        void CmdSpawn(string entityName, float x, float y) {
+        void CmdSpawn(string entityName, float x, float y)
+        {
             Type entityType = Util.GetTypesFromAllAssemblies<Entity>(entityName, true).FirstOrDefault();
 
-            if (entityType != null) {
+            if (entityType != null)
+            {
                 object entity = null;
-                try {
+                try
+                {
                     entity = Activator.CreateInstance(entityType, x, y);
                 }
                 catch { }
-                if (entity == null) {
-                    try {
+                if (entity == null)
+                {
+                    try
+                    {
                         entity = Activator.CreateInstance(entityType, (int)x, (int)y);
                     }
                     catch { }
                 }
-                if (entity == null) {
+                if (entity == null)
+                {
                     Error("Entity doesn't have constructor with X, Y.");
                 }
-                else {
+                else
+                {
                     game.Scene.Add((Entity)entity);
                 }
             }
-            else {
+            else
+            {
                 //throw new Exception("Entity type not found."); //Exceptions don't play nice with MethodInfo
                 Error("Entity type not found.");
             }
@@ -319,10 +348,12 @@ namespace Otter {
             alias: "watch",
             helpText: "Display watched values."
             )]
-        void CmdWatch() {
+        void CmdWatch()
+        {
             Log("", false);
             Log("== Watching Vars", false);
-            foreach (var w in watching) {
+            foreach (var w in watching)
+            {
                 Log(w.Key.PadRight(20) + w.Value.ToString(), false);
             }
             Log("", false);
@@ -332,14 +363,17 @@ namespace Otter {
             alias: "log",
             helpText: "Toggle log tags."
             )]
-        void CmdLog(string tag) {
+        void CmdLog(string tag)
+        {
             tag = tag.ToUpper();
             if (tag == "") return;
-            if (logTags.Contains(tag)) {
+            if (logTags.Contains(tag))
+            {
                 logTags.Remove(tag);
                 Log("Removed tag " + tag);
             }
-            else {
+            else
+            {
                 logTags.Add(tag);
                 Log("Added tag " + tag);
             }
@@ -349,7 +383,8 @@ namespace Otter {
             alias: "livelog",
             helpText: "Displays a set number lines of the console live."
             )]
-        void CmdLiveLog(int lines) {
+        void CmdLiveLog(int lines)
+        {
             LiveConsoleSize = lines;
         }
 
@@ -357,7 +392,8 @@ namespace Otter {
 
         #region EventHandlers
 
-        void OnTextEntered(object sender, TextEventArgs e) {
+        void OnTextEntered(object sender, TextEventArgs e)
+        {
             if (locked) return;
 
             if (!commandInputEnabled) return;
@@ -365,66 +401,82 @@ namespace Otter {
             string hexValue = (Encoding.ASCII.GetBytes(e.Unicode)[0].ToString("X"));
             int ascii = (int.Parse(hexValue, NumberStyles.HexNumber));
 
-            if (e.Unicode == "\t") { // Tab completion, may be totally buggy?
-                if (keyString != "") {
-                    if (tabbedString == "") {
+            if (e.Unicode == "\t")
+            { // Tab completion, may be totally buggy?
+                if (keyString != "")
+                {
+                    if (tabbedString == "")
+                    {
                         tabbedString = keyString;
                     }
-                    var commandKeys =  GetActiveCommands().Keys.ToList<string>();
+                    var commandKeys = GetActiveCommands().Keys.ToList<string>();
                     var matches = commandKeys.Where(c => c.StartsWith(tabbedString));
-                    if (matches.Count() > 0) {
+                    if (matches.Count() > 0)
+                    {
                         keyString = matches.ElementAt(tabbedIndex);
                         tabbedIndex++;
                         if (tabbedIndex == matches.Count()) tabbedIndex = 0;
                     }
                 }
             }
-            else {
+            else
+            {
                 tabbedString = "";
                 tabbedIndex = 0;
             }
 
-            if (e.Unicode == "\b") {
-                if (keyString.Length > 0) {
+            if (e.Unicode == "\b")
+            {
+                if (keyString.Length > 0)
+                {
                     keyString = keyString.Remove(keyString.Length - 1, 1);
                 }
             }
-            else if (ascii >= 32 && ascii < 128) {
+            else if (ascii >= 32 && ascii < 128)
+            {
                 keyString += e.Unicode;
             }
 
-            if (GetActiveCommands().ContainsKey(ParseCommandName(keyString))) {
+            if (GetActiveCommands().ContainsKey(ParseCommandName(keyString)))
+            {
                 var cmd = ParseCommandName(keyString);
                 var helpStr = "";
                 helpStr = cmd + " ";
-                commands[cmd].GetParameters().Each(p => {
+                commands[cmd].GetParameters().Each(p =>
+                {
                     helpStr += string.Format("({0}){1} ", ParameterTypeToString(p), p.Name);
                 });
                 textInputHelp.String = "> " + helpStr;
             }
-            else {
+            else
+            {
                 textInputHelp.String = "";
             }
 
-            if (keyString == "") {
+            if (keyString == "")
+            {
                 textInputHelp.String = "";
             }
         }
 
-        void OnMouseWheel(object sender, MouseWheelEventArgs e) {
+        void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        {
             logIndex -= e.Delta * mouseScrollSpeed;
             UpdateConsoleText();
         }
 
-        void OnKeyPressed(object sender, KeyEventArgs e) {
+        void OnKeyPressed(object sender, KeyEventArgs e)
+        {
             if (locked) return;
 
             //why did I make this without the input manager ugh
 
             game.Window.SetKeyRepeatEnabled(true);
 
-            if (currentState == stateNormal) {
-                switch ((Key)e.Code) {
+            if (currentState == stateNormal)
+            {
+                switch ((Key)e.Code)
+                {
                     case Key.Return:
                         enterPressed = true;
                         break;
@@ -462,12 +514,15 @@ namespace Otter {
                         break;
                 }
 
-                if ((Key)e.Code == ToggleKey) {
+                if ((Key)e.Code == ToggleKey)
+                {
                     dismissPressed = true;
                 }
             }
-            else if (currentState == stateCamera) {
-                switch ((Key)e.Code) {
+            else if (currentState == stateCamera)
+            {
+                switch ((Key)e.Code)
+                {
 
                     case Key.Up:
                         debugCamY -= cameraMoveRate;
@@ -484,18 +539,22 @@ namespace Otter {
                 }
             }
 
-            switch ((Key)e.Code) {
+            switch ((Key)e.Code)
+            {
                 case Key.F2:
                     cameraTogglePressed = true;
                     break;
             }
         }
 
-        void OnKeyReleased(object sender, KeyEventArgs e) {
+        void OnKeyReleased(object sender, KeyEventArgs e)
+        {
             if (locked) return;
 
-            if (currentState == stateNormal) {
-                switch ((Key)e.Code) {
+            if (currentState == stateNormal)
+            {
+                switch ((Key)e.Code)
+                {
                     case Key.LShift:
                         mouseScrollSpeed = 1;
                         break;
@@ -511,30 +570,37 @@ namespace Otter {
             }
         }
 
-        void OnKeyPressedToggle(object sender, KeyEventArgs e) {
-            if ((Key)e.Code == ToggleKey) {
+        void OnKeyPressedToggle(object sender, KeyEventArgs e)
+        {
+            if ((Key)e.Code == ToggleKey)
+            {
                 toggleKeyPressed = true;
             }
         }
 
         #endregion
 
-        OtterCommand GetOtterCommand(MethodInfo mi) {
+        OtterCommand GetOtterCommand(MethodInfo mi)
+        {
             return (OtterCommand)mi.GetCustomAttributes(typeof(OtterCommand), false)[0];
         }
 
-        OtterCommand GetOtterCommand(string commandName) {
+        OtterCommand GetOtterCommand(string commandName)
+        {
             return GetOtterCommand(commands[commandName]);
         }
 
-        Dictionary<string, MethodInfo> GetActiveCommands() {
-            return commands.Where(c => {
+        Dictionary<string, MethodInfo> GetActiveCommands()
+        {
+            return commands.Where(c =>
+            {
                 var attr = GetOtterCommand(c.Key);
                 return enabledGroups.Contains(attr.Group) || GetOtterCommand(c.Key).Group == "";
             }).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
-        void SendCommand(string str) {
+        void SendCommand(string str)
+        {
             enterPressed = false;
 
             textInputHelp.String = "";
@@ -549,14 +615,17 @@ namespace Otter {
 
             var cmdName = ParseCommandName(str);
 
-            if (GetActiveCommands().ContainsKey(cmdName)) {
+            if (GetActiveCommands().ContainsKey(cmdName))
+            {
                 commandBuffer.Add(str);
                 var attr = GetOtterCommand(cmdName);
-                if (!attr.IsBuffered) {
+                if (!attr.IsBuffered)
+                {
                     ExecuteCommand();
                 }
             }
-            else {
+            else
+            {
                 Log("error", string.Format("Command \"{0}\" not found.", str));
                 ErrorFlash();
             }
@@ -566,19 +635,24 @@ namespace Otter {
             ClearKeystring();
         }
 
-        void UpdateInputHistory(string str) {
-            if (inputHistory.Count > 0) {
-                if (inputHistory[inputHistory.Count - 1] != str) {
+        void UpdateInputHistory(string str)
+        {
+            if (inputHistory.Count > 0)
+            {
+                if (inputHistory[inputHistory.Count - 1] != str)
+                {
                     inputHistory.Add(str);
                 }
             }
-            else {
+            else
+            {
                 inputHistory.Add(str);
             }
             inputHistoryIndex = inputHistory.Count;
         }
 
-        void LoadPreviousInput() {
+        void LoadPreviousInput()
+        {
             if (inputHistory.Count == 0) return;
 
             inputHistoryIndex -= 1;
@@ -586,7 +660,8 @@ namespace Otter {
             keyString = inputHistory[inputHistoryIndex];
         }
 
-        void LoadNextInput() {
+        void LoadNextInput()
+        {
             if (inputHistory.Count == 0) return;
 
             inputHistoryIndex += 1;
@@ -594,34 +669,43 @@ namespace Otter {
             keyString = inputHistory[inputHistoryIndex];
         }
 
-        string ParseCommandName(string str) {
-            if (str.Contains(' ')) {
+        string ParseCommandName(string str)
+        {
+            if (str.Contains(' '))
+            {
                 return str.Split(' ')[0].ToLower();
             }
             return str.ToLower();
         }
 
-        void ExecuteCommands() {
-            while (commandBuffer.Count > 0) {
+        void ExecuteCommands()
+        {
+            while (commandBuffer.Count > 0)
+            {
                 ExecuteCommand(0);
             }
         }
 
-        void ExecuteCommand(int index = -1) {
+        void ExecuteCommand(int index = -1)
+        {
             if (index == -1) index = commandBuffer.Count - 1;
 
             string cmd = commandBuffer[index];
             //parse the string, when inside a quote replace space with something else
             bool inQuote = false;
             string parsedCmd = "";
-            for (int i = 0; i < cmd.Length; i++) {
+            for (int i = 0; i < cmd.Length; i++)
+            {
                 char nextChar = cmd[i];
-                if (cmd[i] == '"') {
+                if (cmd[i] == '"')
+                {
                     inQuote = !inQuote;
                 }
 
-                if (inQuote) {
-                    if (cmd[i] == ' ') {
+                if (inQuote)
+                {
+                    if (cmd[i] == ' ')
+                    {
                         nextChar = (char)16;
                     }
                 }
@@ -634,9 +718,11 @@ namespace Otter {
             string[] parameters = new string[split.Length - 1];
 
             //restore spaces
-            for (int i = 1; i < split.Length; i++) {
+            for (int i = 1; i < split.Length; i++)
+            {
                 split[i] = split[i].Replace((char)16, ' ');
-                if (split[i][0] == '"') {
+                if (split[i][0] == '"')
+                {
                     //get rid of quotes in string arguments
                     split[i] = split[i].Replace("\"", "");
                 }
@@ -645,33 +731,44 @@ namespace Otter {
 
             bool usageMode = false;
 
-            if (parameters.Length == 0) {
-                if (commands[methodName].GetParameters().Count() > 0) {
+            if (parameters.Length == 0)
+            {
+                if (commands[methodName].GetParameters().Count() > 0)
+                {
                     usageMode = true;
                 }
             }
 
-            if (commands[methodName].GetParameters().Count() != parameters.Length) {
-                if (!usageMode) {
+            if (commands[methodName].GetParameters().Count() != parameters.Length)
+            {
+                if (!usageMode)
+                {
                     Log("error", "Invalid amount of parameters.");
                     ErrorFlash();
                 }
             }
-            
-            if (commands.ContainsKey(methodName)) {
-                if (usageMode) {
+
+            if (commands.ContainsKey(methodName))
+            {
+                if (usageMode)
+                {
                     ShowUsage(methodName);
                 }
-                else if (commands[methodName].GetParameters().Count() == parameters.Length) {
-                    try {
+                else if (commands[methodName].GetParameters().Count() == parameters.Length)
+                {
+                    try
+                    {
                         Invoke(methodName, parameters);
                     }
-                    catch (Exception ex) {
+                    catch (Exception ex)
+                    {
                         Log("error", ex.Message);
-                        if (GetOtterCommand(methodName).IsBuffered) {
+                        if (GetOtterCommand(methodName).IsBuffered)
+                        {
                             executionError = true;
                         }
-                        else {
+                        else
+                        {
                             ErrorFlash();
                         }
                     }
@@ -681,29 +778,36 @@ namespace Otter {
             commandBuffer.RemoveAt(index);
         }
 
-        string ParameterTypeToString(ParameterInfo p) {
-            if (p.ParameterType == typeof(int)) {
+        string ParameterTypeToString(ParameterInfo p)
+        {
+            if (p.ParameterType == typeof(int))
+            {
                 return "int";
             }
-            if (p.ParameterType == typeof(string)) {
+            if (p.ParameterType == typeof(string))
+            {
                 return "string";
             }
-            if (p.ParameterType == typeof(float)) {
+            if (p.ParameterType == typeof(float))
+            {
                 return "float";
             }
-            if (p.ParameterType == typeof(bool)) {
+            if (p.ParameterType == typeof(bool))
+            {
                 return "bool";
             }
             return "";
         }
 
-        void ShowUsage(string methodName) {
+        void ShowUsage(string methodName)
+        {
             Log("", false);
 
             Log(string.Format("== Command Details: {0}", methodName), false);
 
             var helpStr = "";
-            commands[methodName].GetParameters().Each(p => {
+            commands[methodName].GetParameters().Each(p =>
+            {
                 var ptype = ParameterTypeToString(p);
                 helpStr += string.Format("({0}) {1}, ", ptype, p.Name);
             });
@@ -712,7 +816,8 @@ namespace Otter {
             Log(helpStr, false);
 
             var usageStr = GetOtterCommand(methodName).UsageText;
-            if (usageStr != "") {
+            if (usageStr != "")
+            {
                 Log("", false);
                 Log(usageStr, false);
             }
@@ -722,68 +827,87 @@ namespace Otter {
             Log(string.Format("== End of Usage Details", methodName), false);
         }
 
-        void Invoke(string methodName, string[] parameters) {
+        void Invoke(string methodName, string[] parameters)
+        {
             var mi = commands[methodName];
-            
+
             object instance = null;
-            if (!mi.IsStatic) {
-                if (mi.DeclaringType == typeof(Debugger)) {
+            if (!mi.IsStatic)
+            {
+                if (mi.DeclaringType == typeof(Debugger))
+                {
                     instance = this;
                 }
-                else {
+                else
+                {
                     instance = typeInstances[mi.DeclaringType];
                 }
             }
-            try {
+            try
+            {
                 commands[methodName].Invoke(instance, ParseParameters(commands[methodName], parameters));
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 throw ex.InnerException;
             }
-            
+
         }
-     
-        object[] ParseParameters(MethodInfo mi, string[] str) {
+
+        object[] ParseParameters(MethodInfo mi, string[] str)
+        {
             object[] obj = new object[str.Length];
             bool success = true;
 
-            if (mi.GetParameters().Count() != str.Length) {
+            if (mi.GetParameters().Count() != str.Length)
+            {
                 throw new ArgumentException("Invalid amount of parameters.");
             }
 
-            mi.GetParameters().EachWithIndex((p, i) => {
+            mi.GetParameters().EachWithIndex((p, i) =>
+            {
                 var ptype = p.ParameterType;
-                if (ptype == typeof(float)) {
+                if (ptype == typeof(float))
+                {
                     float value;
-                    if (!float.TryParse(str[i].TrimEnd('f'), out value)) {
+                    if (!float.TryParse(str[i].TrimEnd('f'), out value))
+                    {
                         throw new ArgumentException(string.Format("Error parsing float for parameter {0}", i));
                     }
-                    else {
+                    else
+                    {
                         obj[i] = value;
                     }
                 }
 
-                if (ptype == typeof(int)) {
+                if (ptype == typeof(int))
+                {
                     int value;
-                    if (!int.TryParse(str[i], out value)) {
+                    if (!int.TryParse(str[i], out value))
+                    {
                         throw new ArgumentException(string.Format("Error parsing int for parameter {0}", i));
                     }
-                    else {
+                    else
+                    {
                         obj[i] = value;
                     }
                 }
 
-                if (ptype == typeof(bool)) {
+                if (ptype == typeof(bool))
+                {
                     bool value;
-                    if (!bool.TryParse(str[i], out value)) {
+                    if (!bool.TryParse(str[i], out value))
+                    {
                         throw new ArgumentException(string.Format("Error parsing bool for parameter {0}", i));
                     }
-                    else {
+                    else
+                    {
                         obj[i] = value;
                     }
                 }
 
-                if (ptype == typeof(string)) {
+                if (ptype == typeof(string))
+                {
                     obj[i] = str[i];
                 }
             });
@@ -791,7 +915,8 @@ namespace Otter {
             return obj;
         }
 
-        void UpdateConsoleText() {
+        void UpdateConsoleText()
+        {
             textPastCommands.String = "";
             textPastCommandsLive.String = "";
 
@@ -800,55 +925,69 @@ namespace Otter {
 
             int logStart = (int)Util.Clamp(logIndex, 0, logMax);
 
-            for (var i = 0; i < maxLines; i++) {
-                if (i < debugLog.Count) {
+            for (var i = 0; i < maxLines; i++)
+            {
+                if (i < debugLog.Count)
+                {
                     textPastCommands.String += debugLog[i + logStart] + "\n";
                 }
             }
 
             int liveLogStart = (int)Util.Clamp(debugLog.Count - liveConsoleLines, 0, debugLog.Count);
-            for (var i = 0; i < liveConsoleLines; i++) {
-                if (i < debugLog.Count) {
+            for (var i = 0; i < liveConsoleLines; i++)
+            {
+                if (i < debugLog.Count)
+                {
                     textPastCommandsLive.String += debugLog[i + liveLogStart] + "\n";
                 }
             }
 
-            if (commandBuffer.Count > 0) {
+            if (commandBuffer.Count > 0)
+            {
                 textCommandsBuffered.String = "[" + commandBuffer.Count + "] Commands to be executed.  Press [" + ToggleKey + "] to execute.";
             }
-            else {
+            else
+            {
                 textCommandsBuffered.String = "";
             }
         }
 
-        void ClearKeystring() {
+        void ClearKeystring()
+        {
             keyString = "";
         }
 
-        void ErrorFlash() {
+        void ErrorFlash()
+        {
             imgError.Alpha = 0.5f;
         }
 
-        void UpdatePerformance() {
+        void UpdatePerformance()
+        {
             textPerformance.String = "";
 
-            if (showPerformance == 1) {
+            if (showPerformance == 1)
+            {
                 textPerformance.String = game.Framerate.ToString("00.0") + " FPS";
             }
-            else if (showPerformance == 2) {
+            else if (showPerformance == 2)
+            {
                 textPerformance.String = game.Framerate.ToString("00.0") + " FPS " + game.AverageFramerate.ToString("00.0") + " AVG";
             }
-            else if (showPerformance == 3) {
+            else if (showPerformance == 3)
+            {
                 textPerformance.String = game.Framerate.ToString("00.0") + " FPS " + game.AverageFramerate.ToString("00.0") + " AVG";
                 textPerformance.String += "\nUpdate " + game.UpdateCount.ToString("0000") + " Entities";
                 textPerformance.String += "\nRender " + game.RenderCount.ToString("0000") + " Renders";
             }
-            else if (showPerformance == 4) {
+            else if (showPerformance == 4)
+            {
                 textPerformance.String = game.Framerate.ToString("00.0") + " FPS " + game.AverageFramerate.ToString("00.0") + " AVG " + game.RealDeltaTime.ToString("0") + "ms";
                 textPerformance.String += "\nUpdate " + game.UpdateTime.ToString("00") + "ms (" + game.UpdateCount.ToString("0000") + " Entities)";
                 textPerformance.String += "\nRender " + game.RenderTime.ToString("00") + "ms (" + game.RenderCount.ToString("0000") + " Renders)";
             }
-            else if (showPerformance >= 5) {
+            else if (showPerformance >= 5)
+            {
                 textPerformance.String = game.Framerate.ToString("00.0") + " FPS " + game.AverageFramerate.ToString("00.0") + " AVG " + game.RealDeltaTime.ToString("0") + "ms " + (GC.GetTotalMemory(false) / 1024 / 1024).ToString("00") + "MB";
                 textPerformance.String += "\nUpdate " + game.UpdateTime.ToString("00") + "ms (" + game.UpdateCount.ToString("0000") + " Entities)";
                 textPerformance.String += "\nRender " + game.RenderTime.ToString("00") + "ms (" + game.RenderCount.ToString("0000") + " Renders)";
@@ -866,7 +1005,8 @@ namespace Otter {
         /// <summary>
         /// Summons the Debugger.
         /// </summary>
-        public void Summon() {
+        public void Summon()
+        {
             if (IsOpen) return;
             if (dismissFor > 0) return;
 
@@ -884,10 +1024,12 @@ namespace Otter {
 
             IsOpen = true;
 
-            if (autoSummon) {
+            if (autoSummon)
+            {
                 Log("Next " + advanceFrames + " updates completed.");
             }
-            else {
+            else
+            {
                 Log("Debugger opened.");
             }
             UpdateConsoleText();
@@ -900,7 +1042,8 @@ namespace Otter {
         /// Display performance information at a specified detail level. Set to 0 to disable. 5 is the most detailed.
         /// </summary>
         /// <param name="level">The level of detail.  0 for disabled, 5 for the most detailed.</param>
-        public void ShowPerformance(int level) {
+        public void ShowPerformance(int level)
+        {
             showPerformance = level;
         }
 
@@ -908,7 +1051,8 @@ namespace Otter {
         /// Toggle the logging of a specific tag. If the tag is off, it will be turned on, and vice versa.
         /// </summary>
         /// <param name="tag">The tag to toggle.</param>
-        public void LogTag(string tag) {
+        public void LogTag(string tag)
+        {
             CmdLog(tag);
         }
 
@@ -916,7 +1060,8 @@ namespace Otter {
         /// Enables commands in a specific group to be used.
         /// </summary>
         /// <param name="group"></param>
-        public void EnableCommandGroup(string group) {
+        public void EnableCommandGroup(string group)
+        {
             enabledGroups.Add(group);
         }
 
@@ -924,7 +1069,8 @@ namespace Otter {
         /// Disables commands in a specific group.
         /// </summary>
         /// <param name="group"></param>
-        public void DisableCommandGroup(string group) {
+        public void DisableCommandGroup(string group)
+        {
             enabledGroups.Remove(group);
         }
 
@@ -934,31 +1080,39 @@ namespace Otter {
         /// <param name="tag">The tag to associate the log with.</param>
         /// <param name="str">The string to add to the console.</param>
         /// <param name="timestamp">Include a timestamp with the item.</param>
-        public void Log(string tag, object str, bool timestamp = true) {
+        public void Log(string tag, object str, bool timestamp = true)
+        {
             tag = tag.ToUpper();
-            if (str.ToString().Contains('\n')) {
+            if (str.ToString().Contains('\n'))
+            {
                 var split = str.ToString().Split('\n');
-                foreach (var s in split) {
+                foreach (var s in split)
+                {
                     Log(tag, s, timestamp);
                 }
                 return;
             }
-            if (logIndex == debugLog.Count - maxLines) {
+            if (logIndex == debugLog.Count - maxLines)
+            {
                 logIndex++;
             }
-            if (debugLog.Count == debugLogBufferSize) {
+            if (debugLog.Count == debugLogBufferSize)
+            {
                 debugLog.RemoveAt(0);
             }
             var tagstr = "";
-            if (tag != "") {
+            if (tag != "")
+            {
                 tagstr = string.Format("[{0}] ", tag);
                 str = tagstr + str;
             }
-            if (timestamp) {
+            if (timestamp)
+            {
                 string format = game.MeasureTimeInFrames && game.FixedFramerate ? "000000" : "00000.000";
                 str = game.Timer.ToString(format) + ": " + str;
             }
-            if (logTags.Contains(tag.ToUpper())) {
+            if (logTags.Contains(tag.ToUpper()))
+            {
                 debugLog.Add(str.ToString());
                 UpdateConsoleText();
             }
@@ -969,7 +1123,8 @@ namespace Otter {
         /// </summary>
         /// <param name="str">The string to add to the console.</param>
         /// <param name="timestamp">Include a timestamp with the item.</param>
-        public void Log(object str, bool timestamp = true) {
+        public void Log(object str, bool timestamp = true)
+        {
             Log("", str, timestamp);
         }
 
@@ -978,7 +1133,8 @@ namespace Otter {
         /// so probably want to call this from an OtterCommand method when something goes wrong.
         /// </summary>
         /// <param name="message">The message to show.</param>
-        public void Error(string message) {
+        public void Error(string message)
+        {
             Log("ERROR", message);
             ErrorFlash();
         }
@@ -989,8 +1145,10 @@ namespace Otter {
         /// </summary>
         /// <param name="str">The label for the value.</param>
         /// <param name="obj">The value.</param>
-        public void Watch(string str, object obj) {
-            if (watching.ContainsKey(str)) {
+        public void Watch(string str, object obj)
+        {
+            if (watching.ContainsKey(str))
+            {
                 watching.Remove(str);
             }
             watching.Add(str, obj);
@@ -1000,30 +1158,38 @@ namespace Otter {
         /// Refreshes the available commands by finding any methods tagged with the OtterCommand attribute.
         /// Don't do this a lot.
         /// </summary>
-        public void RegisterCommands() {
+        public void RegisterCommands()
+        {
             commands.Clear();
             typeInstances.Clear();
 
             AppDomain.CurrentDomain.GetAssemblies()
                 .Each(a => a.GetTypes()
                     .Each(t => t.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static)
-                        .Each(m => {
-                            if (m.IsDefined(typeof(OtterCommand), false)) {
+                        .Each(m =>
+                        {
+                            if (m.IsDefined(typeof(OtterCommand), false))
+                            {
                                 var key = m.Name.ToLower();
                                 var attr = GetOtterCommand(m);
-                                if (attr.Alias != "") {
+                                if (attr.Alias != "")
+                                {
                                     key = attr.Alias.ToLower();
                                 }
 
-                                if (attr.Group != "") {
+                                if (attr.Group != "")
+                                {
                                     enabledGroups.Add(attr.Group);
                                 }
-                               
+
                                 commands.Add(key, m);
 
-                                if (!m.IsStatic) {
-                                    if (m.DeclaringType != typeof(Debugger)) {
-                                        if (!typeInstances.ContainsKey(m.DeclaringType)) {
+                                if (!m.IsStatic)
+                                {
+                                    if (m.DeclaringType != typeof(Debugger))
+                                    {
+                                        if (!typeInstances.ContainsKey(m.DeclaringType))
+                                        {
                                             typeInstances.Add(
                                                 m.DeclaringType,
                                                 Activator.CreateInstance(m.DeclaringType, null)
@@ -1039,11 +1205,12 @@ namespace Otter {
 
         #region Internal
 
-        internal Debugger(Game game) {
+        internal Debugger(Game game)
+        {
             Instance = this;
             this.game = game;
 
-            imgOtter = new Image(new Texture(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("Otter.otterlogo.png")));
+            imgOtter = new Image(new Texture("otterlogo.png"));
 
             imgOtter.Batchable = false;
 
@@ -1100,7 +1267,8 @@ namespace Otter {
             dismissFor = 0;
         }
 
-        internal void UpdateSurface() {
+        internal void UpdateSurface()
+        {
             renderSurface = new Surface(game.WindowWidth, game.WindowHeight);
             renderSurface.CenterOrigin();
             renderSurface.X = game.Surface.X;
@@ -1175,22 +1343,26 @@ namespace Otter {
             textCamera.Y = renderSurface.Height - padding - textCamera.LineSpacing;
         }
 
-        internal void WindowInit() {
-            if (IsOpen) {
+        internal void WindowInit()
+        {
+            if (IsOpen)
+            {
                 RemoveInput();
                 AddInput();
             }
             game.Window.KeyPressed += OnKeyPressedToggle;
         }
 
-        internal void AddInput() {
+        internal void AddInput()
+        {
             game.Window.TextEntered += OnTextEntered;
             game.Window.KeyPressed += OnKeyPressed;
             game.Window.MouseWheelMoved += OnMouseWheel;
             game.Window.KeyReleased += OnKeyReleased;
         }
 
-        internal void RemoveInput() {
+        internal void RemoveInput()
+        {
             game.Window.TextEntered -= OnTextEntered;
             game.Window.KeyPressed -= OnKeyPressed;
             game.Window.MouseWheelMoved -= OnMouseWheel;
@@ -1199,66 +1371,81 @@ namespace Otter {
 
         internal Game game;
 
-        internal void Update() {
+        internal void Update()
+        {
             Instance = this;
 
             UpdatePerformance();
 
-            if (currentState == stateNormal) {
-                if (cameraTogglePressed) {
+            if (currentState == stateNormal)
+            {
+                if (cameraTogglePressed)
+                {
                     cameraTogglePressed = false;
                     currentState = stateCamera;
                     commandInputEnabled = false;
                     Visible = false;
                 }
 
-                if (toggleKeyPressed) {
+                if (toggleKeyPressed)
+                {
                     toggleKeyPressed = false;
-                    if (!IsOpen) {
+                    if (!IsOpen)
+                    {
                         Summon();
                     }
                 }
 
-                if (dismissFor > 0) {
+                if (dismissFor > 0)
+                {
                     int framesLeft = advanceFrames - dismissFor;
                     textFramesLeft.String = "Update " + framesLeft.ToString("000") + "/" + advanceFrames.ToString("000");
                     dismissFor--;
-                    if (dismissFor == 0) {
+                    if (dismissFor == 0)
+                    {
                         // set a flag here or something
                         autoSummon = true;
                         Summon();
                     }
                 }
 
-                if (dismissPressed) {
+                if (dismissPressed)
+                {
                     Dismiss();
                 }
 
-                if (!IsOpen) {
+                if (!IsOpen)
+                {
                     return;
                 }
 
                 textCountdown.String = "";
-                if (countDownTimer > 0) {
+                if (countDownTimer > 0)
+                {
                     countDownTimer -= game.DeltaTime;
-                    if (countDownTimer <= 0) {
+                    if (countDownTimer <= 0)
+                    {
                         dismissFor = advanceFrames;
                         locked = false;
                         Dismiss(false);
                         countDownTimer = 0;
                     }
-                    if (game.MeasureTimeInFrames && game.FixedFramerate) {
+                    if (game.MeasureTimeInFrames && game.FixedFramerate)
+                    {
                         textCountdown.String = countDownTimer.ToString("STARTING IN 00");
                     }
-                    else {
+                    else
+                    {
                         textCountdown.String = countDownTimer.ToString("STARTING IN 00.00");
                     }
                     textCountdown.CenterOrigin();
                     return;
                 }
             }
-            else if (currentState == stateCamera) {
-                if (cameraTogglePressed) {
+            else if (currentState == stateCamera)
+            {
+                if (cameraTogglePressed)
+                {
                     cameraTogglePressed = false;
                     commandInputEnabled = true;
                     currentState = stateNormal;
@@ -1268,7 +1455,8 @@ namespace Otter {
                 DebugCameraX += (debugCamX - DebugCameraX) * 0.25f;
                 DebugCameraY += (debugCamY - DebugCameraY) * 0.25f;
 
-                if (Scene.Instance != null) {
+                if (Scene.Instance != null)
+                {
                     Scene.Instance.UpdateCamera();
                 }
             }
@@ -1290,23 +1478,26 @@ namespace Otter {
 
             imgScrollBar.Y = padding + scrollpos;
 
-            if (enterPressed) {
+            if (enterPressed)
+            {
                 SendCommand(keyString);
             }
 
             time += game.DeltaTime;
         }
 
-        
 
-        internal void Dismiss(bool execute = true) {
+
+        internal void Dismiss(bool execute = true)
+        {
             if (!IsOpen) return;
 
             if (execute) ExecuteCommands();
 
             ClearKeystring();
 
-            if (!executionError) {
+            if (!executionError)
+            {
                 RemoveInput();
                 IsOpen = false;
                 game.Input.bufferReleases = true;
@@ -1315,7 +1506,8 @@ namespace Otter {
                 DebugCameraX = 0;
                 DebugCameraY = 0;
             }
-            else {
+            else
+            {
                 ErrorFlash();
                 UpdateConsoleText();
                 executionError = false;
@@ -1325,7 +1517,8 @@ namespace Otter {
 
         }
 
-        internal void Render() {
+        internal void Render()
+        {
             game.countRendering = false;
 
             var tempTarget = Draw.Target;
@@ -1333,19 +1526,23 @@ namespace Otter {
 
             Draw.Graphic(textPerformance, x, y);
 
-            if (dismissFor > 0) {
+            if (dismissFor > 0)
+            {
                 Draw.Graphic(textFramesLeft, x, y);
             }
 
-            if (Visible) {
+            if (Visible)
+            {
                 Draw.Graphic(imgOverlay, x, y);
                 Draw.Graphic(imgOtter, x, y);
                 Draw.Graphic(imgError, x, y);
 
-                if (countDownTimer > 0) {
+                if (countDownTimer > 0)
+                {
                     Draw.Graphic(textCountdown, x, y);
                 }
-                else {
+                else
+                {
                     Draw.Graphic(imgScrollBarBg, x, y);
                     Draw.Graphic(imgScrollBar, x, y);
                     Draw.Graphic(textInput, x, y);
@@ -1354,11 +1551,13 @@ namespace Otter {
                     Draw.Graphic(textCommandsBuffered, x, y);
                 }
             }
-            else {
+            else
+            {
                 if (liveConsoleLines > 0) Draw.Graphic(textPastCommandsLive, x, y);
             }
 
-            if (currentState == stateCamera) {
+            if (currentState == stateCamera)
+            {
                 Draw.Graphic(textCamera, x, y);
             }
 
@@ -1372,7 +1571,8 @@ namespace Otter {
         #endregion    
     }
 
-    public class OtterCommand : Attribute {
+    public class OtterCommand : Attribute
+    {
         /// <summary>
         /// The string that can be typed into the console to invoke this method.
         /// </summary>
@@ -1406,7 +1606,8 @@ namespace Otter {
         /// <param name="helpText">The text that will appear along with the method when the user invokes the help command.</param>
         /// <param name="group">The method group to associate this method with. Groups can be added or removed during runtime.</param>
         /// <param name="isBuffered">If true the method will not run until the next update.</param>
-        public OtterCommand(string alias = "", string usageText = "", string helpText = "", string group = "", bool isBuffered = false) {
+        public OtterCommand(string alias = "", string usageText = "", string helpText = "", string group = "", bool isBuffered = false)
+        {
             Alias = alias;
             UsageText = usageText;
             HelpText = helpText;

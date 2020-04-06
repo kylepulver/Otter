@@ -1,8 +1,10 @@
-﻿namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Class for a simple line with two points.
     /// </summary>
-    public class Line2 {
+    public class Line2
+    {
 
         #region Public Fields
 
@@ -33,7 +35,8 @@
         /// <summary>
         /// The first point of the line as a vector2.
         /// </summary>
-        public Vector2 PointA {
+        public Vector2 PointA
+        {
             get { return new Vector2(X1, Y1); }
             set { X1 = (float)value.X; Y1 = (float)value.Y; }
         }
@@ -41,7 +44,8 @@
         /// <summary>
         /// The second point of a line as a vector2.
         /// </summary>
-        public Vector2 PointB {
+        public Vector2 PointB
+        {
             get { return new Vector2(X2, Y2); }
             set { X2 = (float)value.X; Y2 = (float)value.Y; }
         }
@@ -49,21 +53,24 @@
         /// <summary>
         /// A in the line equation Ax + By = C.
         /// </summary>
-        public float A {
+        public float A
+        {
             get { return Y2 - Y1; }
         }
 
         /// <summary>
         /// B in the line equation Ax + By = C.
         /// </summary>
-        public float B {
+        public float B
+        {
             get { return X1 - X2; }
         }
 
         /// <summary>
         /// C in the line equation Ax + By = C.
         /// </summary>
-        public float C {
+        public float C
+        {
             get { return A * X1 + B * Y1; }
         }
 
@@ -78,7 +85,8 @@
         /// <param name="y1">Y of the first point</param>
         /// <param name="x2">X of the second point</param>
         /// <param name="y2">Y of the second point</param>
-        public Line2(float x1, float y1, float x2, float y2) {
+        public Line2(float x1, float y1, float x2, float y2)
+        {
             X1 = x1; X2 = x2; Y1 = y1; Y2 = y2;
         }
 
@@ -87,7 +95,8 @@
         /// </summary>
         /// <param name="xy1">X,Y of the first point</param>
         /// <param name="xy2">X,Y of the second point</param>
-        public Line2(Vector2 xy1, Vector2 xy2) {
+        public Line2(Vector2 xy1, Vector2 xy2)
+        {
             PointA = xy1; PointB = xy2;
         }
 
@@ -100,7 +109,8 @@
         /// </summary>
         /// <param name="other">The line to test against</param>
         /// <returns></returns>
-        public bool Intersects(Line2 other) {
+        public bool Intersects(Line2 other)
+        {
             //A = X1, Y1; B = X2, Y2; C = other.X1, other.Y1; D = other.X2, other.Y2;
             Vector2 A = new Vector2(X1, Y1);
             Vector2 B = new Vector2(X2, Y2);
@@ -115,7 +125,8 @@
             float CmPxs = (float)CmP.X * (float)s.Y - (float)CmP.Y * (float)s.X;
             float rxs = (float)r.X * (float)s.Y - (float)r.Y * (float)s.X;
 
-            if (CmPxr == 0f) {
+            if (CmPxr == 0f)
+            {
                 // Lines are collinear, and so intersect if they have any overlap
 
                 return ((C.X - A.X < 0f) != (C.X - B.X < 0f))
@@ -132,7 +143,8 @@
             return (t >= 0f) && (t <= 1f) && (u >= 0f) && (u <= 1f);
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "{X1: " + X1 + " Y1: " + Y1 + " X2: " + X2 + " Y2: " + Y2 + "}";
         }
 
@@ -144,7 +156,8 @@
         /// <param name="width">Width of the rectangle.</param>
         /// <param name="height">Height of the rectangle.</param>
         /// <returns>True if the line intersects any line on the rectangle, or if the line is inside the rectangle.</returns>
-        public bool IntersectsRect(float x, float y, float width, float height) {
+        public bool IntersectsRect(float x, float y, float width, float height)
+        {
             if (Util.InRect(X1, Y1, x, y, width, height)) return true;
             if (Util.InRect(X2, Y2, x, y, width, height)) return true;
             if (Intersects(new Line2(x, y, x + width, y))) return true;
@@ -161,7 +174,8 @@
         /// <param name="circle"></param>
         /// <param name="radius"></param>
         /// <returns></returns>
-        public bool IntersectCircle(Vector2 circle, float radius) {
+        public bool IntersectCircle(Vector2 circle, float radius)
+        {
             // find the closest point on the line segment to the center of the circle
             Vector2 line = PointB - PointA;
             float lineLength = (float)line.Length;

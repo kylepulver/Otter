@@ -26,11 +26,13 @@ SOFTWARE.
 #endregion License
 using System;
 
-namespace Otter {
+namespace Otter
+{
     /// <summary>
     /// Struct for representing a Point.
     /// </summary>
-    public struct Point : IEquatable<Point> {
+    public struct Point : IEquatable<Point>
+    {
 
         #region Private Fields
 
@@ -47,7 +49,8 @@ namespace Otter {
 
         #region Properties
 
-        public static Point Zero {
+        public static Point Zero
+        {
             get { return zeroPoint; }
         }
 
@@ -55,7 +58,8 @@ namespace Otter {
 
         #region Constructors
 
-        public Point(int x, int y) {
+        public Point(int x, int y)
+        {
             this.X = x;
             this.Y = y;
         }
@@ -64,27 +68,33 @@ namespace Otter {
 
         #region Public methods
 
-        public static bool operator ==(Point a, Point b) {
+        public static bool operator ==(Point a, Point b)
+        {
             return a.Equals(b);
         }
 
-        public static bool operator !=(Point a, Point b) {
+        public static bool operator !=(Point a, Point b)
+        {
             return !a.Equals(b);
         }
 
-        public bool Equals(Point other) {
+        public bool Equals(Point other)
+        {
             return ((X == other.X) && (Y == other.Y));
         }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             return (obj is Point) ? Equals((Point)obj) : false;
         }
 
-        public override int GetHashCode() {
+        public override int GetHashCode()
+        {
             return X ^ Y;
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return string.Format("{{X:{0} Y:{1}}}", X, Y);
         }
 

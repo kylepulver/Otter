@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Otter;
+﻿using Otter;
 
-namespace OtterPongGame {
-    class Program {
-        static void Main(string[] args) {
+namespace OtterPongGame
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
             Game game = new Game("Otter Pong", 1000, 750);
 
             Global.PlayerOne = game.AddSession("P1");
