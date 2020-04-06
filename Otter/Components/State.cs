@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Used in StateMachine. Contains functions for enter, update, and exit.

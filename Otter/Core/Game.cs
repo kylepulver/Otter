@@ -9,6 +9,7 @@ using SFML.Window;
 using SFML.System;
 
 using Otter.Utility;
+using Otter.Components;
 
 namespace Otter.Core
 {

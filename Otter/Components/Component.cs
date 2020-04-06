@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Otter.Core;
 using Otter.Colliders;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Base Component class.  Components can be added to Entities.

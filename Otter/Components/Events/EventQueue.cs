@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// A Component to manage and process queue of events.

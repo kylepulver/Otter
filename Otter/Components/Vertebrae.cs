@@ -1,7 +1,7 @@
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Class representing one piece of a Snake.

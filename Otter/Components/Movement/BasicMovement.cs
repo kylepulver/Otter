@@ -3,7 +3,7 @@ using System;
 using Otter.Colliders;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Movement Component that can be used by an Entity to provide simple top-down style movement.

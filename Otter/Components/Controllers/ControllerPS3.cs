@@ -1,6 +1,6 @@
 using Otter.Core;
 
-namespace Otter
+namespace Otter.Components
 {
     public class ControllerPS3 : Controller
     {

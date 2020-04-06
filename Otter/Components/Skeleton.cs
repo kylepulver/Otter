@@ -6,7 +6,7 @@ using System.Xml;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// A Component that can manage a set of Bone Components that can move Entities around.  Sort of like a system

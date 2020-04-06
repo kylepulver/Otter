@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.Sockets;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component for connecting to and interacting with an IRC server.  Contains only very basic functionality.  Probably not very useable yet!

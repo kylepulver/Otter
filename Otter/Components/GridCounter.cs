@@ -2,7 +2,7 @@ using System;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Counter in which the value can be moved in both an X and Y direction.  Probably most useful

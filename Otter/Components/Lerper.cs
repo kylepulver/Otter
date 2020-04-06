@@ -2,7 +2,7 @@ using System;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component that will slowly interpolate a value toward a target using a speed and acceleration.

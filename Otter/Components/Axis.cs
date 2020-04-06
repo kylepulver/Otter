@@ -6,7 +6,7 @@ using SFML.Window;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component that represents an axis of input.  Interprets both X and Y from -1 to 1.  Can use multiple

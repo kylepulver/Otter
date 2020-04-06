@@ -4,6 +4,7 @@ using System.Linq;
 
 using Otter.Colliders;
 using Otter.Utility;
+using Otter.Components;
 
 namespace Otter.Core
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Otter.Colliders;
 using Otter.Utility;
+using Otter.Components;
 
 namespace Otter.Core
 {

@@ -5,7 +5,7 @@ using SFML.Window;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component used for interpreting input as a button. It can recieve input from multiple sources

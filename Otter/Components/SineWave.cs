@@ -1,13 +1,12 @@
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component that controls a sine wave.  Can be useful for special effects and such.
     /// </summary>
     public class SineWave : Component
     {
-
         #region Public Fields
 
         /// <summary>
@@ -103,6 +102,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

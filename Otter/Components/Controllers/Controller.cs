@@ -7,7 +7,7 @@ using System.Text;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component representing a group of Button and Axis classes. The controller updates all buttons

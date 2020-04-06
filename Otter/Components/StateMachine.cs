@@ -4,7 +4,7 @@ using System.Reflection;
 
 using Otter.Core;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// State machine that uses a specific type.  This is really meant for using an enum as your list of states.

@@ -2,7 +2,7 @@ using System;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     public class Countdown : Component
     {

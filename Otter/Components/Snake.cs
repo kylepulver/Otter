@@ -4,7 +4,7 @@ using System.Linq;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     public class Snake : Component
     {

@@ -1,13 +1,12 @@
 using System;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component that counts down and executes a function.  After it has executed it removes itself.
     /// </summary>
     public class Alarm : Component
     {
-
         #region Public Fields
 
         /// <summary>

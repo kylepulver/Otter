@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Otter.Colliders;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// A base class for Movement Components to extend.
