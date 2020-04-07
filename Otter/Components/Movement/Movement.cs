@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using Otter.Colliders;
 using Otter.Utility;
 
-namespace Otter.Components
+namespace Otter.Components.Movement
 {
     /// <summary>
     /// A base class for Movement Components to extend.
     /// </summary>
     public class Movement : Component
-    {  
+    {
         #region Private Fields
 
         protected int
