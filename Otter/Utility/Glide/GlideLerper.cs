@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter.Utility
+namespace Otter.Utility.Glide
 {
     public abstract class GlideLerper
     {

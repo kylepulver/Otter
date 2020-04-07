@@ -11,6 +11,7 @@ using SFML.System;
 
 using Otter.Utility;
 using Otter.Components;
+using Otter.Utility.Glide;
 
 namespace Otter.Core
 {

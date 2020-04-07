@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Otter.Colliders;
 using Otter.Utility;
 using Otter.Components;
+using Otter.Utility.Glide;
 
 namespace Otter.Core
 {

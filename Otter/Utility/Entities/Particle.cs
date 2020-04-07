@@ -690,7 +690,7 @@ namespace Otter.Utility.Entities
 
             if (Ease == null)
             {
-                Ease = Utility.Ease.Linear;
+                Ease = Utility.Glide.Ease.Linear;
             }
 
             if (Shader != null)
