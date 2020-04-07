@@ -7,12 +7,12 @@ using System.Text;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter.Components
+namespace Otter.Components.Controllers
 {
     /// <summary>
     /// Component representing a group of Button and Axis classes. The controller updates all buttons
     /// and axis manually. This is used by the Session class to manage player input.
-    /// 
+    ///
     /// Input recording should only be used in fixed framerate games!  If used with variable framerate
     /// the playback is not reliable.
     /// </summary>
