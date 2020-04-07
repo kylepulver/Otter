@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 using SFML.Graphics;
 using SFML.Window;
@@ -14,7 +15,7 @@ namespace Otter
     ///  ᶜ(ᵔᴥᵔ)ᵓ
     ///  Core class Otter. Create a Game, and then use Game.Start(); to run it.
     /// </summary>
-    public class Game
+    public class Game : IDisposable
     {
 
         #region Static Fields
@@ -23,6 +24,9 @@ namespace Otter
         /// A reference to the active Game instance.
         /// </summary>
         public static Game Instance;
+
+        [DllImport("X11")]
+        extern static int XInitThreads();
 
         #endregion
 
@@ -730,6 +734,7 @@ namespace Otter
                 windowStyle = Styles.None;
             }
 
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) XInitThreads();
             Window = new RenderWindow(new VideoMode((uint)width, (uint)height), title, fullscreen ? Styles.Fullscreen : windowStyle);
             Window.Closed += new EventHandler(OnWindowClose);
             Window.GainedFocus += new EventHandler(Focused);
@@ -742,6 +747,7 @@ namespace Otter
             }
 
             Window.SetVerticalSyncEnabled(vsync);
+            Window.SetActive();
 
             UpdateView();
             if (Input != null)
@@ -1499,6 +1505,17 @@ namespace Otter
         public Session Session(int id)
         {
             return Sessions[id];
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing) Window.Dispose();
         }
 
         #endregion
