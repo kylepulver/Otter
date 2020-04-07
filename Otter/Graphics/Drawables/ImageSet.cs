@@ -1,6 +1,7 @@
 using System;
 
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter {
     /// <summary>
@@ -113,6 +114,6 @@ namespace Otter {
         }
 
         #endregion
-        
+
     }
 }

@@ -3,6 +3,7 @@ using SFML.System;
 
 using Otter.Core;
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter {
     /// <summary>
@@ -227,7 +228,7 @@ namespace Otter {
         #region Constructors
 
         /// <summary>
-        /// Creates a new Image using a filepath to a texture.  
+        /// Creates a new Image using a filepath to a texture.
         /// </summary>
         /// <param name="source">The filepath of the texture.</param>
         /// <param name="clip">Where to clip the texture.</param>

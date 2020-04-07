@@ -9,9 +9,10 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-using Otter.Utility;
 using Otter.Components;
+using Otter.Utility;
 using Otter.Utility.Glide;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Core
 {

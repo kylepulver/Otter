@@ -27,7 +27,7 @@ SOFTWARE.
 
 using System;
 
-namespace Otter.Utility
+namespace Otter.Utility.MonoGame
 {
     /// <summary>
     /// Struct for representing a Rectangle.

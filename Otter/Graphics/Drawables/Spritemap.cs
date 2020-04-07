@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter {
     /// <summary>
@@ -13,7 +14,7 @@ namespace Otter {
         #region Public Fields
 
         /// <summary>
-        /// The playback speed of all animations.  
+        /// The playback speed of all animations.
         /// </summary>
         public float Speed = 1f;
 

@@ -5,6 +5,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter {
     /// <summary>
@@ -533,7 +534,7 @@ namespace Otter {
         }
 
         #endregion
-        
+
     }
 
     #region Enum

@@ -28,7 +28,7 @@ SOFTWARE.
 using System;
 using System.Text;
 
-namespace Otter.Utility
+namespace Otter.Utility.MonoGame
 {
     /// <summary>
     /// Struct for representing a Vector4.

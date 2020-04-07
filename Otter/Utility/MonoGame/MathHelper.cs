@@ -27,7 +27,7 @@ SOFTWARE.
 
 using System;
 
-namespace Otter.Utility
+namespace Otter.Utility.MonoGame
 {
     /// <summary>
     /// Contains commonly used precalculated values and mathematical operations.
@@ -184,7 +184,7 @@ namespace Otter.Utility
         /// <param name="value1">Source value.</param>
         /// <param name="value2">Source value.</param>
         /// <param name="amount">Value between 0 and 1 indicating the weight of value2.</param>
-        /// <returns>Interpolated value.</returns> 
+        /// <returns>Interpolated value.</returns>
         /// <remarks>This method performs the linear interpolation based on the following formula.
         /// <c>value1 + (value2 - value1) * amount</c>
         /// Passing amount a value of 0 will cause value1 to be returned, a value of 1 will cause value2 to be returned.

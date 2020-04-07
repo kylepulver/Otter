@@ -6,6 +6,7 @@ using SFML.System;
 
 using Otter.Core;
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter {
     /// <summary>
@@ -240,10 +241,10 @@ namespace Otter {
                 }
             }
         }
-       
+
         void RefreshView() {
             View v = new View(new FloatRect(cameraX, cameraY, Width, Height));
-            
+
             v.Rotation = -cameraAngle;
             v.Zoom(1 / cameraZoom);
             RenderTarget.SetView(v);

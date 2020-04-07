@@ -29,7 +29,7 @@ using System;
 using System.Diagnostics;
 using System.Text;
 
-namespace Otter.Utility
+namespace Otter.Utility.MonoGame
 {
     /// <summary>
     /// Struct for representing a Vector3.
