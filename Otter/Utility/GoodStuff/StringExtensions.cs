@@ -29,7 +29,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Otter.Utility
+namespace Otter.Utility.GoodStuff
 {
     public static class StringExtensions
     {

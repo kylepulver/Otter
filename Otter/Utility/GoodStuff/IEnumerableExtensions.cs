@@ -30,7 +30,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Otter.Utility
+namespace Otter.Utility.GoodStuff
 {
     public static class IEnumerableExtensions
     {
@@ -212,12 +212,12 @@ namespace Otter.Utility
         }
 
         #region MoreLINQ project code
-        // MinBy and MoreBy methods are provided via the MoreLINQ project (c) Jon Skeet 
+        // MinBy and MoreBy methods are provided via the MoreLINQ project (c) Jon Skeet
         // https://code.google.com/p/morelinq/source/browse/MoreLinq/MinBy.cs
         // https://code.google.com/p/morelinq/source/browse/MoreLinq/MaxBy.cs
 
         /// <summary>
-        /// Returns the first element that has the smallest value (as determined by the selector) within the collection 
+        /// Returns the first element that has the smallest value (as determined by the selector) within the collection
         /// (as determined by the comparer).  This is equivalent to using Min except that the element itself
         /// is returned, and not the value used to make the Min determination.
         /// </summary>
@@ -227,7 +227,7 @@ namespace Otter.Utility
         }
 
         /// <summary>
-        /// Returns the first element that has the smallest value (as determined by the selector) within the collection 
+        /// Returns the first element that has the smallest value (as determined by the selector) within the collection
         /// (as determined by the comparer).  This is equivalent to using Min except that the element itself
         /// is returned, and not the value used to make the Min determination.
         /// </summary>
@@ -259,7 +259,7 @@ namespace Otter.Utility
         }
 
         /// <summary>
-        /// Returns the first element that has the largest value (as determined by the selector) within the collection 
+        /// Returns the first element that has the largest value (as determined by the selector) within the collection
         /// (as determined by the comparer).  This is equivalent to using Max except that the element itself
         /// is returned, and not the value used to make the Max determination.
         /// </summary>
@@ -269,7 +269,7 @@ namespace Otter.Utility
         }
 
         /// <summary>
-        /// Returns the first element that has the largest value (as determined by the selector) within the collection 
+        /// Returns the first element that has the largest value (as determined by the selector) within the collection
         /// (as determined by the comparer).  This is equivalent to using Max except that the element itself
         /// is returned, and not the value used to make the Max determination.
         /// </summary>

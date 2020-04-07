@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Linq;
 
 using Otter.Core;
+using Otter.Utility.GoodStuff;
 
 namespace Otter.Utility
 {

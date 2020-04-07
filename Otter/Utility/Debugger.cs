@@ -8,6 +8,7 @@ using System.Text;
 using SFML.Window;
 
 using Otter.Core;
+using Otter.Utility.GoodStuff;
 
 namespace Otter.Utility
 {
@@ -1570,6 +1571,6 @@ namespace Otter.Utility
             game.countRendering = true;
         }
 
-        #endregion    
+        #endregion
     }
 }

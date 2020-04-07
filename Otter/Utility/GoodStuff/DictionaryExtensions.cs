@@ -28,8 +28,8 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter.Utility
-{ 
+namespace Otter.Utility.GoodStuff
+{
     public static class DictionaryExtensions
     {
         /// <summary>

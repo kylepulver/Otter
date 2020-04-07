@@ -27,7 +27,7 @@
 
 using System;
 
-namespace Otter.Utility
+namespace Otter.Utility.GoodStuff
 {
     public static class FloatExtensions
     {

@@ -6,6 +6,8 @@ using System.Xml;
 using SFML.Graphics;
 using SFML.System;
 
+using Otter.Utility.GoodStuff;
+
 namespace Otter.Utility
 {
     /// <summary>

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using Otter.Utility.GoodStuff;
+
 namespace Otter.Utility
 {
     /// <summary>

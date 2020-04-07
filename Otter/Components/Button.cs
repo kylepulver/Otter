@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SFML.Window;
 
 using Otter.Core;
-using Otter.Utility;
+using Otter.Utility.GoodStuff;
 
 namespace Otter.Components
 {
@@ -14,7 +14,6 @@ namespace Otter.Components
     /// </summary>
     public class Button : Component
     {
-
         #region Private Fields
 
         bool buttonsDown = false,
@@ -65,7 +64,7 @@ namespace Otter.Components
         #region Public Properties
 
         /// <summary>
-        /// If the button is currently controlled 
+        /// If the button is currently controlled
         /// </summary>
         public bool ForcedInput { get; private set; }
 
