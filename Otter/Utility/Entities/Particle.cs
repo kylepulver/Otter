@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Otter.Core;
 
-namespace Otter.Utility
+namespace Otter.Utility.Entities
 {
     /// <summary>
     /// Entity that is a quick way to make a particle.  Has lots of parameters that can be set, so
