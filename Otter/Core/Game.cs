@@ -7,6 +7,7 @@ using System.Linq;
 using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
+using System.Runtime.InteropServices;
 
 namespace Otter
 {
@@ -23,6 +24,9 @@ namespace Otter
         /// A reference to the active Game instance.
         /// </summary>
         public static Game Instance;
+
+        [DllImport("X11")]
+        extern static int XInitThreads();
 
         #endregion
 
@@ -730,6 +734,7 @@ namespace Otter
                 windowStyle = Styles.None;
             }
 
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) XInitThreads();
             Window = new RenderWindow(new VideoMode((uint)width, (uint)height), title, fullscreen ? Styles.Fullscreen : windowStyle);
             Window.Closed += new EventHandler(OnWindowClose);
             Window.GainedFocus += new EventHandler(Focused);
@@ -742,6 +747,7 @@ namespace Otter
             }
 
             Window.SetVerticalSyncEnabled(vsync);
+            Window.SetActive();
 
             UpdateView();
             if (Input != null)
