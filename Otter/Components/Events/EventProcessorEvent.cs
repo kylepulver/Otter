@@ -1,6 +1,6 @@
 using Otter.Core;
 
-namespace Otter.Components
+namespace Otter.Components.Events
 {
     public class EventProcessorEvent
     {

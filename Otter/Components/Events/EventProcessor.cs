@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Otter.Components
+namespace Otter.Components.Events
 {
     public class EventProcessor : Component
     {
