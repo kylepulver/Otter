@@ -1,4 +1,4 @@
-using Otter.Core;
+﻿using Otter.Core;
 
 namespace CoroutineExample
 {
@@ -6,9 +6,11 @@ namespace CoroutineExample
     {
         static void Main(string[] args)
         {
-            var game = new Game();
-            game.FirstScene = new CoroutineScene();
-            game.Start();
+            using(var game = new Game())
+            {
+                game.FirstScene = new CoroutineScene();
+                game.Start();
+            }
         }
     }
 }

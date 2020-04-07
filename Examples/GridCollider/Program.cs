@@ -1,4 +1,4 @@
-
+﻿
 using Otter.Core;
 
 namespace GridColliderPlayerTest
@@ -7,9 +7,12 @@ namespace GridColliderPlayerTest
     {
         static void Main(string[] args)
         {
-            var game = new Game();    // Create an Otter game.             
-            game.FirstScene = new PlayScene();  // Create and set our First Scene for Otter to run.            
-            game.Start(); // Start the game!
+            // Create an Otter game.
+            using(var game = new Game())
+            {
+                game.FirstScene = new PlayScene();  // Create and set our First Scene for Otter to run.
+                game.Start(); // Start the game!
+            }
         }
     }
 }

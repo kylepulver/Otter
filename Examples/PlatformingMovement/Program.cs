@@ -1,4 +1,4 @@
-using Otter.Core;
+﻿using Otter.Core;
 
 namespace PlatformingExample
 {
@@ -8,10 +8,11 @@ namespace PlatformingExample
         static void Main(string[] args)
         {
             // Make a new game.
-            var game = new Game("Platformer Example");
-
-            // Start the game with a new PlatformerScene.
-            game.Start(new PlatformerScene());
+            using(var game = new Game("Platformer Example"))
+            {
+                // Start the game with a new PlatformerScene.
+                game.Start(new PlatformerScene());
+            }
         }
     }
 }
