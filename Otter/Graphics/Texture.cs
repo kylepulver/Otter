@@ -3,7 +3,7 @@ using System.IO;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class representing a texture. Can perform pixel operations on the CPU, but those will be
@@ -11,7 +11,6 @@ namespace Otter
     /// </summary>
     public class Texture : IDisposable
     {
-
         #region Public Fields
 
         /// <summary>

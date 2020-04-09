@@ -1,14 +1,15 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 using System.Collections.Generic;
 
-namespace Otter {
+using SFML.Graphics;
+using SFML.System;
+
+namespace Otter.Graphics
+{
     /// <summary>
     /// Graphic that renders as a simple gradient between 4 points.
     /// </summary>
-    public class Gradient : Graphic {
-
+    public class Gradient : Graphic
+    {
         #region Private Fields
 
         List<Color> colors = new List<Color>();
@@ -27,7 +28,8 @@ namespace Otter {
         /// <param name="TopRight">The Color of the top right corner.</param>
         /// <param name="BottomRight">The Color of the bottom right corner.</param>
         /// <param name="BottomLeft">The Color of the bottom left corner.</param>
-        public Gradient(int width, int height, Color TopLeft, Color TopRight, Color BottomRight, Color BottomLeft) {
+        public Gradient(int width, int height, Color TopLeft, Color TopRight, Color BottomRight, Color BottomLeft)
+        {
             baseColors.Add(TopLeft);
             baseColors.Add(TopRight);
             baseColors.Add(BottomRight);
@@ -52,7 +54,8 @@ namespace Otter {
 
         #region Private Methods
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             SFMLVertices.Clear();
@@ -62,7 +65,8 @@ namespace Otter {
                 Color.None,
                 Color.None,
                 Color.None};
-            for (int i = 0; i < baseColors.Count; i++) {
+            for (int i = 0; i < baseColors.Count; i++)
+            {
                 finalColors[i] = new Color(baseColors[i]);
                 finalColors[i] *= Color;
                 finalColors[i].A *= Alpha;
@@ -83,7 +87,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The new Color.</param>
         /// <param name="position">The position to change the Color on.</param>
-        public void SetColor(Color color, ColorPosition position) {
+        public void SetColor(Color color, ColorPosition position)
+        {
             colors[(int)position] = color;
             NeedsUpdate = true;
         }
@@ -93,7 +98,8 @@ namespace Otter {
         /// </summary>
         /// <param name="position">The position to get the Color of.</param>
         /// <returns></returns>
-        public Color GetColor(ColorPosition position) {
+        public Color GetColor(ColorPosition position)
+        {
             return colors[(int)position];
         }
 
@@ -101,7 +107,8 @@ namespace Otter {
 
         #region Enum
 
-        public enum ColorPosition {
+        public enum ColorPosition
+        {
             TopLeft,
             TopRight,
             BottomRight,

@@ -1,4 +1,5 @@
 using Otter.Core;
+using Otter.Graphics;
 
 namespace Otter.Utility
 {
@@ -11,7 +12,6 @@ namespace Otter.Utility
     /// </summary>
     public class Flash : Entity
     {
-
         #region Static Fields
 
         /// <summary>
@@ -123,6 +123,5 @@ namespace Otter.Utility
         }
 
         #endregion
-
     }
 }

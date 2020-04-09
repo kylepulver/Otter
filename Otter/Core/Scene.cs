@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Otter.Colliders;
-using Otter.Utility;
 using Otter.Components;
+using Otter.Graphics;
+using Otter.Utility;
 
 namespace Otter.Core
 {
@@ -14,7 +15,6 @@ namespace Otter.Core
     /// </summary>
     public class Scene
     {
-
         #region Private Fields
 
         List<Entity> entitiesToAdd = new List<Entity>();
@@ -1698,6 +1698,5 @@ namespace Otter.Core
         }
 
         #endregion
-
     }
 }

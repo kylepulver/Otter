@@ -3,14 +3,13 @@ using SFML.Graphics;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     /// <summary>
     /// Internal class for managing characters in RichText.
     /// </summary>
     public class RichTextCharacter
     {
-
         #region Private Fields
 
         float finalShakeX;

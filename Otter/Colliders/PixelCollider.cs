@@ -1,5 +1,6 @@
 using System;
 
+using Otter.Graphics;
 using Otter.Utility;
 
 namespace Otter.Colliders
@@ -10,7 +11,6 @@ namespace Otter.Colliders
     /// </summary>
     public class PixelCollider : Collider
     {
-
         #region Public Fields
 
         /// <summary>
@@ -235,6 +235,5 @@ namespace Otter.Colliders
         }
 
         #endregion
-
     }
 }

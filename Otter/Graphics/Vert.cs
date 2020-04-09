@@ -5,14 +5,13 @@ using SFML.System;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class that represents a Vertex.  Just a wrapper for an SFML Vertex.
     /// </summary>
     public class Vert
     {
-
         #region Private Fields
 
         Vertex vertex;
@@ -155,6 +154,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

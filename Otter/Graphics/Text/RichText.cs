@@ -8,7 +8,7 @@ using SFML.Graphics;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     /// <summary>
     /// Graphic that renders text with some more options than normal Text.
@@ -51,7 +51,6 @@ namespace Otter
     /// </example>
     public class RichText : Graphic
     {
-
         #region Static Fields
 
         static Dictionary<string, string> styles = new Dictionary<string, string>();
@@ -1449,6 +1448,5 @@ namespace Otter
         {
             get { return chars; }
         }
-
     }
 }

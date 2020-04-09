@@ -1,14 +1,14 @@
-﻿using SFML.Graphics;
+using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
 
-namespace Otter {
+namespace Otter.Graphics
+{
     /// <summary>
     /// Graphic that renders as a checkerboard type grid that fills the defined area using two alternating
     /// colors.
     /// </summary>
-    public class Grid : Graphic {
-
+    public class Grid : Graphic
+    {
         #region Public Fields
 
         /// <summary>
@@ -44,19 +44,22 @@ namespace Otter {
         /// <param name="gridHeight">The height of each cell on the Grid.</param>
         /// <param name="colorA">The first Color of the Grid.</param>
         /// <param name="colorB">The second Color of the Grid.</param>
-        public Grid(int width, int height, int gridWidth, int gridHeight, Color colorA, Color colorB = null) {
+        public Grid(int width, int height, int gridWidth, int gridHeight, Color colorA, Color colorB = null)
+        {
             Width = width;
             Height = height;
 
             ColorA = colorA;
 
-            if (colorB == null) {
+            if (colorB == null)
+            {
                 ColorB = colorA.Copy();
                 ColorB.R -= 0.02f;
                 ColorB.G -= 0.02f;
                 ColorB.B -= 0.02f;
             }
-            else {
+            else
+            {
                 ColorB = colorB;
             }
 
@@ -68,14 +71,17 @@ namespace Otter {
 
         #region Private Methods
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             Color nextColor = ColorA;
             Color rowColor = nextColor;
             SFMLVertices = new VertexArray(PrimitiveType.Quads);
-            for (float j = 0; j < Height; j += GridHeight) {
-                for (float i = 0; i < Width; i += GridWidth) {
+            for (float j = 0; j < Height; j += GridHeight)
+            {
+                for (float i = 0; i < Width; i += GridWidth)
+                {
                     var color = new Color(nextColor) * Color;
                     SFMLVertices.Append(new Vertex(new Vector2f(i, j), color.SFMLColor));
                     SFMLVertices.Append(new Vertex(new Vector2f(i + GridWidth, j), color.SFMLColor));
@@ -88,6 +94,5 @@ namespace Otter {
         }
 
         #endregion
-
     }
 }

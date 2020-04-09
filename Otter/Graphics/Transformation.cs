@@ -1,10 +1,9 @@
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     public class Transformation
     {
-
         public Vector2 Translation;
         public Vector2 Scale;
         public Vector2 Origin;

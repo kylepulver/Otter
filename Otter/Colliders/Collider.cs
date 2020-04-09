@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Otter.Core;
+using Otter.Graphics;
 using Otter.Utility;
 
 namespace Otter.Colliders
@@ -2109,6 +2110,5 @@ namespace Otter.Colliders
         }
 
         #endregion
-
     }
 }

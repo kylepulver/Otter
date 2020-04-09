@@ -1,9 +1,9 @@
 using System;
 
-using Otter;
 using Otter.Core;
-using Otter.Utility;
 using Otter.Components;
+using Otter.Graphics;
+using Otter.Utility;
 
 namespace GridColliderPlayerTest
 {

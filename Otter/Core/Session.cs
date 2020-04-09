@@ -1,11 +1,10 @@
 using System;
 using System.IO;
 
-using Otter.Core;
 using Otter.Utility;
 using Otter.Components.Controllers;
 
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Class that represents a player session.  Use this for maintaining and using information about

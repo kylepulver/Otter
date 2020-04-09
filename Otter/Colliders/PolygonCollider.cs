@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+using Otter.Graphics;
 using Otter.Utility;
 
 namespace Otter.Colliders

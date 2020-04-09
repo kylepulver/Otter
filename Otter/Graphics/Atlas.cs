@@ -4,13 +4,14 @@ using System.Xml;
 
 using Otter.Utility;
 
-namespace Otter {
+namespace Otter.Graphics
+{
     /// <summary>
     /// Class used for loading textures from an Atlas, or a set of Atlases. This class is built to support
     /// atlases created with Sparrow/Starling exporting from TexturePacker http://www.codeandweb.com/texturepacker
     /// </summary>
-    public class Atlas {
-
+    public class Atlas
+    {
         #region Static Fields
 
         static Dictionary<string, SFML.Graphics.Texture> textures = new Dictionary<string, SFML.Graphics.Texture>();
@@ -29,8 +30,10 @@ namespace Otter {
         /// Designed for Sparrow/Starling exporting from TexturePacker http://www.codeandweb.com/texturepacker
         /// </summary>
         /// <param name="source">The reltive path to the atlas data file.  The png should also be in the same directory.</param>
-        public Atlas(string source = "") {
-            if (source != "") {
+        public Atlas(string source = "")
+        {
+            if (source != "")
+            {
                 Add(source);
             }
         }
@@ -44,8 +47,10 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the image in the atlas data.</param>
         /// <returns>An AtlasTexture.</returns>
-        public AtlasTexture this[string name] {
-            get {
+        public AtlasTexture this[string name]
+        {
+            get
+            {
                 return GetTexture(name);
             }
         }
@@ -58,7 +63,8 @@ namespace Otter {
         /// Add another atlas to the collection of textures.  Duplicate names will destroy this.
         /// </summary>
         /// <param name="source">The relative path to the data file.  The png should be in the same directory.</param>
-        public Atlas Add(string source) {
+        public Atlas Add(string source)
+        {
             var xml = new XmlDocument();
             xml.Load(source);
 
@@ -68,19 +74,24 @@ namespace Otter {
 
             if (imagePath == "/") imagePath = "";
 
-            foreach (XmlElement a in xml.GetElementsByTagName("TextureAtlas")) {
-                foreach (XmlElement e in xml.GetElementsByTagName("SubTexture")) {
+            foreach (XmlElement a in xml.GetElementsByTagName("TextureAtlas"))
+            {
+                foreach (XmlElement e in xml.GetElementsByTagName("SubTexture"))
+                {
                     var name = e.AttributeString("name");
                     var uniqueName = true;
 
-                    foreach (var atest in subtextures.Values) {
-                        if (atest.Name == name) {
+                    foreach (var atest in subtextures.Values)
+                    {
+                        if (atest.Name == name)
+                        {
                             uniqueName = false;
                             break;
                         }
                     }
 
-                    if (uniqueName) {
+                    if (uniqueName)
+                    {
                         var atext = new AtlasTexture();
                         atext.X = e.AttributeInt("x");
                         atext.Y = e.AttributeInt("y");
@@ -105,8 +116,10 @@ namespace Otter {
         /// </summary>
         /// <param name="sources">The file path to the sources.</param>
         /// <returns>The Atlas.</returns>
-        public Atlas AddMultiple(params string[] sources) {
-            foreach (string s in sources) {
+        public Atlas AddMultiple(params string[] sources)
+        {
+            foreach (string s in sources)
+            {
                 Add(s);
             }
             return this;
@@ -119,10 +132,12 @@ namespace Otter {
         /// <param name="source">The path until the number.  For example: "assets/atlas" if the path is "assets/atlas0.xml"</param>
         /// <param name="extension">The extension of the source without a dot</param>
         /// <returns>The Atlas.</returns>
-        public Atlas AddNumbered(string source, string extension = "xml") {
+        public Atlas AddNumbered(string source, string extension = "xml")
+        {
             var i = 0;
 
-            while (File.Exists(source + i + "." + extension)) {
+            while (File.Exists(source + i + "." + extension))
+            {
                 Add(source + i + "." + extension);
                 i++;
             }
@@ -135,7 +150,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the texture in the atlas data.</param>
         /// <returns>The created Image.</returns>
-        public Image CreateImage(string name) {
+        public Image CreateImage(string name)
+        {
             return new Image(this[name]);
         }
 
@@ -147,18 +163,20 @@ namespace Otter {
         /// <param name="width">The width of the cell on the sprite sheet.</param>
         /// <param name="height">The height of the cell on the sprite sheet.</param>
         /// <returns>The new Spritemap.</returns>
-        public Spritemap<T> CreateSpritemap<T>(string name, int width, int height) {
+        public Spritemap<T> CreateSpritemap<T>(string name, int width, int height)
+        {
             return new Spritemap<T>(this[name], width, height);
         }
 
-        
+
 
         /// <summary>
         /// Get an AtlasTexture by name.
         /// </summary>
         /// <param name="name">The name of the image in the atlas data.</param>
         /// <returns>An AtlasTexture.</returns>
-        public AtlasTexture GetAtlasTexture(string name) {
+        public AtlasTexture GetAtlasTexture(string name)
+        {
             return GetTexture(name);
         }
 
@@ -167,7 +185,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The name of the texture to test.</param>
         /// <returns>True if the atlas data contains a texture by the specified name.</returns>
-        public bool Exists(string name) {
+        public bool Exists(string name)
+        {
             return subtextures.ContainsKey(name);
         }
 
@@ -175,7 +194,8 @@ namespace Otter {
 
         #region Internal
 
-        internal AtlasTexture GetTexture(string name) {
+        internal AtlasTexture GetTexture(string name)
+        {
             var a = subtextures[name];
 
             return a;

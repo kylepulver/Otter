@@ -1,12 +1,11 @@
-using Otter;
 using Otter.Core;
 using Otter.Colliders;
+using Otter.Graphics;
 
 namespace GridColliderPlayerTest
 {
     class PlayScene : Scene
     {
-
         // The tilemap that will be used to show the grid collider.
         Tilemap tiles = new Tilemap(640, 480, 20, 20);
 

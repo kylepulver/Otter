@@ -2,12 +2,13 @@ using System;
 
 using Otter.Utility;
 
-namespace Otter {
+namespace Otter.Graphics
+{
     /// <summary>
     /// Graphic that renders part of a sprite sheet, but does not automatically animate it at all.
     /// </summary>
-    public class ImageSet : Image {
-
+    public class ImageSet : Image
+    {
         #region Private Fields
 
         int frame = 0;
@@ -34,9 +35,11 @@ namespace Otter {
         /// <summary>
         /// The frame to render from the image set.
         /// </summary>
-        public int Frame {
+        public int Frame
+        {
             get { return frame; }
-            set {
+            set
+            {
                 frame = (int)Util.Clamp(value, 0, Frames - 1);
                 UpdateTextureRegion(frame);
             }
@@ -52,7 +55,8 @@ namespace Otter {
         /// <param name="source">The file path to the texture to use for the image sheet.</param>
         /// <param name="width">The width of each cell on the image sheet.</param>
         /// <param name="height">The height of each cell on the image sheet.</param>
-        public ImageSet(string source, int width, int height) : base(source) {
+        public ImageSet(string source, int width, int height) : base(source)
+        {
             Initialize(width, height);
         }
 
@@ -62,7 +66,8 @@ namespace Otter {
         /// <param name="texture">The Texture to use for the image sheet.</param>
         /// <param name="width">The width of each cell on the image sheet.</param>
         /// <param name="height">The height of each cell on the image sheet.</param>
-        public ImageSet(Texture texture, int width, int height) : base(texture) {
+        public ImageSet(Texture texture, int width, int height) : base(texture)
+        {
             Initialize(width, height);
         }
 
@@ -72,7 +77,8 @@ namespace Otter {
         /// <param name="texture">The AtlasTexture to use for the image sheet.</param>
         /// <param name="width">The width of each cell on the image sheet.</param>
         /// <param name="height">The height of each cell on the image sheet.</param>
-        public ImageSet(AtlasTexture texture, int width, int height) : base(texture) {
+        public ImageSet(AtlasTexture texture, int width, int height) : base(texture)
+        {
             Initialize(width, height);
         }
 
@@ -80,7 +86,8 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize(int width, int height) {
+        void Initialize(int width, int height)
+        {
             Width = width;
             Height = height;
 
@@ -101,11 +108,13 @@ namespace Otter {
         /// Updates the internal source for the texture.
         /// </summary>
         /// <param name="frame">The frame in terms of the sprite sheet.</param>
-        void UpdateTextureRegion(int frame) {
+        void UpdateTextureRegion(int frame)
+        {
             var top = (int)(Math.Floor((float)frame / Columns) * Height);
             var left = (int)((frame % Columns) * Width);
 
-            if (TextureRegion != new Rectangle(left, top, Width, Height)) {
+            if (TextureRegion != new Rectangle(left, top, Width, Height))
+            {
                 NeedsUpdate = true;
             }
 
@@ -113,6 +122,5 @@ namespace Otter {
         }
 
         #endregion
-        
     }
 }

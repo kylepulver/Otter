@@ -1,5 +1,7 @@
 using System.Xml;
 
+using Otter.Graphics;
+
 namespace Otter.Utility
 {
     /// <summary>
@@ -7,7 +9,6 @@ namespace Otter.Utility
     /// </summary>
     public class OgmoLayer
     {
-
         #region Public Fields
 
         /// <summary>
@@ -87,6 +88,5 @@ namespace Otter.Utility
         }
 
         #endregion
-
     }
 }

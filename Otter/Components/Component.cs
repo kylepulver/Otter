@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 using Otter.Core;
 using Otter.Colliders;
+using Otter.Graphics;
 
 namespace Otter.Components
 {
@@ -10,7 +11,6 @@ namespace Otter.Components
     /// </summary>
     public abstract class Component
     {
-
         #region Public Fields
 
         /// <summary>
@@ -199,6 +199,5 @@ namespace Otter.Components
             return Entity.GetComponents<T>();
         }
         #endregion
-
     }
 }

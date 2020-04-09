@@ -2,6 +2,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Core;
+using Otter.Graphics;
 
 namespace Otter.Utility
 {
@@ -96,7 +97,7 @@ namespace Otter.Utility
         /// <param name="y">The Y position to render the Text from.</param>
         public static void Text(string str, int size, float x = 0, float y = 0)
         {
-            Draw.Graphic(new Text(str, size), x, y);
+            Draw.Graphic(new Graphics.Text(str, size), x, y);
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace Otter.Utility
         /// <param name="clip">The portion of the Image to render.</param>
         /// <param name="x">The x offset to position the Image at.</param>
         /// <param name="y">The y offset to position the Image at.</param>
-        static public void ImageClip(Image image, Rectangle clip, float x = 0, float y = 0)
+        static public void ImageClip(Graphics.Image image, Rectangle clip, float x = 0, float y = 0)
         {
             var tempRect = image.ClippingRegion;
             image.ClippingRegion = clip;
@@ -127,7 +128,7 @@ namespace Otter.Utility
         /// <param name="freq">How frequent the wave should repeat.</param>
         /// <param name="x">The x position to draw the image from.</param>
         /// <param name="y">The y position to draw the image from.</param>
-        static public void ImageWaveX(Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
+        static public void ImageWaveX(Graphics.Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
         {
             for (var yy = 0; yy < image.Height; yy += step)
             {
@@ -148,7 +149,7 @@ namespace Otter.Utility
         /// <param name="freq">How frequent the wave should repeat.</param>
         /// <param name="x">The x position to draw the image from.</param>
         /// <param name="y">The y position to draw the image from.</param>
-        static public void ImageWaveY(Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
+        static public void ImageWaveY(Graphics.Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
         {
             for (var xx = 0; xx < image.Width; xx += step)
             {
@@ -192,13 +193,13 @@ namespace Otter.Utility
         /// <param name="fill">The fill color of the circle.</param>
         /// <param name="outline">The outline color of the circle.</param>
         /// <param name="outlineThickness">The outline thickness of the circle.</param>
-        static public void Circle(float x, float y, int radius, Color fill = null, Color outline = null, float outlineThickness = 0)
+        static public void Circle(float x, float y, int radius, Graphics.Color fill = null, Graphics.Color outline = null, float outlineThickness = 0)
         {
             tempCircle.Radius = radius;
             tempCircle.Position = new Vector2f(x, y);
             if (fill == null)
             {
-                tempCircle.FillColor = Color.White.SFMLColor;
+                tempCircle.FillColor = Graphics.Color.White.SFMLColor;
             }
             else
             {
@@ -209,7 +210,7 @@ namespace Otter.Utility
 
             if (outline == null)
             {
-                tempCircle.OutlineColor = Color.None.SFMLColor;
+                tempCircle.OutlineColor = Graphics.Color.None.SFMLColor;
             }
             else
             {
@@ -226,7 +227,7 @@ namespace Otter.Utility
         /// <param name="y">The Y position of the top left of the circle.</param>
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="color">The fill color of the circle.</param>
-        static public void Circle(float x, float y, float radius, Color color)
+        static public void Circle(float x, float y, float radius, Graphics.Color color)
         {
             tempCircle.Radius = radius;
             tempCircle.Position = new Vector2f(x, y);
@@ -244,13 +245,13 @@ namespace Otter.Utility
         /// <param name="fill">The fill color of the rectangle.</param>
         /// <param name="outline">The outline color of the rectangle.</param>
         /// <param name="outlineThickness">The outline thickness of the rectangle.</param>
-        static public void Rectangle(float x, float y, float width, float height, Color fill = null, Color outline = null, float outlineThickness = 0)
+        static public void Rectangle(float x, float y, float width, float height, Graphics.Color fill = null, Graphics.Color outline = null, float outlineThickness = 0)
         {
             tempRect.Size = new Vector2f(width, height);
             tempRect.Position = new Vector2f(x, y);
             if (outline == null)
             {
-                tempRect.OutlineColor = Color.None.SFMLColor;
+                tempRect.OutlineColor = Graphics.Color.None.SFMLColor;
             }
             else
             {
@@ -260,7 +261,7 @@ namespace Otter.Utility
 
             if (fill == null)
             {
-                tempRect.FillColor = Color.White.SFMLColor;
+                tempRect.FillColor = Graphics.Color.White.SFMLColor;
             }
             else
             {
@@ -278,7 +279,7 @@ namespace Otter.Utility
         /// <param name="x2">The X position of the second point.</param>
         /// <param name="y2">The Y position of the second point.</param>
         /// <param name="color">The color of the line.</param>
-        static public void Line(float x1, float y1, float x2, float y2, Color color)
+        static public void Line(float x1, float y1, float x2, float y2, Graphics.Color color)
         {
             VertexArray vertices = new VertexArray(PrimitiveType.Lines);
 
@@ -296,7 +297,7 @@ namespace Otter.Utility
         /// <param name="y2">The Y position of the second point.</param>
         /// <param name="color">The color of the line.</param>
         /// <param name="thickness">The thickness of the line.</param>
-        static public void Line(float x1, float y1, float x2, float y2, Color color, float thickness)
+        static public void Line(float x1, float y1, float x2, float y2, Graphics.Color color, float thickness)
         {
             VertexArray vertices = new VertexArray(PrimitiveType.Quads);
 
@@ -341,9 +342,9 @@ namespace Otter.Utility
         /// <param name="y2">The Y position of the second point.</param>
         /// <param name="color">The color of the line.</param>
         /// <param name="thickness">The thickness of the line.</param>
-        static public void RoundedLine(float x1, float y1, float x2, float y2, Color color, float thickness)
+        static public void RoundedLine(float x1, float y1, float x2, float y2, Graphics.Color color, float thickness)
         {
-            VertexArray vertices = new VertexArray(PrimitiveType.TrianglesFan);
+            VertexArray vertices = new VertexArray(PrimitiveType.TriangleFan);
 
             int rotationSteps = 10;
 

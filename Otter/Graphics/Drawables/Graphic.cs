@@ -4,12 +4,13 @@ using SFML.Graphics;
 
 using Otter.Utility;
 
-namespace Otter {
+namespace Otter.Graphics
+{
     /// <summary>
     /// Base abstract class used for anything that can be rendered.
     /// </summary>
-    public abstract class Graphic {
-
+    public abstract class Graphic
+    {
         #region Private Fields
 
         Color color;
@@ -33,32 +34,40 @@ namespace Otter {
 
         #region Public Fields
 
-        public Transformation Transform {
-            get {
+        public Transformation Transform
+        {
+            get
+            {
                 return Transforms[0];
             }
         }
 
-        public Transformation AddTransform(Transformation transform) {
+        public Transformation AddTransform(Transformation transform)
+        {
             Transforms.Add(transform);
             return transform;
         }
 
-        public Transformation AddTransform(Vector2 translation, Vector2 scale, Vector2 origin, float rotation) {
+        public Transformation AddTransform(Vector2 translation, Vector2 scale, Vector2 origin, float rotation)
+        {
             return AddTransform(new Transformation(translation, scale, origin, rotation));
         }
 
-        public Transformation AddTransform() {
+        public Transformation AddTransform()
+        {
             return AddTransform(Vector2.Zero, Vector2.One, Vector2.Zero, 0);
         }
 
-        public Transformation RemoveTransformation(Transformation transform) {
+        public Transformation RemoveTransformation(Transformation transform)
+        {
             Transforms.Remove(transform);
             return transform;
         }
 
-        public Transformation PopTransformation() {
-            if (Transforms.Count > 1) {
+        public Transformation PopTransformation()
+        {
+            if (Transforms.Count > 1)
+            {
                 var t = Transforms[Transforms.Count - 1];
                 Transforms.Remove(t);
                 return t;
@@ -74,11 +83,14 @@ namespace Otter {
         /// <summary>
         /// The X position of the Graphic.
         /// </summary>
-        public float X {
-            get {
+        public float X
+        {
+            get
+            {
                 return Transform.Translation.X;
             }
-            set {
+            set
+            {
                 Transform.Translation.X = value;
             }
         }
@@ -86,11 +98,14 @@ namespace Otter {
         /// <summary>
         /// The Y position of the Graphic.
         /// </summary>
-        public float Y {
-            get {
+        public float Y
+        {
+            get
+            {
                 return Transform.Translation.Y;
             }
-            set {
+            set
+            {
                 Transform.Translation.Y = value;
             }
         }
@@ -117,11 +132,14 @@ namespace Otter {
         /// <summary>
         /// The horizontal scale of the graphic.  Used in the final transformation.
         /// </summary>
-        public float ScaleX {
-            get {
+        public float ScaleX
+        {
+            get
+            {
                 return Transform.Scale.X;
             }
-            set {
+            set
+            {
                 Transform.Scale.X = value;
             }
         }
@@ -129,11 +147,14 @@ namespace Otter {
         /// <summary>
         /// The vertical scale of the graphic.  Used in the final transformation.
         /// </summary>
-        public float ScaleY {
-            get {
+        public float ScaleY
+        {
+            get
+            {
                 return Transform.Scale.Y;
             }
-            set {
+            set
+            {
                 Transform.Scale.Y = value;
             }
         }
@@ -141,11 +162,14 @@ namespace Otter {
         /// <summary>
         /// The angle of rotation of the graphic.  Used in the final transformation.
         /// </summary>
-        public float Angle {
-            get {
+        public float Angle
+        {
+            get
+            {
                 return Transform.Rotation;
             }
-            set {
+            set
+            {
                 Transform.Rotation = value;
             }
         }
@@ -153,11 +177,14 @@ namespace Otter {
         /// <summary>
         /// The X origin point to scale and rotate the graphic with.  Used in the final transformation.
         /// </summary>
-        public float OriginX {
-            get {
+        public float OriginX
+        {
+            get
+            {
                 return Transform.Origin.X;
             }
-            set {
+            set
+            {
                 Transform.Origin.X = value;
             }
         }
@@ -165,11 +192,14 @@ namespace Otter {
         /// <summary>
         /// The Y origin point to scale and rotate the graphic with.  Used in the final transformation.
         /// </summary>
-        public float OriginY {
-            get {
+        public float OriginY
+        {
+            get
+            {
                 return Transform.Origin.Y;
             }
-            set {
+            set
+            {
                 Transform.Origin.Y = value;
             }
         }
@@ -231,14 +261,18 @@ namespace Otter {
         /// <summary>
         /// The base color of the Graphic.  Multiplies the vertices of the graphic by this color.
         /// </summary>
-        public Color Color {
-            get {
+        public Color Color
+        {
+            get
+            {
                 if (color == null) color = Color.White;
                 return color;
             }
-            set {
+            set
+            {
                 // Get rid of graphic reference in old color
-                if (color != null) {
+                if (color != null)
+                {
                     color.Graphic = null;
                 }
                 color = new Color(value); // 2015/2/12: testing copying the color because of a bug
@@ -256,11 +290,14 @@ namespace Otter {
         /// <summary>
         /// The base transparency of the graphic.  A shortcut to access the base color's Alpha.
         /// </summary>
-        public float Alpha {
-            get {
+        public float Alpha
+        {
+            get
+            {
                 return Color.A;
             }
-            set {
+            set
+            {
                 Color.A = value;
                 NeedsUpdate = true;
             }
@@ -279,11 +316,14 @@ namespace Otter {
         /// <summary>
         /// The width in pixels of the image after applying the X scale.
         /// </summary>
-        public float ScaledWidth {
-            get {
+        public float ScaledWidth
+        {
+            get
+            {
                 return Width * ScaleX;
             }
-            set {
+            set
+            {
                 ScaleX = value / Width;
             }
         }
@@ -291,11 +331,14 @@ namespace Otter {
         /// <summary>
         /// The height in pixels of the image after applying the Y scale.
         /// </summary>
-        public float ScaledHeight {
-            get {
+        public float ScaledHeight
+        {
+            get
+            {
                 return Height * ScaleY;
             }
-            set {
+            set
+            {
                 ScaleY = value / Height;
             }
         }
@@ -303,12 +346,15 @@ namespace Otter {
         /// <summary>
         /// Smooth the texture of a sprite image while scaling it.
         /// </summary>
-        public virtual bool Smooth {
-            get {
+        public virtual bool Smooth
+        {
+            get
+            {
                 if (Texture != null) return Texture.Smooth;
                 return false;
             }
-            set {
+            set
+            {
                 if (Texture != null) Texture.Smooth = value;
             }
         }
@@ -316,7 +362,8 @@ namespace Otter {
         /// <summary>
         /// Set both ScrollX and ScrollY.
         /// </summary>
-        public float Scroll {
+        public float Scroll
+        {
             set { ScrollX = value; ScrollY = value; }
             get { return (ScrollX + ScrollY) / 2f; }
         }
@@ -334,57 +381,66 @@ namespace Otter {
         /// <summary>
         /// Sets both the ScaleX and ScaleY at the same time.
         /// </summary>
-        public float Scale {
+        public float Scale
+        {
             set { ScaleX = value; ScaleY = value; }
         }
 
         /// <summary>
         /// Sets both RepeatX and RepeatY at the same time.
         /// </summary>
-        public bool Repeat {
+        public bool Repeat
+        {
             set { RepeatX = value; RepeatY = value; }
         }
 
         /// <summary>
         /// A shortcut to set both ShakeX and ShakeY.
         /// </summary>
-        public float Shake {
+        public float Shake
+        {
             set { ShakeX = value; ShakeY = value; }
         }
 
         /// <summary>
         /// The X position of the left side of the Graphic.
         /// </summary>
-        public float Left {
+        public float Left
+        {
             get { return X - OriginX; }
         }
 
         /// <summary>
         /// The Y position of the top of the Graphic.
         /// </summary>
-        public float Top {
+        public float Top
+        {
             get { return Y - OriginY; }
         }
 
         /// <summary>
         /// The X position of the right side of the Graphic.
         /// </summary>
-        public float Right {
+        public float Right
+        {
             get { return Left + Width; }
         }
 
         /// <summary>
         /// The Y position of the bottom of the Graphic.
         /// </summary>
-        public float Bottom {
+        public float Bottom
+        {
             get { return Top + Height; }
         }
 
         /// <summary>
         /// The X position of the left of the Texture.
         /// </summary>
-        public int TextureLeft {
-            get {
+        public int TextureLeft
+        {
+            get
+            {
                 return AtlasRegion.Left + TextureRegion.Left;
             }
         }
@@ -392,8 +448,10 @@ namespace Otter {
         /// <summary>
         /// The X position of the right of the Texture.
         /// </summary>
-        public int TextureRight {
-            get {
+        public int TextureRight
+        {
+            get
+            {
                 return TextureLeft + TextureRegion.Width;
             }
         }
@@ -401,8 +459,10 @@ namespace Otter {
         /// <summary>
         /// The Y position of the top of the Texture.
         /// </summary>
-        public int TextureTop {
-            get {
+        public int TextureTop
+        {
+            get
+            {
                 return AtlasRegion.Top + TextureRegion.Top;
             }
         }
@@ -410,8 +470,10 @@ namespace Otter {
         /// <summary>
         /// The Y position of the bottom of the Texture.
         /// </summary>
-        public int TextureBottom {
-            get {
+        public int TextureBottom
+        {
+            get
+            {
                 return TextureTop + TextureRegion.Height;
             }
         }
@@ -420,51 +482,63 @@ namespace Otter {
 
         #region Private Methods
 
-        protected void Append(float x, float y, Color color, float u, float v) {
+        protected void Append(float x, float y, Color color, float u, float v)
+        {
             SFMLVertices.Append(x, y, color, u, v);
         }
 
-        protected void Append(float x, float y, Color color = null) {
+        protected void Append(float x, float y, Color color = null)
+        {
             SFMLVertices.Append(x, y, color);
         }
 
         /// <summary>
         /// Updates the internal SFML data for rendering.
         /// </summary>
-        protected virtual void UpdateDrawable() {
-            if (!Dynamic) {
+        protected virtual void UpdateDrawable()
+        {
+            if (!Dynamic)
+            {
                 NeedsUpdate = false;
             }
         }
 
-        protected virtual void TextureChanged() {
+        protected virtual void TextureChanged()
+        {
 
         }
 
-        protected virtual void SFMLRender(Drawable drawable, float x = 0, float y = 0) {
+        protected virtual void SFMLRender(Drawable drawable, float x = 0, float y = 0)
+        {
             RenderStates renderStates;
-            if (Texture != null) {
+            if (Texture != null)
+            {
                 renderStates = new RenderStates(Texture.SFMLTexture);
             }
-            else {
+            else
+            {
                 renderStates = RenderStates.Default;
             }
             renderStates.BlendMode = SFMLBlendMode(Blend);
-            if (Shader != null) {
+            if (Shader != null)
+            {
                 renderStates.Shader = Shader.SFMLShader;
             }
 
             // This is really bad x_x lol
             renderStates.Transform.Translate(x - OriginX, y - OriginY);
-            foreach (var t in Transforms) {
-                if (t != Transform) {
+            foreach (var t in Transforms)
+            {
+                if (t != Transform)
+                {
                     renderStates.Transform.Translate(t.X, t.Y);
                 }
                 renderStates.Transform.Rotate(-t.Angle, t.OriginX, t.OriginY);
                 renderStates.Transform.Scale(t.ScaleX, t.ScaleY, t.OriginX, t.OriginY);
             }
 
-            if (Batchable) {
+            if (Batchable)
+            {
                 Draw.Batchable((VertexArray)drawable, renderStates);
                 return;
             }
@@ -479,7 +553,8 @@ namespace Otter {
         /// <summary>
         /// Removes the shader from the graphic.
         /// </summary>
-        public virtual void ClearShader() {
+        public virtual void ClearShader()
+        {
             Shader = null;
         }
 
@@ -488,7 +563,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X Position.</param>
         /// <param name="y">The Y Position.</param>
-        public void SetPosition(float x, float y) {
+        public void SetPosition(float x, float y)
+        {
             X = x;
             Y = y;
         }
@@ -497,7 +573,8 @@ namespace Otter {
         /// Set the position of the Graphic.
         /// </summary>
         /// <param name="g">The Graphic to get the position from.</param>
-        public void SetPosition(Graphic g, float offsetX = 0, float offsetY = 0) {
+        public void SetPosition(Graphic g, float offsetX = 0, float offsetY = 0)
+        {
             SetPosition(g.X + offsetX, g.Y + offsetY);
         }
 
@@ -505,7 +582,8 @@ namespace Otter {
         /// Set the position of the Graphic.
         /// </summary>
         /// <param name="xy">The Vector2 to get the position from.</param>
-        public void SetPosition(Vector2 xy) {
+        public void SetPosition(Vector2 xy)
+        {
             SetPosition(xy.X, xy.Y);
         }
 
@@ -514,7 +592,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X origin.</param>
         /// <param name="y">The Y origin.</param>
-        public void SetOrigin(float x, float y) {
+        public void SetOrigin(float x, float y)
+        {
             OriginX = x;
             OriginY = y;
         }
@@ -523,7 +602,8 @@ namespace Otter {
         /// Set the origin of the Graphic.
         /// </summary>
         /// <param name="xy">The X,Y position of the origin.</param>
-        public void SetOrigin(Vector2 xy) {
+        public void SetOrigin(Vector2 xy)
+        {
             SetOrigin(xy.X, xy.Y);
         }
 
@@ -531,7 +611,8 @@ namespace Otter {
         /// Set the Texture that the Graphic is using (if it is using one.)
         /// </summary>
         /// <param name="path">The path to the Texture to use.</param>
-        public void SetTexture(string path) {
+        public void SetTexture(string path)
+        {
             path = FileHandling.GetAbsoluteFilePath(path);
             SetTexture(new Texture(path));
         }
@@ -540,7 +621,8 @@ namespace Otter {
         /// Set the Texture that the Graphic is using (if it is using one.)
         /// </summary>
         /// <param name="texture">The Texture to use.</param>
-        public void SetTexture(Texture texture) {
+        public void SetTexture(Texture texture)
+        {
             Texture = texture;
             TextureRegion = texture.Region;
             TextureChanged();
@@ -551,7 +633,8 @@ namespace Otter {
         /// Set the Texture that the Graphic is using (if it is using one.)
         /// </summary>
         /// <param name="atlasTexture">The AtlasTexture to use.</param>
-        public void SetTexture(AtlasTexture atlasTexture) {
+        public void SetTexture(AtlasTexture atlasTexture)
+        {
             Texture = atlasTexture.Texture;
             AtlasRegion = atlasTexture.Region;
             TextureRegion.Width = atlasTexture.Width;
@@ -562,7 +645,8 @@ namespace Otter {
         /// <summary>
         /// Update the graphic.
         /// </summary>
-        public virtual void Update() {
+        public virtual void Update()
+        {
             shakeX = Rand.Float(-ShakeX * 0.5f, ShakeX * 0.5f);
             shakeY = Rand.Float(-ShakeY * 0.5f, ShakeY * 0.5f);
         }
@@ -570,7 +654,8 @@ namespace Otter {
         /// <summary>
         /// Centers the graphic origin.
         /// </summary>
-        public virtual void CenterOrigin() {
+        public virtual void CenterOrigin()
+        {
             OriginX = HalfWidth;
             OriginY = HalfHeight;
         }
@@ -578,7 +663,8 @@ namespace Otter {
         /// <summary>
         /// Centers the graphic origin while retaining its relative position.
         /// </summary>
-        public virtual void CenterOriginZero() {
+        public virtual void CenterOriginZero()
+        {
             float ox, oy;
             ox = OriginX;
             oy = OriginY;
@@ -594,7 +680,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">the x offset to draw the image from</param>
         /// <param name="y">the y offset to draw the image from</param>
-        public virtual void Render(float x = 0, float y = 0) {
+        public virtual void Render(float x = 0, float y = 0)
+        {
             if (!Visible) return;
 
             UpdateDrawableIfNeeded();
@@ -603,15 +690,18 @@ namespace Otter {
             float renderY = Y + y + shakeY;
 
             // Rounding here to fix 1 pixel offset problems (textures wrap around?)
-            if (roundRendering) {
+            if (roundRendering)
+            {
                 renderX = Util.Round(renderX);
                 renderY = Util.Round(renderY);
             }
 
-            if (ScrollX != 1) {
+            if (ScrollX != 1)
+            {
                 renderX = X + Draw.Target.CameraX * (1 - ScrollX) + x;
             }
-            if (ScrollY != 1) {
+            if (ScrollY != 1)
+            {
                 renderY = Y + Draw.Target.CameraY * (1 - ScrollY) + y;
             }
 
@@ -634,59 +724,73 @@ namespace Otter {
             RepeatSizeY = repeatBottom - repeatTop + OriginY;
 
             Drawable drawable;
-            if (SFMLDrawable == null) {
+            if (SFMLDrawable == null)
+            {
                 drawable = SFMLVertices;
             }
-            else {
+            else
+            {
                 drawable = SFMLDrawable;
             }
 
 
-            if (!RepeatX && !RepeatY) {
+            if (!RepeatX && !RepeatY)
+            {
                 SFMLRender(drawable, renderX, renderY);
             }
 
-            else if (RepeatX && !RepeatY) {
-                while (renderX > repeatLeft) {
+            else if (RepeatX && !RepeatY)
+            {
+                while (renderX > repeatLeft)
+                {
                     renderX -= ScaledWidth;
                 }
 
-                while (renderX < repeatRight) {
+                while (renderX < repeatRight)
+                {
                     SFMLRender(drawable, renderX, renderY);
                     renderX += ScaledWidth;
                 }
             }
 
-            else if (!RepeatX && RepeatY) {
-                while (renderY > repeatTop) {
+            else if (!RepeatX && RepeatY)
+            {
+                while (renderY > repeatTop)
+                {
                     renderY -= ScaledHeight;
                 }
 
-                while (renderY < repeatBottom) {
+                while (renderY < repeatBottom)
+                {
                     SFMLRender(drawable, renderX, renderY);
                     renderY += ScaledHeight;
                 }
             }
 
-            else if (RepeatX && RepeatY) {
+            else if (RepeatX && RepeatY)
+            {
                 float startX = renderX;
-                while (renderY > repeatTop) {
+                while (renderY > repeatTop)
+                {
                     renderY -= ScaledHeight;
                 }
 
-                while (renderY < repeatBottom) {
-                    while (renderX > repeatLeft) {
+                while (renderY < repeatBottom)
+                {
+                    while (renderX > repeatLeft)
+                    {
                         renderX -= ScaledWidth;
                     }
 
-                    while (renderX < repeatRight) {
+                    while (renderX < repeatRight)
+                    {
                         SFMLRender(drawable, renderX, renderY);
                         renderX += ScaledWidth;
                     }
                     renderY += ScaledHeight;
                 }
             }
-            
+
         }
 
         #endregion
@@ -700,14 +804,18 @@ namespace Otter {
 
         internal bool Batchable = false;
 
-        internal void UpdateDrawableIfNeeded() {
-            if (NeedsUpdate) {
+        internal void UpdateDrawableIfNeeded()
+        {
+            if (NeedsUpdate)
+            {
                 UpdateDrawable();
             }
         }
 
-        internal SFML.Graphics.BlendMode SFMLBlendMode(BlendMode blend) {
-            switch (blend) {
+        internal SFML.Graphics.BlendMode SFMLBlendMode(BlendMode blend)
+        {
+            switch (blend)
+            {
                 case BlendMode.Alpha: return SFML.Graphics.BlendMode.Alpha;
                 case BlendMode.Add: return SFML.Graphics.BlendMode.Add;
                 case BlendMode.Multiply: return SFML.Graphics.BlendMode.Multiply;
@@ -717,22 +825,5 @@ namespace Otter {
         }
 
         #endregion
-
     }
-
-    #region Enum
-
-    /// <summary>
-    /// The blendmodes that can be used for graphic rendering.
-    /// </summary>
-    public enum BlendMode {
-        Alpha,
-        Add,
-        Multiply,
-        None,
-        Null
-    }
-
-    #endregion
-
 }

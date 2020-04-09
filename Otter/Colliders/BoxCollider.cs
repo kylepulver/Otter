@@ -1,5 +1,6 @@
 using System;
 
+using Otter.Graphics;
 using Otter.Utility;
 
 namespace Otter.Colliders
@@ -9,7 +10,6 @@ namespace Otter.Colliders
     /// </summary>
     public class BoxCollider : Collider
     {
-
         #region Constructors
 
         /// <summary>
@@ -56,6 +56,5 @@ namespace Otter.Colliders
         }
 
         #endregion
-
     }
 }

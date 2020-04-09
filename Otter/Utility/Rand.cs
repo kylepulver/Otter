@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Otter.Graphics;
+
 //thanks to chevy ray for this class
 namespace Otter.Utility
 {
@@ -10,7 +12,6 @@ namespace Otter.Utility
     /// </summary>
     public static class Rand
     {
-
         #region Static Fields
 
         static List<Random> randoms = new List<Random>();
@@ -394,6 +395,5 @@ namespace Otter.Utility
         }
 
         #endregion
-
     }
 }

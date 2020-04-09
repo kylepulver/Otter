@@ -13,6 +13,8 @@ using System.Xml;
 using System.Xml.Linq;
 
 using Otter.Core;
+using Otter.Graphics;
+using Otter.Utility;
 
 namespace Otter.Utility
 {
@@ -21,7 +23,6 @@ namespace Otter.Utility
     /// </summary>
     public static class Util
     {
-
         #region Constants
 
         /// <summary>
@@ -1843,6 +1844,5 @@ namespace Otter.Utility
         }
 
         #endregion
-
     }
 }

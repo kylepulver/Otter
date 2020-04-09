@@ -6,6 +6,8 @@ using System.Xml;
 using SFML.Graphics;
 using SFML.System;
 
+using Otter.Graphics;
+
 namespace Otter.Utility
 {
     /// <summary>
@@ -13,7 +15,6 @@ namespace Otter.Utility
     /// </summary>
     public static class Extensions
     {
-
         #region XML
 
         /// <summary>
@@ -122,9 +123,9 @@ namespace Otter.Utility
         /// <param name="xml">The XmlElement to parse.</param>
         /// <param name="name">The name of the attribute.</param>
         /// <returns>The value as a Color.</returns>
-        public static Color AttributeColor(this XmlNode xml, string name)
+        public static Graphics.Color AttributeColor(this XmlNode xml, string name)
         {
-            return new Color(xml.Attributes[name].Value);
+            return new Graphics.Color(xml.Attributes[name].Value);
         }
 
         /// <summary>
@@ -134,11 +135,11 @@ namespace Otter.Utility
         /// <param name="name">The name of the attribute.</param>
         /// <param name="returnOnNull">The default value to return if that attribute doesn't exist.</param>
         /// <returns>The value as a Color.</returns>
-        public static Color AttributeColor(this XmlNode xml, string name, Color returnOnNull)
+        public static Graphics.Color AttributeColor(this XmlNode xml, string name, Graphics.Color returnOnNull)
         {
             if (xml == null) return returnOnNull;
             if (xml.Attributes[name] == null) return returnOnNull;
-            return new Color(xml.Attributes[name].Value);
+            return new Graphics.Color(xml.Attributes[name].Value);
         }
 
         /// <summary>
@@ -194,9 +195,9 @@ namespace Otter.Utility
         /// </summary>
         /// <param name="xml"></param>
         /// <returns>The value as a Color.</returns>
-        public static Color InnerColor(this XmlNode xml)
+        public static Graphics.Color InnerColor(this XmlNode xml)
         {
-            return new Color(xml.InnerText);
+            return new Graphics.Color(xml.InnerText);
         }
 
         /// <summary>
@@ -284,11 +285,11 @@ namespace Otter.Utility
         /// <param name="key">The key to search for.</param>
         /// <param name="onNull">The value to return if that key is not found.</param>
         /// <returns>The value fro the Dictionary as a Color.</returns>
-        static public Color ValueAsColor(this Dictionary<string, string> d, string key, Color onNull = null)
+        static public Graphics.Color ValueAsColor(this Dictionary<string, string> d, string key, Graphics.Color onNull = null)
         {
             if (d.ContainsKey(key))
             {
-                return new Color(d[key]);
+                return new Graphics.Color(d[key]);
             }
             return onNull;
         }
@@ -371,18 +372,18 @@ namespace Otter.Utility
 
         #region SFML
 
-        public static void Append(this VertexArray vertices, float x, float y, Color color, float tx, float ty)
+        public static void Append(this VertexArray vertices, float x, float y, Graphics.Color color, float tx, float ty)
         {
             vertices.Append(new Vertex(new Vector2f(x, y), color.SFMLColor, new Vector2f(tx, ty)));
         }
 
-        public static void Append(this VertexArray vertices, float x, float y, Color color = null)
+        public static void Append(this VertexArray vertices, float x, float y, Graphics.Color color = null)
         {
-            if (color == null) color = Color.White;
+            if (color == null) color = Graphics.Color.White;
             vertices.Append(new Vertex(new Vector2f(x, y), color.SFMLColor));
         }
 
-        public static void Append(this VertexArray vertices, double x, double y, Color color)
+        public static void Append(this VertexArray vertices, double x, double y, Graphics.Color color)
         {
             vertices.Append(new Vertex(new Vector2f((float)x, (float)y), color.SFMLColor));
         }
@@ -401,9 +402,9 @@ namespace Otter.Utility
         /// </summary>
         /// <param name="i">The uint.</param>
         /// <returns>A new Color from the uint.</returns>
-        public static Color ToColor(this uint i)
+        public static Graphics.Color ToColor(this uint i)
         {
-            return new Color(i);
+            return new Graphics.Color(i);
         }
 
         /// <summary>
@@ -411,9 +412,9 @@ namespace Otter.Utility
         /// </summary>
         /// <param name="i">The int.</param>
         /// <returns>A new Color from the int.</returns>
-        public static Color ToColor(this int i)
+        public static Graphics.Color ToColor(this int i)
         {
-            return new Color((uint)i);
+            return new Graphics.Color((uint)i);
         }
 
         /// <summary>
@@ -445,6 +446,5 @@ namespace Otter.Utility
         }
 
         #endregion
-
     }
 }

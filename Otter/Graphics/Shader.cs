@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class representing a shader written in GLSL.
@@ -13,7 +13,6 @@ namespace Otter
     /// </summary>
     public class Shader : IDisposable
     {
-
         #region Static Methods
 
         /// <summary>

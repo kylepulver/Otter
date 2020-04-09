@@ -4,12 +4,13 @@ using SFML.System;
 using Otter.Core;
 using Otter.Utility;
 
-namespace Otter {
+namespace Otter.Graphics
+{
     /// <summary>
     /// Graphic type that is used to represent a static image.
     /// </summary>
-    public class Image : Graphic {
-
+    public class Image : Graphic
+    {
         #region Static Fields
 
         /// <summary>
@@ -28,7 +29,8 @@ namespace Otter {
         /// <param name="height">The height of the rectangle.</param>
         /// <param name="color">The color of the rectangle.</param>
         /// <returns>A new image containing the rectangle.</returns>
-        static public Image CreateRectangle(int width, int height, Color color) {
+        static public Image CreateRectangle(int width, int height, Color color)
+        {
             Image img = new Image(width, height);
 
             img.Color = color;
@@ -52,7 +54,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The color of the rectangle.</param>
         /// <returns>A new image containing the rectangle.</returns>
-        static public Image CreateRectangle(Color color) {
+        static public Image CreateRectangle(Color color)
+        {
             int w = Game.Instance.Width;
             int h = Game.Instance.Height;
             return Image.CreateRectangle(w, h, color);
@@ -62,7 +65,8 @@ namespace Otter {
         /// Creates a simple black rectangle the size of the active Game window.
         /// </summary>
         /// <returns>A new image containing the rectangle.</returns>
-        static public Image CreateRectangle() {
+        static public Image CreateRectangle()
+        {
             return Image.CreateRectangle(Color.Black);
         }
 
@@ -72,7 +76,8 @@ namespace Otter {
         /// <param name="width">The width of the rectangle.</param>
         /// <param name="height">The height of the rectangle.</param>
         /// <returns>A new image containing the rectangle.</returns>
-        static public Image CreateRectangle(int width, int height) {
+        static public Image CreateRectangle(int width, int height)
+        {
             return CreateRectangle(width, height, Color.White);
         }
 
@@ -81,7 +86,8 @@ namespace Otter {
         /// </summary>
         /// <param name="size">The width and height of the rectangle.</param>
         /// <returns>A new image containing the rectangle.</returns>
-        static public Image CreateRectangle(int size) {
+        static public Image CreateRectangle(int size)
+        {
             return CreateRectangle(size, size);
         }
 
@@ -91,7 +97,8 @@ namespace Otter {
         /// <param name="size">The width and height of the rectangle.</param>
         /// <param name="color">The color of the rectangle.</param>
         /// <returns>A new image containing the rectangle.</returns>
-        static public Image CreateRectangle(int size, Color color) {
+        static public Image CreateRectangle(int size, Color color)
+        {
             return CreateRectangle(size, size, color);
         }
 
@@ -101,7 +108,8 @@ namespace Otter {
         /// <param name="radius">The radius of the circle.</param>
         /// <param name="color">The color of the circle.</param>
         /// <returns>A new image containing the circle.</returns>
-        static public Image CreateCircle(int radius, Color color) {
+        static public Image CreateCircle(int radius, Color color)
+        {
             Image img = new Image();
 
             img.Width = radius * 2;
@@ -124,7 +132,8 @@ namespace Otter {
         /// </summary>
         /// <param name="radius">The radius of the circle.</param>
         /// <returns>A new image containing the circle.</returns>
-        static public Image CreateCircle(int radius) {
+        static public Image CreateCircle(int radius)
+        {
             return CreateCircle(radius, Color.White);
         }
 
@@ -135,11 +144,14 @@ namespace Otter {
         /// <summary>
         /// Defines which area of the Image to show.
         /// </summary>
-        public Rectangle ClippingRegion {
-            get {
+        public Rectangle ClippingRegion
+        {
+            get
+            {
                 return clippingRegion;
             }
-            set {
+            set
+            {
                 clippingRegion = value;
                 NeedsUpdate = true;
             }
@@ -148,9 +160,11 @@ namespace Otter {
         /// <summary>
         /// Flip the texture coordinates on the X axis.
         /// </summary>
-        public bool FlippedX {
+        public bool FlippedX
+        {
             get { return flippedX; }
-            set {
+            set
+            {
                 flippedX = value;
                 NeedsUpdate = true;
             }
@@ -159,9 +173,11 @@ namespace Otter {
         /// <summary>
         /// Flip the texture coordinates on the Y axis.
         /// </summary>
-        public bool FlippedY {
+        public bool FlippedY
+        {
             get { return flippedY; }
-            set {
+            set
+            {
                 flippedY = value;
                 NeedsUpdate = true;
             }
@@ -170,12 +186,15 @@ namespace Otter {
         /// <summary>
         /// The outline color of the Image (only applies to circles and rectangles.)
         /// </summary>
-        public Color OutlineColor {
-            get {
+        public Color OutlineColor
+        {
+            get
+            {
                 if (outlineColor == null) return Color.None;
                 return outlineColor;
             }
-            set {
+            set
+            {
                 OutlineColor.Graphic = null;
                 outlineColor = value;
                 outlineColor.Graphic = this;
@@ -186,11 +205,14 @@ namespace Otter {
         /// <summary>
         /// The outline thickness of the Image (only applies to circles and rectangles.)
         /// </summary>
-        public float OutlineThickness {
-            get {
+        public float OutlineThickness
+        {
+            get
+            {
                 return outlineThickness;
             }
-            set {
+            set
+            {
                 outlineThickness = value;
                 NeedsUpdate = true;
             }
@@ -231,12 +253,14 @@ namespace Otter {
         /// </summary>
         /// <param name="source">The filepath of the texture.</param>
         /// <param name="clip">Where to clip the texture.</param>
-        public Image(string source = null) : base() {
+        public Image(string source = null) : base()
+        {
             SetTexture(new Texture(source));
             Initialize();
         }
 
-        protected Image() : base() {
+        protected Image() : base()
+        {
             Initialize();
         }
 
@@ -244,7 +268,8 @@ namespace Otter {
         /// Creates a new Image using a Texture.
         /// </summary>
         /// <param name="texture">The Texture to use.</param>
-        public Image(Texture texture) : base() {
+        public Image(Texture texture) : base()
+        {
             SetTexture(texture);
             Initialize();
         }
@@ -253,7 +278,8 @@ namespace Otter {
         /// Creates a new Image using an AtlasTexture.
         /// </summary>
         /// <param name="texture">The AtlasTexture to use.</param>
-        public Image(AtlasTexture texture) : base() {
+        public Image(AtlasTexture texture) : base()
+        {
             SetTexture(texture);
             Initialize();
         }
@@ -263,7 +289,8 @@ namespace Otter {
         /// </summary>
         /// <param name="width">The width of the Image.</param>
         /// <param name="height">The hight of the Image.</param>
-        public Image(int width, int height) : base() {
+        public Image(int width, int height) : base()
+        {
             Initialize();
             Width = width;
             Height = height;
@@ -273,7 +300,8 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize() {
+        void Initialize()
+        {
             Name = "Image";
 
             // Proper sprite batching coming soon.
@@ -285,7 +313,8 @@ namespace Otter {
             ClippingRegion = TextureRegion;
         }
 
-        protected override void TextureChanged() {
+        protected override void TextureChanged()
+        {
             base.TextureChanged();
 
             Width = TextureRegion.Width;
@@ -294,10 +323,12 @@ namespace Otter {
             ClippingRegion = TextureRegion;
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
-            if (isCircle) {
+            if (isCircle)
+            {
                 var circle = new SFML.Graphics.CircleShape(radius);
                 circle.OutlineThickness = OutlineThickness;
                 circle.OutlineColor = OutlineColor.SFMLColor;
@@ -307,8 +338,10 @@ namespace Otter {
                 Width = (int)circle.GetLocalBounds().Width;
                 Height = (int)circle.GetLocalBounds().Height;
             }
-            else {
-                if (isShape) {
+            else
+            {
+                if (isShape)
+                {
                     var rect = new SFML.Graphics.RectangleShape(new Vector2f(rectWidth, rectHeight));
                     rect.OutlineColor = OutlineColor.SFMLColor;
                     rect.OutlineThickness = OutlineThickness;
@@ -317,7 +350,8 @@ namespace Otter {
                     Width = (int)rect.GetLocalBounds().Width;
                     Height = (int)rect.GetLocalBounds().Height;
                 }
-                else {
+                else
+                {
                     SFMLVertices.Clear();
 
                     float x1, y1, x2, y2, u1, v1, u2, v2, cx1, cy1, cx2, cy2;
@@ -330,28 +364,32 @@ namespace Otter {
                     x1 = Util.Max(0, cx1);
                     u1 = TextureLeft + x1;
 
-                    if (FlippedX) {
+                    if (FlippedX)
+                    {
                         u1 = TextureRegion.Width - u1 + TextureLeft + TextureRegion.Left;
                     }
 
                     y1 = Util.Max(0, cy1);
                     v1 = TextureTop + y1;
 
-                    if (FlippedY) {
+                    if (FlippedY)
+                    {
                         v1 = TextureRegion.Height - v1 + TextureTop + TextureRegion.Top;
                     }
 
                     x2 = Util.Min(TextureRegion.Right, cx2);
                     u2 = TextureLeft + x2;
 
-                    if (FlippedX) {
+                    if (FlippedX)
+                    {
                         u2 = TextureRegion.Width - u2 + TextureLeft + TextureRegion.Left;
                     }
 
                     y2 = Util.Min(TextureRegion.Bottom, cy2);
                     v2 = TextureTop + y2;
 
-                    if (FlippedY) {
+                    if (FlippedY)
+                    {
                         v2 = TextureRegion.Height - v2 + TextureTop + TextureRegion.Top;
                     }
 
@@ -370,11 +408,11 @@ namespace Otter {
 
         #region Internal
 
-        internal VertexArray GetVertices() {
+        internal VertexArray GetVertices()
+        {
             return SFMLVertices;
         }
 
         #endregion
-
     }
 }

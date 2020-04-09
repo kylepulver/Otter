@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 
 using Otter.Colliders;
-using Otter.Utility;
 using Otter.Components;
+using Otter.Graphics;
+using Otter.Utility;
 
 namespace Otter.Core
 {
-
     /// <summary>
     /// Class used for a game object. The bread and butter of your game. Entities are added to Scenes which are controlled by the Game.
     /// </summary>
     public class Entity
     {
-
         #region Public Fields
 
         /// <summary>

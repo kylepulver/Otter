@@ -4,14 +4,13 @@ using System.Text.RegularExpressions;
 
 using Otter.Core;
 
-namespace Otter
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class used for animations in Spritemap.
     /// </summary>
     public class Anim
     {
-
         #region Static Methods
 
         /// <summary>
@@ -407,6 +406,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

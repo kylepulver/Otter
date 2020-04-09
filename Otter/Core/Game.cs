@@ -9,8 +9,9 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-using Otter.Utility;
 using Otter.Components;
+using Otter.Graphics;
+using Otter.Utility;
 
 namespace Otter.Core
 {
@@ -165,12 +166,12 @@ namespace Otter.Core
         /// <summary>
         /// The default background color of the game.
         /// </summary>
-        public Color Color = Color.Black;
+        public Graphics.Color Color = Graphics.Color.Black;
 
         /// <summary>
         /// The default color to draw in the letterboxed areas of the window.
         /// </summary>
-        public Color LetterBoxColor = Color.Black;
+        public Graphics.Color LetterBoxColor = Graphics.Color.Black;
 
         /// <summary>
         /// How long the game has been active.  Measured in units of delta time.
@@ -1346,7 +1347,7 @@ namespace Otter.Core
                         }
                         else
                         {
-                            Window.Clear(Color.Black.SFMLColor);
+                            Window.Clear(Graphics.Color.Black.SFMLColor);
                             Window.Display();
                         }
                     }

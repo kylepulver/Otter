@@ -1,7 +1,6 @@
-using Otter;
 using Otter.Core;
-using Otter.Utility;
 using Otter.Components;
+using Otter.Utility;
 
 namespace FlippyFlop
 {

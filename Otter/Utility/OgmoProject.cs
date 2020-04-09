@@ -7,6 +7,8 @@ using System.Xml;
 
 using Otter.Core;
 using Otter.Colliders;
+using Otter.Graphics;
+
 namespace Otter.Utility
 {
     /// <summary>

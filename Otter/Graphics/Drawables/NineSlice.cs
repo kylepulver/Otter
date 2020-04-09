@@ -6,13 +6,14 @@ using SFML.System;
 
 using Otter.Utility;
 
-namespace Otter {
+namespace Otter.Graphics
+{
     /// <summary>
     /// Graphic type used to render a panel made up of 9 slices of an image. Handy for rendering panels
     /// with border graphics.
     /// </summary>
-    public class NineSlice : Graphic {
-
+    public class NineSlice : Graphic
+    {
         #region Static Methods
 
         /// <summary>
@@ -24,15 +25,18 @@ namespace Otter {
         /// <param name="y1">Fill Rect y1</param>
         /// <param name="x2">Fill rect x2.</param>
         /// <param name="y2">Fill Rect y2</param>
-        public static void SetFillRect(string key, int x1, int y1, int x2, int y2) {
-            var rect = new Rectangle() {
+        public static void SetFillRect(string key, int x1, int y1, int x2, int y2)
+        {
+            var rect = new Rectangle()
+            {
                 X = x1,
                 Y = y1,
                 Width = x2 - x1,
                 Height = y2 - y1
             };
 
-            if (!fillRects.ContainsKey(key)) {
+            if (!fillRects.ContainsKey(key))
+            {
                 fillRects.Add(key, rect);
             }
             fillRects[key] = rect;
@@ -46,8 +50,10 @@ namespace Otter {
         /// <param name="y1">The top corner of the fill rectangle.</param>
         /// <param name="x2">The right corner of the fill rectangle.</param>
         /// <param name="y2">The bottom corner of the fill rectangle.</param>
-        public static void SetFillRect(string[] keys, int x1, int y1, int x2, int y2) {
-            foreach (var k in keys) {
+        public static void SetFillRect(string[] keys, int x1, int y1, int x2, int y2)
+        {
+            foreach (var k in keys)
+            {
                 SetFillRect(k, x1, y1, x2, y2);
             }
         }
@@ -60,7 +66,8 @@ namespace Otter {
         /// <param name="bottom">How far from the bottom of the texture to end the rectangle.</param>
         /// <param name="left">How far from the left of the texture to begin the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public static void SetBorderPadding(string key, int top, int right, int bottom, int left) {
+        public static void SetBorderPadding(string key, int top, int right, int bottom, int left)
+        {
             var texture = new Texture(key); // Have to load a texture here but I think that's okay?
 
             var x1 = left;
@@ -75,7 +82,8 @@ namespace Otter {
         /// </summary>
         /// <param name="padding">How far from the border of the texture to make the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public static void SetBorderPadding(string key, int padding) {
+        public static void SetBorderPadding(string key, int padding)
+        {
             SetBorderPadding(key, padding, padding, padding, padding);
         }
 
@@ -85,7 +93,8 @@ namespace Otter {
         /// <param name="horizontal">How far horizontally from the border of the texture to make the rectangle.</param>
         /// <param name="vertical">How far horizontally from the border of the texture to make the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public static void SetBorderPadding(string key, int horizontal, int vertical) {
+        public static void SetBorderPadding(string key, int horizontal, int vertical)
+        {
             SetBorderPadding(key, horizontal, vertical, horizontal, vertical);
         }
 
@@ -141,11 +150,14 @@ namespace Otter {
         /// <summary>
         /// The type of panel to use for the NineSlice.
         /// </summary>
-        public PanelType PanelType {
-            get {
+        public PanelType PanelType
+        {
+            get
+            {
                 return paneltype;
             }
-            set {
+            set
+            {
                 paneltype = value;
                 NeedsUpdate = true;
             }
@@ -154,13 +166,16 @@ namespace Otter {
         /// <summary>
         /// Render the NineSlice through a clipping rectangle.
         /// </summary>
-        public Rectangle ClippingRegion {
-            set {
+        public Rectangle ClippingRegion
+        {
+            set
+            {
                 panelClip = value;
                 usePanelClip = true;
                 NeedsUpdate = true;
             }
-            get {
+            get
+            {
                 return panelClip;
             }
         }
@@ -168,7 +183,8 @@ namespace Otter {
         /// <summary>
         /// Determines if the ClippingRegion is used or not.
         /// </summary>
-        public bool UsePanelClip {
+        public bool UsePanelClip
+        {
             set { usePanelClip = value; }
             get { return usePanelClip; }
         }
@@ -176,23 +192,30 @@ namespace Otter {
         /// <summary>
         /// Set the panel width of the NineSlice.  This will update and rerender it.
         /// </summary>
-        public int PanelWidth {
-            set {
-                if (PanelSizeMode == PanelSizeMode.Inside) {
+        public int PanelWidth
+        {
+            set
+            {
+                if (PanelSizeMode == PanelSizeMode.Inside)
+                {
                     value += sliceX1 + tWidth - sliceX2;
                 }
 
-                if (SnapWidth) {
+                if (SnapWidth)
+                {
                     Width = GetSnapWidth(value);
                 }
-                else {
+                else
+                {
                     Width = value;
                 }
                 if (Width < 0) Width = 0;
                 NeedsUpdate = true;
             }
-            get {
-                if (PanelSizeMode == PanelSizeMode.Inside) {
+            get
+            {
+                if (PanelSizeMode == PanelSizeMode.Inside)
+                {
                     return Width - sliceX1 + tWidth - sliceX2;
                 }
 
@@ -203,23 +226,30 @@ namespace Otter {
         /// <summary>
         /// Set the panel height of the NineSlice.  This will update and rerender it.
         /// </summary>
-        public int PanelHeight {
-            set {
-                if (PanelSizeMode == PanelSizeMode.Inside) {
+        public int PanelHeight
+        {
+            set
+            {
+                if (PanelSizeMode == PanelSizeMode.Inside)
+                {
                     value += sliceY1 + tHeight - sliceY2;
                 }
 
-                if (SnapHeight) {
+                if (SnapHeight)
+                {
                     Height = GetSnapHeight(value);
                 }
-                else {
+                else
+                {
                     Height = value;
                 }
                 if (Height < 0) Height = 0;
                 NeedsUpdate = true;
             }
-            get {
-                if (PanelSizeMode == PanelSizeMode.Inside) {
+            get
+            {
+                if (PanelSizeMode == PanelSizeMode.Inside)
+                {
                     return Height - sliceY1 + tHeight - sliceY2;
                 }
 
@@ -239,7 +269,8 @@ namespace Otter {
         /// <param name="height">The height of the NineSlice panel.</param>
         /// <param name="fillRect">The rectangle to determine the stretched areas.</param>
         public NineSlice(string source, int width = 0, int height = 0, Rectangle? fillRect = null)
-            : base() {
+            : base()
+        {
             SetTexture(new Texture(source));
             Initialize(source, width, height, fillRect);
         }
@@ -252,7 +283,8 @@ namespace Otter {
         /// <param name="height">The height of the NineSlice panel.</param>
         /// <param name="fillRect">The rectangle to determine the stretched areas.</param>
         public NineSlice(Texture texture, int width, int height, Rectangle? fillRect = null)
-            : base() {
+            : base()
+        {
             SetTexture(texture);
             Initialize(texture.Source, width, height, fillRect);
         }
@@ -265,7 +297,8 @@ namespace Otter {
         /// <param name="height">The height of the NineSlice panel.</param>
         /// <param name="fillRect">The rectangle to determine the stretched areas.</param>
         public NineSlice(AtlasTexture texture, int width, int height, Rectangle? fillRect = null)
-            : base() {
+            : base()
+        {
             SetTexture(texture);
             Initialize(texture.Name + ".png", width, height, fillRect);
         }
@@ -274,15 +307,18 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize(string source, int width, int height, Rectangle? fillRect) {
+        void Initialize(string source, int width, int height, Rectangle? fillRect)
+        {
             tWidth = TextureRegion.Width;
             tHeight = TextureRegion.Height;
 
-            if (width == 0 || height == 0) {
+            if (width == 0 || height == 0)
+            {
                 Width = tWidth;
                 Height = tHeight;
             }
-            else {
+            else
+            {
                 Width = width;
                 Height = height;
             }
@@ -292,23 +328,28 @@ namespace Otter {
             sliceY1 = tHeight / 3;
             sliceY2 = tHeight / 3 * 2;
 
-            if (fillRect == null) {
-                if (fillRects.ContainsKey(source)) {
+            if (fillRect == null)
+            {
+                if (fillRects.ContainsKey(source))
+                {
                     var rect = fillRects[source];
                     SetFillRect(rect.Left, rect.Top, rect.Right, rect.Bottom);
                 }
             }
-            else {
+            else
+            {
                 var rect = fillRect.Value;
                 SetFillRect(rect.Left, rect.Top, rect.Right, rect.Bottom);
             }
         }
 
-        void DrawQuad(VertexArray v, float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2) {
+        void DrawQuad(VertexArray v, float x1, float y1, float x2, float y2, float u1, float v1, float u2, float v2)
+        {
             float cx1 = x1, cx2 = x2, cy1 = y1, cy2 = y2;
             float cu1 = u1, cu2 = u2, cv1 = v1, cv2 = v2;
 
-            if (usePanelClip) {
+            if (usePanelClip)
+            {
                 cx1 = Util.Clamp(x1, ClippingRegion.Left, ClippingRegion.Right);
                 cu1 = Util.ScaleClamp(cx1, x1, x2, u1, u2);
 
@@ -328,7 +369,8 @@ namespace Otter {
             v.Append(cx1, cy2, Color, cu1, cv2);
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             var minWidth = sliceX1 + tWidth - sliceX2;
             panelScaleX = (float)Width / (float)minWidth;
             if (panelScaleX > 1) panelScaleX = 1;
@@ -359,11 +401,13 @@ namespace Otter {
             u3 = TextureLeft + tWidth;
             v3 = TextureTop + tHeight;
 
-            if (panelScaleX < 1) {
+            if (panelScaleX < 1)
+            {
                 x1 = (int)Math.Round(x1 * panelScaleX);
                 x2 = x1;
             }
-            if (panelScaleY < 1) {
+            if (panelScaleY < 1)
+            {
                 y1 = (int)Math.Round(y1 * panelScaleY);
                 y2 = y1;
             }
@@ -371,7 +415,8 @@ namespace Otter {
             int tileX = sliceX2 - sliceX1;
             int tileY = sliceY2 - sliceY1;
 
-            if (PanelType == PanelType.Stretch) {
+            if (PanelType == PanelType.Stretch)
+            {
                 //top
                 DrawQuad(v, x1, y0, x2, y1, u1, v0, u2, v1);
 
@@ -387,15 +432,19 @@ namespace Otter {
                 //middle
                 DrawQuad(v, x1, y1, x2, y2, u1, v1, u2, v2);
             }
-            else {
-                for (int xx = x1; xx < x2; xx += tileX) {
-                    for (int yy = y1; yy < y2; yy += tileY) {
+            else
+            {
+                for (int xx = x1; xx < x2; xx += tileX)
+                {
+                    for (int yy = y1; yy < y2; yy += tileY)
+                    {
                         //middle
                         DrawQuad(v, xx, yy, xx + tileX, yy + tileY, u1, v1, u2, v2);
                     }
                 }
 
-                for (int yy = y1; yy < y2; yy += tileY) {
+                for (int yy = y1; yy < y2; yy += tileY)
+                {
                     //left
                     DrawQuad(v, x0, yy, x1, yy + tileY, u0, v1, u1, v2);
 
@@ -403,7 +452,8 @@ namespace Otter {
                     DrawQuad(v, x2, yy, x3, yy + tileY, u2, v1, u3, v2);
                 }
 
-                for (int xx = x1; xx < x2; xx += tileX) {
+                for (int xx = x1; xx < x2; xx += tileX)
+                {
                     //top
                     DrawQuad(v, xx, y0, xx + tileX, y1, u1, v0, u2, v1);
 
@@ -427,26 +477,31 @@ namespace Otter {
             SFMLVertices = v;
         }
 
-        void Append(VertexArray v, float x, float y, float tx, float ty) {
+        void Append(VertexArray v, float x, float y, float tx, float ty)
+        {
             v.Append(new Vertex(new Vector2f(x, y), new Vector2f(tx, ty)));
         }
 
-        int GetSnapWidth(int width) {
+        int GetSnapWidth(int width)
+        {
             var sliceWidth = sliceX2 - sliceX1;
             int snapWidth = Width - sliceWidth;
 
-            while (snapWidth < width) {
+            while (snapWidth < width)
+            {
                 snapWidth += sliceWidth;
             }
 
             return snapWidth;
         }
 
-        int GetSnapHeight(int height) {
+        int GetSnapHeight(int height)
+        {
             var sliceHeight = sliceY2 - sliceY1;
             int snapHeight = Width - sliceHeight;
 
-            while (snapHeight < height) {
+            while (snapHeight < height)
+            {
                 snapHeight += sliceHeight;
             }
 
@@ -465,7 +520,8 @@ namespace Otter {
         /// <param name="x2">The right corner of the rectangle.</param>
         /// <param name="y2">The bottom corner of the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public NineSlice SetFillRect(int x1, int y1, int x2, int y2) {
+        public NineSlice SetFillRect(int x1, int y1, int x2, int y2)
+        {
             sliceX1 = x1;
             sliceX2 = x2;
             sliceY1 = y1;
@@ -477,7 +533,8 @@ namespace Otter {
         /// Get the FillRect of the NineSlice.  This determines which areas are stretched or tiled when rendering the tiles.
         /// </summary>
         /// <returns>The Rectangle of the FillRect.</returns>
-        public Rectangle GetFillRect() {
+        public Rectangle GetFillRect()
+        {
             return new Rectangle(sliceX1, sliceY1, sliceX2 - sliceX1, sliceY2 - sliceY1);
         }
 
@@ -489,7 +546,8 @@ namespace Otter {
         /// <param name="bottom">How far from the bottom of the texture to end the rectangle.</param>
         /// <param name="left">How far from the left of the texture to begin the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public NineSlice SetBorderPadding(int top, int right, int bottom, int left) {
+        public NineSlice SetBorderPadding(int top, int right, int bottom, int left)
+        {
             var x1 = left;
             var y1 = top;
             var x2 = Texture.Width - right;
@@ -502,7 +560,8 @@ namespace Otter {
         /// </summary>
         /// <param name="padding">How far from the border of the texture to make the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public NineSlice SetBorderPadding(int padding) {
+        public NineSlice SetBorderPadding(int padding)
+        {
             return SetBorderPadding(padding, padding, padding, padding);
         }
 
@@ -512,7 +571,8 @@ namespace Otter {
         /// <param name="horizontal">How far horizontally from the border of the texture to make the rectangle.</param>
         /// <param name="vertical">How far horizontally from the border of the texture to make the rectangle.</param>
         /// <returns>The NineSlice object.</returns>
-        public NineSlice SetBorderPadding(int horizontal, int vertical) {
+        public NineSlice SetBorderPadding(int horizontal, int vertical)
+        {
             return SetBorderPadding(horizontal, vertical, horizontal, vertical);
         }
 
@@ -521,10 +581,12 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X position offset.</param>
         /// <param name="y">The Y position offset.</param>
-        public override void Render(float x = 0, float y = 0) {
+        public override void Render(float x = 0, float y = 0)
+        {
             float ox = 0, oy = 0;
 
-            if (UseInsideOrigin) {
+            if (UseInsideOrigin)
+            {
                 ox = -sliceX1;
                 oy = -sliceY1;
             }
@@ -533,20 +595,5 @@ namespace Otter {
         }
 
         #endregion
-        
     }
-
-    #region Enum
-
-    public enum PanelType {
-        Stretch,
-        Tile
-    }
-
-    public enum PanelSizeMode {
-        All,
-        Inside
-    }
-
-    #endregion
 }

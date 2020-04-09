@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Otter.Core;
+using Otter.Graphics;
 
 namespace Otter.Utility
 {
@@ -19,7 +20,6 @@ namespace Otter.Utility
     /// </summary>
     public class Particle : Entity
     {
-
         #region Private Fields
 
         Color color;
@@ -860,6 +860,5 @@ namespace Otter.Utility
         }
 
         #endregion
-
     }
 }

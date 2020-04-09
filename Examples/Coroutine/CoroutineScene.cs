@@ -1,7 +1,7 @@
 using System.Collections;
 
-using Otter;
 using Otter.Core;
+using Otter.Graphics;
 using Otter.Utility;
 
 namespace CoroutineExample

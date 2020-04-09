@@ -2,7 +2,7 @@ using System.IO;
 
 using Otter.Utility;
 
-namespace Otter
+namespace Otter.Graphics
 {
     public class Font : BaseFont
     {
