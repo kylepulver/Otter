@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using Otter.Core;
 using Otter.Colliders;
-using Otter.Graphics;
+using Otter.Graphics.Drawables;
 
 namespace Otter.Components
 {

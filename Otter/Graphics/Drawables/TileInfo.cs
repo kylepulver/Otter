@@ -3,7 +3,7 @@ using SFML.System;
 
 using Otter.Utility;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// A class containing all the info to describe a specific tile.

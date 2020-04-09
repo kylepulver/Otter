@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 
 namespace Otter.Graphics

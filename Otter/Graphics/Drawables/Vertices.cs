@@ -5,7 +5,7 @@ using SFML.Graphics;
 
 using Otter.Utility;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic used for rendering a set of Vert objects.  Basically a wrapper for SFML's VertexArray.

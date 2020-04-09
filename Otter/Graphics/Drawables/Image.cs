@@ -5,7 +5,7 @@ using Otter.Core;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic type that is used to represent a static image.

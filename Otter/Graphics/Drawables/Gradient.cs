@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SFML.Graphics;
 using SFML.System;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic that renders as a simple gradient between 4 points.

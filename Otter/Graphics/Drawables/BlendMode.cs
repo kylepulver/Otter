@@ -1,4 +1,4 @@
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// The blendmodes that can be used for graphic rendering.

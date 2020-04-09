@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic that is used for an animated sprite sheet.

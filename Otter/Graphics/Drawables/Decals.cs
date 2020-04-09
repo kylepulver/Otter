@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Otter.Utility;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic that can render a bunch of static images all at once.  Images must use the same

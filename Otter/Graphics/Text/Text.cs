@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 
+using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 
 namespace Otter.Graphics.Text

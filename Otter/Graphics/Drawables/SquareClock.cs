@@ -5,7 +5,7 @@ using SFML.Graphics;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic that is used to create a square image with a radial mask based on a value of 0 to 1.

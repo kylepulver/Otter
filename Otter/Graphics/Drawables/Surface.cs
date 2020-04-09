@@ -8,7 +8,7 @@ using Otter.Core;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic that represents a render target.  By default the game uses a master surface to

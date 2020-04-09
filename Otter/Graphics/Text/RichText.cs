@@ -6,6 +6,8 @@ using System.Text;
 using SFML.Graphics;
 
 using Otter.Core;
+using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 

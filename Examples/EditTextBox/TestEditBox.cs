@@ -1,6 +1,7 @@
 using Otter.Core;
 using Otter.Graphics;
 using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 
 namespace TextEditBox

@@ -2,7 +2,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Core;
-using Otter.Graphics;
+using OtterDrawables = Otter.Graphics.Drawables;
 using OtterText = Otter.Graphics.Text;
 
 using Otter.Utility.MonoGame;
@@ -62,7 +62,7 @@ namespace Otter.Utility
         /// <param name="graphic">The Graphic to render.</param>
         /// <param name="x">The x offset to position the Graphic at.</param>
         /// <param name="y">The y offset to position the Graphic at.</param>
-        static public void Graphic(Graphic graphic, float x = 0, float y = 0)
+        static public void Graphic(OtterDrawables.Graphic graphic, float x = 0, float y = 0)
         {
             graphic.Render(x, y);
         }
@@ -110,7 +110,7 @@ namespace Otter.Utility
         /// <param name="clip">The portion of the Image to render.</param>
         /// <param name="x">The x offset to position the Image at.</param>
         /// <param name="y">The y offset to position the Image at.</param>
-        static public void ImageClip(Graphics.Image image, Rectangle clip, float x = 0, float y = 0)
+        static public void ImageClip(OtterDrawables.Image image, Rectangle clip, float x = 0, float y = 0)
         {
             var tempRect = image.ClippingRegion;
             image.ClippingRegion = clip;
@@ -131,7 +131,7 @@ namespace Otter.Utility
         /// <param name="freq">How frequent the wave should repeat.</param>
         /// <param name="x">The x position to draw the image from.</param>
         /// <param name="y">The y position to draw the image from.</param>
-        static public void ImageWaveX(Graphics.Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
+        static public void ImageWaveX(OtterDrawables.Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
         {
             for (var yy = 0; yy < image.Height; yy += step)
             {
@@ -152,7 +152,7 @@ namespace Otter.Utility
         /// <param name="freq">How frequent the wave should repeat.</param>
         /// <param name="x">The x position to draw the image from.</param>
         /// <param name="y">The y position to draw the image from.</param>
-        static public void ImageWaveY(Graphics.Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
+        static public void ImageWaveY(OtterDrawables.Image image, int step, float timer, float rate, float amp, float freq, float x = 0, float y = 0)
         {
             for (var xx = 0; xx < image.Width; xx += step)
             {
@@ -166,7 +166,7 @@ namespace Otter.Utility
         /// Change the Surface that is being rendered to.
         /// </summary>
         /// <param name="target">The new target Surface.</param>
-        static public void SetTarget(Surface target)
+        static public void SetTarget(OtterDrawables.Surface target)
         {
             if (Target != target)
             {
@@ -425,12 +425,12 @@ namespace Otter.Utility
         /// <summary>
         /// The current target Surface to render to.
         /// </summary>
-        static public Surface Target { get; internal set; }
+        static public OtterDrawables.Surface Target { get; internal set; }
 
         /// <summary>
         /// The surface that current Game is rendering to.
         /// </summary>
-        static public Surface GameTarget { get; internal set; }
+        static public OtterDrawables.Surface GameTarget { get; internal set; }
 
         #endregion
     }

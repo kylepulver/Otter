@@ -5,7 +5,7 @@ using SFML.Graphics;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Base abstract class used for anything that can be rendered.

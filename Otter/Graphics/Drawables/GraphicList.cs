@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     public class GraphicList : Graphic
     {

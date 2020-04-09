@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 using Otter.Colliders;
 using Otter.Components;
-using Otter.Graphics;
+using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 using Otter.Utility.Glide;
 using Otter.Utility.GoodStuff;

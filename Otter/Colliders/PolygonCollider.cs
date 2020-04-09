@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Otter.Graphics;
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 

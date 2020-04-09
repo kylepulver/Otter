@@ -6,7 +6,7 @@ using System.Xml;
 using Otter.Colliders;
 using Otter.Utility;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic used for loading and rendering a tilemap.  Renders tiles using a vertex array.

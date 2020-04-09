@@ -7,7 +7,7 @@ using SFML.System;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic type used to render a panel made up of 9 slices of an image. Handy for rendering panels

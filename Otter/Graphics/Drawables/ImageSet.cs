@@ -3,7 +3,7 @@ using System;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Drawables
 {
     /// <summary>
     /// Graphic that renders part of a sprite sheet, but does not automatically animate it at all.

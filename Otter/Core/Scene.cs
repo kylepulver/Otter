@@ -4,7 +4,7 @@ using System.Linq;
 
 using Otter.Colliders;
 using Otter.Components;
-using Otter.Graphics;
+using Otter.Graphics.Drawables;
 using Otter.Utility;
 using Otter.Utility.Glide;
 using Otter.Utility.GoodStuff;
