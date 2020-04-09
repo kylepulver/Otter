@@ -5,7 +5,7 @@ using System.Xml;
 
 using Otter.Utility;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Text
 {
     /// <summary>
     /// Font used for loading premade textures of characters, usually arcade fonts and stuff like that.

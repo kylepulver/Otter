@@ -1,5 +1,5 @@
 using Otter.Core;
-using Otter.Graphics;
+using Otter.Graphics.Text;
 
 namespace AutoTilingExample {
     class SceneEditor : Scene {

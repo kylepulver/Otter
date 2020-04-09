@@ -3,7 +3,7 @@ using System.IO;
 
 using Otter.Utility;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Text
 {
     /// <summary>
     /// Graphic used to display simple text.  Much faster than RichText, but more limited options.

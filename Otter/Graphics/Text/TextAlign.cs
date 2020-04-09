@@ -1,4 +1,4 @@
-namespace Otter.Graphics
+namespace Otter.Graphics.Text
 {
     public enum TextAlign
     {

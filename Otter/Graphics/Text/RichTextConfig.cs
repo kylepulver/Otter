@@ -1,4 +1,4 @@
-namespace Otter.Graphics
+namespace Otter.Graphics.Text
 {
     /// <summary>
     /// A utility class used for storing default values for a RichText object.

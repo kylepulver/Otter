@@ -3,6 +3,7 @@ using SFML.System;
 
 using Otter.Core;
 using Otter.Graphics;
+using OtterText = Otter.Graphics.Text;
 
 using Otter.Utility.MonoGame;
 
@@ -99,7 +100,7 @@ namespace Otter.Utility
         /// <param name="y">The Y position to render the Text from.</param>
         public static void Text(string str, int size, float x = 0, float y = 0)
         {
-            Draw.Graphic(new Graphics.Text(str, size), x, y);
+            Draw.Graphic(new OtterText.Text(str, size), x, y);
         }
 
         /// <summary>

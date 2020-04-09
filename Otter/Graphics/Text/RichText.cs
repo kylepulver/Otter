@@ -9,7 +9,7 @@ using Otter.Core;
 using Otter.Utility;
 using Otter.Utility.MonoGame;
 
-namespace Otter.Graphics
+namespace Otter.Graphics.Text
 {
     /// <summary>
     /// Graphic that renders text with some more options than normal Text.
