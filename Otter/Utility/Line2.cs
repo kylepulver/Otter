@@ -1,3 +1,5 @@
+using Otter.Utility.MonoGame;
+
 namespace Otter.Utility
 {
     /// <summary>
@@ -189,7 +191,7 @@ namespace Otter.Utility
             else if (closestPointOnSegment > lineLength) closest = PointB;
             else closest = PointA + closestPointOnSegment * lineNorm;
 
-            // Find that distance.  If it is less than the radius, then we 
+            // Find that distance.  If it is less than the radius, then we
             // are within the circle
             var distanceFromClosest = circle - closest;
             var distanceFromClosestLength = distanceFromClosest.Length;

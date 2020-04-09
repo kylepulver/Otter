@@ -5,6 +5,9 @@ using Otter.Colliders;
 using Otter.Components;
 using Otter.Graphics;
 using Otter.Utility;
+using Otter.Utility.Glide;
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Core
 {

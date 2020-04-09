@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Otter.Core;
 using Otter.Graphics;
 
-namespace Otter.Utility
+namespace Otter.Utility.Entities
 {
     /// <summary>
     /// Entity that is a quick way to make a particle.  Has lots of parameters that can be set, so
@@ -690,7 +690,7 @@ namespace Otter.Utility
 
             if (Ease == null)
             {
-                Ease = Utility.Ease.Linear;
+                Ease = Utility.Glide.Ease.Linear;
             }
 
             if (Shader != null)

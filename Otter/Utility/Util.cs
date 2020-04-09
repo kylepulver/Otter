@@ -15,6 +15,8 @@ using System.Xml.Linq;
 using Otter.Core;
 using Otter.Graphics;
 using Otter.Utility;
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Utility
 {

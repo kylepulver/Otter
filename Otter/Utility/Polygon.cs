@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
+
 namespace Otter.Utility
 {
     /// <summary>

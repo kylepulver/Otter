@@ -5,6 +5,7 @@ using SFML.Window;
 
 using Otter.Core;
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Components
 {

@@ -1,6 +1,7 @@
 using Otter.Core;
 using Otter.Components;
 using Otter.Graphics;
+using Otter.Components.Movement;
 
 namespace PlatformingExample
 {

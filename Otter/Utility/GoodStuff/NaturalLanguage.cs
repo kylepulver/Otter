@@ -25,7 +25,7 @@
 // https://github.com/dkoontz/GoodStuff
 #endregion
 
-namespace Otter.Utility
+namespace Otter.Utility.GoodStuff
 {
     public delegate bool Predicate<T1, T2>(T1 item1, T2 item2);
 }

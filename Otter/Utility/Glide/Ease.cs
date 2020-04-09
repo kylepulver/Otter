@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter.Utility
+namespace Otter.Utility.Glide
 {
     /// <summary>
     /// Static class with useful easer functions that can be used by Tweens.

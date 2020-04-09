@@ -12,6 +12,8 @@ using SFML.System;
 using Otter.Components;
 using Otter.Graphics;
 using Otter.Utility;
+using Otter.Utility.Glide;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Core
 {

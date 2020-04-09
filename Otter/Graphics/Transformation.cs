@@ -1,4 +1,4 @@
-using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Graphics
 {

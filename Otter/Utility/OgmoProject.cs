@@ -8,6 +8,7 @@ using System.Xml;
 using Otter.Core;
 using Otter.Colliders;
 using Otter.Graphics;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Utility
 {

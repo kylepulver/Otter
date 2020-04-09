@@ -7,6 +7,7 @@ using SFML.Graphics;
 
 using Otter.Core;
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Graphics
 {

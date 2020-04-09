@@ -7,6 +7,7 @@ using SFML.Graphics;
 using SFML.System;
 
 using Otter.Graphics;
+using Otter.Utility.GoodStuff;
 
 namespace Otter.Utility
 {

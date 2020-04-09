@@ -4,6 +4,8 @@ using SFML.System;
 using Otter.Core;
 using Otter.Graphics;
 
+using Otter.Utility.MonoGame;
+
 namespace Otter.Utility
 {
     /// <summary>

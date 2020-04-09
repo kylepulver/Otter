@@ -27,7 +27,7 @@
 
 using System;
 
-namespace Otter.Utility
+namespace Otter.Utility.GoodStuff
 {
     public static class IntExtensions
     {
@@ -36,11 +36,11 @@ namespace Otter.Utility
         /// </summary>
         /// <description>
         /// Used to invoke an action a fixed number of times.
-        /// 
+        ///
         /// 5.Times(() => Console.WriteLine("Hey!"));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 0; i < 5; i++) {
         ///     Console.WriteLine("Hey!");
         /// }
@@ -58,11 +58,11 @@ namespace Otter.Utility
         /// </summary>
         /// <description>
         /// Used to invoke an action a fixed number of times.
-        /// 
+        ///
         /// 5.Times(i => Console.WriteLine("Hey # " + i));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 0; i < 5; i++) {
         ///     Console.WriteLine("Hey # " + i);
         /// }
@@ -80,11 +80,11 @@ namespace Otter.Utility
         /// </summary>
         /// <description>
         /// Used to iterate from a start value to a target value
-        /// 
+        ///
         /// 0.UpTo(5, i => Console.WriteLine(i));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 0; i <= 5; i++) {
         ///     Console.WriteLine(i);
         /// }
@@ -102,11 +102,11 @@ namespace Otter.Utility
         /// </summary>
         /// <description>
         /// Used to iterate from a start value to a target value
-        /// 
+        ///
         /// 5.DownTo(0, i => Console.WriteLine(i));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 5; i >= 0; i++) {
         ///     Console.WriteLine(i);
         /// }

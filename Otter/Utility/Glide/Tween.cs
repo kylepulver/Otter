@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
-namespace Otter.Utility
+namespace Otter.Utility.Glide
 {
     public partial class Tween
     {

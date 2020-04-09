@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SFML.Graphics;
 
 using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace Otter.Graphics
 {
