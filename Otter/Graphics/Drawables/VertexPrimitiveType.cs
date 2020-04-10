@@ -7,7 +7,7 @@ namespace Otter.Graphics.Drawables
         LinesStrip = 2,
         Triangles = 3,
         TrianglesStrip = 4,
-        TrianglesFan = 5,
+        TriangleFan = 5,
         Quads = 6,
     }
 }

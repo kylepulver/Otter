@@ -49,7 +49,7 @@ namespace Otter.Graphics.Drawables
 
         #region Static Fields
 
-        public static VertexPrimitiveType DefaultPrimitiveType = VertexPrimitiveType.TrianglesFan;
+        public static VertexPrimitiveType DefaultPrimitiveType = VertexPrimitiveType.TriangleFan;
 
         #endregion
 

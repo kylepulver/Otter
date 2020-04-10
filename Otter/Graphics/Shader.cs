@@ -202,7 +202,7 @@ namespace Otter.Graphics
         /// <param name="x">The value to set it to.</param>
         public void SetParameter(string name, float x)
         {
-            SFMLShader.SetParameter(name, x);
+            SFMLShader.SetUniform(name, x);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace Otter.Graphics
         /// <param name="y">The first value of a vec2.</param>
         public void SetParameter(string name, float x, float y)
         {
-            SFMLShader.SetParameter(name, x, y);
+            SFMLShader.SetUniformArray(name, new float[] {x, y});
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace Otter.Graphics
         /// <param name="xy">A Vector2 to set.</param>
         public void SetParameter(string name, Vector2 xy)
         {
-            SFMLShader.SetParameter(name, xy.X, xy.Y);
+            SFMLShader.SetUniformArray(name, new float[] {xy.X, xy.Y});
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace Otter.Graphics
         /// <param name="xyz">A Vector3 to set.</param>
         public void SetParameter(string name, Vector3 xyz)
         {
-            SFMLShader.SetParameter(name, xyz.X, xyz.Y, xyz.Z);
+            SFMLShader.SetUniformArray(name, new float[] { xyz.X, xyz.Y, xyz.Z });
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace Otter.Graphics
         /// <param name="xyzw">A Vector4 to set.</param>
         public void SetParameter(string name, Vector4 xyzw)
         {
-            SFMLShader.SetParameter(name, xyzw.X, xyzw.Y, xyzw.Z, xyzw.W);
+            SFMLShader.SetUniformArray(name, new float[] { xyzw.X, xyzw.Y, xyzw.Z, xyzw.W });
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Otter.Graphics
         /// <param name="z">The third value of a vec3.</param>
         public void SetParameter(string name, float x, float y, float z)
         {
-            SFMLShader.SetParameter(name, x, y, z);
+            SFMLShader.SetUniformArray(name, new float[] { x, y, z });
         }
 
         /// <summary>
@@ -331,7 +331,7 @@ namespace Otter.Graphics
         /// <param name="w">The fourth value of a vec4.</param>
         public void SetParameter(string name, float x, float y, float z, float w)
         {
-            SFMLShader.SetParameter(name, x, y, z, w);
+            SFMLShader.SetUniformArray(name, new float[] { x, y, z, w });
         }
 
         /// <summary>
@@ -354,7 +354,7 @@ namespace Otter.Graphics
         /// <param name="texture">The texture to set it to.</param>
         public void SetParameter(string name, Texture texture)
         {
-            SFMLShader.SetParameter(name, texture.SFMLTexture);
+            SFMLShader.SetUniform(name, texture.SFMLTexture);
         }
 
         /// <summary>
@@ -374,7 +374,7 @@ namespace Otter.Graphics
         /// <param name="textureSource">The path to an image to load as a texture.</param>
         public void SetParameter(string name, string textureSource)
         {
-            SFMLShader.SetParameter(name, new Texture(textureSource).SFMLTexture);
+            SFMLShader.SetUniform(name, new Texture(textureSource).SFMLTexture);
         }
 
         /// <summary>

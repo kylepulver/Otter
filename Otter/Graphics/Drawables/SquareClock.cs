@@ -82,7 +82,7 @@ namespace Otter.Graphics.Drawables
             else
             {
 
-                SFMLVertices = new VertexArray(PrimitiveType.TrianglesFan);
+                SFMLVertices = new VertexArray(PrimitiveType.TriangleFan);
 
                 if (fill > 0)
                 {

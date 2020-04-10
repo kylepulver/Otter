@@ -57,8 +57,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
                onmouseout="return searchBox.OnSearchSelectHide()"
                alt=""/>
           <input type="text" id="MSearchField" value="Search" accesskey="S"
-               onfocus="searchBox.OnSearchFieldFocus(true)" 
-               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onfocus="searchBox.OnSearchFieldFocus(true)"
+               onblur="searchBox.OnSearchFieldFocus(false)"
                onkeyup="searchBox.OnSearchFieldChange(event)"/>
           </span><span class="right">
             <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
@@ -80,7 +80,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <div id="nav-sync" class="sync"></div>
     </div>
   </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
+  <div id="splitbar" style="-moz-user-select:none;"
        class="ui-resizable-handle">
   </div>
 </div>
@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('namespace_otter.html','');});
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
-<iframe src="javascript:void(0)" frameborder="0" 
+<iframe src="javascript:void(0)" frameborder="0"
         name="MSearchResults" id="MSearchResults">
 </iframe>
 </div>
@@ -446,31 +446,31 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ae9de0bb4ec2810626f0c403916255510"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#ae9de0bb4ec2810626f0c403916255510">AccelType</a> { <b>Ground</b>, 
+<tr class="memitem:ae9de0bb4ec2810626f0c403916255510"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#ae9de0bb4ec2810626f0c403916255510">AccelType</a> { <b>Ground</b>,
 <b>Air</b>
  }</td></tr>
 <tr class="memdesc:ae9de0bb4ec2810626f0c403916255510"><td class="mdescLeft">&#160;</td><td class="mdescRight">The different acceleration types.  <a href="namespace_otter.html#ae9de0bb4ec2810626f0c403916255510">More...</a><br/></td></tr>
 <tr class="separator:ae9de0bb4ec2810626f0c403916255510"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae50964d9170cd36fc2b2f3be91efdda0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#ae50964d9170cd36fc2b2f3be91efdda0">AxisButton</a> { <br/>
-&#160;&#160;<b>XPlus</b> = 100, 
-<b>XMinus</b>, 
-<b>YPlus</b>, 
-<b>YMinus</b>, 
+&#160;&#160;<b>XPlus</b> = 100,
+<b>XMinus</b>,
+<b>YPlus</b>,
+<b>YMinus</b>,
 <br/>
-&#160;&#160;<b>ZPlus</b>, 
-<b>ZMinus</b>, 
-<b>RPlus</b>, 
-<b>RMinus</b>, 
+&#160;&#160;<b>ZPlus</b>,
+<b>ZMinus</b>,
+<b>RPlus</b>,
+<b>RMinus</b>,
 <br/>
-&#160;&#160;<b>UPlus</b>, 
-<b>UMinus</b>, 
-<b>VPlus</b>, 
-<b>VMinus</b>, 
+&#160;&#160;<b>UPlus</b>,
+<b>UMinus</b>,
+<b>VPlus</b>,
+<b>VMinus</b>,
 <br/>
-&#160;&#160;<b>PovXPlus</b>, 
-<b>PovXMinus</b>, 
-<b>PovYPlus</b>, 
-<b>PovYMinus</b>, 
+&#160;&#160;<b>PovXPlus</b>,
+<b>PovXMinus</b>,
+<b>PovYPlus</b>,
+<b>PovYMinus</b>,
 <br/>
 &#160;&#160;<b>Any</b> = 1000
 <br/>
@@ -478,167 +478,167 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:ae50964d9170cd36fc2b2f3be91efdda0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buttons that represent the possible axes on a joystick.  <a href="namespace_otter.html#ae50964d9170cd36fc2b2f3be91efdda0">More...</a><br/></td></tr>
 <tr class="separator:ae50964d9170cd36fc2b2f3be91efdda0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acfe5ce34857620e033849ef1e09f8431"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#acfe5ce34857620e033849ef1e09f8431">MouseButton</a> { <br/>
-&#160;&#160;<b>Left</b> = 0, 
-<b>Right</b> = 1, 
-<b>Middle</b> = 2, 
-<b>XButton1</b> = 3, 
+&#160;&#160;<b>Left</b> = 0,
+<b>Right</b> = 1,
+<b>Middle</b> = 2,
+<b>XButton1</b> = 3,
 <br/>
-&#160;&#160;<b>XButton2</b> = 4, 
-<b>ButtonCount</b> = 5, 
+&#160;&#160;<b>XButton2</b> = 4,
+<b>ButtonCount</b> = 5,
 <b>Any</b> = 1000
 <br/>
  }</td></tr>
 <tr class="memdesc:acfe5ce34857620e033849ef1e09f8431"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mouse buttons. Buttons on your mouse.  <a href="namespace_otter.html#acfe5ce34857620e033849ef1e09f8431">More...</a><br/></td></tr>
 <tr class="separator:acfe5ce34857620e033849ef1e09f8431"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa20f1ffa9938a60ed5a40868af35d2bf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#aa20f1ffa9938a60ed5a40868af35d2bf">MouseWheelDirection</a> { <b>Up</b> = 0, 
+<tr class="memitem:aa20f1ffa9938a60ed5a40868af35d2bf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#aa20f1ffa9938a60ed5a40868af35d2bf">MouseWheelDirection</a> { <b>Up</b> = 0,
 <b>Down</b>
  }</td></tr>
 <tr class="memdesc:aa20f1ffa9938a60ed5a40868af35d2bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">The direction of the mouse wheel.  <a href="namespace_otter.html#aa20f1ffa9938a60ed5a40868af35d2bf">More...</a><br/></td></tr>
 <tr class="separator:aa20f1ffa9938a60ed5a40868af35d2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada9814b672a9a3b475297439e1159a67"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#ada9814b672a9a3b475297439e1159a67">Key</a> { <br/>
-&#160;&#160;<b>Unknown</b> = -1, 
-<b>A</b> = 0, 
-<b>B</b> = 1, 
-<b>C</b> = 2, 
+&#160;&#160;<b>Unknown</b> = -1,
+<b>A</b> = 0,
+<b>B</b> = 1,
+<b>C</b> = 2,
 <br/>
-&#160;&#160;<b>D</b> = 3, 
-<b>E</b> = 4, 
-<b>F</b> = 5, 
-<b>G</b> = 6, 
+&#160;&#160;<b>D</b> = 3,
+<b>E</b> = 4,
+<b>F</b> = 5,
+<b>G</b> = 6,
 <br/>
-&#160;&#160;<b>H</b> = 7, 
-<b>I</b> = 8, 
-<b>J</b> = 9, 
-<b>K</b> = 10, 
+&#160;&#160;<b>H</b> = 7,
+<b>I</b> = 8,
+<b>J</b> = 9,
+<b>K</b> = 10,
 <br/>
-&#160;&#160;<b>L</b> = 11, 
-<b>M</b> = 12, 
-<b>N</b> = 13, 
-<b>O</b> = 14, 
+&#160;&#160;<b>L</b> = 11,
+<b>M</b> = 12,
+<b>N</b> = 13,
+<b>O</b> = 14,
 <br/>
-&#160;&#160;<b>P</b> = 15, 
-<b>Q</b> = 16, 
-<b>R</b> = 17, 
-<b>S</b> = 18, 
+&#160;&#160;<b>P</b> = 15,
+<b>Q</b> = 16,
+<b>R</b> = 17,
+<b>S</b> = 18,
 <br/>
-&#160;&#160;<b>T</b> = 19, 
-<b>U</b> = 20, 
-<b>V</b> = 21, 
-<b>W</b> = 22, 
+&#160;&#160;<b>T</b> = 19,
+<b>U</b> = 20,
+<b>V</b> = 21,
+<b>W</b> = 22,
 <br/>
-&#160;&#160;<b>X</b> = 23, 
-<b>Y</b> = 24, 
-<b>Z</b> = 25, 
-<b>Num0</b> = 26, 
+&#160;&#160;<b>X</b> = 23,
+<b>Y</b> = 24,
+<b>Z</b> = 25,
+<b>Num0</b> = 26,
 <br/>
-&#160;&#160;<b>Num1</b> = 27, 
-<b>Num2</b> = 28, 
-<b>Num3</b> = 29, 
-<b>Num4</b> = 30, 
+&#160;&#160;<b>Num1</b> = 27,
+<b>Num2</b> = 28,
+<b>Num3</b> = 29,
+<b>Num4</b> = 30,
 <br/>
-&#160;&#160;<b>Num5</b> = 31, 
-<b>Num6</b> = 32, 
-<b>Num7</b> = 33, 
-<b>Num8</b> = 34, 
+&#160;&#160;<b>Num5</b> = 31,
+<b>Num6</b> = 32,
+<b>Num7</b> = 33,
+<b>Num8</b> = 34,
 <br/>
-&#160;&#160;<b>Num9</b> = 35, 
-<b>Escape</b> = 36, 
-<b>LControl</b> = 37, 
-<b>LShift</b> = 38, 
+&#160;&#160;<b>Num9</b> = 35,
+<b>Escape</b> = 36,
+<b>LControl</b> = 37,
+<b>LShift</b> = 38,
 <br/>
-&#160;&#160;<b>LAlt</b> = 39, 
-<b>LSystem</b> = 40, 
-<b>RControl</b> = 41, 
-<b>RShift</b> = 42, 
+&#160;&#160;<b>LAlt</b> = 39,
+<b>LSystem</b> = 40,
+<b>RControl</b> = 41,
+<b>RShift</b> = 42,
 <br/>
-&#160;&#160;<b>RAlt</b> = 43, 
-<b>RSystem</b> = 44, 
-<b>Menu</b> = 45, 
-<b>LBracket</b> = 46, 
+&#160;&#160;<b>RAlt</b> = 43,
+<b>RSystem</b> = 44,
+<b>Menu</b> = 45,
+<b>LBracket</b> = 46,
 <br/>
-&#160;&#160;<b>RBracket</b> = 47, 
-<b>SemiColon</b> = 48, 
-<b>Comma</b> = 49, 
-<b>Period</b> = 50, 
+&#160;&#160;<b>RBracket</b> = 47,
+<b>SemiColon</b> = 48,
+<b>Comma</b> = 49,
+<b>Period</b> = 50,
 <br/>
-&#160;&#160;<b>Quote</b> = 51, 
-<b>Slash</b> = 52, 
-<b>BackSlash</b> = 53, 
-<b>Tilde</b> = 54, 
+&#160;&#160;<b>Quote</b> = 51,
+<b>Slash</b> = 52,
+<b>BackSlash</b> = 53,
+<b>Tilde</b> = 54,
 <br/>
-&#160;&#160;<b>Equal</b> = 55, 
-<b>Dash</b> = 56, 
-<b>Space</b> = 57, 
-<b>Return</b> = 58, 
+&#160;&#160;<b>Equal</b> = 55,
+<b>Dash</b> = 56,
+<b>Space</b> = 57,
+<b>Return</b> = 58,
 <br/>
-&#160;&#160;<b>Back</b> = 59, 
-<b>Tab</b> = 60, 
-<b>PageUp</b> = 61, 
-<b>PageDown</b> = 62, 
+&#160;&#160;<b>Back</b> = 59,
+<b>Tab</b> = 60,
+<b>PageUp</b> = 61,
+<b>PageDown</b> = 62,
 <br/>
-&#160;&#160;<b>End</b> = 63, 
-<b>Home</b> = 64, 
-<b>Insert</b> = 65, 
-<b>Delete</b> = 66, 
+&#160;&#160;<b>End</b> = 63,
+<b>Home</b> = 64,
+<b>Insert</b> = 65,
+<b>Delete</b> = 66,
 <br/>
-&#160;&#160;<b>Add</b> = 67, 
-<b>Subtract</b> = 68, 
-<b>Multiply</b> = 69, 
-<b>Divide</b> = 70, 
+&#160;&#160;<b>Add</b> = 67,
+<b>Subtract</b> = 68,
+<b>Multiply</b> = 69,
+<b>Divide</b> = 70,
 <br/>
-&#160;&#160;<b>Left</b> = 71, 
-<b>Right</b> = 72, 
-<b>Up</b> = 73, 
-<b>Down</b> = 74, 
+&#160;&#160;<b>Left</b> = 71,
+<b>Right</b> = 72,
+<b>Up</b> = 73,
+<b>Down</b> = 74,
 <br/>
-&#160;&#160;<b>Numpad0</b> = 75, 
-<b>Numpad1</b> = 76, 
-<b>Numpad2</b> = 77, 
-<b>Numpad3</b> = 78, 
+&#160;&#160;<b>Numpad0</b> = 75,
+<b>Numpad1</b> = 76,
+<b>Numpad2</b> = 77,
+<b>Numpad3</b> = 78,
 <br/>
-&#160;&#160;<b>Numpad4</b> = 79, 
-<b>Numpad5</b> = 80, 
-<b>Numpad6</b> = 81, 
-<b>Numpad7</b> = 82, 
+&#160;&#160;<b>Numpad4</b> = 79,
+<b>Numpad5</b> = 80,
+<b>Numpad6</b> = 81,
+<b>Numpad7</b> = 82,
 <br/>
-&#160;&#160;<b>Numpad8</b> = 83, 
-<b>Numpad9</b> = 84, 
-<b>F1</b> = 85, 
-<b>F2</b> = 86, 
+&#160;&#160;<b>Numpad8</b> = 83,
+<b>Numpad9</b> = 84,
+<b>F1</b> = 85,
+<b>F2</b> = 86,
 <br/>
-&#160;&#160;<b>F3</b> = 87, 
-<b>F4</b> = 88, 
-<b>F5</b> = 89, 
-<b>F6</b> = 90, 
+&#160;&#160;<b>F3</b> = 87,
+<b>F4</b> = 88,
+<b>F5</b> = 89,
+<b>F6</b> = 90,
 <br/>
-&#160;&#160;<b>F7</b> = 91, 
-<b>F8</b> = 92, 
-<b>F9</b> = 93, 
-<b>F10</b> = 94, 
+&#160;&#160;<b>F7</b> = 91,
+<b>F8</b> = 92,
+<b>F9</b> = 93,
+<b>F10</b> = 94,
 <br/>
-&#160;&#160;<b>F11</b> = 95, 
-<b>F12</b> = 96, 
-<b>F13</b> = 97, 
-<b>F14</b> = 98, 
+&#160;&#160;<b>F11</b> = 95,
+<b>F12</b> = 96,
+<b>F13</b> = 97,
+<b>F14</b> = 98,
 <br/>
-&#160;&#160;<b>F15</b> = 99, 
-<b>Pause</b> = 100, 
-<b>KeyCount</b> = 101, 
+&#160;&#160;<b>F15</b> = 99,
+<b>Pause</b> = 100,
+<b>KeyCount</b> = 101,
 <b>Any</b> = 1000
 <br/>
  }</td></tr>
 <tr class="memdesc:ada9814b672a9a3b475297439e1159a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the keys on your keyboard.  <a href="namespace_otter.html#ada9814b672a9a3b475297439e1159a67">More...</a><br/></td></tr>
 <tr class="separator:ada9814b672a9a3b475297439e1159a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87339246dce4e8a3b721e7a58d84245b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#a87339246dce4e8a3b721e7a58d84245b">Direction</a> { <br/>
-&#160;&#160;<b>None</b> = 0, 
-<b>Up</b> = 1 &lt;&lt; 0, 
-<b>Right</b> = 1 &lt;&lt; 1, 
-<b>Down</b> = 1 &lt;&lt; 2, 
+&#160;&#160;<b>None</b> = 0,
+<b>Up</b> = 1 &lt;&lt; 0,
+<b>Right</b> = 1 &lt;&lt; 1,
+<b>Down</b> = 1 &lt;&lt; 2,
 <br/>
-&#160;&#160;<b>Left</b> = 1 &lt;&lt; 3, 
-<b>UpRight</b> = Up | Right, 
-<b>UpLeft</b> = Up | Left, 
-<b>DownRight</b> = Down | Right, 
+&#160;&#160;<b>Left</b> = 1 &lt;&lt; 3,
+<b>UpRight</b> = Up | Right,
+<b>UpLeft</b> = Up | Left,
+<b>DownRight</b> = Down | Right,
 <br/>
 &#160;&#160;<b>DownLeft</b> = Down | Left
 <br/>
@@ -646,79 +646,79 @@ Enumerations</h2></td></tr>
 <tr class="memdesc:a87339246dce4e8a3b721e7a58d84245b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flags to represent Direction.  <a href="namespace_otter.html#a87339246dce4e8a3b721e7a58d84245b">More...</a><br/></td></tr>
 <tr class="separator:a87339246dce4e8a3b721e7a58d84245b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c52d8244f487375b4061dff5c24907e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#a0c52d8244f487375b4061dff5c24907e">JoyAxis</a> { <br/>
-&#160;&#160;<b>X</b>, 
-<b>Y</b>, 
-<b>Z</b>, 
-<b>R</b>, 
+&#160;&#160;<b>X</b>,
+<b>Y</b>,
+<b>Z</b>,
+<b>R</b>,
 <br/>
-&#160;&#160;<b>U</b>, 
-<b>V</b>, 
-<b>PovX</b>, 
+&#160;&#160;<b>U</b>,
+<b>V</b>,
+<b>PovX</b>,
 <b>PovY</b>
 <br/>
  }</td></tr>
 <tr class="memdesc:a0c52d8244f487375b4061dff5c24907e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Axes on a joystick.  <a href="namespace_otter.html#a0c52d8244f487375b4061dff5c24907e">More...</a><br/></td></tr>
 <tr class="separator:a0c52d8244f487375b4061dff5c24907e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aecf7d2681beb4e3fd83a217c3c688a67"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_otter.html#aecf7d2681beb4e3fd83a217c3c688a67">BlendMode</a> { <br/>
-&#160;&#160;<b>Alpha</b>, 
-<b>Add</b>, 
-<b>Multiply</b>, 
-<b>None</b>, 
+&#160;&#160;<b>Alpha</b>,
+<b>Add</b>,
+<b>Multiply</b>,
+<b>None</b>,
 <br/>
 &#160;&#160;<b>Null</b>
 <br/>
  }</td></tr>
 <tr class="memdesc:aecf7d2681beb4e3fd83a217c3c688a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">The blendmodes that can be used for graphic rendering.  <a href="namespace_otter.html#aecf7d2681beb4e3fd83a217c3c688a67">More...</a><br/></td></tr>
 <tr class="separator:aecf7d2681beb4e3fd83a217c3c688a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27048d5f19773c6a1f3cf2a72e63b1d0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>PanelType</b> { <b>Stretch</b>, 
+<tr class="memitem:a27048d5f19773c6a1f3cf2a72e63b1d0"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>PanelType</b> { <b>Stretch</b>,
 <b>Tile</b>
  }</td></tr>
 <tr class="separator:a27048d5f19773c6a1f3cf2a72e63b1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af0f9b1151f7f36d61ad4b8400a308ae4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>PanelSizeMode</b> { <b>All</b>, 
+<tr class="memitem:af0f9b1151f7f36d61ad4b8400a308ae4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>PanelSizeMode</b> { <b>All</b>,
 <b>Inside</b>
  }</td></tr>
 <tr class="separator:af0f9b1151f7f36d61ad4b8400a308ae4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2e7eab99f2d24397cc40390020198cfe"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>VertexPrimitiveType</b> { <br/>
-&#160;&#160;<b>Points</b> = 0, 
-<b>Lines</b> = 1, 
-<b>LinesStrip</b> = 2, 
-<b>Triangles</b> = 3, 
+&#160;&#160;<b>Points</b> = 0,
+<b>Lines</b> = 1,
+<b>LinesStrip</b> = 2,
+<b>Triangles</b> = 3,
 <br/>
-&#160;&#160;<b>TrianglesStrip</b> = 4, 
-<b>TrianglesFan</b> = 5, 
+&#160;&#160;<b>TrianglesStrip</b> = 4,
+<b>TriangleFan</b> = 5,
 <b>Quads</b> = 6
 <br/>
  }</td></tr>
 <tr class="separator:a2e7eab99f2d24397cc40390020198cfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0ec85ee317cd94a4a4d69bd8ad6998e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>ShaderType</b> { <b>Vertex</b>, 
+<tr class="memitem:ad0ec85ee317cd94a4a4d69bd8ad6998e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>ShaderType</b> { <b>Vertex</b>,
 <b>Fragment</b>
  }</td></tr>
 <tr class="separator:ad0ec85ee317cd94a4a4d69bd8ad6998e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7efc7f03a197cea1a0e209dc0f720081"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>BitmapFontDataType</b> { <br/>
-&#160;&#160;<b>None</b>, 
-<b>BMFontText</b>, 
-<b>BMFontXml</b>, 
-<b>Littera</b>, 
+&#160;&#160;<b>None</b>,
+<b>BMFontText</b>,
+<b>BMFontXml</b>,
+<b>Littera</b>,
 <br/>
-&#160;&#160;<b>CodeheadCSV</b>, 
+&#160;&#160;<b>CodeheadCSV</b>,
 <b>Shoebox</b>
 <br/>
  }</td></tr>
 <tr class="separator:a7efc7f03a197cea1a0e209dc0f720081"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d54021d1a4d4128fc89e690b7d7bc26"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TextAlign</b> { <b>Left</b>, 
-<b>Right</b>, 
+<tr class="memitem:a7d54021d1a4d4128fc89e690b7d7bc26"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TextAlign</b> { <b>Left</b>,
+<b>Right</b>,
 <b>Center</b>
  }</td></tr>
 <tr class="separator:a7d54021d1a4d4128fc89e690b7d7bc26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a663c89d011f2363352c60efedc2e430e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TextStyle</b> { <b>Regular</b> = 0, 
-<b>Bold</b> = 1, 
-<b>Italic</b> = 2, 
+<tr class="memitem:a663c89d011f2363352c60efedc2e430e"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TextStyle</b> { <b>Regular</b> = 0,
+<b>Bold</b> = 1,
+<b>Italic</b> = 2,
 <b>Underlined</b> = 4
  }</td></tr>
 <tr class="separator:a663c89d011f2363352c60efedc2e430e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b155b99e7ff4502716ca28ae7667430"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TextOutlineQuality</b> { <b>Good</b> = 45, 
-<b>Better</b> = 30, 
-<b>Best</b> = 15, 
+<tr class="memitem:a6b155b99e7ff4502716ca28ae7667430"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><b>TextOutlineQuality</b> { <b>Good</b> = 45,
+<b>Better</b> = 30,
+<b>Best</b> = 15,
 <b>Absurd</b> = 10
  }</td></tr>
 <tr class="separator:a6b155b99e7ff4502716ca28ae7667430"><td class="memSeparator" colspan="2">&#160;</td></tr>

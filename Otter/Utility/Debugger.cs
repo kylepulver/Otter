@@ -465,9 +465,9 @@ namespace Otter.Utility
             }
         }
 
-        void OnMouseWheel(object sender, MouseWheelEventArgs e)
+        void OnMouseWheel(object sender, MouseWheelScrollEventArgs e)
         {
-            logIndex -= e.Delta * mouseScrollSpeed;
+            logIndex -= (int) e.Delta * mouseScrollSpeed;
             UpdateConsoleText();
         }
 
@@ -1363,7 +1363,7 @@ namespace Otter.Utility
         {
             game.Window.TextEntered += OnTextEntered;
             game.Window.KeyPressed += OnKeyPressed;
-            game.Window.MouseWheelMoved += OnMouseWheel;
+            game.Window.MouseWheelScrolled += OnMouseWheel;
             game.Window.KeyReleased += OnKeyReleased;
         }
 
@@ -1371,7 +1371,7 @@ namespace Otter.Utility
         {
             game.Window.TextEntered -= OnTextEntered;
             game.Window.KeyPressed -= OnKeyPressed;
-            game.Window.MouseWheelMoved -= OnMouseWheel;
+            game.Window.MouseWheelScrolled -= OnMouseWheel;
             game.Window.KeyReleased -= OnKeyReleased;
         }
 

@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 
-using Otter.Graphics.Text;
 using Otter.Graphics.Drawables;
 using Otter.Utility;
 
@@ -310,7 +309,7 @@ namespace Otter.Graphics.Text
             {
                 var outlineColor = new Color(OutlineColor);
                 outlineColor.A = Color.A;
-                text.Color = outlineColor.SFMLColor;
+                text.FillColor = outlineColor.SFMLColor;
                 var angleIncrement = (int)OutlineQuality;
                 for (float o = OutlineThickness * 0.5f; o < OutlineThickness; o += 0.5f)
                 {
@@ -328,11 +327,11 @@ namespace Otter.Graphics.Text
             {
                 var shadowColor = new Color(ShadowColor);
                 shadowColor.A = Color.A;
-                text.Color = shadowColor.SFMLColor;
+                text.FillColor = shadowColor.SFMLColor;
                 base.Render(x + ShadowX, y + ShadowY);
             }
 
-            text.Color = Color.SFMLColor;
+            text.FillColor = Color.SFMLColor;
             base.Render(x, y);
         }
 
