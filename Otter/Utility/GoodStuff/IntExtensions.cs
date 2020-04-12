@@ -1,3 +1,4 @@
+#region LICENSE
 // This project is licensed under The MIT License (MIT)
 //
 // Copyright 2013 David Koontz, Logan Barnett, Corey Nolan, Alex Burley
@@ -22,10 +23,11 @@
 //
 // Please direct questions, patches, and suggestions to the project page at
 // https://github.com/dkoontz/GoodStuff
+#endregion
 
 using System;
 
-namespace Otter
+namespace Otter.Utility.GoodStuff
 {
     public static class IntExtensions
     {
@@ -34,11 +36,11 @@ namespace Otter
         /// </summary>
         /// <description>
         /// Used to invoke an action a fixed number of times.
-        /// 
+        ///
         /// 5.Times(() => Console.WriteLine("Hey!"));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 0; i < 5; i++) {
         ///     Console.WriteLine("Hey!");
         /// }
@@ -56,11 +58,11 @@ namespace Otter
         /// </summary>
         /// <description>
         /// Used to invoke an action a fixed number of times.
-        /// 
+        ///
         /// 5.Times(i => Console.WriteLine("Hey # " + i));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 0; i < 5; i++) {
         ///     Console.WriteLine("Hey # " + i);
         /// }
@@ -78,11 +80,11 @@ namespace Otter
         /// </summary>
         /// <description>
         /// Used to iterate from a start value to a target value
-        /// 
+        ///
         /// 0.UpTo(5, i => Console.WriteLine(i));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 0; i <= 5; i++) {
         ///     Console.WriteLine(i);
         /// }
@@ -100,11 +102,11 @@ namespace Otter
         /// </summary>
         /// <description>
         /// Used to iterate from a start value to a target value
-        /// 
+        ///
         /// 5.DownTo(0, i => Console.WriteLine(i));
-        /// 
+        ///
         /// is the equivalent of
-        /// 
+        ///
         /// for(var i = 5; i >= 0; i++) {
         ///     Console.WriteLine(i);
         /// }

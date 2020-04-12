@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Grid Collider.  Can be mainly used to create collision to correspond to a Tilemap.
@@ -378,7 +383,7 @@ namespace Otter
             }
         }
 
-        #endregion       
+        #endregion
 
     }
 }

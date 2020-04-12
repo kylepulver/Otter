@@ -1,7 +1,10 @@
 using System;
 using System.IO;
 
-namespace Otter
+using Otter.Utility;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class representing a texture. Can perform pixel operations on the CPU, but those will be
@@ -9,7 +12,6 @@ namespace Otter
     /// </summary>
     public class Texture : IDisposable
     {
-
         #region Public Fields
 
         /// <summary>
@@ -281,7 +283,7 @@ namespace Otter
         {
             CreateImage();
 
-            image.SaveToFile(Helpers.FileHelpers.GetAbsoluteFilePath(path));
+            image.SaveToFile(FileHandling.GetAbsoluteFilePath(path));
         }
 
         /// <summary>

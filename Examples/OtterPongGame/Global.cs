@@ -1,8 +1,9 @@
-﻿using Otter;
+using Otter.Core;
 
-namespace OtterPongGame {
-    class Global {
-
+namespace OtterPongGame
+{
+    class Global
+    {
         public static Session
             PlayerOne,
             PlayerTwo;

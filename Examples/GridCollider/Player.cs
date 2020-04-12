@@ -1,6 +1,11 @@
 using System;
 
-using Otter;
+using Otter.Components;
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+using Otter.Utility.MonoGame;
 
 namespace GridColliderPlayerTest
 {

@@ -1,4 +1,6 @@
-namespace Otter
+using Otter.Core;
+
+namespace Otter.Components.Events
 {
     public class EventProcessorEvent
     {

@@ -27,7 +27,7 @@ SOFTWARE.
 
 using System;
 
-namespace Otter
+namespace Otter.Utility.MonoGame
 {
     /// <summary>
     /// Struct for representing a Matrix.
@@ -895,7 +895,7 @@ namespace Otter
 
         /*
         /// <summary>
-        /// Creates a Matrix that flattens geometry into a specified Plane as if casting a shadow from a specified light source. 
+        /// Creates a Matrix that flattens geometry into a specified Plane as if casting a shadow from a specified light source.
         /// </summary>
         /// <param name="lightDirection">A Vector3 specifying the direction from which the light that will cast the shadow is coming.</param>
         /// <param name="plane">The Plane onto which the new matrix should flatten geometry so as to cast a shadow.</param>
@@ -909,7 +909,7 @@ namespace Otter
 
         /*
         /// <summary>
-        /// Creates a Matrix that flattens geometry into a specified Plane as if casting a shadow from a specified light source. 
+        /// Creates a Matrix that flattens geometry into a specified Plane as if casting a shadow from a specified light source.
         /// </summary>
         /// <param name="lightDirection">A Vector3 specifying the direction from which the light that will cast the shadow is coming.</param>
         /// <param name="plane">The Plane onto which the new matrix should flatten geometry so as to cast a shadow.</param>
@@ -1295,24 +1295,24 @@ namespace Otter
 
 
             /*
-            
-            
+
+
             ///
             // Use Laplace expansion theorem to calculate the inverse of a 4x4 matrix
-            // 
-            // 1. Calculate the 2x2 determinants needed the 4x4 determinant based on the 2x2 determinants 
+            //
+            // 1. Calculate the 2x2 determinants needed the 4x4 determinant based on the 2x2 determinants
             // 3. Create the adjugate matrix, which satisfies: A * adj(A) = det(A) * I
             // 4. Divide adjugate matrix with the determinant to find the inverse
-            
+
             float det1, det2, det3, det4, det5, det6, det7, det8, det9, det10, det11, det12;
             float detMatrix;
-            FindDeterminants(ref matrix, out detMatrix, out det1, out det2, out det3, out det4, out det5, out det6, 
+            FindDeterminants(ref matrix, out detMatrix, out det1, out det2, out det3, out det4, out det5, out det6,
                              out det7, out det8, out det9, out det10, out det11, out det12);
-            
+
             float invDetMatrix = 1f / detMatrix;
-            
+
             Matrix ret; // Allow for matrix and result to point to the same structure
-            
+
             ret.M11 = (matrix.M22*det12 - matrix.M23*det11 + matrix.M24*det10) * invDetMatrix;
             ret.M12 = (-matrix.M12*det12 + matrix.M13*det11 - matrix.M14*det10) * invDetMatrix;
             ret.M13 = (matrix.M42*det6 - matrix.M43*det5 + matrix.M44*det4) * invDetMatrix;
@@ -1329,7 +1329,7 @@ namespace Otter
             ret.M42 = (matrix.M11*det10 - matrix.M12*det8 + matrix.M13*det7) * invDetMatrix;
             ret.M43 = (-matrix.M41*det4 + matrix.M42*det2 - matrix.M43*det1) * invDetMatrix;
             ret.M44 = (matrix.M31*det4 - matrix.M32*det2 + matrix.M33*det1) * invDetMatrix;
-            
+
             result = ret;
             */
         }
@@ -1831,7 +1831,7 @@ namespace Otter
         #region Private Static Methods
 
         /// <summary>
-        /// Helper method for using the Laplace expansion theorem using two rows expansions to calculate major and 
+        /// Helper method for using the Laplace expansion theorem using two rows expansions to calculate major and
         /// minor determinants of a 4x4 matrix. This method is used for inverting a matrix.
         /// </summary>
         private static void FindDeterminants(ref Matrix matrix, out float major,

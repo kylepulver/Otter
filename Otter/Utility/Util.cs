@@ -12,14 +12,19 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Otter
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Utility;
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Utility
 {
     /// <summary>
     /// Main utility function class. Various useful functions for 2d game development and Otter stuff.
     /// </summary>
     public static class Util
     {
-
         #region Constants
 
         /// <summary>
@@ -1582,7 +1587,7 @@ namespace Otter
         /// <param name="path">The file to write to.</param>
         public static void SerializeToFile<T>(T obj, string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Create);
             BinaryFormatter bformatter = new BinaryFormatter();
 
@@ -1598,7 +1603,7 @@ namespace Otter
         /// <returns>The deserialized object.</returns>
         public static T DeserializeFromFile<T>(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             Stream stream = File.Open(path, FileMode.Open);
             BinaryFormatter bformatter = new BinaryFormatter();
 
@@ -1841,6 +1846,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter
+namespace Otter.Graphics.Text
 {
     [Flags]
     public enum TextStyle

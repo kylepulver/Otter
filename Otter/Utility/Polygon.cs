@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Utility
 {
     /// <summary>
     /// Class representing a Polygon.

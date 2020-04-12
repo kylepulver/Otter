@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Axes on a joystick.

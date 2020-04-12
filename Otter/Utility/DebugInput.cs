@@ -1,4 +1,6 @@
-namespace Otter
+using Otter.Core;
+
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that is used for debug input. Wraps the Input class but only works when debug input

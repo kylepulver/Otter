@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Components.Events
 {
     public class EventStack : EventProcessor
     {

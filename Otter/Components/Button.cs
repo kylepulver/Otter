@@ -2,7 +2,10 @@ using System.Collections.Generic;
 
 using SFML.Window;
 
-namespace Otter
+using Otter.Core;
+using Otter.Utility.GoodStuff;
+
+namespace Otter.Components
 {
     /// <summary>
     /// Component used for interpreting input as a button. It can recieve input from multiple sources
@@ -11,7 +14,6 @@ namespace Otter
     /// </summary>
     public class Button : Component
     {
-
         #region Private Fields
 
         bool buttonsDown = false,
@@ -62,7 +64,7 @@ namespace Otter
         #region Public Properties
 
         /// <summary>
-        /// If the button is currently controlled 
+        /// If the button is currently controlled
         /// </summary>
         public bool ForcedInput { get; private set; }
 

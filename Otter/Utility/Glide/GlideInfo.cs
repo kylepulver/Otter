@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
-namespace Otter
+namespace Otter.Utility.Glide
 {
     internal class GlideInfo
     {

@@ -1,6 +1,8 @@
 using System;
 
-namespace Otter
+using Otter.Utility;
+
+namespace Otter.Components
 {
     /// <summary>
     /// Counter in which the value can be moved in both an X and Y direction.  Probably most useful
@@ -8,7 +10,6 @@ namespace Otter
     /// </summary>
     public class GridCounter : Component
     {
-
         #region Private Fields
 
         int x, y;
@@ -202,6 +203,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Components.Movement
 {
     /// <summary>
     /// The different acceleration types.

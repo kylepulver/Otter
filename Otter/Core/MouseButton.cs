@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Mouse buttons.  Buttons on your mouse.

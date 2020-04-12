@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Otter;
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
 
 namespace OtterPongGame
 {

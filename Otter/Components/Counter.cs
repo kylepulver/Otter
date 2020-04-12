@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter
+namespace Otter.Components
 {
     /// <summary>
     /// Component used for a value with built in min, max, and wrapping capabilities. Can be useful for making

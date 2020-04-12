@@ -1,10 +1,17 @@
-using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Otter
+using SFML.Graphics;
+
+using Otter.Core;
+using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Graphics.Text
 {
     /// <summary>
     /// Graphic that renders text with some more options than normal Text.
@@ -47,7 +54,6 @@ namespace Otter
     /// </example>
     public class RichText : Graphic
     {
-
         #region Static Fields
 
         static Dictionary<string, string> styles = new Dictionary<string, string>();
@@ -1445,6 +1451,5 @@ namespace Otter
         {
             get { return chars; }
         }
-
     }
 }

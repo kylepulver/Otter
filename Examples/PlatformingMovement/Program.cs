@@ -1,4 +1,4 @@
-﻿using Otter;
+﻿using Otter.Core;
 
 namespace PlatformingExample
 {

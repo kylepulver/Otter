@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+using Otter.Colliders;
+using Otter.Utility;
+
+namespace Otter.Components.Movement
 {
     /// <summary>
     /// Movement Component that adds platforming movement behavior to an Entity.  This is built for

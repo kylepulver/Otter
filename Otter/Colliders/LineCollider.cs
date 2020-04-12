@@ -1,13 +1,16 @@
 using System;
 
-namespace Otter
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Utility;
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Line Collider.
     /// </summary>
     public class LineCollider : Collider
     {
-
         #region Public Fields
 
         /// <summary>
@@ -126,6 +129,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

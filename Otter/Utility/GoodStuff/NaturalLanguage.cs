@@ -1,3 +1,4 @@
+#region LICENSE
 // This project is licensed under The MIT License (MIT)
 //
 // Copyright 2013 David Koontz, Logan Barnett, Corey Nolan, Alex Burley
@@ -22,8 +23,9 @@
 //
 // Please direct questions, patches, and suggestions to the project page at
 // https://github.com/dkoontz/GoodStuff
+#endregion
 
-namespace Otter
+namespace Otter.Utility.GoodStuff
 {
     public delegate bool Predicate<T1, T2>(T1 item1, T2 item2);
 }

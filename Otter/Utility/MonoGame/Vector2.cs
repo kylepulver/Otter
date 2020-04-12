@@ -28,7 +28,7 @@ SOFTWARE.
 using System;
 using System.Globalization;
 
-namespace Otter
+namespace Otter.Utility.MonoGame
 {
     /// <summary>
     /// Struct for representing a Vector2.

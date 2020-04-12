@@ -1,17 +1,22 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 using System;
 using System.Collections.Generic;
 
-namespace Otter {
+using SFML.Graphics;
+using SFML.System;
+
+using Otter.Core;
+using Otter.Utility;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Graphics.Drawables
+{
     /// <summary>
     /// Graphic that represents a render target.  By default the game uses a master surface to
     /// render the game to the window.  Be aware of graphics card limiations of render textures when
     /// creating surfaces.
     /// </summary>
-    public class Surface : Image {
-
+    public class Surface : Image
+    {
         #region Private Fields
 
         RenderStates states;
@@ -61,12 +66,15 @@ namespace Otter {
         /// The camera X for the view of the surface.
         /// Note: For the game's main surface, this is controlled by the active Scene.
         /// </summary>
-        public float CameraX {
-            set {
+        public float CameraX
+        {
+            set
+            {
                 cameraX = value;
                 RefreshView();
             }
-            get {
+            get
+            {
                 return cameraX;
             }
         }
@@ -75,12 +83,15 @@ namespace Otter {
         /// The camera Y for the view of the surface.
         /// Note: For the game's main surface, this is controlled by the active Scene.
         /// </summary>
-        public float CameraY {
-            set {
+        public float CameraY
+        {
+            set
+            {
                 cameraY = value;
                 RefreshView();
             }
-            get {
+            get
+            {
                 return cameraY;
             }
         }
@@ -89,12 +100,15 @@ namespace Otter {
         /// The camera angle for the view of the surface.
         /// Note: For the game's main surface, this is controlled by the active Scene.
         /// </summary>
-        public float CameraAngle {
-            set {
+        public float CameraAngle
+        {
+            set
+            {
                 cameraAngle = value;
                 RefreshView();
             }
-            get {
+            get
+            {
                 return cameraAngle;
             }
         }
@@ -103,25 +117,32 @@ namespace Otter {
         /// The camera zoom for the view of the surface.
         /// Note: For the game's main surface, this is controlled by the active Scene.
         /// </summary>
-        public float CameraZoom {
-            set {
+        public float CameraZoom
+        {
+            set
+            {
                 cameraZoom = value;
                 if (cameraZoom <= 0) { cameraZoom = 0.0001f; } //dont be divin' by zero ya hear?
                 RefreshView();
             }
-            get {
+            get
+            {
                 return cameraZoom;
             }
         }
 
-        public float CameraWidth {
-            get {
+        public float CameraWidth
+        {
+            get
+            {
                 return Width / CameraZoom;
             }
         }
 
-        public float CameraHeight {
-            get {
+        public float CameraHeight
+        {
+            get
+            {
                 return Height / CameraZoom;
             }
         }
@@ -129,8 +150,10 @@ namespace Otter {
         /// <summary>
         /// The Texture the Surface has rendered to.
         /// </summary>
-        public override Texture Texture {
-            get {
+        public override Texture Texture
+        {
+            get
+            {
                 return new Texture(renderTexture.Texture);
             }
         }
@@ -141,7 +164,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X position in the Scene.</param>
         /// <returns>The X position on the Surface.</returns>
-        public float SurfaceX(float x) {
+        public float SurfaceX(float x)
+        {
             return x - X + cameraX;
         }
 
@@ -151,7 +175,8 @@ namespace Otter {
         /// </summary>
         /// <param name="y">The Y position in the Scene.</param>
         /// <returns>The Y position on the Surface.</returns>
-        public float SurfaceY(float y) {
+        public float SurfaceY(float y)
+        {
             return y - Y + cameraY;
         }
 
@@ -165,7 +190,8 @@ namespace Otter {
         /// <param name="width">The width of the Surface to create.</param>
         /// <param name="height">The height of the Surface to create.</param>
         /// <param name="color">The default fill color of the Surface.</param>
-        public Surface(int width, int height, Color color = null) {
+        public Surface(int width, int height, Color color = null)
+        {
             if (width < 0) throw new ArgumentException("Width must be greater than 0.");
             if (height < 0) throw new ArgumentException("Height must be greater than 0.");
 
@@ -208,39 +234,49 @@ namespace Otter {
 
         #region Private Methods
 
-        void UpdateShader() {
-            if (shaders.Count < 2) {
-                if (postProcessA != null) {
+        void UpdateShader()
+        {
+            if (shaders.Count < 2)
+            {
+                if (postProcessA != null)
+                {
                     postProcessA.Dispose();
                     postProcessA = null;
                 }
-                if (postProcessB != null) {
+                if (postProcessB != null)
+                {
                     postProcessB.Dispose();
                     postProcessB = null;
                 }
             }
-            else if (shaders.Count == 2) {
-                if (postProcessA == null) {
+            else if (shaders.Count == 2)
+            {
+                if (postProcessA == null)
+                {
                     postProcessA = new RenderTexture((uint)Width, (uint)Height);
                 }
-                if (postProcessB != null) {
+                if (postProcessB != null)
+                {
                     postProcessB.Dispose();
                     postProcessB = null;
                 }
             }
-            else if (shaders.Count > 2) {
-                if (postProcessA == null) {
+            else if (shaders.Count > 2)
+            {
+                if (postProcessA == null)
+                {
                     postProcessA = new RenderTexture((uint)Width, (uint)Height);
                 }
-                if (postProcessB == null) {
+                if (postProcessB == null)
+                {
                     postProcessB = new RenderTexture((uint)Width, (uint)Height);
                 }
             }
         }
-       
+
         void RefreshView() {
             View v = new View(new FloatRect(cameraX, cameraY, Width, Height));
-            
+
             v.Rotation = -cameraAngle;
             v.Zoom(1 / cameraZoom);
             RenderTarget.SetView(v);
@@ -254,7 +290,8 @@ namespace Otter {
         /// Add a shader to be drawn on the surface.  If "Shader" is set, the shader list is ignored.
         /// </summary>
         /// <param name="shader">The Shader to add.</param>
-        public void AddShader(Shader shader) {
+        public void AddShader(Shader shader)
+        {
             shaders.Add(shader);
             UpdateShader();
         }
@@ -263,7 +300,8 @@ namespace Otter {
         /// Remove a shader from the surface.
         /// </summary>
         /// <param name="shader">The Shader to remove.</param>
-        public void RemoveShader(Shader shader) {
+        public void RemoveShader(Shader shader)
+        {
             shaders.Remove(shader);
             UpdateShader();
         }
@@ -272,7 +310,8 @@ namespace Otter {
         /// Remove the top most shader on the list of shaders.
         /// </summary>
         /// <returns>The removed Shader.</returns>
-        public Shader PopShader() {
+        public Shader PopShader()
+        {
             if (shaders.Count == 0) return null;
 
             var shader = shaders[shaders.Count - 1];
@@ -284,7 +323,8 @@ namespace Otter {
         /// Calls the SFML Display function on the internal render texture.  Should be used before
         /// any sort of rendering, otherwise the texture will be upside down!
         /// </summary>
-        public void Display() {
+        public void Display()
+        {
             renderTexture.Display();
             SetTexture(new Texture(renderTexture.Texture));
             Update();
@@ -294,7 +334,8 @@ namespace Otter {
         /// <summary>
         /// Remove all shaders from the surface.
         /// </summary>
-        public void ClearShaders() {
+        public void ClearShaders()
+        {
             shaders.Clear();
             UpdateShader();
         }
@@ -303,7 +344,8 @@ namespace Otter {
         /// Replace all shaders with a single shader.  This will be ignored if "Shader" is set.
         /// </summary>
         /// <param name="shader">The Shader to use.</param>
-        public void SetShader(Shader shader) {
+        public void SetShader(Shader shader)
+        {
             shaders.Clear();
             shaders.Add(shader);
             UpdateShader();
@@ -315,18 +357,20 @@ namespace Otter {
         /// <param name="graphic">The Graphic to draw.</param>
         /// <param name="x">The X position of the Graphic.</param>
         /// <param name="y">The Y position of the Graphic.</param>
-        public void Draw(Graphic graphic, float x = 0, float y = 0) {
-            Surface tempSurface = Otter.Draw.Target;
-            Otter.Draw.SetTarget(this);
+        public void Draw(Graphic graphic, float x = 0, float y = 0)
+        {
+            Surface tempSurface = Utility.Draw.Target;
+            Utility.Draw.SetTarget(this);
             graphic.Render(x, y);
-            Otter.Draw.SetTarget(tempSurface);
+            Utility.Draw.SetTarget(tempSurface);
         }
 
         /// <summary>
         /// Fills the surface with the specified color.
         /// </summary>
         /// <param name="color">The Color to fill the Surface with.</param>
-        public void Fill(Color color) {
+        public void Fill(Color color)
+        {
             fill.Size = new Vector2f(Width, Height);
             fill.FillColor = color.SFMLColor;
             fill.Position = new Vector2f(CameraX, CameraY);
@@ -336,7 +380,8 @@ namespace Otter {
         /// <summary>
         /// Clears the surface with the fill color.
         /// </summary>
-        public void Clear() {
+        public void Clear()
+        {
             renderTexture.Clear(FillColor.SFMLColor);
         }
 
@@ -344,14 +389,16 @@ namespace Otter {
         /// Clears the surface with a specified color.
         /// </summary>
         /// <param name="color">The Color to clear the Surface with.</param>
-        public void Clear(Color color) {
+        public void Clear(Color color)
+        {
             renderTexture.Clear(color.SFMLColor);
         }
 
         /// <summary>
         /// Determines the pixel smoothing for the surface.
         /// </summary>
-        public override bool Smooth {
+        public override bool Smooth
+        {
             get { return renderTexture.Smooth; }
             set { renderTexture.Smooth = value; }
         }
@@ -361,7 +408,8 @@ namespace Otter {
         /// </summary>
         /// <param name="width">The new width of the surface.</param>
         /// <param name="height">The new height of the surface.</param>
-        public void Resize(int width, int height) {
+        public void Resize(int width, int height)
+        {
             if (width < 0) throw new ArgumentException("Width must be greater than 0.");
             if (height < 0) throw new ArgumentException("Height must be greater than 0.");
 
@@ -386,14 +434,16 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X position offset.</param>
         /// <param name="y">The Y position offset.</param>
-        public override void Render(float x = 0, float y = 0) {
+        public override void Render(float x = 0, float y = 0)
+        {
             Display();
 
             SFMLDrawable = RenderShaders();
 
             base.Render(x, y);
 
-            if (saveNextFrame) {
+            if (saveNextFrame)
+            {
                 saveNextFrame = false;
                 var saveTarget = new RenderTexture((uint)Width, (uint)Height);
                 saveTarget.Draw(SFMLDrawable, states);
@@ -410,7 +460,8 @@ namespace Otter {
         /// and Display the surface, as well as clear it if AutoClear is true.
         /// </summary>
         /// <param name="game">The Game to render to.</param>
-        public void DrawToWindow(Game game) {
+        public void DrawToWindow(Game game)
+        {
             RefreshView();
 
             Display();
@@ -419,7 +470,8 @@ namespace Otter {
 
             game.Window.Draw(drawable, states);
 
-            if (saveNextFrame) {
+            if (saveNextFrame)
+            {
                 saveNextFrame = false;
                 game.Window.Capture().SaveToFile(saveNameFramePath);
             }
@@ -430,7 +482,8 @@ namespace Otter {
         /// <summary>
         /// Draw the Surface to the Game window.
         /// </summary>
-        public void DrawToWindow() {
+        public void DrawToWindow()
+        {
             DrawToWindow(Game);
         }
 
@@ -441,7 +494,8 @@ namespace Otter {
         /// <param name="y">The Y position of the view.</param>
         /// <param name="angle">The angle of the view.</param>
         /// <param name="zoom">The zoom of the view.</param>
-        public void SetView(float x, float y, float angle = 0, float zoom = 1f) {
+        public void SetView(float x, float y, float angle = 0, float zoom = 1f)
+        {
             cameraX = x;
             cameraY = y;
             cameraAngle = angle;
@@ -453,7 +507,8 @@ namespace Otter {
         /// Returns a texture by getting the current render texture. I don't know if this works right yet.
         /// </summary>
         /// <returns></returns>
-        public Texture GetTexture() {
+        public Texture GetTexture()
+        {
             return new Texture(renderTexture.Texture);
         }
 
@@ -465,9 +520,11 @@ namespace Otter {
         /// The file path to save to. The type of image is deduced from the extension. If left unspecified the
         /// path will be a png file of the current time in the same folder as the executable.
         /// </param>
-        public void SaveToFile(string path = "") {
+        public void SaveToFile(string path = "")
+        {
             saveNextFrame = true;
-            if (path == "") {
+            if (path == "")
+            {
                 path = string.Format("{0:yyyyMMddHHmmssff}.png", DateTime.Now);
             }
             saveNameFramePath = path;
@@ -477,7 +534,8 @@ namespace Otter {
         /// Matches the view of the surface to the same view of a Scene.
         /// </summary>
         /// <param name="scene">The Scene to match the camera with.</param>
-        public void CameraScene(Scene scene) {
+        public void CameraScene(Scene scene)
+        {
             SetView(scene.CameraX + X, scene.CameraY + Y, scene.CameraAngle, scene.CameraZoom);
         }
 
@@ -486,7 +544,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X position to be the center of the scene.</param>
         /// <param name="y">The Y position to be the center of the scene.</param>
-        public void CenterCamera(float x, float y) {
+        public void CenterCamera(float x, float y)
+        {
             CameraX = x - HalfWidth;
             CameraY = y - HalfHeight;
         }
@@ -497,33 +556,40 @@ namespace Otter {
 
         internal RenderTexture renderTexture;
 
-        internal void Draw(Drawable drawable) {
+        internal void Draw(Drawable drawable)
+        {
             RenderTarget.Draw(drawable);
         }
 
-        internal void Draw(Vertex[] vertices, RenderStates states) {
+        internal void Draw(Vertex[] vertices, RenderStates states)
+        {
             RenderTarget.Draw(vertices, PrimitiveType.Quads, states);
         }
 
-        internal void Draw(Vertex[] vertices, PrimitiveType primitiveType, RenderStates states) {
+        internal void Draw(Vertex[] vertices, PrimitiveType primitiveType, RenderStates states)
+        {
             RenderTarget.Draw(vertices, primitiveType, states);
         }
 
-        internal void Draw(List<Vertex> vertices, PrimitiveType primitiveType, RenderStates states) {
+        internal void Draw(List<Vertex> vertices, PrimitiveType primitiveType, RenderStates states)
+        {
             Draw(vertices.ToArray(), primitiveType, states);
         }
 
-        internal void Draw(List<Vertex> vertices, RenderStates states) {
+        internal void Draw(List<Vertex> vertices, RenderStates states)
+        {
             Draw(vertices.ToArray(), states);
         }
 
-        internal void Draw(Texture texture, float x, float y, float originX, float originY, int width, int height, float scaleX, float scaleY, float angle, Color color = null, BlendMode blend = BlendMode.Alpha, Shader shader = null) {
+        internal void Draw(Texture texture, float x, float y, float originX, float originY, int width, int height, float scaleX, float scaleY, float angle, Color color = null, BlendMode blend = BlendMode.Alpha, Shader shader = null)
+        {
             states = new RenderStates(Texture.SFMLTexture);
 
             //states.BlendMode = (SFML.Graphics.BlendMode)Blend;
             states.BlendMode = SFMLBlendMode(blend);
 
-            if (Shader != null) {
+            if (Shader != null)
+            {
                 states.Shader = Shader.SFMLShader;
             }
 
@@ -543,13 +609,15 @@ namespace Otter {
             Draw(v, states);
         }
 
-        internal void Draw(Drawable drawable, RenderStates states) {
+        internal void Draw(Drawable drawable, RenderStates states)
+        {
             // Sometimes this hangs in the first 30ish frames?
             // I have no clue what causes this.
             RenderTarget.Draw(drawable, states);
         }
 
-        internal RenderTarget RenderTarget {
+        internal RenderTarget RenderTarget
+        {
             get { return renderTexture; }
         }
 
@@ -558,7 +626,8 @@ namespace Otter {
         /// eventually spits out the final drawable object.
         /// </summary>
         /// <returns></returns>
-        Drawable RenderShaders() {
+        Drawable RenderShaders()
+        {
             Drawable drawable = SFMLVertices;
 
             states = new RenderStates(renderTexture.Texture);
@@ -569,14 +638,18 @@ namespace Otter {
             //states.BlendMode = (SFML.Graphics.BlendMode)Blend;
             states.BlendMode = SFMLBlendMode(Blend);
 
-            if (Shader != null) {
+            if (Shader != null)
+            {
                 states.Shader = Shader.SFMLShader;
             }
-            else {
-                if (shaders.Count == 1) {
+            else
+            {
+                if (shaders.Count == 1)
+                {
                     states.Shader = shaders[0].SFMLShader;
                 }
-                else if (shaders.Count == 2) {
+                else if (shaders.Count == 2)
+                {
                     states = new RenderStates(renderTexture.Texture);
                     states.Shader = shaders[0].SFMLShader;
 
@@ -591,7 +664,8 @@ namespace Otter {
                     states.Transform.Translate(new Vector2f(X - OriginX, Y - OriginY));
                     states.Transform.Scale(ScaleX, ScaleY, OriginX, OriginY);
                 }
-                else if (shaders.Count > 2) {
+                else if (shaders.Count > 2)
+                {
                     states = new RenderStates(renderTexture.Texture);
                     RenderTexture nextRt, currentRt;
                     nextRt = postProcessB;
@@ -603,7 +677,8 @@ namespace Otter {
                     postProcessA.Draw(SFMLVertices, states);
                     postProcessA.Display();
 
-                    for (int i = 1; i < shaders.Count - 1; i++) {
+                    for (int i = 1; i < shaders.Count - 1; i++)
+                    {
                         states = RenderStates.Default;
                         states.Shader = shaders[i].SFMLShader;
 
@@ -628,6 +703,5 @@ namespace Otter {
         }
 
         #endregion
-
     }
 }

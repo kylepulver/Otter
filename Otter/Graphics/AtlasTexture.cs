@@ -1,12 +1,12 @@
-namespace Otter
-{
+using Otter.Utility.MonoGame;
 
+namespace Otter.Graphics
+{
     /// <summary>
     /// Class used for representing a texture on a texture atlas.
     /// </summary>
     public class AtlasTexture
     {
-
         #region Public Fields
 
         /// <summary>
@@ -93,6 +93,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

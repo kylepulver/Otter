@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that manages the cache of fonts.
@@ -23,7 +23,7 @@ namespace Otter
 
         internal static SFML.Graphics.Font Load(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
             if (fonts.ContainsKey(path)) return fonts[path];
 

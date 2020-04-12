@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// Buttons that represent the possible axes on a joystick.

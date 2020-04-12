@@ -1,5 +1,10 @@
 using System;
-namespace Otter
+
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Collider that can use an image as a mask.  This is not recommended to use for most cases as it can
@@ -7,7 +12,6 @@ namespace Otter
     /// </summary>
     public class PixelCollider : Collider
     {
-
         #region Public Fields
 
         /// <summary>
@@ -232,6 +236,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

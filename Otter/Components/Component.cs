@@ -1,12 +1,16 @@
 using System.Collections.Generic;
-namespace Otter
+
+using Otter.Core;
+using Otter.Colliders;
+using Otter.Graphics.Drawables;
+
+namespace Otter.Components
 {
     /// <summary>
     /// Base Component class.  Components can be added to Entities.
     /// </summary>
     public abstract class Component
     {
-
         #region Public Fields
 
         /// <summary>
@@ -195,6 +199,5 @@ namespace Otter
             return Entity.GetComponents<T>();
         }
         #endregion
-
     }
 }

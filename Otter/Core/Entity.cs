@@ -1,15 +1,22 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
-{
+using Otter.Colliders;
+using Otter.Components;
+using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+using Otter.Utility.Glide;
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
 
+namespace Otter.Core
+{
     /// <summary>
     /// Class used for a game object. The bread and butter of your game. Entities are added to Scenes which are controlled by the Game.
     /// </summary>
     public class Entity
     {
-
         #region Public Fields
 
         /// <summary>

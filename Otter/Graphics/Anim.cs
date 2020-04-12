@@ -2,14 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-namespace Otter
+using Otter.Core;
+
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class used for animations in Spritemap.
     /// </summary>
     public class Anim
     {
-
         #region Static Methods
 
         /// <summary>
@@ -405,6 +406,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

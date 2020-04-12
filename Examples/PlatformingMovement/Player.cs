@@ -1,4 +1,8 @@
-﻿using Otter;
+using Otter.Core;
+using Otter.Components;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Components.Movement;
 
 namespace PlatformingExample
 {
@@ -52,12 +56,12 @@ namespace PlatformingExample
              * platforming movement, so they must be updated from another source.
              * Adding the axis and jump button to the Entity ensures that they are
              * updated.
-             * 
+             *
              * COLLIDING WITH STUFF:
              * The AddCollision method will register a tag with the platforming
              * movement to use as solid ground.  There is also a method for registering
              * a tag as a jump through platform.
-             * 
+             *
              * The platforming movement also needs a Collider to be set to its Collider
              * field.  This will be the collider that the platforming movement uses
              * as the primary collider when checking for solids and jump through

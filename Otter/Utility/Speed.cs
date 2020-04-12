@@ -1,6 +1,6 @@
 using System;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class used for tracking an X and Y speed of an object. Speed also has an XMax and YMax that can

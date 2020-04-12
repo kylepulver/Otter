@@ -1,17 +1,18 @@
-﻿using SFML.Graphics;
-using SFML.System;
-using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
-namespace Otter {
+using Otter.Colliders;
+using Otter.Utility;
+
+namespace Otter.Graphics.Drawables
+{
     /// <summary>
     /// Graphic used for loading and rendering a tilemap.  Renders tiles using a vertex array.
     /// </summary>
-    public class Tilemap : Graphic {
-
+    public class Tilemap : Graphic
+    {
         #region Public Properties
 
         /// <summary>
@@ -292,7 +293,7 @@ namespace Otter {
 =
 45:
     ? 1 ?
-    0 x 0 
+    0 x 0
     ? 1 ?
 =
 46:
@@ -318,8 +319,9 @@ namespace Otter {
         /// <param name="height">The height of the Tilemap in pixels.</param>
         /// <param name="tileWidth">The width of each tile in pixels.</param>
         /// <param name="tileHeight">The height of each tile in pixels.</param>
-        public Tilemap(string source, int width, int height, int tileWidth, int tileHeight) : base() {
-            source = Helpers.FileHelpers.GetAbsoluteFilePath(source);
+        public Tilemap(string source, int width, int height, int tileWidth, int tileHeight) : base()
+        {
+            source = FileHandling.GetAbsoluteFilePath(source);
             SetTexture(new Texture(source));
             Initialize(width, height, tileWidth, tileHeight);
         }
@@ -340,7 +342,8 @@ namespace Otter {
         /// <param name="height">The height of the Tilemap in pixels.</param>
         /// <param name="tileWidth">The width of each tile in pixels.</param>
         /// <param name="tileHeight">The height of each tile in pixels.</param>
-        public Tilemap(Texture texture, int width, int height, int tileWidth, int tileHeight) : base() {
+        public Tilemap(Texture texture, int width, int height, int tileWidth, int tileHeight) : base()
+        {
             SetTexture(texture);
             Initialize(width, height, tileWidth, tileHeight);
         }
@@ -361,7 +364,8 @@ namespace Otter {
         /// <param name="height">The height of the Tilemap in pixels.</param>
         /// <param name="tileWidth">The width of each tile in pixels.</param>
         /// <param name="tileHeight">The height of each tile in pixels.</param>
-        public Tilemap(AtlasTexture texture, int width, int height, int tileWidth, int tileHeight) {
+        public Tilemap(AtlasTexture texture, int width, int height, int tileWidth, int tileHeight)
+        {
             SetTexture(texture);
             Initialize(width, height, tileWidth, tileHeight);
         }
@@ -381,7 +385,8 @@ namespace Otter {
         /// <param name="height">The height of the Tilemap in pixels.</param>
         /// <param name="tileWidth">The width of each tile in pixels.</param>
         /// <param name="tileHeight">The height of each tile in pixels.</param>
-        public Tilemap(int width, int height, int tileWidth, int tileHeight) {
+        public Tilemap(int width, int height, int tileWidth, int tileHeight)
+        {
             Initialize(width, height, tileWidth, tileHeight);
         }
 
@@ -396,7 +401,8 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize(int width, int height, int tileWidth, int tileHeight) {
+        void Initialize(int width, int height, int tileWidth, int tileHeight)
+        {
             if (width < 0) throw new ArgumentOutOfRangeException("Width must be greater than 0.");
             if (height < 0) throw new ArgumentOutOfRangeException("Height must be greater than 0.");
 
@@ -417,15 +423,18 @@ namespace Otter {
             Height = height;
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             SFMLVertices.Clear();
 
-            foreach (var layer in TileLayers.Reverse()) {
+            foreach (var layer in TileLayers.Reverse())
+            {
                 //for (int i = TileLayers.Count - 1; i >= 0; i--) {
                 //    var layer = TileLayers.Values[i];
-                foreach (var tile in layer.Value) {
+                foreach (var tile in layer.Value)
+                {
                     //tile.Alpha = Alpha;
                     tile.tilemapColor.R = Color.R;
                     tile.tilemapColor.G = Color.G;
@@ -436,20 +445,27 @@ namespace Otter {
             }
         }
 
-        void RegisterTile(int x, int y, int layer, TileInfo tile) {
-            if (!tileTable.ContainsKey(layer)) {
+        void RegisterTile(int x, int y, int layer, TileInfo tile)
+        {
+            if (!tileTable.ContainsKey(layer))
+            {
                 tileTable.Add(layer, new Dictionary<int, Dictionary<int, TileInfo>>());
             }
-            if (!tileTable[layer].ContainsKey(x)) {
+            if (!tileTable[layer].ContainsKey(x))
+            {
                 tileTable[layer].Add(x, new Dictionary<int, TileInfo>());
             }
             tileTable[layer][x].Add(y, tile);
         }
 
-        void RemoveTile(int x, int y, int layer) {
-            if (tileTable.ContainsKey(layer)) {
-                if (tileTable[layer].ContainsKey(x)) {
-                    if (tileTable[layer][x].ContainsKey(y)) {
+        void RemoveTile(int x, int y, int layer)
+        {
+            if (tileTable.ContainsKey(layer))
+            {
+                if (tileTable[layer].ContainsKey(x))
+                {
+                    if (tileTable[layer][x].ContainsKey(y))
+                    {
                         tileTable[layer][x].Remove(y);
                     }
                 }
@@ -468,14 +484,16 @@ namespace Otter {
         /// <param name="color">The tile's color.</param>
         /// <param name="layer">The tile's layer.</param>
         /// <returns>The TileInfo of the altered tile.</returns>
-        public TileInfo SetTile(int tileX, int tileY, Color color, string layer = "") {
+        public TileInfo SetTile(int tileX, int tileY, Color color, string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
             // Clear the tile there first so tiles do not stack.
             ClearTile(tileX, tileY, layer);
 
             // Update arguments after calling other tile methods.
-            if (!UsePositions) {
+            if (!UsePositions)
+            {
                 tileX *= TileWidth;
                 tileY *= TileHeight;
             }
@@ -503,7 +521,8 @@ namespace Otter {
         /// <param name="color">The tile's color.</param>
         /// <param name="layer">The tile's layer.</param>
         /// <returns>The TileInfo of the altered tile.</returns>
-        public TileInfo SetTile(int tileX, int tileY, Color color, Enum layer) {
+        public TileInfo SetTile(int tileX, int tileY, Color color, Enum layer)
+        {
             return SetTile(tileX, tileY, color, Util.EnumValueToString(layer));
         }
 
@@ -516,7 +535,8 @@ namespace Otter {
         /// <param name="sourceY">The source Y position from the tile map in pixels.</param>
         /// <param name="layer">The tile's layer.</param>
         /// <returns>The TileInfo for the altered tile.</returns>
-        public TileInfo SetTile(int tileX, int tileY, int sourceX, int sourceY, string layer = "") {
+        public TileInfo SetTile(int tileX, int tileY, int sourceX, int sourceY, string layer = "")
+        {
             sourceX += TextureLeft;
             sourceY += TextureTop;
 
@@ -526,7 +546,8 @@ namespace Otter {
             ClearTile(tileX, tileY, layer);
 
             // Update arguments after calling other tile methods.
-            if (!UsePositions) {
+            if (!UsePositions)
+            {
                 tileX *= TileWidth;
                 tileY *= TileHeight;
             }
@@ -553,7 +574,8 @@ namespace Otter {
         /// <param name="sourceY">The source Y position from the tile map in pixels.</param>
         /// <param name="layer">The tile's layer.</param>
         /// <returns>The TileInfo for the altered tile.</returns>
-        public TileInfo SetTile(int tileX, int tileY, int sourceX, int sourceY, Enum layer) {
+        public TileInfo SetTile(int tileX, int tileY, int sourceX, int sourceY, Enum layer)
+        {
             return SetTile(tileX, tileY, sourceX, sourceY, Util.EnumValueToString(layer));
         }
 
@@ -562,13 +584,16 @@ namespace Otter {
         /// </summary>
         /// <param name="e">An XmlElement containing attributes x, y, tx, and ty.</param>
         /// <returns>The TileInfo for the loaded tile.</returns>
-        public TileInfo SetTile(XmlElement e) {
+        public TileInfo SetTile(XmlElement e)
+        {
             int x, y, tx, ty;
-            if (UsePositions) {
+            if (UsePositions)
+            {
                 x = e.AttributeInt("x") * TileWidth;
                 y = e.AttributeInt("y") * TileHeight;
             }
-            else {
+            else
+            {
                 x = e.AttributeInt("x");
                 y = e.AttributeInt("y");
             }
@@ -585,7 +610,8 @@ namespace Otter {
         /// <param name="tileIndex">The index of the tile to change to.</param>
         /// <param name="layer"></param>
         /// <returns>The TileInfo from the altered tile.</returns>
-        public TileInfo SetTile(int tileX, int tileY, int tileIndex, string layer = "") {
+        public TileInfo SetTile(int tileX, int tileY, int tileIndex, string layer = "")
+        {
             int sourceX = (int)(Util.TwoDeeX((int)tileIndex, (int)sourceColumns) * TileWidth);
             int sourceY = (int)(Util.TwoDeeY((int)tileIndex, (int)sourceColumns) * TileHeight);
             return SetTile(tileX, tileY, sourceX, sourceY, layer);
@@ -598,10 +624,11 @@ namespace Otter {
         /// <param name="tileY">The Y position of the tile to change.</param>
         /// <param name="tileIndex">The index of the tile to change to.</param>
         /// <returns>The TileInfo from the altered tile.</returns>
-        public TileInfo SetTile(int tileX, int tileY, int tileIndex, Enum layer) {
+        public TileInfo SetTile(int tileX, int tileY, int tileIndex, Enum layer)
+        {
             return SetTile(tileX, tileY, tileIndex, Util.EnumValueToString(layer));
         }
-        
+
         /// <summary>
         /// Set a tile on the Tilemap to be flipped horizontally and/or vertically.
         /// </summary>
@@ -626,9 +653,12 @@ namespace Otter {
         /// <param name="tileHeight">The height of tiles to change.</param>
         /// <param name="color">The color to change the colors to.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, Color color, string layer = "") {
-            for (int xx = tileX; xx < tileX + tileWidth; xx++) {
-                for (int yy = tileY; yy < tileY + tileHeight; yy++) {
+        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, Color color, string layer = "")
+        {
+            for (int xx = tileX; xx < tileX + tileWidth; xx++)
+            {
+                for (int yy = tileY; yy < tileY + tileHeight; yy++)
+                {
                     SetTile(xx, yy, color, layer);
                 }
             }
@@ -643,7 +673,8 @@ namespace Otter {
         /// <param name="tileHeight">The height of tiles to change.</param>
         /// <param name="color">The color to change the colors to.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, Color color, Enum layer) {
+        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, Color color, Enum layer)
+        {
             SetRect(tileX, tileY, tileWidth, tileHeight, color, Util.EnumValueToString(layer));
         }
 
@@ -657,9 +688,12 @@ namespace Otter {
         /// <param name="sourceX">The X position in the source Texture to use to draw the tiles.</param>
         /// <param name="sourceY">The Y position in the source Texture to use to draw the tiles.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int sourceX, int sourceY, string layer = "") {
-            for (int xx = tileX; xx < tileX + tileWidth; xx++) {
-                for (int yy = tileY; yy < tileY + tileHeight; yy++) {
+        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int sourceX, int sourceY, string layer = "")
+        {
+            for (int xx = tileX; xx < tileX + tileWidth; xx++)
+            {
+                for (int yy = tileY; yy < tileY + tileHeight; yy++)
+                {
                     SetTile(xx, yy, sourceX, sourceY, layer);
                 }
             }
@@ -675,7 +709,8 @@ namespace Otter {
         /// <param name="sourceX">The X position in the source Texture to use to draw the tiles.</param>
         /// <param name="sourceY">The Y position in the source Texture to use to draw the tiles.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int sourceX, int sourceY, Enum layer) {
+        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int sourceX, int sourceY, Enum layer)
+        {
             SetRect(tileX, tileY, tileWidth, tileHeight, sourceX, sourceY, Util.EnumValueToString(layer));
         }
 
@@ -688,9 +723,12 @@ namespace Otter {
         /// <param name="tileHeight">The height of tiles to change.</param>
         /// <param name="tileIndex">The index of the tile to change the tiles to.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int tileIndex, string layer = "") {
-            for (int xx = tileX; xx < tileX + tileWidth; xx++) {
-                for (int yy = tileY; yy < tileY + tileHeight; yy++) {
+        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int tileIndex, string layer = "")
+        {
+            for (int xx = tileX; xx < tileX + tileWidth; xx++)
+            {
+                for (int yy = tileY; yy < tileY + tileHeight; yy++)
+                {
                     SetTile(xx, yy, tileIndex, layer);
                 }
             }
@@ -705,7 +743,8 @@ namespace Otter {
         /// <param name="tileHeight">The height of tiles to change.</param>
         /// <param name="tileIndex">The index of the tile to change the tiles to.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int tileIndex, Enum layer) {
+        public void SetRect(int tileX, int tileY, int tileWidth, int tileHeight, int tileIndex, Enum layer)
+        {
             SetRect(tileX, tileY, tileWidth, tileHeight, tileIndex, Util.EnumValueToString(layer));
         }
 
@@ -714,7 +753,8 @@ namespace Otter {
         /// </summary>
         /// <param name="tileIndex">The index of the tile to change the tiles to.</param>
         /// <param name="layer">The layer to change.</param>
-        public void SetLayer(int tileIndex, string layer = "") {
+        public void SetLayer(int tileIndex, string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
             SetRect(0, 0, TileColumns, TileRows, tileIndex, layer);
@@ -726,7 +766,8 @@ namespace Otter {
         /// <param name="sourceX">The X position in the source Texture to use to draw the tiles.</param>
         /// <param name="sourceY">The Y position in the source Texture to use to draw the tiles.</param>
         /// <param name="layer">The layer to change.</param>
-        public void SetLayer(int sourceX, int sourceY, string layer = "") {
+        public void SetLayer(int sourceX, int sourceY, string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
             SetRect(0, 0, TileColumns, TileRows, sourceX, sourceY, layer);
@@ -737,7 +778,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The color to change the tile to.</param>
         /// <param name="layer">The layer to change.</param>
-        public void SetLayer(Color color, string layer = "") {
+        public void SetLayer(Color color, string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
             SetRect(0, 0, TileColumns, TileRows, color, layer);
@@ -748,7 +790,8 @@ namespace Otter {
         /// </summary>
         /// <param name="tileIndex">The index of the tile to change the tiles to.</param>
         /// <param name="layer">The layer to change.</param>
-        public void SetLayer(int tileIndex, Enum layer) {
+        public void SetLayer(int tileIndex, Enum layer)
+        {
             SetLayer(tileIndex, Util.EnumValueToString(layer));
         }
 
@@ -758,7 +801,8 @@ namespace Otter {
         /// <param name="sourceX">The X position in the source Texture to use to draw the tiles.</param>
         /// <param name="sourceY">The Y position in the source Texture to use to draw the tiles.</param>
         /// <param name="layer">The layer to change.</param>
-        public void SetLayer(int sourceX, int sourceY, Enum layer) {
+        public void SetLayer(int sourceX, int sourceY, Enum layer)
+        {
             SetLayer(sourceX, sourceY, Util.EnumValueToString(layer));
         }
 
@@ -767,7 +811,8 @@ namespace Otter {
         /// </summary>
         /// <param name="color">The color to change the tile to.</param>
         /// <param name="layer">The layer to change.</param>
-        public void SetLayer(Color color, Enum layer) {
+        public void SetLayer(Color color, Enum layer)
+        {
             SetLayer(color, Util.EnumValueToString(layer));
         }
 
@@ -778,10 +823,12 @@ namespace Otter {
         /// <param name="tileY">The Y position of the tile to retrieve.</param>
         /// <param name="layer">The layer to search through for the tile.</param>
         /// <returns>The TileInfo for the found tile.</returns>
-        public TileInfo GetTile(int tileX, int tileY, string layer = "") {
+        public TileInfo GetTile(int tileX, int tileY, string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
-            if (!UsePositions) {
+            if (!UsePositions)
+            {
                 tileX *= TileWidth;
                 tileY *= TileHeight;
             }
@@ -790,15 +837,18 @@ namespace Otter {
             tileY = (int)Util.Clamp(tileY, 0, Height - TileHeight);
 
             var layerDepth = layerNames[layer];
-            if (!tileTable.ContainsKey(layerDepth)) {
+            if (!tileTable.ContainsKey(layerDepth))
+            {
                 return null;
             }
 
-            if (!tileTable[layerDepth].ContainsKey(tileX)) {
+            if (!tileTable[layerDepth].ContainsKey(tileX))
+            {
                 return null;
             }
 
-            if (!tileTable[layerDepth][tileX].ContainsKey(tileY)) {
+            if (!tileTable[layerDepth][tileX].ContainsKey(tileY))
+            {
                 return null;
             }
 
@@ -812,7 +862,8 @@ namespace Otter {
         /// <param name="tileY">The Y position of the tile to retrieve.</param>
         /// <param name="layer">The layer to search through for the tile.</param>
         /// <returns>The TileInfo for the found tile.</returns>
-        public TileInfo GetTile(int tileX, int tileY, Enum layer) {
+        public TileInfo GetTile(int tileX, int tileY, Enum layer)
+        {
             return GetTile(tileX, tileY, Util.EnumValueToString(layer));
         }
 
@@ -822,10 +873,14 @@ namespace Otter {
         /// <param name="grid">The GridCollider to reference.</param>
         /// <param name="color">The color to set tiles that are collidable on the grid.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadGrid(GridCollider grid, Color color, string layer = "") {
-            for (var i = 0; i < grid.TileColumns; i++) {
-                for (var j = 0; j < grid.TileRows; j++) {
-                    if (grid.GetTile(i, j)) {
+        public void LoadGrid(GridCollider grid, Color color, string layer = "")
+        {
+            for (var i = 0; i < grid.TileColumns; i++)
+            {
+                for (var j = 0; j < grid.TileRows; j++)
+                {
+                    if (grid.GetTile(i, j))
+                    {
                         SetTile(i, j, color, layer);
                     }
                 }
@@ -836,7 +891,8 @@ namespace Otter {
         /// Assign the tile data to use for LoadGridAutoTile.
         /// </summary>
         /// <param name="tileData">The tile data file.</param>
-        public void SetAutoTileData(string tileData) {
+        public void SetAutoTileData(string tileData)
+        {
             // Parse tile data
             autoTileTable = new Dictionary<int, List<int>>();
 
@@ -848,7 +904,8 @@ namespace Otter {
 
             var tileNumber = 0;
 
-            foreach (var d in dataSplit) {
+            foreach (var d in dataSplit)
+            {
                 var split = d.Split(':');
 
                 var tileListString = split[0].ClearWhitespace();
@@ -856,7 +913,8 @@ namespace Otter {
 
                 var tileList = new List<int>();
 
-                foreach (var t in tileListString.Split(',')) {
+                foreach (var t in tileListString.Split(','))
+                {
                     tileList.Add(int.Parse(t));
                 }
 
@@ -864,14 +922,17 @@ namespace Otter {
 
                 int tileValue = 0;
                 var i = 0;
-                foreach (var c in neighborString) {
-                    if (c == '1') {
+                foreach (var c in neighborString)
+                {
+                    if (c == '1')
+                    {
                         tileValue += tileValues[i];
                     }
                     i++;
                 }
 
-                if (!autoTileTable.ContainsKey(tileValue)) {
+                if (!autoTileTable.ContainsKey(tileValue))
+                {
                     autoTileTable.Add(tileValue, tileList);
                 }
 
@@ -879,8 +940,10 @@ namespace Otter {
 
                 i = 0;
                 var listOfNeighbors = new List<int>();
-                foreach (var c in neighborString) {
-                    if (c == '?') {
+                foreach (var c in neighborString)
+                {
+                    if (c == '?')
+                    {
                         listOfNeighbors.Add(tileValues[i]);
                     }
                     i++;
@@ -890,18 +953,21 @@ namespace Otter {
 
                 var powerset = Util.GetPowerSet<int>(listOfNeighbors);
 
-                foreach (var set in powerset) {
+                foreach (var set in powerset)
+                {
                     var t = tileValue;
 
-                    foreach (var n in set) {
+                    foreach (var n in set)
+                    {
                         t += n;
                     }
 
-                    if (!autoTileTable.ContainsKey(t)) {
+                    if (!autoTileTable.ContainsKey(t))
+                    {
                         autoTileTable.Add(t, tileList);
                     }
                 }
-                
+
                 tileNumber++;
             }
         }
@@ -911,51 +977,65 @@ namespace Otter {
         /// </summary>
         /// <param name="grid">The GridCollider to reference.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadGridAutoTile(GridCollider grid, string layer = "") {
-            if (autoTileTable == null) {
+        public void LoadGridAutoTile(GridCollider grid, string layer = "")
+        {
+            if (autoTileTable == null)
+            {
                 SetAutoTileData(autoTileDefaultData);
             }
 
-            for (var i = 0; i < grid.TileColumns; i++) {
-                for (var j = 0; j < grid.TileRows; j++) {
-                    if (grid.GetTile(i, j)) {
+            for (var i = 0; i < grid.TileColumns; i++)
+            {
+                for (var j = 0; j < grid.TileRows; j++)
+                {
+                    if (grid.GetTile(i, j))
+                    {
                         int tileValue = 0;
 
                         /*
                             * auto tiling grid
-                            * 
+                            *
                             * 128 001 016
                             * 008 ___ 002
                             * 064 004 032
-                            * 
+                            *
                             */
 
-                        if (grid.GetTile(i - 1, j - 1)) {
+                        if (grid.GetTile(i - 1, j - 1))
+                        {
                             tileValue += 128;
                         }
-                        if (grid.GetTile(i, j - 1)) {
+                        if (grid.GetTile(i, j - 1))
+                        {
                             tileValue += 1;
                         }
-                        if (grid.GetTile(i + 1, j - 1)) {
+                        if (grid.GetTile(i + 1, j - 1))
+                        {
                             tileValue += 16;
                         }
-                        if (grid.GetTile(i + 1, j)) {
+                        if (grid.GetTile(i + 1, j))
+                        {
                             tileValue += 2;
                         }
-                        if (grid.GetTile(i + 1, j + 1)) {
+                        if (grid.GetTile(i + 1, j + 1))
+                        {
                             tileValue += 32;
                         }
-                        if (grid.GetTile(i, j + 1)) {
+                        if (grid.GetTile(i, j + 1))
+                        {
                             tileValue += 4;
                         }
-                        if (grid.GetTile(i - 1, j + 1)) {
+                        if (grid.GetTile(i - 1, j + 1))
+                        {
                             tileValue += 64;
                         }
-                        if (grid.GetTile(i - 1, j)) {
+                        if (grid.GetTile(i - 1, j))
+                        {
                             tileValue += 8;
                         }
 
-                        if (autoTileTable.ContainsKey(tileValue)) {
+                        if (autoTileTable.ContainsKey(tileValue))
+                        {
                             tileValue = Rand.ChooseElement<int>(autoTileTable[tileValue]);
                         }
 
@@ -971,7 +1051,8 @@ namespace Otter {
         /// <param name="grid">The GridCollider to reference.</param>
         /// <param name="color">The color to set tiles that are collidable on the grid.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadGrid(GridCollider grid, Color color, Enum layer) {
+        public void LoadGrid(GridCollider grid, Color color, Enum layer)
+        {
             LoadGrid(grid, color, Util.EnumValueToString(layer));
         }
 
@@ -980,9 +1061,12 @@ namespace Otter {
         /// </summary>
         /// <param name="layer">The layer depth id.</param>
         /// <returns>The string name of the layer.</returns>
-        public string LayerName(int layer) {
-            foreach (var l in layerNames) {
-                if (l.Value == layer) {
+        public string LayerName(int layer)
+        {
+            foreach (var l in layerNames)
+            {
+                if (l.Value == layer)
+                {
                     return l.Key;
                 }
             }
@@ -994,7 +1078,8 @@ namespace Otter {
         /// </summary>
         /// <param name="layer">The string layer name.</param>
         /// <returns>The layer depth id.</returns>
-        public int LayerDepth(string layer) {
+        public int LayerDepth(string layer)
+        {
             return layerNames[layer];
         }
 
@@ -1003,7 +1088,8 @@ namespace Otter {
         /// </summary>
         /// <param name="layer">The enum value layer.</param>
         /// <returns>The layer depth id.</returns>
-        public int LayerDepth(Enum layer) {
+        public int LayerDepth(Enum layer)
+        {
             return LayerDepth(Util.EnumValueToString(layer));
         }
 
@@ -1015,22 +1101,27 @@ namespace Otter {
         /// <param name="empty">The character that represents an empty tile.</param>
         /// <param name="filled">The character that represents a filled tile.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadString(string source, Color color = null, char empty = '0', char filled = '1', string layer = "") {
+        public void LoadString(string source, Color color = null, char empty = '0', char filled = '1', string layer = "")
+        {
             int xx = 0, yy = 0;
 
-            if (color == null) {
+            if (color == null)
+            {
                 color = Color.Red;
             }
 
-            for (int i = 0; i < source.Length; i++) {
+            for (int i = 0; i < source.Length; i++)
+            {
                 if (source[i] != empty && source[i] != filled) continue;
 
-                if (xx == TileColumns) {
+                if (xx == TileColumns)
+                {
                     xx = 0;
                     yy++;
                 }
 
-                if (source[i] == filled) {
+                if (source[i] == filled)
+                {
                     SetTile(xx, yy, color, layer);
                 }
 
@@ -1046,7 +1137,8 @@ namespace Otter {
         /// <param name="empty">The character that represents an empty tile.</param>
         /// <param name="filled">The character that represents a filled tile.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadString(string source, Color color, char empty, char filled, Enum layer) {
+        public void LoadString(string source, Color color, char empty, char filled, Enum layer)
+        {
             LoadString(source, color, empty, filled, Util.EnumValueToString(layer));
         }
 
@@ -1057,7 +1149,8 @@ namespace Otter {
         /// <param name="columnSep">The character that separates columns in the CSV.</param>
         /// <param name="rowSep">The character that separates rows in the CSV.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadCSV(string str, char columnSep = ',', char rowSep = '\n', string layer = "") {
+        public void LoadCSV(string str, char columnSep = ',', char rowSep = '\n', string layer = "")
+        {
             bool u = UsePositions;
             UsePositions = false;
 
@@ -1068,15 +1161,19 @@ namespace Otter {
             int x;
             int y;
 
-            for (y = 0; y < rows; y++) {
-                if (row[y] == "") {
+            for (y = 0; y < rows; y++)
+            {
+                if (row[y] == "")
+                {
                     continue;
                 }
 
                 col = row[y].Split(columnSep);
                 cols = col.Length;
-                for (x = 0; x < cols; x++) {
-                    if (col[x].Equals("") || Convert.ToInt32(col[x]) < 0) {
+                for (x = 0; x < cols; x++)
+                {
+                    if (col[x].Equals("") || Convert.ToInt32(col[x]) < 0)
+                    {
                         continue;
                     }
 
@@ -1094,7 +1191,8 @@ namespace Otter {
         /// <param name="columnSep">The character that separates columns in the CSV.</param>
         /// <param name="rowSep">The character that separates rows in the CSV.</param>
         /// <param name="layer">The layer to place the tiles on.</param>
-        public void LoadCSV(string str, char columnSep, char rowSep, Enum layer) {
+        public void LoadCSV(string str, char columnSep, char rowSep, Enum layer)
+        {
             LoadCSV(str, columnSep, rowSep, Util.EnumValueToString(layer));
         }
 
@@ -1105,12 +1203,14 @@ namespace Otter {
         /// <param name="tileY">The tile's Y position on the map.</param>
         /// <param name="layer">The tile's layer.</param>
         /// <returns>The TileInfo for the cleared tile.</returns>
-        public TileInfo ClearTile(int tileX, int tileY, string layer = "") {
+        public TileInfo ClearTile(int tileX, int tileY, string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
             var t = GetTile(tileX, tileY, layer);
 
-            if (!UsePositions) {
+            if (!UsePositions)
+            {
                 tileX *= TileWidth;
                 tileY *= TileHeight;
             }
@@ -1120,7 +1220,8 @@ namespace Otter {
 
             RemoveTile(tileX, tileY, layerNames[layer]);
 
-            if (t != null) {
+            if (t != null)
+            {
                 TileLayers[layerNames[layer]].Remove(t);
             }
 
@@ -1136,7 +1237,8 @@ namespace Otter {
         /// <param name="tileY">The tile's Y position on the map.</param>
         /// <param name="layer">The tile's layer.</param>
         /// <returns>The TileInfo for the cleared tile.</returns>
-        public TileInfo ClearTile(int tileX, int tileY, Enum layer) {
+        public TileInfo ClearTile(int tileX, int tileY, Enum layer)
+        {
             return ClearTile(tileX, tileY, Util.EnumValueToString(layer));
         }
 
@@ -1144,11 +1246,12 @@ namespace Otter {
         /// Clear all tiles on a specific layer.
         /// </summary>
         /// <param name="layer">The string layer name.</param>
-        public void ClearLayer(string layer = "") {
+        public void ClearLayer(string layer = "")
+        {
             if (layer == "") layer = DefaultLayerName;
 
             TileLayers[layerNames[layer]].Clear();
-            
+
             NeedsUpdate = true;
         }
 
@@ -1156,15 +1259,18 @@ namespace Otter {
         /// Clear all tiles on a specific layer.
         /// </summary>
         /// <param name="layer">The enum value layer.</param>
-        public void ClearLayer(Enum layer) {
+        public void ClearLayer(Enum layer)
+        {
             ClearLayer(Util.EnumValueToString(layer));
         }
 
         /// <summary>
         /// Clear all tiles on all layers.
         /// </summary>
-        public void ClearAll() {
-            foreach (var kv in TileLayers) {
+        public void ClearAll()
+        {
+            foreach (var kv in TileLayers)
+            {
                 kv.Value.Clear();
             }
 
@@ -1179,9 +1285,12 @@ namespace Otter {
         /// <param name="tileWidth">The width of tiles to clear.</param>
         /// <param name="tileHeight">The height of tiles to clear.</param>
         /// <param name="layer">The layer to clear tiles from.</param>
-        public void ClearRect(int tileX, int tileY, int tileWidth, int tileHeight, string layer = "") {
-            for (int xx = tileX; xx < tileX + tileWidth; xx++) {
-                for (int yy = tileY; yy < tileY + tileHeight; yy++) {
+        public void ClearRect(int tileX, int tileY, int tileWidth, int tileHeight, string layer = "")
+        {
+            for (int xx = tileX; xx < tileX + tileWidth; xx++)
+            {
+                for (int yy = tileY; yy < tileY + tileHeight; yy++)
+                {
                     ClearTile(xx, yy, layer);
                 }
             }
@@ -1193,7 +1302,8 @@ namespace Otter {
         /// <param name="name">The string name of the layer.</param>
         /// <param name="depth">The depth of the tiles.</param>
         /// <returns>The depth id of the layer.</returns>
-        public int AddLayer(string name, int depth = 0) {
+        public int AddLayer(string name, int depth = 0)
+        {
             layerNames.Add(name, depth);
             TileLayers.Add(depth, new List<TileInfo>());
 
@@ -1206,7 +1316,8 @@ namespace Otter {
         /// <param name="name">The enum value of the layer.</param>
         /// <param name="depth">The depth of the tiles.</param>
         /// <returns>The depth id of the layer.</returns>
-        public int AddLayer(Enum name, int depth = 0) {
+        public int AddLayer(Enum name, int depth = 0)
+        {
             return AddLayer(Util.EnumValueToString(name), depth);
         }
 
@@ -1214,9 +1325,11 @@ namespace Otter {
         /// Remove a layer from the Tilemap and delete that layer's tiles.
         /// </summary>
         /// <param name="name">The name of the layer to delete.</param>
-        public void RemoveLayer(string name) {
+        public void RemoveLayer(string name)
+        {
             ClearLayer(name);
-            if (name != DefaultLayerName) {
+            if (name != DefaultLayerName)
+            {
                 TileLayers.Remove(layerNames[name]);
                 layerNames.Remove(name);
             }
@@ -1226,7 +1339,8 @@ namespace Otter {
         /// Remove a layer from the Tilemap and delete that layer's tiles.
         /// </summary>
         /// <param name="name">The name of the layer to delete.</param>
-        public void RemoveLayer(Enum name) {
+        public void RemoveLayer(Enum name)
+        {
             RemoveLayer(Util.EnumValueToString(name));
         }
 
@@ -1235,7 +1349,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The string name of the layer.</param>
         /// <returns>True if the layer exists.</returns>
-        public bool LayerExists(string name) {
+        public bool LayerExists(string name)
+        {
             return TileLayers.ContainsKey(layerNames[name]);
         }
 
@@ -1244,7 +1359,8 @@ namespace Otter {
         /// </summary>
         /// <param name="name">The enum value of the layer.</param>
         /// <returns>True if the layer exists.</returns>
-        public bool LayerExists(Enum name) {
+        public bool LayerExists(Enum name)
+        {
             return LayerExists(Util.EnumValueToString(name));
         }
 
@@ -1253,8 +1369,10 @@ namespace Otter {
         /// </summary>
         /// <param name="other">The tilemap to merge into this one.</param>
         /// <param name="above">True if the other tilemap's base layer should be above this one's base layer.</param>
-        public void MergeTilemap(Tilemap other, string layerPrefix = "", int layerOffset = -1) {
-            foreach (var layer in other.TileLayers) {
+        public void MergeTilemap(Tilemap other, string layerPrefix = "", int layerOffset = -1)
+        {
+            foreach (var layer in other.TileLayers)
+            {
                 AddLayer(layerPrefix + other.LayerName(layer.Key), layer.Key + layerOffset);
                 TileLayers[layer.Key + layerOffset] = new List<TileInfo>(other.TileLayers[layer.Key]);
             }
@@ -1265,7 +1383,8 @@ namespace Otter {
         /// </summary>
         /// <param name="layerName">The name of the layer.</param>
         /// <returns>A list of tiles on that layer.</returns>
-        public List<TileInfo> GetTiles(string layerName) {
+        public List<TileInfo> GetTiles(string layerName)
+        {
             return TileLayers[LayerDepth(layerName)];
         }
 
@@ -1274,7 +1393,8 @@ namespace Otter {
         /// </summary>
         /// <param name="layerDepth"></param>
         /// <returns>A list of tiles on that layer.</returns>
-        public List<TileInfo> GetTiles(int layerDepth) {
+        public List<TileInfo> GetTiles(int layerDepth)
+        {
             return TileLayers[layerDepth];
         }
 
@@ -1283,7 +1403,8 @@ namespace Otter {
         /// </summary>
         /// <param name="layerName">The enum value of the layer.</param>
         /// <returns>A list of tiles on that layer.</returns>
-        public List<TileInfo> GetTiles(Enum layerName) {
+        public List<TileInfo> GetTiles(Enum layerName)
+        {
             return TileLayers[LayerDepth(layerName)];
         }
 
@@ -1292,187 +1413,12 @@ namespace Otter {
         /// </summary>
         /// <param name="tile">The tile to get the index of.</param>
         /// <returns>The index of the tile.</returns>
-        public int GetTileIndex(TileInfo tile) {
+        public int GetTileIndex(TileInfo tile)
+        {
             return tile.GetIndex(this);
         }
 
         #endregion
-        
-    }
 
-    /// <summary>
-    /// A class containing all the info to describe a specific tile.
-    /// </summary>
-    public class TileInfo {
-
-        #region Public Fields
-
-        /// <summary>
-        /// The X position of the tile.
-        /// </summary>
-        public int X;
-
-        /// <summary>
-        /// The Y position of the tile.
-        /// </summary>
-        public int Y;
-
-        /// <summary>
-        /// The X position of the source texture to render the tile from.
-        /// </summary>
-        public int TX;
-
-        /// <summary>
-        /// The Y position of the source texture to render the tile from.
-        /// </summary>
-        public int TY;
-
-        /// <summary>
-        /// The width of the tile.
-        /// </summary>
-        public int Width;
-
-        /// <summary>
-        /// The height of the tile.
-        /// </summary>
-        public int Height;
-        
-        /// <summary>
-        /// Flipped tile options.
-        /// </summary>
-        public bool FlipX;
-        public bool FlipY;
-
-        /// <summary>
-        /// Flips the tile anti-diagonally, equivalent to a 90 degree rotation and a horizontal flip.
-        /// Combined with FlipX and FlipY you can rotate the tile any direction.
-        /// </summary>
-        public bool FlipD;
-
-        /// <summary>
-        /// The color of the tile, or the color to tint the texture.
-        /// </summary>
-        public Color Color;
-
-        /// <summary>
-        /// The alpha of the tile.
-        /// </summary>
-        public float Alpha {
-            get { return Color.A; }
-            set { Color.A = value; }
-        }
-
-        #endregion
-
-        #region Constructors
-
-        public TileInfo(int x, int y, int tx, int ty, int width, int height, Color color = null, float alpha = 1) {
-            X = x;
-            Y = y;
-            TX = tx;
-            TY = ty;
-            Width = width;
-            Height = height;
-            if (color == null) {
-                Color = Color.White;
-            }
-            else {
-                Color = color;
-            }
-            Alpha = alpha;
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Returns the index of the tile on the source Texture of a Tilemap.
-        /// </summary>
-        /// <param name="tilemap">The Tilemap that uses the Texture to be tested against.</param>
-        /// <returns>The index of the tile on the Tilemap's Texture.</returns>
-        public int GetIndex(Tilemap tilemap) {
-            return Util.OneDee(tilemap.Texture.Width / Width, TX / Width, TY / Height);
-        }
-
-        #endregion
-
-        #region Internal
-
-        internal Color tilemapColor = new Color();
-
-        internal Vector2f SFMLPosition {
-            get { return new Vector2f(X, Y); }
-        }
-
-        internal Vector2f SFMLTextureCoord {
-            get { return new Vector2f(TX, TY); }
-        }
-
-        internal Vertex CreateVertex(int x = 0, int y = 0, int tx = 0, int ty = 0) {
-            var tileColor = new Color(Color);
-            tileColor *= tilemapColor;
-            if (TX == -1 || TY == -1) {
-                return new Vertex(new Vector2f(X + x, Y + y), tileColor.SFMLColor);
-            }
-            return new Vertex(new Vector2f(X + x, Y + y), tileColor.SFMLColor, new Vector2f(TX + tx, TY + ty));
-        }
-
-        internal void AppendVertices(VertexArray array) {
-            if (!FlipD) {
-                if (!FlipX && !FlipY) {
-                    array.Append(CreateVertex(0, 0, 0, 0)); //upper-left
-                    array.Append(CreateVertex(Width, 0, Width, 0)); //upper-right
-                    array.Append(CreateVertex(Width, Height, Width, Height)); //lower-right
-                    array.Append(CreateVertex(0, Height, 0, Height)); //lower-left
-                }
-                if (FlipX && FlipY) {
-                    array.Append(CreateVertex(0, 0, Width, Height));
-                    array.Append(CreateVertex(Width, 0, 0, Height));
-                    array.Append(CreateVertex(Width, Height, 0, 0));
-                    array.Append(CreateVertex(0, Height, Width, 0));  
-                }
-                if (FlipX & !FlipY) {
-                    array.Append(CreateVertex(0, 0, Width, 0));
-                    array.Append(CreateVertex(Width, 0, 0, 0));
-                    array.Append(CreateVertex(Width, Height, 0, Height));
-                    array.Append(CreateVertex(0, Height, Width, Height));
-                }
-                if (!FlipX & FlipY) {
-                    array.Append(CreateVertex(0, 0, 0, Height));
-                    array.Append(CreateVertex(Width, 0, Width, Height));
-                    array.Append(CreateVertex(Width, Height, Width, 0));
-                    array.Append(CreateVertex(0, Height, 0, 0));
-                }
-            }
-            else { //swaps lower-left corner with upper-right on all the cases
-                if (!FlipX && !FlipY) {
-                    array.Append(CreateVertex(0, 0, 0, 0)); //upper-left
-                    array.Append(CreateVertex(0, Height, Width, 0)); //upper-right
-                    array.Append(CreateVertex(Width, Height, Width, Height)); //lower-right
-                    array.Append(CreateVertex(Width, 0, 0, Height)); //lower-left
-                }
-                if (FlipX && FlipY) {
-                    array.Append(CreateVertex(0, 0, Width, Height));
-                    array.Append(CreateVertex(0, Height, 0, Height));
-                    array.Append(CreateVertex(Width, Height, 0, 0));
-                    array.Append(CreateVertex(Width, 0, Width, 0));
-                }
-                if (!FlipX & FlipY) {
-                    array.Append(CreateVertex(0, 0, Width, 0));
-                    array.Append(CreateVertex(0, Height, 0, 0));
-                    array.Append(CreateVertex(Width, Height, 0, Height));
-                    array.Append(CreateVertex(Width, 0, Width, Height));
-                }
-                if (FlipX & !FlipY) {
-                    array.Append(CreateVertex(0, 0, 0, Height));
-                    array.Append(CreateVertex(0, Height, Width, Height));
-                    array.Append(CreateVertex(Width, Height, Width, 0));
-                    array.Append(CreateVertex(Width, 0, 0, 0));
-                }
-            }
-        }
-        #endregion
-        
     }
 }

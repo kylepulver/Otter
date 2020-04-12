@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class used to represent a range using a min and max.

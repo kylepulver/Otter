@@ -1,13 +1,14 @@
 using System.Xml;
 
-namespace Otter
+using Otter.Graphics;
+
+namespace Otter.Utility
 {
     /// <summary>
     /// Class representing a layer loaded from Ogmo.
     /// </summary>
     public class OgmoLayer
     {
-
         #region Public Fields
 
         /// <summary>
@@ -87,6 +88,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

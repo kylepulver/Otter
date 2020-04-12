@@ -1,13 +1,16 @@
 using System;
 
-namespace Otter
+using Otter.Colliders;
+using Otter.Utility;
+
+namespace Otter.Components.Movement
 {
     /// <summary>
     /// Movement Component that can be used by an Entity to provide simple top-down style movement.
     /// This class requires an Axis component be assigned to it, and that Axis must be also updated
     /// by another source.  A simple way to do this is to just have the Entity have an Axis component
     /// as well as the movement component, and then pass a reference to the axis into the movement.
-    /// 
+    ///
     /// The movement also requires a Collider if you want it to be able to collide with walls and other
     /// things!
     /// </summary>

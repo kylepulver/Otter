@@ -3,8 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
+using Otter.Core;
+using Otter.Utility.Glide;
+
 // shout outs to Chevy Ray for this
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that manages Coroutines.

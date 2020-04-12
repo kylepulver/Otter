@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Graphics.Text
 {
     public enum TextOutlineQuality
     {

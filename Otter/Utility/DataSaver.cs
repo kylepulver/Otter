@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that is used for storing strings, ints, floats, or bools with keys of enum or string.  The

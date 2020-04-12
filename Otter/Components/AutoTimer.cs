@@ -1,4 +1,6 @@
-namespace Otter
+using Otter.Utility;
+
+namespace Otter.Components
 {
     /// <summary>
     /// A timer that automatically counts on an increment.  Useful for handling things like cooldowns.

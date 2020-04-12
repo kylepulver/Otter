@@ -1,10 +1,9 @@
-﻿using Otter;
+using Otter.Core;
 
 namespace OtterPongGame
 {
     class PongScene : Scene
     {
-
         public PongScene() : base()
         {
             Add(new Paddle(Global.PlayerOne));

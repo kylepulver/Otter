@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Otter
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+
+namespace Otter.Graphics
 {
     /// <summary>
     /// Class that represents a color with red, green, blue, and alpha channels.
     /// </summary>
     public class Color
     {
-
         #region Static Methods
 
         /// <summary>

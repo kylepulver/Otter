@@ -1,3 +1,4 @@
+#region LICENSE
 // This project is licensed under The MIT License (MIT)
 //
 // Copyright 2013 David Koontz, Logan Barnett, Corey Nolan, Alex Burley
@@ -22,12 +23,13 @@
 //
 // Please direct questions, patches, and suggestions to the project page at
 // https://github.com/dkoontz/GoodStuff
+#endregion
 
 using System;
 using System.Collections.Generic;
 
-namespace Otter
-{ 
+namespace Otter.Utility.GoodStuff
+{
     public static class DictionaryExtensions
     {
         /// <summary>

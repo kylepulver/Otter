@@ -1,13 +1,15 @@
 using System;
 
-namespace Otter
+using Otter.Graphics;
+using Otter.Utility;
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Rectangle Collider.
     /// </summary>
     public class BoxCollider : Collider
     {
-
         #region Constructors
 
         /// <summary>
@@ -54,6 +56,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

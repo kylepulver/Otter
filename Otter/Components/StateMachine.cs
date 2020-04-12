@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Otter
+using Otter.Core;
+
+namespace Otter.Components
 {
     /// <summary>
     /// State machine that uses a specific type.  This is really meant for using an enum as your list of states.

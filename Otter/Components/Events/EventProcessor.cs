@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
 
-namespace Otter {
-    public class EventProcessor : Component {
+namespace Otter.Components.Events
+{
+    public class EventProcessor : Component
+    {
         /// <summary>
         /// The list of EventQueueEvents to execute.
         /// </summary>
@@ -21,7 +22,8 @@ namespace Otter {
         /// <summary>
         /// True if the number of events in the queue is greater than zero.
         /// </summary>
-        public bool HasEvents {
+        public bool HasEvents
+        {
             get { return Events.Count > 0; }
         }
 

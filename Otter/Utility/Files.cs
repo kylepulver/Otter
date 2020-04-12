@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Manages files used for game assets.  Can use a packed data file of paths and byte arrays.
@@ -30,7 +30,7 @@ namespace Otter
         /// <param name="path">The path to the packed data file.</param>
         public static void LoadPackedData(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (!File.Exists(path)) throw new FileNotFoundException("Cannot find packed data file " + path);
 
             Data.Clear();
@@ -57,7 +57,7 @@ namespace Otter
         /// <returns>True if the file exists or if it has been loaded from the packed data.</returns>
         public static bool FileExists(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (File.Exists(path)) return true;
             if (File.Exists(AssetsFolderPrefix + path)) return true;
             if (Data.ContainsKey(path)) return true;
@@ -72,7 +72,7 @@ namespace Otter
         /// <returns>The stream.</returns>
         public static Stream LoadFileStream(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (FileExists(path))
             {
                 return new MemoryStream(LoadFileBytes(path));
@@ -87,7 +87,7 @@ namespace Otter
         /// <returns>The byte array of the data from the file.</returns>
         public static byte[] LoadFileBytes(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (File.Exists(path))
             {
                 return File.ReadAllBytes(path);
@@ -111,7 +111,7 @@ namespace Otter
         /// <returns>True if the data is coming from the packed file.</returns>
         public static bool IsUsingDataPack(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (File.Exists(path)) return false;
             if (File.Exists(AssetsFolderPrefix + path)) return false;
             return Data.ContainsKey(path);

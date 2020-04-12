@@ -2,15 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using Otter.Graphics;
+using Otter.Utility.MonoGame;
+
 //thanks to chevy ray for this class
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class full of random number generation related functions.
     /// </summary>
     public static class Rand
     {
-
         #region Static Fields
 
         static List<Random> randoms = new List<Random>();
@@ -394,6 +396,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

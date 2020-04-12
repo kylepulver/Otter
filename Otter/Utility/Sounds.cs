@@ -3,7 +3,7 @@ using System.IO;
 
 using SFML.Audio;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// Class that manages the cache of sounds.
@@ -14,7 +14,7 @@ namespace Otter
 
         public static SoundBuffer Load(string path)
         {
-            path = Helpers.FileHelpers.GetAbsoluteFilePath(path);
+            path = FileHandling.GetAbsoluteFilePath(path);
             if (!Files.FileExists(path)) throw new FileNotFoundException(path + " not found.");
             if (sounds.ContainsKey(path))
             {

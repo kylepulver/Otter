@@ -9,7 +9,14 @@ using SFML.Graphics;
 using SFML.Window;
 using SFML.System;
 
-namespace Otter
+using Otter.Components;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+using Otter.Utility.Glide;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Core
 {
     /// <summary>
     ///  ᶜ(ᵔᴥᵔ)ᵓ
@@ -17,7 +24,6 @@ namespace Otter
     /// </summary>
     public class Game : IDisposable
     {
-
         #region Static Fields
 
         /// <summary>
@@ -163,12 +169,12 @@ namespace Otter
         /// <summary>
         /// The default background color of the game.
         /// </summary>
-        public Color Color = Color.Black;
+        public Graphics.Color Color = Graphics.Color.Black;
 
         /// <summary>
         /// The default color to draw in the letterboxed areas of the window.
         /// </summary>
-        public Color LetterBoxColor = Color.Black;
+        public Graphics.Color LetterBoxColor = Graphics.Color.Black;
 
         /// <summary>
         /// How long the game has been active.  Measured in units of delta time.
@@ -327,7 +333,7 @@ namespace Otter
         /// <summary>
         /// The debugger.  Only accessable in Debug mode, otherwise null.
         /// </summary>
-        public Debugger Debugger { get; private set; }
+        public Utility.Debugger Debugger { get; private set; }
 
         /// <summary>
         /// The Coroutine manager.
@@ -461,7 +467,7 @@ namespace Otter
             set
             {
                 gameFolder = value;
-                var folder = Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder);
+                var folder = FileHandling.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder);
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
@@ -477,7 +483,7 @@ namespace Otter
         /// </summary>
         public string Filepath
         {
-            get { return Helpers.FileHelpers.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"); }
+            get { return FileHandling.GetAbsoluteFilePath(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/" + GameFolder + "/"); }
         }
 
         /// <summary>
@@ -642,7 +648,7 @@ namespace Otter
                 // No console
             }
             Console.WriteLine("[ Otter is running in debug mode! ]");
-            Debugger = new Debugger(this);
+            Debugger = new Utility.Debugger(this);
 #endif
 
             HasFocus = true;
@@ -877,7 +883,7 @@ namespace Otter
             {
                 if (Debugger == null)
                 {
-                    Debugger = new Debugger(this);
+                    Debugger = new Utility.Debugger(this);
                     Debugger.WindowInit();
                 }
             }
@@ -1050,7 +1056,7 @@ namespace Otter
         {
             if (Debugger != null) return;
             ReleaseModeDebugger = true;
-            Debugger = new Debugger(this);
+            Debugger = new Utility.Debugger(this);
             Debugger.WindowInit();
         }
 
@@ -1344,7 +1350,7 @@ namespace Otter
                         }
                         else
                         {
-                            Window.Clear(Color.Black.SFMLColor);
+                            Window.Clear(Graphics.Color.Black.SFMLColor);
                             Window.Display();
                         }
                     }
@@ -1527,6 +1533,5 @@ namespace Otter
         internal int debuggerAdvance = 0;
 
         #endregion
-
     }
 }

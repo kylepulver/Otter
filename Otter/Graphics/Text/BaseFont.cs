@@ -1,6 +1,8 @@
 using SFML.Graphics;
 
-namespace Otter
+using Otter.Utility;
+
+namespace Otter.Graphics.Text
 {
     public abstract class BaseFont
     {

@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Graphics
 {
     public enum ShaderType
     {

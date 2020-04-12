@@ -2,7 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Otter
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Utility;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// The base class used for collision detection.  Entities contain Colliders that can check for collisions
@@ -11,11 +16,6 @@ namespace Otter
     /// </summary>
     public abstract class Collider
     {
-
-        #region Private Fields
-
-        #endregion
-
         #region Public Fields
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace Otter
             {
                 if (Entity.Scene.Colliders.ContainsKey(t))
                 {
-                    foreach (Collider c in Entity.Scene.Colliders[t])
+                    foreach (var c in Entity.Scene.Colliders[t])
                     {
                         if (c.Entity != null)
                         {
@@ -1032,7 +1032,7 @@ namespace Otter
         }
 
         /// <summary>
-        /// Set the origin of the Collider 
+        /// Set the origin of the Collider
         /// </summary>
         /// <param name="x">The X origin of the Collider.</param>
         /// <param name="y">The Y origin of the Collider.</param>
@@ -2111,6 +2111,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

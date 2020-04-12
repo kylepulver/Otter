@@ -1,13 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace Otter {
+using Otter.Utility;
+
+namespace Otter.Graphics.Drawables
+{
     /// <summary>
     /// Graphic that can render a bunch of static images all at once.  Images must use the same
     /// texture as the Decals object in order to be baked together properly.
     /// </summary>
-    public class Decals : Graphic {
-
+    public class Decals : Graphic
+    {
         #region Private Fields
 
         List<Image> images = new List<Image>();
@@ -24,8 +27,10 @@ namespace Otter {
         /// <summary>
         /// The number of images in the list.
         /// </summary>
-        public int Count {
-            get {
+        public int Count
+        {
+            get
+            {
                 return images.Count;
             }
         }
@@ -38,7 +43,8 @@ namespace Otter {
         /// Create a new Decals object using a source file path for a texture.
         /// </summary>
         /// <param name="source">The file path to the texture.</param>
-        public Decals(string source) {
+        public Decals(string source)
+        {
             SetTexture(new Texture(source));
             Initialize();
         }
@@ -47,7 +53,8 @@ namespace Otter {
         /// Create a new Decals object using a Texture.
         /// </summary>
         /// <param name="texture">The Texture to use.</param>
-        public Decals(Texture texture) {
+        public Decals(Texture texture)
+        {
             SetTexture(texture);
             Initialize();
         }
@@ -56,7 +63,8 @@ namespace Otter {
         /// Create a new Decals object using an AtlasTexture.
         /// </summary>
         /// <param name="texture"></param>
-        public Decals(AtlasTexture texture) {
+        public Decals(AtlasTexture texture)
+        {
             SetTexture(texture);
             Initialize();
         }
@@ -65,11 +73,13 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize() {
+        void Initialize()
+        {
             NeedsUpdate = false;
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             SFMLVertices.Clear();
@@ -79,10 +89,12 @@ namespace Otter {
             float maxY = float.MinValue;
             float minY = float.MaxValue;
 
-            foreach (var img in images) {
+            foreach (var img in images)
+            {
                 img.UpdateDrawableIfNeeded();
 
-                for (uint i = 0; i < img.GetVertices().VertexCount; i++) {
+                for (uint i = 0; i < img.GetVertices().VertexCount; i++)
+                {
                     var v = img.GetVertices()[i];
 
                     var transform = SFML.Graphics.Transform.Identity;
@@ -113,12 +125,15 @@ namespace Otter {
         /// Add an image to the list of decals.  Only works if Solid is false.
         /// </summary>
         /// <param name="image">The image to add.</param>
-        public void Add(Image image) {
+        public void Add(Image image)
+        {
             if (Solid) return;
-            if (!image.Batchable) {
+            if (!image.Batchable)
+            {
                 throw new ArgumentException("Non batchable images cannot be baked.");
             }
-            if (image.Texture.SFMLTexture != Texture.SFMLTexture) {
+            if (image.Texture.SFMLTexture != Texture.SFMLTexture)
+            {
                 throw new ArgumentException("Images must use the same texture as the Decals object.");
             }
             images.Add(image);
@@ -128,7 +143,8 @@ namespace Otter {
         /// Remove an image from the list of decals.  Only works if Solid is false.
         /// </summary>
         /// <param name="image"></param>
-        public void Remove(Image image) {
+        public void Remove(Image image)
+        {
             if (Solid) return;
             images.RemoveIfContains(image);
         }
@@ -137,7 +153,8 @@ namespace Otter {
         /// Erases all images from the list.  Only works if Solid is false.  Will not immediately show changes
         /// until Bake() is called.
         /// </summary>
-        public void Clear() {
+        public void Clear()
+        {
             if (Solid) return;
             images.Clear();
             NeedsUpdate = true;
@@ -147,9 +164,11 @@ namespace Otter {
         /// <summary>
         /// Bake all the images together for rendering.
         /// </summary>
-        public void Bake() {
+        public void Bake()
+        {
             if (Count == 0) return; // Don't bake if 0 images.
-            if (!Solid) {
+            if (!Solid)
+            {
                 NeedsUpdate = true;
                 Solid = true;
                 UpdateDrawableIfNeeded();
@@ -159,13 +178,14 @@ namespace Otter {
         /// <summary>
         /// Unbake the images back to an editable form.
         /// </summary>
-        public void Unbake() {
-            if (Solid) {
+        public void Unbake()
+        {
+            if (Solid)
+            {
                 Solid = false;
             }
         }
 
         #endregion
-        
     }
 }

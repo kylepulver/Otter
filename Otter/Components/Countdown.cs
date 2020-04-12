@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Otter
+using Otter.Utility;
+
+namespace Otter.Components
 {
     public class Countdown : Component
     {
@@ -66,7 +64,5 @@ namespace Otter
             Value = Max;
             Triggered = false;
         }
-
-
     }
 }

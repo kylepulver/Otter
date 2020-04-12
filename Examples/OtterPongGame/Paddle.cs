@@ -1,16 +1,16 @@
-﻿using Otter;
+using Otter.Core;
+using Otter.Colliders;
+using Otter.Graphics.Text;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
 
 namespace OtterPongGame
 {
     class Paddle : Entity
     {
-
         Text textScore = new Text(40);
-
         int speed = 6;
-
         Session player;
-
         Image imgPaddle = Image.CreateRectangle(10, 100);
 
         public Paddle(Session player) : base()

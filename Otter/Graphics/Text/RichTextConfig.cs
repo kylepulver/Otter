@@ -1,13 +1,11 @@
-namespace Otter
+namespace Otter.Graphics.Text
 {
-
     /// <summary>
     /// A utility class used for storing default values for a RichText object.
     /// Set the values by using "var config = new RichTextConfig() { Font = "MyFont.ttf", FontSize = 16, ... };"
     /// </summary>
     public class RichTextConfig
     {
-
         #region Public Fields
 
         /// <summary>
@@ -191,6 +189,5 @@ namespace Otter
         public float OffsetY;
 
         #endregion
-
     }
 }

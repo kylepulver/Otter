@@ -2,7 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Otter
+using Otter.Colliders;
+using Otter.Components;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+using Otter.Utility.Glide;
+using Otter.Utility.GoodStuff;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Core
 {
     /// <summary>
     /// Class used to manage Entities. The active Game should update the active Scene, which then updates
@@ -10,7 +18,6 @@ namespace Otter
     /// </summary>
     public class Scene
     {
-
         #region Private Fields
 
         List<Entity> entitiesToAdd = new List<Entity>();
@@ -1694,6 +1701,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

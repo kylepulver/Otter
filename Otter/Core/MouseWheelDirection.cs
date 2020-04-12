@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// The direction of the mouse wheel.

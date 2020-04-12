@@ -1,7 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Otter
+using Otter.Core;
+using Otter.Utility;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Components
 {
     public class Snake : Component
     {

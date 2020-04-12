@@ -1,15 +1,21 @@
-﻿using System.Collections;
+using System.Collections;
 
-using Otter;
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
 
-namespace CoroutineExample {
-    class CoroutineScene : Scene {
+namespace CoroutineExample
+{
+    class CoroutineScene : Scene
+    {
 
         public Image ImageBox = Image.CreateRectangle(50);
         public Color NextColor = Color.White;
         public Color CurrentColor = Color.White;
 
-        public CoroutineScene() : base() {
+        public CoroutineScene() : base()
+        {
             // Center that box.
             ImageBox.CenterOrigin();
 
@@ -21,7 +27,8 @@ namespace CoroutineExample {
             ImageBox.Y = 100;
         }
 
-        public override void Begin() {
+        public override void Begin()
+        {
             base.Begin();
 
             // Start the coroutine, yo.
@@ -32,7 +39,8 @@ namespace CoroutineExample {
         /// The main coroutine to execute.  This will move the box around and change its color.
         /// </summary>
         /// <returns>Whatever a coroutine thing returns.  Sometimes 0 I guess.</returns>
-        IEnumerator MainRoutine() {
+        IEnumerator MainRoutine()
+        {
             // Wait for 30 frames.
             yield return Coroutine.Instance.WaitForFrames(30);
             // Set the next color.
@@ -60,17 +68,19 @@ namespace CoroutineExample {
             NextColor = Color.Cyan;
             // Move the box to the top left.
             yield return MoveBoxTo(100, 100);
-            
+
             // Start a new coroutine.
             Game.Coroutine.Start(MainRoutine());
         }
 
-        IEnumerator MoveBoxTo(float x, float y) {
+        IEnumerator MoveBoxTo(float x, float y)
+        {
             // Used to determine the completion.
             var initialDistance = Util.Distance(ImageBox.X, ImageBox.Y, x, y);
 
             float currentDistance = float.MaxValue;
-            while (currentDistance > 1) {
+            while (currentDistance > 1)
+            {
                 currentDistance = Util.Distance(ImageBox.X, ImageBox.Y, x, y);
 
                 // Determine the completion of the movement from 0 to 1.

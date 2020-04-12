@@ -1,4 +1,4 @@
-namespace Otter
+namespace Otter.Core
 {
     /// <summary>
     /// All the keys on your keyboard.

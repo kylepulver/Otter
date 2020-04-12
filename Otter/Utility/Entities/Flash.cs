@@ -1,4 +1,8 @@
-namespace Otter
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+
+namespace Otter.Utility.Entities
 {
     /// <summary>
     /// Entity that acts as a screen flash.  Best used when using the constructor that allows for
@@ -9,7 +13,6 @@ namespace Otter
     /// </summary>
     public class Flash : Entity
     {
-
         #region Static Fields
 
         /// <summary>
@@ -121,6 +124,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

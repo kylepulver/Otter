@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+using Otter.Core;
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+
+namespace Otter.Utility.Entities
 {
     /// <summary>
     /// Entity that is a quick way to make a particle.  Has lots of parameters that can be set, so
@@ -17,7 +21,6 @@ namespace Otter
     /// </summary>
     public class Particle : Entity
     {
-
         #region Private Fields
 
         Color color;
@@ -688,7 +691,7 @@ namespace Otter
 
             if (Ease == null)
             {
-                Ease = Otter.Ease.Linear;
+                Ease = Utility.Glide.Ease.Linear;
             }
 
             if (Shader != null)
@@ -858,6 +861,5 @@ namespace Otter
         }
 
         #endregion
-
     }
 }

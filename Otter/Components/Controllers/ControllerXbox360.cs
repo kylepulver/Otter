@@ -1,4 +1,6 @@
-namespace Otter
+using Otter.Core;
+
+namespace Otter.Components.Controllers
 {
     public class ControllerXbox360 : Controller
     {

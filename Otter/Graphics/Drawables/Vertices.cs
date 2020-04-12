@@ -1,13 +1,17 @@
-﻿using SFML.Graphics;
 using System;
 using System.Collections.Generic;
 
-namespace Otter {
+using SFML.Graphics;
+
+using Otter.Utility;
+
+namespace Otter.Graphics.Drawables
+{
     /// <summary>
     /// Graphic used for rendering a set of Vert objects.  Basically a wrapper for SFML's VertexArray.
     /// </summary>
-    public class Vertices : Graphic {
-
+    public class Vertices : Graphic
+    {
         #region Private Fields
 
         VertexPrimitiveType primitiveType = VertexPrimitiveType.Quads;
@@ -28,11 +32,14 @@ namespace Otter {
         /// <summary>
         /// The primitive type drawing mode for the Verts.
         /// </summary>
-        public VertexPrimitiveType PrimitiveType {
-            get {
+        public VertexPrimitiveType PrimitiveType
+        {
+            get
+            {
                 return primitiveType;
             }
-            set {
+            set
+            {
                 primitiveType = value;
                 NeedsUpdate = true;
             }
@@ -42,7 +49,7 @@ namespace Otter {
 
         #region Static Fields
 
-        public static VertexPrimitiveType DefaultPrimitiveType = VertexPrimitiveType.TrianglesFan;
+        public static VertexPrimitiveType DefaultPrimitiveType = VertexPrimitiveType.TriangleFan;
 
         #endregion
 
@@ -54,7 +61,8 @@ namespace Otter {
         /// <param name="source">The file path to the Texture.</param>
         /// <param name="vertices">The Verts to use.</param>
         public Vertices(string source, params Vert[] vertices)
-            : this(vertices) {
+            : this(vertices)
+        {
             SetTexture(new Texture(source));
             Initialize(vertices);
         }
@@ -65,7 +73,8 @@ namespace Otter {
         /// <param name="texture">The Texture to use.</param>
         /// <param name="vertices">The Verts to use.</param>
         public Vertices(Texture texture, params Vert[] vertices)
-            : this(vertices) {
+            : this(vertices)
+        {
             SetTexture(texture);
             Initialize(vertices);
         }
@@ -76,7 +85,8 @@ namespace Otter {
         /// <param name="texture">The AtlasTexture to use.</param>
         /// <param name="vertices">The Verts to use.</param>
         public Vertices(AtlasTexture texture, params Vert[] vertices)
-            : this(vertices) {
+            : this(vertices)
+        {
             SetTexture(texture);
             Initialize(vertices);
         }
@@ -86,7 +96,8 @@ namespace Otter {
         /// </summary>
         /// <param name="vertices">The Verts to use.</param>
         public Vertices(params Vert[] vertices)
-            : base() {
+            : base()
+        {
             Initialize(vertices);
         }
 
@@ -94,18 +105,21 @@ namespace Otter {
 
         #region Private Methods
 
-        void Initialize(params Vert[] vertices) {
+        void Initialize(params Vert[] vertices)
+        {
             PrimitiveType = DefaultPrimitiveType;
             Add(vertices);
         }
 
-        protected override void UpdateDrawable() {
+        protected override void UpdateDrawable()
+        {
             base.UpdateDrawable();
 
             SFMLVertices = new VertexArray((SFML.Graphics.PrimitiveType)PrimitiveType);
 
-            
-            foreach (var v in Verts) {
+
+            foreach (var v in Verts)
+            {
                 // Adjust texture for potential atlas offset.
                 v.U += TextureLeft;
                 v.V += TextureTop;
@@ -120,16 +134,18 @@ namespace Otter {
                 SFMLVertices.Append(vCopy);
             }
 
-            
+
         }
 
-        void UpdateDimensions() {
+        void UpdateDimensions()
+        {
             float minX = float.MaxValue;
             float maxX = float.MinValue;
             float minY = float.MaxValue;
             float maxY = float.MinValue;
 
-            foreach (var v in Verts) {
+            foreach (var v in Verts)
+            {
                 minX = Util.Min(v.X, minX);
                 minY = Util.Min(v.Y, minY);
 
@@ -148,7 +164,8 @@ namespace Otter {
         /// <summary>
         /// Clears all Verts from the Vertices.
         /// </summary>
-        public void Clear() {
+        public void Clear()
+        {
             Verts.Clear();
             NeedsUpdate = true;
             UpdateDimensions();
@@ -162,7 +179,8 @@ namespace Otter {
         /// <param name="color">The Color.</param>
         /// <param name="u">The X position on the Texture.</param>
         /// <param name="v">The Y position on the Texture.</param>
-        public void Add(float x, float y, Color color, float u, float v) {
+        public void Add(float x, float y, Color color, float u, float v)
+        {
             var vert = new Vert(x, y, color, u, v);
             Add(vert);
         }
@@ -174,7 +192,8 @@ namespace Otter {
         /// <param name="y">The Y position.</param>
         /// <param name="u">The X position on the Texture.</param>
         /// <param name="v">The Y position on the Texture.</param>
-        public void Add(float x, float y, float u, float v) {
+        public void Add(float x, float y, float u, float v)
+        {
             var vert = new Vert(x, y, u, v);
             Add(vert);
         }
@@ -185,7 +204,8 @@ namespace Otter {
         /// <param name="x">The X position.</param>
         /// <param name="y">The Y position.</param>
         /// <param name="color">The Color.</param>
-        public void Add(float x, float y, Color color) {
+        public void Add(float x, float y, Color color)
+        {
             var vert = new Vert(x, y, color);
             Add(vert);
         }
@@ -195,7 +215,8 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X position.</param>
         /// <param name="y">The Y position.</param>
-        public void Add(float x, float y) {
+        public void Add(float x, float y)
+        {
             var vert = new Vert(x, y);
             Add(vert);
         }
@@ -204,8 +225,10 @@ namespace Otter {
         /// Add a set of Verts.
         /// </summary>
         /// <param name="vertices">The Verts to add.</param>
-        public void Add(params Vert[] vertices) {
-            foreach (var v in vertices) {
+        public void Add(params Vert[] vertices)
+        {
+            foreach (var v in vertices)
+            {
                 Verts.Add(v);
             }
             NeedsUpdate = true;
@@ -216,8 +239,10 @@ namespace Otter {
         /// Remove Verts.
         /// </summary>
         /// <param name="vertices">The Verts to remove.</param>
-        public void Remove(params Vert[] vertices) {
-            foreach (var v in vertices) {
+        public void Remove(params Vert[] vertices)
+        {
+            foreach (var v in vertices)
+            {
                 Verts.RemoveIfContains(v);
             }
             NeedsUpdate = true;
@@ -229,10 +254,13 @@ namespace Otter {
         /// </summary>
         /// <param name="x">The X position of the Vert to remove.</param>
         /// <param name="y">The Y position of the Vert to remove.</param>
-        public void RemoveAt(float x, float y) {
+        public void RemoveAt(float x, float y)
+        {
             var vertsToRemove = new List<Vert>();
-            foreach (var v in Verts) {
-                if (v.X == x && v.Y == y) {
+            foreach (var v in Verts)
+            {
+                if (v.X == x && v.Y == y)
+                {
                     vertsToRemove.Add(v);
                 }
             }
@@ -243,29 +271,15 @@ namespace Otter {
 
         #region Internal
 
-        internal SFML.Graphics.VertexArray SFMLVertexArray {
-            get {
+        internal SFML.Graphics.VertexArray SFMLVertexArray
+        {
+            get
+            {
                 Update(); //update if needed
                 return SFMLVertices;
             }
         }
 
         #endregion
-       
     }
-
-    #region Enum
-
-    public enum VertexPrimitiveType {
-        Points = 0,
-        Lines = 1,
-        LinesStrip = 2,
-        Triangles = 3,
-        TrianglesStrip = 4,
-        TrianglesFan = 5,
-        Quads = 6,
-    }
-
-    #endregion
-
 }

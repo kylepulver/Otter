@@ -1,7 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+using Otter.Graphics;
+using Otter.Graphics.Drawables;
+using Otter.Utility;
+using Otter.Utility.MonoGame;
+
+namespace Otter.Colliders
 {
     /// <summary>
     /// Polygon Collider.  Only works with convex polygons!

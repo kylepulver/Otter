@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 using SFML.Graphics;
 
-namespace Otter
+namespace Otter.Utility
 {
     /// <summary>
     /// NOT YET SUPPORTED
@@ -120,7 +120,7 @@ namespace Otter
             if (vertexArray.VertexCount > 0)
             {
                 renderStates.Transform = Transform.Identity;
-                Otter.Draw.Spritebatch(vertexArray, renderStates);
+                Utility.Draw.Spritebatch(vertexArray, renderStates);
             }
         }
 

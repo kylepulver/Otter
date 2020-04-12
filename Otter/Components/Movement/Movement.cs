@@ -1,14 +1,16 @@
 using System;
 using System.Collections.Generic;
 
-namespace Otter
+using Otter.Colliders;
+using Otter.Utility;
+
+namespace Otter.Components.Movement
 {
     /// <summary>
     /// A base class for Movement Components to extend.
     /// </summary>
     public class Movement : Component
-    {  //todo: w.sams - this was abstract....need to put this all under test and refactor
-
+    {
         #region Private Fields
 
         protected int
